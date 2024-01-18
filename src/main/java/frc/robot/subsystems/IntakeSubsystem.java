@@ -4,13 +4,18 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.hardware.TalonFX;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
-    
+  TalonFX leftIntake;
+  TalonFX rightIntake;
   public IntakeSubsystem() {
-
+    leftIntake = new TalonFX(100000);
+    rightIntake = new TalonFX(100000);
+    
   }
 
   @Override
