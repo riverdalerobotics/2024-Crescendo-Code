@@ -4,29 +4,66 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
-
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
+import edu.wpi.first.math.controller.PIDController;
+import java.util.concurrent.TimeUnit;
 public class AutoPickUpCommand extends Command {
+  PIDController speedController;
+  double kp = 0d;
+  double ki = 0d;
+  double kd = 0d;
+  double setpoint = 0d;
+  double tolerance = 0d;
+  double intakeSpeed = 0d;
+  boolean hasPickedUp = false;
+  long intakeTime = 0;
+
   /** Creates a new AutoPickUpCommand. */
   public AutoPickUpCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(RobotContainer.PIVOT);
+    addRequirements(RobotContainer.INTAKE);
+    speedController = new PIDController(kp, ki, kd);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    speedController.setSetpoint(setpoint);
+    speedController.setTolerance(tolerance);
+    double encoderPos = RobotContainer.PIVOT.getEncoders();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    RobotContainer.PIVOT.movePivot(speedController.calculate(RobotContainer.PIVOT.getEncoders()));
+    if(speedController.atSetpoint()){
+      RobotContainer.INTAKE.spinIntake(intakeSpeed);
+      //TODO: Possibly check if motor needs to be set constantl
+      try {
+        Thread.sleep(intakeTime);
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+      }
+      RobotContainer.INTAKE.spinIntake(0);
+      hasPickedUp = true;
+    }
+    
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    speedController.reset();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return hasPickedUp == true && speedController.atSetpoint();
   }
 }

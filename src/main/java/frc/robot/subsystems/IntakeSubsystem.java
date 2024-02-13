@@ -15,7 +15,12 @@ public class IntakeSubsystem extends SubsystemBase {
   public IntakeSubsystem() {
     leftIntake = new TalonFX(100000);
     rightIntake = new TalonFX(100000);
+    rightIntake.setInverted(true);
     
+  }
+  public void spinIntake(double speed){
+    leftIntake.set(speed);
+    rightIntake.set(speed);
   }
 
   @Override

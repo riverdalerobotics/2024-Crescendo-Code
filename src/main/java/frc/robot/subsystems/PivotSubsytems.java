@@ -4,12 +4,36 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.StatusSignal;
+import com.ctre.phoenix6.hardware.CANcoder;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+
+
 
 public class PivotSubsytems extends SubsystemBase {
   /** Creates a new pivotSubsytems. */
-  public PivotSubsytems() {}
+  TalonFX pivot1;
+  TalonFX pivot2;
+  static CANcoder pivotEncoder;
+  
+  public PivotSubsytems() {
+    pivot1 = new TalonFX(10000);
+    pivot2 = new TalonFX(10000);
+    pivotEncoder = new CANcoder(1000);
+    
+  }
 
+  public void movePivot(double speed){
+    pivot1.set(speed);
+  }
+  public double getEncoders(){
+    StatusSignal<Double> pos = pivotEncoder.getPosition();
+    double encoderPos = pos.getValue() * 0.14007201;
+    return encoderPos;
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

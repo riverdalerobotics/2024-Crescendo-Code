@@ -35,7 +35,7 @@ public boolean shootPos(){
 //Shoot
 //TODO: make this a boton!! it is now in "testing mode"
 public double shoot(){
-    return intakeController.getRightTriggerAxis();
+    return intakeController.getRightY();
 }
 
 //Go to drivePos
