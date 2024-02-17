@@ -57,6 +57,10 @@ public class RobotContainer {
       
       }
   
+   
+   /** 
+    * @return double
+    */
    //TODO FIX THIS REMEMBER
   public double getAutonomousCommand() {
     //TODO: remove this

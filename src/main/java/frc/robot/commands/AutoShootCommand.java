@@ -13,10 +13,12 @@ public class AutoShootCommand extends Command {
   /** Creates a new AutoShootCommand. */
   public AutoShootCommand(IntakeSubsystem intakeSubsystem) {
 
-    
+
     addRequirements(intakeSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
+
+  
 
   // Called when the command is initially scheduled.
   @Override

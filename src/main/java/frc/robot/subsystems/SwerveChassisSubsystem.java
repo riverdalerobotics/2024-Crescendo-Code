@@ -37,6 +37,7 @@ public class SwerveChassisSubsystem extends SubsystemBase {
   private double maxTeleopDriveSpeed;
   private double maxTeleopAngularSpeed;
   private boolean slowMode;
+  private boolean isFieldOriented;
   private final AHRS gyro = new AHRS(SPI.Port.kMXP);
   private final SwerveDriveOdometry odometer = new SwerveDriveOdometry(ChassisConstants.kDriveKinematics,
   getRotation2d(), getSwerveModulePositions());
@@ -64,14 +65,26 @@ public class SwerveChassisSubsystem extends SubsystemBase {
   }
 
 
+  public void toggleFieldOriented() {
+      isFieldOriented = (isFieldOriented)? false : true;
+    }
+
+  public void disableFieldOriented() {
+    isFieldOriented = false;
+  }
 
   public void zeroHeading() {
     gyro.reset();
   }
 
 
-  //Gyro's value is continuous, it can go past 360
-    //This function clamps it between 180 and -180 degrees to make it easier to work with
+  
+  /** 
+   * Gyro's value is continuous, it can go past 360
+  This function clamps it between 180 and -180 degrees to make it easier to work with
+   * @return double: the clamped gyro value
+   */
+  
   public double getHeadingDegrees() {
     return Math.IEEEremainder(-gyro.getAngle(), 360);
   }
@@ -92,11 +105,19 @@ public class SwerveChassisSubsystem extends SubsystemBase {
   }
 
 
+  
+  /** 
+   * @return Rotation2d
+   */
   public Rotation2d getRotation2d() {
     return Rotation2d.fromDegrees(getHeadingDegrees());
   }
 
 
+  
+  /** 
+   * @return SwerveModulePosition[]
+   */
   public SwerveModulePosition[] getSwerveModulePositions() {
     return new SwerveModulePosition[] {
       frontLeft.getModulePosition(),
@@ -107,28 +128,54 @@ public class SwerveChassisSubsystem extends SubsystemBase {
   }
 
 
+  
+  /** 
+   * @return Pose2d
+   */
   public Pose2d getPose() {
     return odometer.getPoseMeters();
   }
 
+  
+  /** 
+   * @param newPose
+   */
   public void resetOdometry(Pose2d newPose) {
     odometer.resetPosition(getRotation2d(), getSwerveModulePositions(), newPose);
   }
 
+  
+  /** 
+   * @return double
+   */
   public double getRollRad() {
     return gyro.getRoll() * (Math.PI / 180);
   }
 
+  
+  /** 
+   * @return double
+   */
   public double getYawRad() {
     return gyro.getYaw() * (Math.PI / 180);
   }
 
+  
+  /** 
+   * @return double
+   */
   public double getPitchRad() {
     return gyro.getPitch() * (Math.PI / 180);
   }
 
-
-  public void driveSwerve(double xSpeed, double ySpeed, double turningSpeed, boolean isFieldOriented) {
+  /**
+   * Takes in 3 joystick axes to control the swerve chassis + a button to toggle field-oriented
+   * @param xSpeed - y-axis of left joystick
+   * @param ySpeed - x-axis of left joystick
+   * @param turningSpeed - x-axis of right joystick
+   * @param isFieldOriented
+   */
+  public void driveSwerve(double xSpeed, double ySpeed, double turningSpeed) {
 
     //I dont think this actually does anything
     xSpeed = xLimiter.calculate(xSpeed) * maxTeleopDriveSpeed;
@@ -161,6 +208,10 @@ public class SwerveChassisSubsystem extends SubsystemBase {
 
 
 
+  
+  /** 
+   * @param desiredStates
+   */
   public void setModuleStates(SwerveModuleState[] desiredStates) {
     frontLeft.setDesiredState(desiredStates[0]);
     frontRight.setDesiredState(desiredStates[1]);

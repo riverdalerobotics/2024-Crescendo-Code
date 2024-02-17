@@ -36,6 +36,8 @@ public class SwerveDefaultCommand extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
+  
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
@@ -50,8 +52,7 @@ public class SwerveDefaultCommand extends Command {
     }
 
     if (fieldOrientedFunction.get()) {
-      isFieldOriented = (isFieldOriented)? false : true;
-    }
+      swerveSubsystem.toggleFieldOriented();
 
 
     double xSpeed = xSpdFunction.get();
@@ -65,10 +66,10 @@ public class SwerveDefaultCommand extends Command {
         
 
 
-    swerveSubsystem.driveSwerve(xSpeed, ySpeed, turnSpeed, isFieldOriented);
-
-    
+    swerveSubsystem.driveSwerve(xSpeed, ySpeed, turnSpeed);
   }
+}
+
 
   // Called once the command ends or is interrupted.
   @Override

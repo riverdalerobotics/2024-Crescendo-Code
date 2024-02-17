@@ -18,6 +18,10 @@ public class IntakeSubsystem extends SubsystemBase {
     rightIntake.setInverted(true);
     
   }
+  
+  /** 
+   * @param speed
+   */
   public void spinIntake(double speed){
     leftIntake.set(-1000);
     rightIntake.set(-1000);

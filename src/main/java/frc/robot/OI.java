@@ -9,6 +9,10 @@ import edu.wpi.first.wpilibj.XboxController;
 public class OI {
     XboxController moveController = new XboxController(0);
     XboxController intakeController = new XboxController(1);
+
+/** 
+ * @return double
+ */
 //Movement controls
 
 //x is fwd backward

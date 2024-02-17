@@ -132,14 +132,14 @@ public final class Constants {
 
 
     //These are the absolute max limitations of the robot
-    //TODO: Test
+    //TODO: Test both of these 
     public static final double kPhysicalMaxSpeedMetersPerSecond = 14.9;
-    public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = -1000;
+    public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 1;
     
     
 
     
-    public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond * 1;
+    public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond * 1;
     public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond * 1;
   
     //These are used for slew rate limiting
@@ -150,5 +150,21 @@ public final class Constants {
     public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = 0;
     public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = 0;
     public static final double kBackRightDriveAbsoluteEncoderOffsetRad = 0;
+  }
+
+  public static class CommandConstants {
+
+    //These PID values are for commands that line up with the note in the y axis (left/right)
+    public static final double kYNoteAlignP = 0.1;
+    public static final double kYNoteAlignI = 0;
+    public static final double kYNoteAlignD = 0;
+
+    public static final double kTurningNoteAlignP = 0.1;
+    public static final double kTurningNoteAlignI = 0;
+    public static final double kTurningNoteAlignD = 0;
+
+    public static final double kXNoteAlignP = 0.1;
+    public static final double kXNoteAlignI = 0;
+    public static final double kXNoteAlignD = 0;
   }
 }

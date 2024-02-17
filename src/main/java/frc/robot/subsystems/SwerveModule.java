@@ -114,6 +114,10 @@ public class SwerveModule extends SubsystemBase {
     new Rotation2d(mTurnEncoder.getPosition()));
   }
 
+  
+  /** 
+   * @return double
+   */
   public double getDrivePosition() {
     return mDriveEncoder.getPosition();
   }
