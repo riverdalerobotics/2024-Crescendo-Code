@@ -48,14 +48,18 @@ public final class Constants {
 
     //In meters
     //What 1 rotation of the drive motor corresponds to in meters travelled
+    //The native unit is rotations. We conver it to meters
     public static final double kDrivingEncoderPositionFactor = (kWheelCircumferenceMeters / kDriveMotorGearReduction);
 
-    public static final double kDrivingEncoderVelocityFactor = (kWheelDiameterMeters / kDriveMotorGearReduction) / 60; //meters per second
+    //in meters
+    //The native units is RPM. We convert it to m/s
+    public static final double kDrivingEncoderVelocityFactor = kDrivingEncoderPositionFactor / 60; //meters per second
 
 
     //One full rotation of the turning motor is 2pi radians
-    public static final double kTurningEncoderPositionFactor = 2 * Math.PI; // radians
-    public static final double kTurningEncoderVelocityFactor = (2 * Math.PI) / 60.0; //radians per second
+    public static final double kTurningMotorGearReduction = (9424 / 203);
+    public static final double kTurningEncoderPositionFactor = (2 * Math.PI) / (kTurningMotorGearReduction); // radians
+    public static final double kTurningEncoderVelocityFactor = kTurningEncoderPositionFactor / 60.0; //radians per second
 
     public static final double kTurningEncoderPositionPIDMinInput = 0; // radians
     public static final double kTurningEncoderPositionPIDMaxInput = kTurningEncoderPositionFactor;

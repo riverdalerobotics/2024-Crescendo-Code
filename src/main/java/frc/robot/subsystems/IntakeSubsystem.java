@@ -15,11 +15,12 @@ public class IntakeSubsystem extends SubsystemBase {
   public IntakeSubsystem() {
     leftIntake = new TalonFX(100000);
     rightIntake = new TalonFX(100000);
-    rightIntake.setInverted(True)
+    rightIntake.setInverted(true);
     
   }
   public void spinIntake(double speed){
-    leftIntake.
+    leftIntake.set(-1000);
+    rightIntake.set(-1000);
   }
   @Override
   public void periodic() {

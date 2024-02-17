@@ -6,12 +6,15 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.IntakeSubsystem;
 
 
 public class AutoShootCommand extends Command {
   /** Creates a new AutoShootCommand. */
-  public AutoShootCommand() {
-    addRequirements(RobotContainer.INTAKE);
+  public AutoShootCommand(IntakeSubsystem intakeSubsystem) {
+
+    
+    addRequirements(intakeSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

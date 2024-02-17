@@ -20,7 +20,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 
 public class SwerveChassisSubsystem extends SubsystemBase {
-
+  
   private final SwerveModule frontLeft = new SwerveModule(ChassisConstants.kFrontLeftDriveMotorPort, 
   ChassisConstants.kFrontLeftTurningMotorPort);
 
@@ -170,7 +170,7 @@ public class SwerveChassisSubsystem extends SubsystemBase {
 
   public void stopModules() {
     frontLeft.stop();
-    frontRight.stop()
+    frontRight.stop();
     backLeft.stop();
     backRight.stop();
   }

@@ -4,7 +4,11 @@
 
 package frc.robot.commands;
 
+import java.util.function.Supplier;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.SwerveChassisSubsystem;
 
 public class SwerveDefaultCommand extends Command {
 
@@ -12,17 +16,15 @@ public class SwerveDefaultCommand extends Command {
   private final Supplier<Double> xSpdFunction, ySpdFunction, turningSpdFunction;
   private final Supplier<Boolean> fieldOrientedFunction;
 
-  private final Supplier<Boolean> gyroZeroFunction;
   private final Supplier<Boolean> toggleSlowModeFunction;
   private boolean isFieldOriented;
 
   /** Creates a new SwerveDefaultCommand. */
   public SwerveDefaultCommand(SwerveChassisSubsystem swerveSubsystem,
   Supplier<Double> xSpdFunction, Supplier<Double> ySpdFunction, Supplier<Double> turningSpdFunction,
-  Supplier<Boolean> fieldOrientedFunction, Supplier<Boolean> resetGyroZero, Supplier<Boolean> toggleSlow) {
-    this.swerveSubsystem = swerveSubsystem
+  Supplier<Boolean> fieldOrientedFunction, Supplier<Boolean> toggleSlow) {
+    this.swerveSubsystem = swerveSubsystem;
     
-    this.gyroZeroFunction = resetGyroZero;
     this.isFieldOriented = true;
     this.xSpdFunction = xSpdFunction;
     this.ySpdFunction = ySpdFunction;
@@ -43,16 +45,12 @@ public class SwerveDefaultCommand extends Command {
   public void execute() {
     SmartDashboard.putBoolean("Field Oriented Mode?", isFieldOriented);
 
-    if (gyroZeroFunction.get()) {
-      swerveSubsystem.zeroHeading();
-    }
-
     if (toggleSlowModeFunction.get()) {
       //Toggle slow
     }
 
     if (fieldOrientedFunction.get()) {
-      isFieldOriented = (isFieldOriented)? false : true
+      isFieldOriented = (isFieldOriented)? false : true;
     }
 
 
@@ -60,11 +58,14 @@ public class SwerveDefaultCommand extends Command {
     double ySpeed = ySpdFunction.get();
     double turnSpeed = turningSpdFunction.get();
 
+    
+    //double speedIncrease = speedBoost.get();
+    //double speedDecrease = speedDampener.get();
+        
+        
 
-    double speedIncrease = speedBoost.get();
-    double speedDecrease = speedDampener.get();
 
-    swerveSubsystem.driveSwerve(xSpeed, ySpeed, turnSpeed, isFieldOriented)
+    swerveSubsystem.driveSwerve(xSpeed, ySpeed, turnSpeed, isFieldOriented);
 
     
   }
@@ -81,3 +82,5 @@ public class SwerveDefaultCommand extends Command {
     return false;
   }
 }
+
+

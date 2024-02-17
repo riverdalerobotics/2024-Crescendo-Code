@@ -6,7 +6,10 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AutoShootCommand;
+import frc.robot.commands.SwerveDefaultCommand;
+import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.SwerveChassisSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -25,6 +28,8 @@ public class RobotContainer {
   
   //private final IntakeSubsystem INTAKE = new IntakeSubsystem();
   private final SwerveChassisSubsystem CHASSIS = new SwerveChassisSubsystem();
+  private final IntakeSubsystem INTAKE = new IntakeSubsystem();
+  private final ClimberSubsystem CLIMB = new ClimberSubsystem();
   // Create our inputs
   //XboxController intakeController = new XboxController(0);
   //XboxController moveController = new XboxController(1);
@@ -37,16 +42,17 @@ public class RobotContainer {
 
 
     //Field reset toggle boost damp
-    swerveSubsystem.setDefaultCommand(new SwerveDefaultCommand (
-      swerveSubsystem,
-      () -> OI.xSpeed(),
-      () -> OI.ySpeed(),
-      () -> OI.rotate(),
-      () -> OI.toggleFieldOriented(),
-      () -> OI.toggleSlowMode()
+    CHASSIS.setDefaultCommand(new SwerveDefaultCommand (
+      CHASSIS,
+      () -> oi.xSpeed(),
+      () -> oi.ySpeed(),
+      () -> oi.rotate(),
+      () -> oi.toggleFieldOriented(),
+      () -> oi.toggleSlowMode()
     ));
   }
 
+  //Put triggers here that change the active commands
   private void configureBindings() {
       
       }
