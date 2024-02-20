@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import frc.robot.Constants.LimelightConstants;
 
 public class Limelight {
       //Adapted from https://docs.limelightvision.io/en/latest/getting_started.html#basic-programming
@@ -72,12 +73,12 @@ public class Limelight {
     }
 
 
-    // /**
-    //  * @return The distance to the target
-    //  */
-    // public double calculateDistance(double targetHeight){
-    //     return Math.abs(targetHeight-LimelightConstants.limelightMountHeight)/Math.tan((LimelightConstants.limelightMountAngle + getTX())*Math.PI/180);
-    // }
+    /**
+     * @return The distance to the target
+     */
+    public double calculateDistanceNote(){
+        return Math.abs(LimelightConstants.noteHeight-LimelightConstants.noteLimelightMountHeight)/Math.tan((LimelightConstants.noteLimelightMountAngle + getTX())*Math.PI/180);
+    }
 
     
     /**
