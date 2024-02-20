@@ -47,9 +47,9 @@ public class SwerveChassisSubsystem extends SubsystemBase {
   public SwerveChassisSubsystem() {
     this.maxTeleopDriveSpeed = ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond;
     this.maxTeleopAngularSpeed = ChassisConstants.kTeleDriveMaxAngularSpeedRadiansPerSecond;
-    this.xLimiter = new SlewRateLimiter(ChassisConstants.kTeleDriveMaxAccelerationUnitsPerSecond);
-    this.yLimiter = new SlewRateLimiter(ChassisConstants.kTeleDriveMaxAccelerationUnitsPerSecond);
-    this.turnLimiter = new SlewRateLimiter(ChassisConstants.kTeleDriveMaxAngularAccelerationUnitsPerSecond);
+    this.xLimiter = new SlewRateLimiter(ChassisConstants.kTeleDriveMaxAccelerationMetersPerSecond);
+    this.yLimiter = new SlewRateLimiter(ChassisConstants.kTeleDriveMaxAccelerationMetersPerSecond);
+    this.turnLimiter = new SlewRateLimiter(ChassisConstants.kTeleDriveMaxAngularAccelerationRadiansPerSecond);
     resetModules();
 
 
