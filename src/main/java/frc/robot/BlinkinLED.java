@@ -1,7 +1,8 @@
 package frc.robot;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class BlinkinLED {
+public class BlinkinLED extends SubsystemBase {
 
     private Spark LEDDriver;
     
@@ -11,7 +12,7 @@ public class BlinkinLED {
 
     public BlinkinLED(){
 
-        LEDDriver = new Spark(0); //TODO: roborio PWM port
+        LEDDriver = new Spark(Constants.kBlinkinPort); //TODO: roborio PWM port
     
     }
 
@@ -28,7 +29,7 @@ public class BlinkinLED {
     /*All LED patterns used on robot */
    
     public void robotDisabled()  {
-        LEDDriver.set(Pattern.SOLID_COLOR_SKY_BLUE.value);
+        LEDDriver.set(Pattern.SHOT_BLUE.value);
     }
 
     public void robotOnRedTeamDrivingColor() {

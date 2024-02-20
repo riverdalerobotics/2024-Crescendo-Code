@@ -39,7 +39,6 @@ public class AutoPickUpCommand extends Command {
   private final Supplier<Boolean> fieldOrientedFunction;
 
   private final Supplier<Boolean> toggleSlowModeFunction;
-  private boolean isFieldOriented;
 
 
 
@@ -88,9 +87,9 @@ public class AutoPickUpCommand extends Command {
     }
     else {
       if (fieldOrientedFunction.get()) {
-        isFieldOriented = (isFieldOriented)? false : true;
+        swerveSubsystem.toggleFieldOriented();
       }
-
+      
       if (toggleSlowModeFunction.get()) {
         //Toggle slow
       }

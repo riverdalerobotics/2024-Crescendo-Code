@@ -25,7 +25,6 @@ public class AutoAlignWithNoteSwerve extends Command {
   private final Supplier<Boolean> fieldOrientedFunction;
 
   private final Supplier<Boolean> toggleSlowModeFunction;
-  private boolean isFieldOriented;
 
 
 
@@ -60,7 +59,7 @@ public class AutoAlignWithNoteSwerve extends Command {
 
 
     if (fieldOrientedFunction.get()) {
-      isFieldOriented = (isFieldOriented)? false : true;
+      swerveSubsystem.toggleFieldOriented();
     }
 
     if (toggleSlowModeFunction.get()) {

@@ -122,6 +122,10 @@ public class SwerveModule extends SubsystemBase {
     return mDriveEncoder.getPosition();
   }
 
+  
+  /** 
+   * @return double
+   */
   public double getTurningPosition() {
     return mTurnEncoder.getPosition();
   }
