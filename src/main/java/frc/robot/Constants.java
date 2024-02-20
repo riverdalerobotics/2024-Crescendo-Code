@@ -23,6 +23,17 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
   }
 
+  public static class PathPlannerConstants{ //TODO: GET THESE CONSTANTS
+    public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(-1, -1, -1);
+    public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(-1, -1, -1);
+    public static final double MAX_TRANSLATION_SPEED = kTeleDriveMaxSpeedMetersPerSecond;
+    public static final double MAX_ROTATION_SPEED = kTeleDriveMaxAngularSpeedRadiansPerSecond;
+    public static final double MAX_TRANSLATION_ACCELERATION = kTeleDriveMaxAccelerationMetersPerSecond;
+    public static final double MAX_ROTATIONAL_ACCELERATION = kTeleDriveMaxAngularAccelerationRadiansPerSecond;
+    public static final double ROBOT_BASE_RADIUS = -1; // meters
+  
+  }
+
   public static class ModuleConstants {
 
     // The MAXSwerve module can be configured with one of three pinion gears: 12T, 13T, or 14T.
@@ -143,8 +154,8 @@ public final class Constants {
     public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond * 1;
   
     //These are used for slew rate limiting
-    public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3;
-    public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3;
+    public static final double kTeleDriveMaxAccelerationMetersPerSecond = 3;
+    public static final double kTeleDriveMaxAngularAccelerationRadiansPerSecond = 3;
   
     public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = 0;
     public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = 0;

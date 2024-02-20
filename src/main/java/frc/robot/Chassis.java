@@ -25,13 +25,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Chassis extends SubsystemBase {
   /** Creates a new Chassis. */
-  final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(-1, -1, -1);
-  final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(-1, -1, -1);
-  final double MAX_TRANSLATION_SPEED = -1; // in meters per second
-  final double MAX_ROTATION_SPEED = -1; // In Radians per second
-  final double MAX_TRANSLATION_ACCELERATION = -1;// meters per second squared
-  final double MAX_ROTATIONAL_ACCELERATION = -1;// Radians per second squared
-  final double ROBOT_BASE_RADIUS = -1; // meters
 
   public Chassis() {
     AutoBuilder.configureHolonomic(
