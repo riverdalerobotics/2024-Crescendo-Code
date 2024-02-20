@@ -3,7 +3,6 @@ package frc.robot;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import frc.robot.Constants.LimelightConstants;
 
 public class Limelight {
       //Adapted from https://docs.limelightvision.io/en/latest/getting_started.html#basic-programming
@@ -12,13 +11,14 @@ public class Limelight {
     /**The NetworkTable we are reading limelight values from*/
     NetworkTable table;
 
-    public double botPose [] = getBotPose();
+    double[] botPose;  
 
     
     /** Creates a new limelight object. Sets up the NetworkTable object */
-    /** For the limelightName, ll3: "note", ll2: "tags" */
+    /** For the limelightName, ll3: "limelight-note", ll2: "limelight-tags" */
     public Limelight(String limelightName ){
         table = NetworkTableInstance.getDefault().getTable(limelightName);
+        botPose = getBotPose();
     }
 
     
@@ -93,6 +93,7 @@ public class Limelight {
      * @return The robot yaw
      */
     public double getYaw(){
+        botPose=getBotPose();
         return botPose[5];
      }
 
@@ -100,6 +101,7 @@ public class Limelight {
      * @return The robot x position pose relative to the center of the field
      */
     public double getXPosition(){
+        botPose=getBotPose();
         return botPose[0];
     }
 
@@ -107,6 +109,7 @@ public class Limelight {
      * @return The robot y position pose relative to the center of the field
      */
     public double getYPosition(){
+        botPose=getBotPose();
         return botPose[1];
     }
 
