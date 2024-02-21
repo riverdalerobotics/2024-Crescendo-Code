@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 
 public class AutoTuckCommand extends Command {
-  /** Creates a new AutoTuckCommand. */
+  /** Creates a new AutoTuckCommand.  */
   PIDController speedController;
   double setpoint = 0d;
   double tolerance = 0d;
