@@ -30,7 +30,7 @@ public final class Constants {
     public static final double MAX_ROTATION_SPEED = kTeleDriveMaxAngularSpeedRadiansPerSecond;
     public static final double MAX_TRANSLATION_ACCELERATION = kTeleDriveMaxAccelerationMetersPerSecond;
     public static final double MAX_ROTATIONAL_ACCELERATION = kTeleDriveMaxAngularAccelerationRadiansPerSecond;
-    public static final double ROBOT_BASE_RADIUS = 0.404; // meters
+    public static final double ROBOT_BASE_RADIUS = -1; // meters
   
   }
 
@@ -163,6 +163,19 @@ public final class Constants {
     public static final double kBackRightDriveAbsoluteEncoderOffsetRad = 0;
   }
 
+
+
+    public static class PathPlannerConstants { //TODO: GET THESE CONSTANTS
+    public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(-1, -1, -1);
+    public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(-1, -1, -1);
+    public static final double MAX_TRANSLATION_SPEED = ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond;
+    public static final double MAX_ROTATION_SPEED = ChassisConstants.kTeleDriveMaxAngularSpeedRadiansPerSecond;
+    public static final double MAX_TRANSLATION_ACCELERATION = ChassisConstants.kTeleDriveMaxAccelerationMetersPerSecond;
+    public static final double MAX_ROTATIONAL_ACCELERATION = ChassisConstants.kTeleDriveMaxAngularAccelerationRadiansPerSecond;
+    public static final double ROBOT_BASE_RADIUS = -1; // meters
+  
+  }
+
   public static class CommandConstants {
 
     //These PID values are for commands that line up with the note in the y axis (left/right)
@@ -177,5 +190,21 @@ public final class Constants {
     public static final double kXNoteAlignP = 0.1;
     public static final double kXNoteAlignI = 0;
     public static final double kXNoteAlignD = 0;
+  }
+
+  public static class LimelightConstants {
+
+    public static final double noteHeight = 0; //literally it is 0 
+    public static final double noteLimelightMountAngle = 0;  //TODO: find limelight mounts
+    public static final double noteLimelightMountHeight = 0;
+
+    public static final double tagLimelightMountAngle = 0;
+    public static final double tagLimelightMountHeight = 0;
+
+  }
+
+
+  public static class LEDConstants {
+    public static final int kBlinkinPort = -1;
   }
 }

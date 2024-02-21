@@ -1,6 +1,7 @@
 package frc.robot;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.LEDConstants;
 
 public class BlinkinLED extends SubsystemBase {
 
@@ -14,7 +15,7 @@ public class BlinkinLED extends SubsystemBase {
 
     public BlinkinLED(){
 
-        LEDDriver = new Spark(Constants.kBlinkinPort); //TODO: roborio PWM port
+        LEDDriver = new Spark(LEDConstants.kBlinkinPort); //TODO: roborio PWM port
     
     }
 
