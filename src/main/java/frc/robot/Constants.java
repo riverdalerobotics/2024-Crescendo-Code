@@ -30,7 +30,7 @@ public final class Constants {
     public static final double MAX_ROTATION_SPEED = kTeleDriveMaxAngularSpeedRadiansPerSecond;
     public static final double MAX_TRANSLATION_ACCELERATION = kTeleDriveMaxAccelerationMetersPerSecond;
     public static final double MAX_ROTATIONAL_ACCELERATION = kTeleDriveMaxAngularAccelerationRadiansPerSecond;
-    public static final double ROBOT_BASE_RADIUS = -1; // meters
+    public static final double ROBOT_BASE_RADIUS = 0.404; // meters
   
   }
 
