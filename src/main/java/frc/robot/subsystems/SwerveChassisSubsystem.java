@@ -63,12 +63,12 @@ public class SwerveChassisSubsystem extends SubsystemBase {
   }).start();
 
   //Pathplanner Stuff
-  AutoBuilder.configureHolonomic(
-    this::getPose,
-    this::setPos,
-    this::getVelocities,
+  AutoBuilder.configureHolonomic( //Configures pathfinder with basic constraints and functionality of robot
+    this::getPose, //Pose2d, datatype
+    this::setPos, //Pose2d, datatype
+    this::getVelocities, 
     this::driveSwerve,
-    new HolonomicPathFollowerConfig(
+    new HolonomicPathFollowerConfig( //Object with the configurations for our drive train, particularly max speeds, PID Constants, and radius of our base
       PathPlannerConstants.TRANSLATION_PID_CONSTANTS,
       PathPlannerConstants.ROTATION_PID_CONSTANTS,
       PathPlannerConstants.MAX_TRANSLATION_SPEED,
@@ -81,6 +81,7 @@ public class SwerveChassisSubsystem extends SubsystemBase {
       // blue to red)
       // THE ORIGIN WILL REMAIN THE BLUE SIDE
 
+      //Checks if the alliance is red or blue, flips path if.... colour
       var alliance = DriverStation.getAlliance();
       if (alliance.isPresent()) {
         return (alliance.get() == DriverStation.Alliance.Red);
@@ -147,7 +148,7 @@ public class SwerveChassisSubsystem extends SubsystemBase {
 
 /**
  * This is useful for odometry paths created through getting position from
-  other sensors, such as camera
+  other sensors, such as camera; Basically give bot coordinates, and it auto generates and executes a path to get there.
  * @param targetPos a Pose 2d that represents the target Position of the robot in relative to last odometry reset
  * @return Command: A command that takes the robot to the target Position
  */
