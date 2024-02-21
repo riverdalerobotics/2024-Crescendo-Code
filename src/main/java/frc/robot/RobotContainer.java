@@ -5,10 +5,11 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.AutoShootCommand;
+import frc.robot.commands.ShootCommand;
 import frc.robot.commands.SwerveDefaultCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.PivotSubsytems;
 import frc.robot.subsystems.SwerveChassisSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -28,8 +29,10 @@ public class RobotContainer {
   
   //private final IntakeSubsystem INTAKE = new IntakeSubsystem();
   private final SwerveChassisSubsystem CHASSIS = new SwerveChassisSubsystem();
-  private final IntakeSubsystem INTAKE = new IntakeSubsystem();
+  public final static PivotSubsytems PIVOT = new PivotSubsytems();
+  public final static IntakeSubsystem INTAKE = new IntakeSubsystem();
   private final ClimberSubsystem CLIMB = new ClimberSubsystem();
+  public static final OI OI = new OI();
   // Create our inputs
   //XboxController intakeController = new XboxController(0);
   //XboxController moveController = new XboxController(1);

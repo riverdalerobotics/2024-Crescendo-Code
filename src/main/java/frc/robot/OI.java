@@ -38,13 +38,17 @@ public boolean pickUpPos(){
 public boolean shootPos(){
     return intakeController.getRightBumper();
 }
-
+public double beltSpeed(){
+    return intakeController.getRightY();
+}
 //Shoot
 //TODO: make this a boton!! it is now in "testing mode"
-public double shoot(){
+public double manShoot(){
     return intakeController.getRightTriggerAxis();
 }
-
+public boolean shoot(){
+    return intakeController.getAButtonPressed();
+}
 //Go to drivePos
 public boolean drivePos(){
     return intakeController.getLeftStickButton();
