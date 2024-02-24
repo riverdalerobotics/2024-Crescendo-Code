@@ -1,5 +1,7 @@
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -72,12 +74,18 @@ public class Limelight {
         return ta.getDouble(0);
     }
 
+    /**
+     * @return The Y component of the required displacement to the target, in meters
+     */
+    public double getYDisplacementFromNote(){
+        return Math.abs(LimelightConstants.noteHeight-LimelightConstants.noteLimelightMountHeight)/Math.tan((Math.toRadians(LimelightConstants.noteLimelightMountAngle + getTY())));
+    }
 
     /**
-     * @return The distance to the target
+     * @return The X component of the required displacement to the target, in meters
      */
-    public double calculateDistanceNote(){
-        return Math.abs(LimelightConstants.noteHeight-LimelightConstants.noteLimelightMountHeight)/Math.tan((LimelightConstants.noteLimelightMountAngle + getTX())*Math.PI/180);
+    public double getXDisplacementFromNote(){
+        return Math.tan(Math.toRadians(getTX())) * getYDisplacementFromNote();
     }
 
     
@@ -93,7 +101,7 @@ public class Limelight {
     /**
      * @return The robot yaw
      */
-    public double getYaw(){
+    public double getBotPoseYaw(){
         botPose=getBotPose();
         return botPose[5];
      }
@@ -114,13 +122,13 @@ public class Limelight {
         return botPose[1];
     }
 
-    getBotPoseOdometryNotation(){
+    public Pose2d getBotPoseOdometryNotation(){
 
         double convertedX = this.getXPosition() + Constants.LimelightConstants.ORIGIN_PATHPLANNER_FROM_ORIGIN_LIMELIGHT[0];
         double convertedY = this.getYPosition() + Constants.LimelightConstants.ORIGIN_PATHPLANNER_FROM_ORIGIN_LIMELIGHT[1];
-        double convertedTheta = this.getYaw() + Constants.LimelightConstants.ORIGIN_PATHPLANNER_FROM_ORIGIN_LIMELIGHT[0];//TODO: This is 0 right now as we think converted is the same.
+        double convertedTheta = this.getBotPoseYaw() + Constants.LimelightConstants.ORIGIN_PATHPLANNER_FROM_ORIGIN_LIMELIGHT[0];//TODO: This is 0 right now as we think converted is the same.
 
-        return new Pose2d(convertedX, convertedY, convertedTheta);
+        return new Pose2d(convertedX, convertedY, new Rotation2d(convertedTheta));
     }
     
 
