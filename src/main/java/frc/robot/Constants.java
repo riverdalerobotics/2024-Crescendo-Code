@@ -201,6 +201,7 @@ public final class Constants {
     public static final double tagLimelightMountAngle = 0;
     public static final double tagLimelightMountHeight = 0;
 
+    public static final double[] ORIGIN_PATHPLANNER_FROM_ORIGIN_LIMELIGHT = {-827, -4.1021, 0} //Meters
   }
 
 
