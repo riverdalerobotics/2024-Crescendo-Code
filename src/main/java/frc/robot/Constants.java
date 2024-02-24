@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.util.PIDConstants;
 import com.revrobotics.CANSparkBase.IdleMode;
 
 import edu.wpi.first.math.geometry.Translation2d;
@@ -23,6 +24,7 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
   }
 
+  
   public static class ModuleConstants {
 
     // The MAXSwerve module can be configured with one of three pinion gears: 12T, 13T, or 14T.
@@ -106,15 +108,17 @@ public final class Constants {
       new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
 
 
-    public static final int kFrontLeftDriveMotorPort = -100; 
-    public static final int kBackLeftDriveMotorPort = -100; 
-    public static final int kFrontRightDriveMotorPort = -100;
-    public static final int kBackRightDriveMotorPort = -100;
 
-    public static final int kFrontLeftTurningMotorPort = -100;
-    public static final int kBackLeftTurningMotorPort = -100;
-    public static final int kFrontRightTurningMotorPort = -100;
-    public static final int kBackRightTurningMotorPort = -100;
+  
+    public static final int kFrontLeftDriveMotorPort = 1;
+    public static final int kBackLeftDriveMotorPort = 3;
+    public static final int kFrontRightDriveMotorPort = 5;
+    public static final int kBackRightDriveMotorPort = -7;
+
+    public static final int kFrontLeftTurningMotorPort = 2;
+    public static final int kBackLeftTurningMotorPort = 4;
+    public static final int kFrontRightTurningMotorPort = 6;
+    public static final int kBackRightTurningMotorPort = 8;
 
 
 
@@ -154,7 +158,7 @@ public final class Constants {
 
 
 
-    public static class PathPlannerConstants { //TODO: GET THESE CONSTANTS
+  public static class PathPlannerConstants { //TODO: GET THESE CONSTANTS
     public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(-1, -1, -1);
     public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(-1, -1, -1);
     public static final double MAX_TRANSLATION_SPEED = ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond;

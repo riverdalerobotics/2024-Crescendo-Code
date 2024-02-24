@@ -16,12 +16,11 @@ import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
 
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.PathPlannerConstants;
 
 public class Chassis extends SubsystemBase {
   /** Creates a new Chassis. */
@@ -33,10 +32,10 @@ public class Chassis extends SubsystemBase {
         this::getVelocities,
         this::drive,
         new HolonomicPathFollowerConfig(
-            TRANSLATION_PID_CONSTANTS,
-            ROTATION_PID_CONSTANTS,
-            MAX_TRANSLATION_SPEED,
-            ROBOT_BASE_RADIUS,
+          PathPlannerConstants.TRANSLATION_PID_CONSTANTS,
+          PathPlannerConstants.ROTATION_PID_CONSTANTS,
+          PathPlannerConstants.MAX_TRANSLATION_SPEED,
+          PathPlannerConstants.ROBOT_BASE_RADIUS,
             new ReplanningConfig()),
         () -> {
           // Boolean supplier that controls when the path will be mirrored for the red
@@ -114,7 +113,7 @@ public class Chassis extends SubsystemBase {
  * @return Command: A command that takes the robot to the target Position
  */
   public Command pathfindToPose(Pose2d targetPos) {
-    PathConstraints constraints = new PathConstraints(MAX_TRANSLATION_SPEED, MAX_TRANSLATION_ACCELERATION, MAX_ROTATION_SPEED, MAX_ROTATIONAL_ACCELERATION);
+    PathConstraints constraints = new PathConstraints(PathPlannerConstants.MAX_TRANSLATION_SPEED, PathPlannerConstants.MAX_TRANSLATION_ACCELERATION, PathPlannerConstants.MAX_ROTATION_SPEED, PathPlannerConstants.MAX_ROTATIONAL_ACCELERATION);
 
     // Since AutoBuilder is configured, we can use it to build pathfinding commands
     Command command = AutoBuilder.pathfindToPose(
