@@ -1,5 +1,8 @@
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -114,13 +117,13 @@ public class Limelight {
         return botPose[1];
     }
 
-    getBotPoseOdometryNotation(){
+    public Pose2d getBotPoseOdometryNotation(){
 
         double convertedX = this.getXPosition() + Constants.LimelightConstants.ORIGIN_PATHPLANNER_FROM_ORIGIN_LIMELIGHT[0];
         double convertedY = this.getYPosition() + Constants.LimelightConstants.ORIGIN_PATHPLANNER_FROM_ORIGIN_LIMELIGHT[1];
         double convertedTheta = this.getYaw() + Constants.LimelightConstants.ORIGIN_PATHPLANNER_FROM_ORIGIN_LIMELIGHT[0];//TODO: This is 0 right now as we think converted is the same.
 
-        return new Pose2d(convertedX, convertedY, convertedTheta);
+        return new Pose2d(new Translation2d(convertedX, convertedY), new Rotation2d(convertedTheta));
     }
     
 
