@@ -114,6 +114,16 @@ public class Limelight {
         return botPose[1];
     }
 
+    getBotPoseOdometryNotation(){
+
+        double convertedX = this.getXPosition() + Constants.LimelightConstants.ORIGIN_PATHPLANNER_FROM_ORIGIN_LIMELIGHT[0];
+        double convertedY = this.getYPosition() + Constants.LimelightConstants.ORIGIN_PATHPLANNER_FROM_ORIGIN_LIMELIGHT[1];
+        double convertedTheta = this.getYaw() + Constants.LimelightConstants.ORIGIN_PATHPLANNER_FROM_ORIGIN_LIMELIGHT[0];//TODO: This is 0 right now as we think converted is the same.
+
+        return new Pose2d(convertedX, convertedY, convertedTheta);
+    }
+    
+
 
  
 }
