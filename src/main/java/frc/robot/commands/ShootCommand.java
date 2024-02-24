@@ -6,10 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
-import edu.wpi.first.math.controller.PIDController;
-import java.util.concurrent.TimeUnit;
 public class ShootCommand extends Command {
   PIDController pivotSpeedController;
   PIDController shootSpeedContller;

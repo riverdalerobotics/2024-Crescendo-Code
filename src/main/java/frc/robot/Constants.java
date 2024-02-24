@@ -138,13 +138,13 @@ public final class Constants {
     //These are the absolute max limitations of the robot
     //TODO: Test both of these 
     public static final double kPhysicalMaxSpeedMetersPerSecond = 14.9;
-    public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 1;
+    public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 9.0598;
     
     
 
     
-    public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond * 1;
-    public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond * 1;
+    public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond * 0.2;
+    public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond * 0.2;
   
     //These are used for slew rate limiting
     public static final double kTeleDriveMaxAccelerationMetersPerSecond = 3;
