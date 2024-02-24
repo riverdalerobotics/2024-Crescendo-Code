@@ -13,6 +13,7 @@ public class AutoTuckCommand extends Command {
   PIDController speedController;
   double setpoint = 0d;
   double tolerance = 0d;
+  double maxVoltage = 0d;
   public AutoTuckCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
     double kp = 0d;
@@ -32,8 +33,13 @@ public class AutoTuckCommand extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
+
+  //TODO: Remove PID controller and just supply a constant speed to the pivot until it hits the hard stop
   public void execute() {
     RobotContainer.PIVOT.movePivot(speedController.calculate(RobotContainer.PIVOT.getEncoders()));
+    if( RobotContainer.PIVOT.getVoltage() > maxVoltage){
+      RobotContainer.PIVOT.resetEncoders();
+    }
   }
 
   // Called once the command ends or is interrupted.
