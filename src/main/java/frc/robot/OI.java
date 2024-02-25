@@ -41,6 +41,9 @@ public boolean shootPos(){
 public double beltSpeed(){
     return intakeController.getRightY();
 }
+public double shooterSpeed(){
+    return intakeController.getRightTriggerAxis();
+}
 //Shoot
 //TODO: make this a boton!! it is now in "testing mode"
 public double manShoot(){

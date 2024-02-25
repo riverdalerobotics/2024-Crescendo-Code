@@ -22,7 +22,7 @@ public class IntakeDefaultCommand extends Command {
   @Override
   public void execute() {
     //TODO: this is for testing only
-    RobotContainer.INTAKE.spinIntake(RobotContainer.OI.beltSpeed()*2);
+    RobotContainer.INTAKE.spinIntake(RobotContainer.OI.shooterSpeed());
     RobotContainer.INTAKE.spinBelt(RobotContainer.OI.beltSpeed());
   }
 
