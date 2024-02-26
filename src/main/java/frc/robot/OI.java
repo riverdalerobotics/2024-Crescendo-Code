@@ -58,8 +58,8 @@ public boolean drivePos(){
 }
 
 // Arm Up and down
-public double moveArm(){
-    return intakeController.getLeftY();
+public boolean moveArmUp(){
+    return intakeController.ge
 }
 //togle feild oriented
 public boolean toggleFieldOriented(){

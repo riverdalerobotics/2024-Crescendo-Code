@@ -56,6 +56,7 @@ public class RobotContainer {
   }
 
   //Put triggers here that change the active commands
+  //TODO: Lets get this working, mostly for Shooting and picking up commands
   private void configureBindings() {
       
       }

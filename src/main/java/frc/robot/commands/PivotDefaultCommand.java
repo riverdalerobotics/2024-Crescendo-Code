@@ -8,8 +8,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 public class PivotDefaultCommand extends Command {
   /** Creates a new PivotDefaultCommand. */
+  //This is something that may or may not work...
   public PivotDefaultCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(RobotContainer.PIVOT)
   }
 
   
