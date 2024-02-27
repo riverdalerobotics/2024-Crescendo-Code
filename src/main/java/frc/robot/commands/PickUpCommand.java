@@ -36,7 +36,6 @@ public class PickUpCommand extends Command {
   public void initialize() {
     speedController.setSetpoint(setpoint);
     speedController.setTolerance(tolerance);
-    double encoderPos = RobotContainer.PIVOT.getEncoders();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -48,6 +47,7 @@ public class PickUpCommand extends Command {
       RobotContainer.INTAKE.spinBelt(beltSpeed);
       if (RobotContainer.INTAKE.intakeVoltage() < maxVoltage){
         RobotContainer.INTAKE.spinIntake(0);
+        RobotContainer.INTAKE.spinBelt(0);
         hasPickedUp = true;
       }
     }

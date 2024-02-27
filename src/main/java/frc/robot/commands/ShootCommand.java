@@ -57,16 +57,16 @@ public class ShootCommand extends Command {
     if(pivotSpeedController.atSetpoint()){
       RobotContainer.INTAKE.spinIntake(shootSpeedContller.calculate(RobotContainer.INTAKE.getSpeed()));
       if (shootSpeedContller.atSetpoint()){
+          hasReved = true;
           if (RobotContainer.OI.shoot()){
             RobotContainer.INTAKE.spinBelt(beltSpeed);
             startTime =  System.currentTimeMillis();
             shootTime = startTime + timeNeeded;
-            if (currentTime > shootTime){
-              RobotContainer.INTAKE.spinBelt(0);
-              RobotContainer.INTAKE.spinIntake(0);
-              hasShot = true;
-            }
-
+          }
+          if (currentTime > shootTime){
+            RobotContainer.INTAKE.spinBelt(0);
+            RobotContainer.INTAKE.spinIntake(0);
+            hasShot = true;
           }
       }
     }
