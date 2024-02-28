@@ -28,15 +28,17 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   
   //private final IntakeSubsystem INTAKE = new IntakeSubsystem();
-  private final SwerveChassisSubsystem CHASSIS = new SwerveChassisSubsystem();
-  public final static PivotSubsytems PIVOT = new PivotSubsytems();
-  public final static IntakeSubsystem INTAKE = new IntakeSubsystem();
-  private final ClimberSubsystem CLIMB = new ClimberSubsystem();
-  public static final OI OI = new OI();
-  // Create our inputs
-  //XboxController intakeController = new XboxController(0);
-  //XboxController moveController = new XboxController(1);
+  
+  //public final static PivotSubsytems PIVOT = new PivotSubsytems();
+  //public final static IntakeSubsystem INTAKE = new IntakeSubsystem();
+  //private final ClimberSubsystem CLIMB = new ClimberSubsystem();
+  
+
   OI oi = new OI();
+
+  public boolean commandHappening = false;
+  private final SwerveChassisSubsystem CHASSIS = new SwerveChassisSubsystem(oi);
+
 
   public RobotContainer() {
     // Configure the trigger bindings

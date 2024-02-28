@@ -22,7 +22,7 @@ public class TuckCommand extends Command {
     // double ki = 0d;
     // double kd = 0d;
     
-    addRequirements(RobotContainer.PIVOT);
+    //addRequirements(RobotContainer.PIVOT);
     // speedController = new PIDController(kp, ki, kd);
   }
 
@@ -38,12 +38,14 @@ public class TuckCommand extends Command {
 
   //TODO: Remove PID controller and just supply a constant speed to the pivot until it hits the hard stop
   public void execute() {
-    RobotContainer.PIVOT.movePivot(speed);
+
+
+    /*RobotContainer.PIVOT.movePivot(speed);
     if( RobotContainer.PIVOT.getVoltage() < maxVoltage){
       RobotContainer.PIVOT.resetEncoders();
       RobotContainer.PIVOT.movePivot(0);
       hasStoped = true;
-    }
+    }*/
   }
 
   // Called once the command ends or is interrupted.

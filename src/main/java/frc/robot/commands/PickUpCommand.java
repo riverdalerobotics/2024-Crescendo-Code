@@ -26,8 +26,8 @@ public class PickUpCommand extends Command {
   /** Creates a new AutoPickUpCommand. */
   public PickUpCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.PIVOT);
-    addRequirements(RobotContainer.INTAKE);
+    //addRequirements(RobotContainer.PIVOT);
+    //addRequirements(RobotContainer.INTAKE);
     speedController = new PIDController(kp, ki, kd);
   }
 
@@ -41,7 +41,7 @@ public class PickUpCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.PIVOT.movePivot(speedController.calculate(RobotContainer.PIVOT.getEncoders()));
+    /*RobotContainer.PIVOT.movePivot(speedController.calculate(RobotContainer.PIVOT.getEncoders()));
     if(speedController.atSetpoint()){
       RobotContainer.INTAKE.spinIntake(intakeSpeed);
       RobotContainer.INTAKE.spinBelt(beltSpeed);
@@ -51,7 +51,7 @@ public class PickUpCommand extends Command {
         hasPickedUp = true;
       }
     }
-    
+    */
   }
 
   // Called once the command ends or is interrupted.

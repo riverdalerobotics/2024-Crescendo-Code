@@ -56,7 +56,7 @@ public boolean drivePos(){
 }
 
 // Arm Up and down
-public boolean moveArmUp(){
+public double moveArmUp(){
     return intakeController.getLeftX();
 }
 //togle feild oriented

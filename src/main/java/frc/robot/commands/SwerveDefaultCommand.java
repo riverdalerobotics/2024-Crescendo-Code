@@ -19,6 +19,7 @@ public class SwerveDefaultCommand extends Command {
   private final Supplier<Boolean> toggleSlowModeFunction;
   private boolean isFieldOriented;
 
+
   /** Creates a new SwerveDefaultCommand. */
   public SwerveDefaultCommand(SwerveChassisSubsystem swerveSubsystem,
   Supplier<Double> xSpdFunction, Supplier<Double> ySpdFunction, Supplier<Double> turningSpdFunction,
@@ -31,6 +32,7 @@ public class SwerveDefaultCommand extends Command {
     this.toggleSlowModeFunction = toggleSlow;
     this.turningSpdFunction = turningSpdFunction;
     this.fieldOrientedFunction = fieldOrientedFunction;
+    swerveSubsystem.commandActive = true;
 
     addRequirements(swerveSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -62,7 +64,9 @@ public class SwerveDefaultCommand extends Command {
     
     //double speedIncrease = speedBoost.get();
     //double speedDecrease = speedDampener.get();
-        
+    SmartDashboard.putNumber("xSpeed", xSpeed);
+    SmartDashboard.putNumber("ySpeed", ySpeed);
+    SmartDashboard.putNumber("tSpeed", turnSpeed);
         
 
 

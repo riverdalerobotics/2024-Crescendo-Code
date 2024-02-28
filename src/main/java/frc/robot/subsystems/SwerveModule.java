@@ -6,7 +6,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
-import com.revrobotics.SparkPIDController;  
+import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -35,7 +36,7 @@ public class SwerveModule extends SubsystemBase {
   private SwerveModuleState mDesiredState = new SwerveModuleState(0.0, new Rotation2d());
 
 
-  public SwerveModule(int driveMotorID, int turnMotorID) {
+  public SwerveModule(int driveMotorID, int turnMotorID, boolean driveMotorInverted, boolean turnMotorInverted) {
     mDriveMotor = new CANSparkMax(driveMotorID, MotorType.kBrushless);
     mTurnMotor = new CANSparkMax(turnMotorID, MotorType.kBrushless);
     
@@ -44,9 +45,12 @@ public class SwerveModule extends SubsystemBase {
     mTurnMotor.restoreFactoryDefaults();
 
 
+    mDriveMotor.setInverted(driveMotorInverted);
+    mTurnMotor.setInverted(turnMotorInverted);
+    mDriveMotor.setSmartCurrentLimit(60);
+    mTurnMotor.setSmartCurrentLimit(20);
     mDriveEncoder = mDriveMotor.getEncoder();
     mTurnEncoder = mTurnMotor.getAbsoluteEncoder(Type.kDutyCycle);
-
     mTurnPIDController = mTurnMotor.getPIDController();
     mTurnPIDController.setFeedbackDevice(mTurnEncoder);
 

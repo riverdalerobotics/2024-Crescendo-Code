@@ -32,8 +32,8 @@ public class ShootCommand extends Command {
   /** Creates a new AutoPickUpCommand. */
   public ShootCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.PIVOT);
-    addRequirements(RobotContainer.INTAKE);
+    //addRequirements(RobotContainer.PIVOT);
+    //addRequirements(RobotContainer.INTAKE);
     pivotSpeedController = new PIDController(Pkp, Pki, Pkd);
     shootSpeedContller = new PIDController(Skp, Ski, Skd);
   }
@@ -51,7 +51,7 @@ public class ShootCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   //TODO: Pivot and and Shoot should both go at same time. When both at setpoint, belt note in
-  public void execute() {
+  public void execute() {/* 
     currentTime = System.currentTimeMillis();
     RobotContainer.PIVOT.movePivot(pivotSpeedController.calculate(RobotContainer.PIVOT.getEncoders()));
     if(pivotSpeedController.atSetpoint()){
@@ -70,7 +70,7 @@ public class ShootCommand extends Command {
           }
       }
     }
-    
+    */
   }
 
   // Called once the command ends or is interrupted.

@@ -17,7 +17,9 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.OI;
 import frc.robot.Constants.ChassisConstants;
+import frc.robot.Constants.ModuleConstants;
 import frc.robot.Constants.PathPlannerConstants;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -30,17 +32,26 @@ import com.pathplanner.lib.util.ReplanningConfig;
 
 public class SwerveChassisSubsystem extends SubsystemBase {
   
+  public boolean commandActive = false;
   private final SwerveModule frontLeft = new SwerveModule(ChassisConstants.kFrontLeftDriveMotorPort, 
-  ChassisConstants.kFrontLeftTurningMotorPort);
+  ChassisConstants.kFrontLeftTurningMotorPort, 
+  ChassisConstants.kFrontLeftDriveEncoderReversed, 
+  ChassisConstants.kFrontLeftTurningEncoderReversed);
 
   private final SwerveModule frontRight = new SwerveModule(ChassisConstants.kFrontRightDriveMotorPort,
-  ChassisConstants.kFrontRightTurningMotorPort);
+  ChassisConstants.kFrontRightTurningMotorPort,
+  ChassisConstants.kFrontRightDriveEncoderReversed,
+  ChassisConstants.kFrontRightTurningEncoderReversed);
 
   private final SwerveModule backLeft = new SwerveModule(ChassisConstants.kBackLeftDriveMotorPort,
-  ChassisConstants.kBackLeftTurningMotorPort);
+  ChassisConstants.kBackLeftTurningMotorPort,
+  ChassisConstants.kBackLeftDriveEncoderReversed,
+  ChassisConstants.kBackLeftTurningEncoderReversed);
 
   private final SwerveModule backRight = new SwerveModule(ChassisConstants.kBackRightDriveMotorPort,
-  ChassisConstants.kBackRightTurningMotorPort);
+  ChassisConstants.kBackRightTurningMotorPort,
+  ChassisConstants.kBackRightDriveEncoderReversed,
+  ChassisConstants.kBackRightTurningEncoderReversed);
 
   private final SlewRateLimiter xLimiter, yLimiter, turnLimiter;
   private double maxTeleopDriveSpeed;
@@ -50,16 +61,19 @@ public class SwerveChassisSubsystem extends SubsystemBase {
   private final AHRS gyro = new AHRS(SPI.Port.kMXP);
   private final SwerveDriveOdometry odometer = new SwerveDriveOdometry(ChassisConstants.kDriveKinematics,
   getRotation2d(), getSwerveModulePositions());
+  private final OI opInput;
 
 
   /** Creates a new SwerveChassisSubsystem. */
-  public SwerveChassisSubsystem() {
+  public SwerveChassisSubsystem(OI opInp) {
     this.maxTeleopDriveSpeed = ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond;
     this.maxTeleopAngularSpeed = ChassisConstants.kTeleDriveMaxAngularSpeedRadiansPerSecond;
     this.xLimiter = new SlewRateLimiter(ChassisConstants.kTeleDriveMaxAccelerationMetersPerSecond);
     this.yLimiter = new SlewRateLimiter(ChassisConstants.kTeleDriveMaxAccelerationMetersPerSecond);
     this.turnLimiter = new SlewRateLimiter(ChassisConstants.kTeleDriveMaxAngularAccelerationRadiansPerSecond);
     resetModules();
+
+    opInput = opInp;
 
 
 
@@ -324,9 +338,9 @@ public ChassisSpeeds getVelocities() {
     ySpeed = yLimiter.calculate(ySpeed) * maxTeleopDriveSpeed;
     turningSpeed = turnLimiter.calculate(turningSpeed) * maxTeleopAngularSpeed;
 
-    SmartDashboard.putNumber("xSpeed", xSpeed);
-    SmartDashboard.putNumber("ySpeed", ySpeed);
-    SmartDashboard.putNumber("tSpeed", turningSpeed);
+    //SmartDashboard.putNumber("xSpeed", xSpeed);
+    //SmartDashboard.putNumber("ySpeed", ySpeed);
+    //SmartDashboard.putNumber("tSpeed", turningSpeed);
 
 
     ChassisSpeeds chassisSpeeds;
@@ -391,6 +405,9 @@ public ChassisSpeeds getVelocities() {
     odometer.update(getRotation2d(), getSwerveModulePositions());
 
 
+    SmartDashboard.putNumber("XSpeed", opInput.xSpeed());
+    SmartDashboard.putNumber("YSpeed", opInput.ySpeed());
+    SmartDashboard.putNumber("TurnSpeed", opInput.rotate());
     SmartDashboard.putNumber("Robot Heading", getHeadingDegrees());
         SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
         SmartDashboard.putNumber("drive enc pos FR (m)", frontRight.getDrivePosition());
@@ -430,5 +447,6 @@ public ChassisSpeeds getVelocities() {
         SmartDashboard.putNumber("Pitch(radians)", getPitchRad());
         SmartDashboard.putNumber("Roll(radians)", getRollRad());
         SmartDashboard.putNumber("Yaw(radians)", getYawRad());
+        SmartDashboard.putBoolean("CommandActive", commandActive);
   }
 }

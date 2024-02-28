@@ -11,7 +11,7 @@ public class IntakeDefaultCommand extends Command {
   /** Creates a new IntakeDefaultCommand. */
   public IntakeDefaultCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.INTAKE);
+    //addRequirements(RobotContainer.INTAKE);
     
   }
   // Called when the command is initially scheduled.
@@ -22,8 +22,8 @@ public class IntakeDefaultCommand extends Command {
   @Override
   public void execute() {
     //TODO: this is for testing only
-    RobotContainer.INTAKE.spinIntake(RobotContainer.OI.shooterSpeed());
-    RobotContainer.INTAKE.spinBelt(RobotContainer.OI.beltSpeed());
+    //RobotContainer.INTAKE.spinIntake(RobotContainer.OI.manShoot());
+    //RobotContainer.INTAKE.spinBelt(RobotContainer.OI.beltSpeed());
   }
 
   // Called once the command ends or is interrupted.

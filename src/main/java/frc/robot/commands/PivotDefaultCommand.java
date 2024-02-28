@@ -11,7 +11,7 @@ public class PivotDefaultCommand extends Command {
   //This is something that may or may not work...
   public PivotDefaultCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.PIVOT)
+    //addRequirements(RobotContainer.PIVOT)
   }
 
   
