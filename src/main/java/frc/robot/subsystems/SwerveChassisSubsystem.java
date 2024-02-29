@@ -280,6 +280,8 @@ public ChassisSpeeds getVelocities() {
 
   
   /** 
+   * Resets the swerve odometer's perceived position on the field. This is useful for adjusting odometry based
+   * on apriltag distances when odometry becomes inaccurate 
    * @param newPose
    */
   public void resetOdometry(Pose2d newPose) {
