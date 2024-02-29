@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.OI;
 import frc.robot.RobotContainer;
 public class ShootCommand extends Command {
   PIDController pivotSpeedController;
@@ -28,14 +29,16 @@ public class ShootCommand extends Command {
   double timeNeeded = 0d;
   boolean hasReved = false;
   boolean hasShot = false;
+  OI oi;
 
   /** Creates a new AutoPickUpCommand. */
-  public ShootCommand() {
+  public ShootCommand(OI oi) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.PIVOT);
     addRequirements(RobotContainer.INTAKE);
     pivotSpeedController = new PIDController(Pkp, Pki, Pkd);
     shootSpeedContller = new PIDController(Skp, Ski, Skd);
+    this.oi = oi;
   }
 
   // Called when the command is initially scheduled.
@@ -57,7 +60,7 @@ public class ShootCommand extends Command {
     if(pivotSpeedController.atSetpoint()){
       RobotContainer.INTAKE.spinIntake(shootSpeedContller.calculate(RobotContainer.INTAKE.getSpeed()));
       if (shootSpeedContller.atSetpoint()){
-          if (RobotContainer.OI.shoot()){
+          if (oi.shoot()){
             RobotContainer.INTAKE.spinBelt(beltSpeed);
             startTime =  System.currentTimeMillis();
             shootTime = startTime + timeNeeded;

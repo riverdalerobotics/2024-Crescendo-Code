@@ -35,7 +35,7 @@ public final class Constants {
 
     //public static final double kDrivingMotorFreeSpeedRps = NeoMotorConstants.kFreeSpeedRpm / 60;
 
-    public static final double kWheelDiameterMeters = -1000;
+    public static final double kWheelDiameterMeters = 0.0762; 
 
     public static final double kWheelCircumferenceMeters = kWheelDiameterMeters * Math.PI;
 
@@ -58,13 +58,15 @@ public final class Constants {
     public static final double kDrivingEncoderVelocityFactor = kDrivingEncoderPositionFactor / 60; //meters per second
 
 
+
+    //TODO: Test all these conversion FACTORS
     //One full rotation of the turning motor is 2pi radians
     public static final double kTurningMotorGearReduction = (9424 / 203);
     public static final double kTurningEncoderPositionFactor = (2 * Math.PI) / (kTurningMotorGearReduction); // radians
     public static final double kTurningEncoderVelocityFactor = kTurningEncoderPositionFactor / 60.0; //radians per second
 
     public static final double kTurningEncoderPositionPIDMinInput = 0; // radians
-    public static final double kTurningEncoderPositionPIDMaxInput = kTurningEncoderPositionFactor;
+    public static final double kTurningEncoderPositionPIDMaxInput = 2 * Math.PI;
   
 
     // Invert the turning encoder, since the output shaft rotates in the opposite direction of
@@ -143,8 +145,8 @@ public final class Constants {
     
 
     
-    public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond * 0.2;
-    public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond * 0.2;
+    public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond * 0.5;
+    public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond * 0.5;
   
     //These are used for slew rate limiting
     public static final double kTeleDriveMaxAccelerationMetersPerSecond = 3;

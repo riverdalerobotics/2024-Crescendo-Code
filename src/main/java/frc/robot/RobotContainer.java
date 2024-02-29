@@ -6,7 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ShootCommand;
-import frc.robot.commands.SwerveDefaultCommand;
+import frc.robot.commands.defaultCommands.SwerveDefaultCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotSubsytems;
@@ -28,15 +28,13 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   
   //private final IntakeSubsystem INTAKE = new IntakeSubsystem();
-  private final SwerveChassisSubsystem CHASSIS = new SwerveChassisSubsystem();
+  OI oi = new OI();
+  private final SwerveChassisSubsystem CHASSIS = new SwerveChassisSubsystem(oi);
   public final static PivotSubsytems PIVOT = new PivotSubsytems();
   public final static IntakeSubsystem INTAKE = new IntakeSubsystem();
   private final ClimberSubsystem CLIMB = new ClimberSubsystem();
-  public static final OI OI = new OI();
-  // Create our inputs
-  //XboxController intakeController = new XboxController(0);
-  //XboxController moveController = new XboxController(1);
-  OI oi = new OI();
+
+  
 
   public RobotContainer() {
     // Configure the trigger bindings

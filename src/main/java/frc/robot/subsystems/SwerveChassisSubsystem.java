@@ -335,22 +335,21 @@ public ChassisSpeeds getVelocities() {
    */
   public void driveSwerve(double xSpeed, double ySpeed, double turningSpeed) {
 
+
+    //TODO: try getting rid of these
     //I dont think this actually does anything
     xSpeed = xLimiter.calculate(xSpeed) * maxTeleopDriveSpeed;
     ySpeed = yLimiter.calculate(ySpeed) * maxTeleopDriveSpeed;
     turningSpeed = turnLimiter.calculate(turningSpeed) * maxTeleopAngularSpeed;
 
-    //SmartDashboard.putNumber("xSpeed", xSpeed);
-    //SmartDashboard.putNumber("ySpeed", ySpeed);
-    //SmartDashboard.putNumber("tSpeed", turningSpeed);
-
-
+    SmartDashboard.putNumber("xSpeed", xSpeed);
+    SmartDashboard.putNumber("ySpeed", ySpeed);
+    SmartDashboard.putNumber("tSpeed", turningSpeed);
     ChassisSpeeds chassisSpeeds;
 
     if (isFieldOriented) {
       chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turningSpeed, this.getRotation2d());
     }
-
     else {
       chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turningSpeed);
     }
@@ -363,6 +362,7 @@ public ChassisSpeeds getVelocities() {
     SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond);
     this.setModuleStates(moduleStates);
   }
+
 
 
 
