@@ -19,25 +19,26 @@ public class PivotSubsytems extends SubsystemBase {
   TalonFX pivot1;
   TalonFX pivot2;
   static CANcoder pivotEncoder;
+  double rotationToAngle = 18152.7272727;
   
   public PivotSubsytems() {
     pivot1 = new TalonFX(10000);
     pivot2 = new TalonFX(10000);
-    //pivot1.setNeutralMode(NeutralModeValue.Brake);
-    pivotEncoder = new CANcoder(1000);
+    pivotEncoder = new CANcoder(10000);
     
     
   }
 
   public void movePivot(double speed){
     pivot1.set(speed);
+    pivot2.set(speed);
   }
   public void resetEncoders(){
     pivotEncoder.setPosition(0);
   }
   public double getEncoders(){
     StatusSignal<Double> pos = pivotEncoder.getPosition();
-    double encoderPos = pos.getValue() * 0.14007201;
+    double encoderPos = pos.getValue() * rotationToAngle;
     return encoderPos;
   }
   public double getVoltage(){

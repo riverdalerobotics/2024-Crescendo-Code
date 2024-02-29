@@ -83,7 +83,7 @@ public final class Constants {
 
 
 
-    public static final IdleMode kDrivingMotorIdleMode = IdleMode.kBrake;
+    public static final IdleMode kDrivingMotorIdleMode = IdleMode.kCoast;
     public static final IdleMode kTurningMotorIdleMode = IdleMode.kBrake;
 
   
@@ -111,13 +111,13 @@ public final class Constants {
 
   
     public static final int kFrontLeftDriveMotorPort = 1;
-    public static final int kBackLeftDriveMotorPort = 3;
-    public static final int kFrontRightDriveMotorPort = 5;
-    public static final int kBackRightDriveMotorPort = -7;
+    public static final int kFrontRightDriveMotorPort = 3;
+    public static final int kBackLeftDriveMotorPort = 5;
+    public static final int kBackRightDriveMotorPort = 7;
 
     public static final int kFrontLeftTurningMotorPort = 2;
-    public static final int kBackLeftTurningMotorPort = 4;
-    public static final int kFrontRightTurningMotorPort = 6;
+    public static final int kFrontRightTurningMotorPort = 4;
+    public static final int kBackLeftTurningMotorPort = 6;
     public static final int kBackRightTurningMotorPort = 8;
 
 
@@ -130,8 +130,8 @@ public final class Constants {
 
     public static final boolean kFrontLeftDriveEncoderReversed = false;
     public static final boolean kBackLeftDriveEncoderReversed = false;
-    public static final boolean kFrontRightDriveEncoderReversed = false;
-    public static final boolean kBackRightDriveEncoderReversed = false;
+    public static final boolean kFrontRightDriveEncoderReversed = true;
+    public static final boolean kBackRightDriveEncoderReversed = true;
 
 
 

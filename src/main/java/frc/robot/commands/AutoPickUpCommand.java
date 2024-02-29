@@ -121,6 +121,7 @@ public class AutoPickUpCommand extends Command {
   public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
+  // isFinished should be able to return true right?
   @Override
   public boolean isFinished() {
     return false;

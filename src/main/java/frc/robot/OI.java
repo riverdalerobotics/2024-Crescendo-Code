@@ -14,7 +14,7 @@ public class OI {
  * @return double
  */
 //Movement controls
-
+//Swerve:
 //x is fwd backward
 public double xSpeed(){
     return moveController.getLeftY();
@@ -28,7 +28,7 @@ public double ySpeed(){
 public double rotate(){
     return moveController.getRightX();
 }
-
+//other things
 //Go to pickup position
 public boolean pickUpPos(){
     return intakeController.getLeftBumper();
@@ -41,9 +41,7 @@ public boolean shootPos(){
 public double beltSpeed(){
     return intakeController.getRightY();
 }
-public double shooterSpeed(){
-    return intakeController.getRightTriggerAxis();
-}
+
 //Shoot
 //TODO: make this a boton!! it is now in "testing mode"
 public double manShoot(){
@@ -58,8 +56,8 @@ public boolean drivePos(){
 }
 
 // Arm Up and down
-public double moveArm(){
-    return intakeController.getLeftY();
+public double moveArmUp(){
+    return intakeController.getLeftX();
 }
 //togle feild oriented
 public boolean toggleFieldOriented(){
