@@ -63,7 +63,7 @@ public final class Constants {
     //TODO: Test all these conversion FACTORS
     //One full rotation of the turning motor is 2pi radians
     public static final double kTurningMotorGearReduction = (9424 / 203);
-    public static final double kTurningEncoderPositionFactor = (2 * Math.PI) / (kTurningMotorGearReduction); // radians
+    public static final double kTurningEncoderPositionFactor = (2 * Math.PI);
     public static final double kTurningEncoderVelocityFactor = kTurningEncoderPositionFactor / 60.0; //radians per second
 
     public static final double kTurningEncoderPositionPIDMinInput = 0; // radians
@@ -76,7 +76,7 @@ public final class Constants {
 
 
     //PID values for turning
-    public static final double kTurningP = 1;
+    public static final double kTurningP = 0.005;
     public static final double kTurningI = 0;
     public static final double kTurningD = 0;
     public static final double kTurningFF = 0;
@@ -140,8 +140,8 @@ public final class Constants {
 
     //These are the absolute max limitations of the robot
     //TODO: Test both of these 
-    public static final double kPhysicalMaxSpeedMetersPerSecond = 14.9;
-    public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 9.0598;
+    public static final double kPhysicalMaxSpeedMetersPerSecond = 5;
+    public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 5;
     
     
 

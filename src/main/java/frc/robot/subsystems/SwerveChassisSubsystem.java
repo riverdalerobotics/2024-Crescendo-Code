@@ -73,6 +73,7 @@ public class SwerveChassisSubsystem extends SubsystemBase {
     this.yLimiter = new SlewRateLimiter(ChassisConstants.kTeleDriveMaxAccelerationMetersPerSecond);
     this.turnLimiter = new SlewRateLimiter(ChassisConstants.kTeleDriveMaxAngularAccelerationRadiansPerSecond);
     resetModules();
+    this.isFieldOriented = false;
 
     opInput = opInp;
 
@@ -339,10 +340,12 @@ public ChassisSpeeds getVelocities() {
 
     //TODO: try getting rid of these
     //I dont think this actually does anything
-    xSpeed = xLimiter.calculate(xSpeed) * maxTeleopDriveSpeed;
-    ySpeed = yLimiter.calculate(ySpeed) * maxTeleopDriveSpeed;
-    turningSpeed = turnLimiter.calculate(turningSpeed) * maxTeleopAngularSpeed;
-
+    //xSpeed = xLimiter.calculate(xSpeed) * maxTeleopDriveSpeed;
+    //ySpeed = yLimiter.calculate(ySpeed) * maxTeleopDriveSpeed;
+    //turningSpeed = turnLimiter.calculate(turningSpeed) * maxTeleopAngularSpeed;
+    xSpeed *= maxTeleopDriveSpeed;
+    ySpeed *= maxTeleopDriveSpeed;
+    turningSpeed *= maxTeleopAngularSpeed;
   
     ChassisSpeeds chassisSpeeds;
 

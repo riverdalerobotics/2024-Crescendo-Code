@@ -55,7 +55,7 @@ public class SwerveDefaultCommand extends Command {
 
     if (fieldOrientedFunction.get()) {
       swerveSubsystem.toggleFieldOriented();
-
+    }
 
     double xSpeed = xSpdFunction.get();
     double ySpeed = ySpdFunction.get();
@@ -71,7 +71,7 @@ public class SwerveDefaultCommand extends Command {
 
 
     swerveSubsystem.driveSwerve(xSpeed, ySpeed, turnSpeed);
-  }
+  
 }
 
 
