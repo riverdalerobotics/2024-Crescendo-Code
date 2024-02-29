@@ -4,11 +4,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.Constants.OperatorConstants;
 
 /** Add your docs here. */
 public class OI {
-    XboxController moveController = new XboxController(0);
-    XboxController intakeController = new XboxController(1);
+    XboxController moveController = new XboxController(OperatorConstants.kDriverControllerPort);
+    XboxController intakeController = new XboxController(OperatorConstants.kOperatorControllerPort);
 
 /** 
  * @return double

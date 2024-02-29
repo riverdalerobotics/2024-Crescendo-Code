@@ -166,12 +166,16 @@ public class SwerveModule extends SubsystemBase {
     }
 
     SwerveModuleState optimizedState = SwerveModuleState.optimize(desiredState, getModulePosition().angle);
-    SmartDashboard.putNumber("speed (mps)", optimizedState.speedMetersPerSecond);
+    SmartDashboard.putNumber("speed (m/s)", optimizedState.speedMetersPerSecond);
 
     mDriveMotor.set(optimizedState.speedMetersPerSecond / ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond);
     mTurnPIDController.setReference(optimizedState.angle.getRadians(), CANSparkMax.ControlType.kPosition);
 
     mDesiredState = optimizedState;
+  }
+
+  public SwerveModuleState getDesiredState() {
+    return mDesiredState;
   }
 
   public void stop() {
