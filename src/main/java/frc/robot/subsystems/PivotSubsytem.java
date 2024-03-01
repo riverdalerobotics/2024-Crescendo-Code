@@ -14,14 +14,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 
-public class PivotSubsytems extends SubsystemBase {
+public class PivotSubsytem extends SubsystemBase {
   /** Creates a new pivotSubsytems. */
   TalonFX pivot1;
   TalonFX pivot2;
   static CANcoder pivotEncoder;
   double rotationToAngle = 18152.7272727;
   
-  public PivotSubsytems() {
+  public PivotSubsytem() {
     pivot1 = new TalonFX(10000);
     pivot2 = new TalonFX(10000);
     pivotEncoder = new CANcoder(10000);
