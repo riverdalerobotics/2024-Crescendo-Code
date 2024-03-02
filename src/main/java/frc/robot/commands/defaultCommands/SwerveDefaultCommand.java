@@ -40,7 +40,9 @@ public class SwerveDefaultCommand extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    swerveSubsystem.straightenModules();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -55,9 +57,9 @@ public class SwerveDefaultCommand extends Command {
       swerveSubsystem.toggleFieldOriented();
     }
 
-    double xSpeed = xSpdFunction.get();
-    double ySpeed = ySpdFunction.get();
-    double turnSpeed = turningSpdFunction.get();
+    double xSpeed = xSpdFunction.get()*0.5;
+    double ySpeed = ySpdFunction.get()*0.5;
+    double turnSpeed = turningSpdFunction.get()*0.0001;
 
     
     //double speedIncrease = speedBoost.get();

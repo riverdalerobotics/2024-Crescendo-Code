@@ -29,13 +29,13 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   
   //private final IntakeSubsystem INTAKE = new IntakeSubsystem();
-  OI oi = new OI();
-  public static final Limelight NOTE_LIMELIGHT = new Limelight("limelight-note");
-  public static final Limelight TAG_LIMELIGHT = new Limelight("limelight-tags"); 
-  private final SwerveChassisSubsystem CHASSIS = new SwerveChassisSubsystem(oi);
-  public static final PivotSubsystem PIVOT = new PivotSubsystem();
-  public static final IntakeSubsystem INTAKE = new IntakeSubsystem();
-  public static final ClimberSubsystem CLIMB = new ClimberSubsystem();
+  public final OI oi = new OI();
+  public final Limelight NOTE_LIMELIGHT = new Limelight("limelight-note");
+  public final Limelight TAG_LIMELIGHT = new Limelight("limelight-tags"); 
+  public final SwerveChassisSubsystem CHASSIS = new SwerveChassisSubsystem(oi);
+  public final PivotSubsystem PIVOT = new PivotSubsystem();
+  public final IntakeSubsystem INTAKE = new IntakeSubsystem();
+  public final ClimberSubsystem CLIMB = new ClimberSubsystem();
 
   
 

@@ -7,13 +7,14 @@ package frc.robot.commands.defaultCommands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.OI;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.ClimberSubsystem;
 
 public class ClimberDefaultCommand extends Command {
   /** Creates a new ClimberDefaultCommand. */
   OI operatorInput;
-  public ClimberDefaultCommand(OI opInput) {
+  public ClimberDefaultCommand(OI opInput, ClimberSubsystem climb) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.CLIMB);
+    addRequirements(climb);
     this.operatorInput = opInput;
   }
 

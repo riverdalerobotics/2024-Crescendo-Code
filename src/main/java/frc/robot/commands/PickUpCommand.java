@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.PivotConstants;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.PivotSubsystem;
 public class PickUpCommand extends Command {
   PIDController pivotController;
   double kp = PivotConstants.PIDConstants.kPivotP;
@@ -20,13 +22,16 @@ public class PickUpCommand extends Command {
   double beltSpeed = IntakeConstants.kIntakeBeltMotorSpeed;
   double maxVoltage = 0d;
   boolean hasPickedUp = false;
+  IntakeSubsystem intake;
+  PivotSubsystem pivot;
   
 
   /** Creates a new AutoPickUpCommand. */
-  public PickUpCommand() {
+  public PickUpCommand(IntakeSubsystem intake, PivotSubsystem pivot) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.PIVOT);
-    addRequirements(RobotContainer.INTAKE);
+    this.pivot = pivot;
+    this.intake = intake;
+    addRequirements(pivot, intake);
     pivotController = new PIDController(kp, ki, kd);
   }
 
@@ -40,12 +45,12 @@ public class PickUpCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.PIVOT.movePivot(pivotController.calculate(RobotContainer.PIVOT.getEncoders()));
+    pivot.movePivot(pivotController.calculate(pivot.getEncoders()));
     if(pivotController.atSetpoint()){
-      RobotContainer.INTAKE.spinIntake(intakeSpeed);
-      RobotContainer.INTAKE.spinBelt(beltSpeed);
-      if (RobotContainer.INTAKE.intakeVoltage() < maxVoltage){
-        RobotContainer.INTAKE.spinIntake(0);
+      intake.spinIntake(intakeSpeed);
+      intake.spinBelt(beltSpeed);
+      if (intake.intakeVoltage() < maxVoltage){
+        intake.spinIntake(0);
         hasPickedUp = true;
       }
     }

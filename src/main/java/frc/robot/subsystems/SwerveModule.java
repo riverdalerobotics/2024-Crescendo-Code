@@ -177,6 +177,11 @@ public class SwerveModule extends SubsystemBase {
     return mDesiredState;
   }
 
+
+  public double getTurnMotorVoltage() {
+    return mTurnMotor.getBusVoltage();
+  }
+
   public void stop() {
     mDriveMotor.set(0);
     mTurnMotor.set(0);
