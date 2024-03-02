@@ -5,6 +5,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -18,6 +20,14 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+  
+  private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  private String m_autoSelected;
+  private static final String shootOnly = "Shoot and then do Nothing";
+  private static final String podiumSubwooferTwoNotes = "Podium Side Subwoofer Shoot And Retrieve Podium Note and Shoot";
+  private static final String ampSubwooferTwoNotes = "Amp Side Subwoofer Shoot and Retrieve Amp Note and Shoot";
+  private static final String midSubWooferFourNotes = "Middle Side Subwoofer Shoot and Retrieve and Shoot 3 close notest";
+  private static final String doNothingLol = "DO NOTHING";
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -27,8 +37,20 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
-  }
+    m_robotContainer = new RobotContainer(); 
+
+    m_chooser.setDefaultOption("SHOOT ONLY", shootOnly);
+    m_chooser.addOption("1+1 PODIUM Side Subwoofer", podiumSubwooferTwoNotes);
+    m_chooser.addOption("1+1 AMP side Subwoofer", ampSubwooferTwoNotes);
+    m_chooser.addOption("1+3 MID side Subwoofer", midSubWooferFourNotes);
+    m_chooser.addOption("DO NOTHING", doNothingLol);
+
+  
+    
+    SmartDashboard.putData("Auto choices", m_chooser);
+   
+    }
+  
 
   /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
@@ -57,6 +79,43 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 
+     m_autoSelected = m_chooser.getSelected();
+      System.out.println("Auto selected: " + m_autoSelected);
+      /* */
+      switch (m_autoSelected) {
+        case shootOnly:
+          m_autonomousCommand = m_robotContainer.getShootOnlyAuto();
+          break;
+  
+        case podiumSubwooferTwoNotes:
+          m_autonomousCommand = m_robotContainer.getPodiumSubwooferTwoNotesAuto();
+          break;
+  
+        case ampSubwooferTwoNotes:
+          m_autonomousCommand = m_robotContainer.getAmpSubwooferTwoNotesAuto();
+          break;  
+          
+        case midSubWooferFourNotes:
+          m_autonomousCommand = m_robotContainer.getMidSubwooferFourNotesAuto();
+          break;
+  
+        case doNothingLol:
+          m_autonomousCommand = m_robotContainer.getDoNothingAuto();
+          break;
+
+        //REDUNDANT, I think we can delete maybe 
+        default:
+          m_autonomousCommand = m_robotContainer.getShootOnlyAuto();
+          break;
+  
+      }
+      
+      //Debug info
+      // schedule the autonomous command (example)
+      if (m_autonomousCommand != null) {
+        System.out.println("Successfully scheduled");
+        m_autonomousCommand.schedule();
+      }
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
