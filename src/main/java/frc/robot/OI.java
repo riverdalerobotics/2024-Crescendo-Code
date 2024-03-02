@@ -56,11 +56,11 @@ public boolean toggleFieldOriented(){
 
 /** 
  * Movement controls ||
- * Used to toggle slow mode on and off on the robot
+ * Used to reset robot gyro
  * returns true when the movement controller's start button is pressed
  * @return boolean
  */
-public boolean toggleSlowMode() {
+public boolean resetGyro() {
     return moveController.getStartButtonPressed();
 }
 
@@ -162,12 +162,5 @@ public boolean stopArm(){
     return intakeController.getStartButton();
 }
 
-
-/** 
- * @return boolean
- */
-public boolean resetGyro(){
-    return intakeController.getBackButton();
-}
 
 }

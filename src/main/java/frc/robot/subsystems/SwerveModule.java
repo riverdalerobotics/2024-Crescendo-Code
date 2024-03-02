@@ -83,6 +83,8 @@ public class SwerveModule extends SubsystemBase {
     mTurnPIDController.setFF(ModuleConstants.kTurningFF);
     mTurnPIDController.setOutputRange(ModuleConstants.kTurningMinOutput,
         ModuleConstants.kTurningMaxOutput);
+    mTurnPIDController.setSmartMotionAllowedClosedLoopError(ModuleConstants.kTurningTolerance, 0);
+
 
 
     mDriveMotor.setIdleMode(ModuleConstants.kDrivingMotorIdleMode);
@@ -160,7 +162,7 @@ public class SwerveModule extends SubsystemBase {
 
 
   public void setDesiredState(SwerveModuleState desiredState) {
-    if (Math.abs(desiredState.speedMetersPerSecond) < 0.001) {
+    if (Math.abs(desiredState.speedMetersPerSecond) < 0.005) {
       stop();
     }
 

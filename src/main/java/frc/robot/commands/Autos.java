@@ -27,6 +27,9 @@ public class Autos {
     public Command shootOnly(){
         return new PathPlannerAuto(null);
     }
+    public Command test(){
+        return new PathPlannerAuto("1st test");
+    }
 
 
 }

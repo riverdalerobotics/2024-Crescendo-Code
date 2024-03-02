@@ -8,28 +8,21 @@ import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.OI;
 import frc.robot.subsystems.SwerveChassisSubsystem;
 
 public class SwerveDefaultCommand extends Command {
 
   private final SwerveChassisSubsystem swerveSubsystem;
-  private final Supplier<Double> xSpdFunction, ySpdFunction, turningSpdFunction;
-  private final Supplier<Boolean> fieldOrientedFunction;
-
-  private final Supplier<Boolean> toggleSlowModeFunction;
-
+  private final OI oi;
+  
 
   /** Creates a new SwerveDefaultCommand. */
   public SwerveDefaultCommand(SwerveChassisSubsystem swerveSubsystem,
-  Supplier<Double> xSpdFunction, Supplier<Double> ySpdFunction, Supplier<Double> turningSpdFunction,
-  Supplier<Boolean> fieldOrientedFunction, Supplier<Boolean> toggleSlow) {
+  OI opInput) {
     this.swerveSubsystem = swerveSubsystem;
     
-    this.xSpdFunction = xSpdFunction;
-    this.ySpdFunction = ySpdFunction;
-    this.toggleSlowModeFunction = toggleSlow;
-    this.turningSpdFunction = turningSpdFunction;
-    this.fieldOrientedFunction = fieldOrientedFunction;
+    this.oi = opInput;
     swerveSubsystem.commandActive = true;
 
     addRequirements(swerveSubsystem);
@@ -49,17 +42,18 @@ public class SwerveDefaultCommand extends Command {
   public void execute() {
     SmartDashboard.putBoolean("Field Oriented Mode?", swerveSubsystem.getIsFieldOriented());
 
-    if (toggleSlowModeFunction.get()) {
-      //Toggle slow
-    }
 
-    if (fieldOrientedFunction.get()) {
+    if (oi.toggleFieldOriented()) {
       swerveSubsystem.toggleFieldOriented();
     }
 
-    double xSpeed = xSpdFunction.get()*0.5;
-    double ySpeed = ySpdFunction.get()*0.5;
-    double turnSpeed = turningSpdFunction.get()*0.1;
+    if (oi.resetGyro()) {
+      swerveSubsystem.zeroHeading();
+    }
+
+    double xSpeed = oi.xSpeed()*0.5;
+    double ySpeed = oi.ySpeed()*0.5;
+    double turnSpeed = oi.rotate()*0.1;
 
     
     //double speedIncrease = speedBoost.get();

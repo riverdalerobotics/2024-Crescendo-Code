@@ -55,11 +55,7 @@ public class RobotContainer {
     //Field reset toggle boost damp
     CHASSIS.setDefaultCommand(new SwerveDefaultCommand (
       CHASSIS,
-      () -> oi.xSpeed(),
-      () -> oi.ySpeed(),
-      () -> oi.rotate(),
-      () -> oi.toggleFieldOriented(),
-      () -> oi.toggleSlowMode()
+      oi
     ));
 
     INTAKE.setDefaultCommand(new IntakeDefaultCommand(
@@ -92,6 +88,9 @@ public class RobotContainer {
     }
     public Command getShootOnlyAuto(){
         return autoFactory.shootOnly();
+    }
+    public Command getTestAuto(){
+        return autoFactory.test();
     }
 
 

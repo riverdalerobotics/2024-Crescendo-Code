@@ -370,6 +370,9 @@ public ChassisSpeeds getVelocities() {
     //This resets the speed ratios when a velocity goes to high above the specified max
     //TOOD: Switch to physical max speed instead of set max if robot is too slow
     SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond);
+    SmartDashboard.putNumber("FL desired angle", moduleStates[0].angle.getDegrees());
+    SmartDashboard.putNumber("BL desired angle", moduleStates[2].angle.getDegrees());
+
     this.setModuleStates(moduleStates);
   }
 
@@ -397,7 +400,7 @@ public ChassisSpeeds getVelocities() {
   public void setModuleStates(SwerveModuleState[] desiredStates) {
     frontLeft.setDesiredState(desiredStates[0]);
     frontRight.setDesiredState(desiredStates[1]);
-    backLeft.setDesiredState(desiredStates[0]);
+    backLeft.setDesiredState(desiredStates[2]);
     backRight.setDesiredState(desiredStates[3]);
   }
 
