@@ -10,21 +10,25 @@ import com.ctre.phoenix6.hardware.TalonFX;
 
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.PivotConstants;
 
 
 
 
-public class PivotSubsytem extends SubsystemBase {
+public class PivotSubsystem extends SubsystemBase {
   /** Creates a new pivotSubsytems. */
   TalonFX pivot1;
   TalonFX pivot2;
   static CANcoder pivotEncoder;
-  double rotationToAngle = 18152.7272727;
+
+  //TODO Check if this works
+  double rotationToAngle = PivotConstants.kPivotEncoderRotationToDegrees;
   
-  public PivotSubsytem() {
-    pivot1 = new TalonFX(10000);
-    pivot2 = new TalonFX(10000);
-    pivotEncoder = new CANcoder(10000);
+  public PivotSubsystem() {
+    pivot1 = new TalonFX(PivotConstants.kPivotMotor1ID);
+    pivot2 = new TalonFX(PivotConstants.kPivotMotor2ID);
+    pivotEncoder = new CANcoder(PivotConstants.kPivotEncoderID);
+
     
     
   }
@@ -33,9 +37,15 @@ public class PivotSubsytem extends SubsystemBase {
     pivot1.set(speed);
     pivot2.set(speed);
   }
-  public void resetEncoders(){
+  public void resetPivotEncoder(){
     pivotEncoder.setPosition(0);
   }
+
+  
+  /** 
+   * Returns the encoder value of the pivot in degrees
+   * @return double: angle of the pivot in degrees
+   */
   public double getEncoders(){
     StatusSignal<Double> pos = pivotEncoder.getPosition();
     double encoderPos = pos.getValue() * rotationToAngle;

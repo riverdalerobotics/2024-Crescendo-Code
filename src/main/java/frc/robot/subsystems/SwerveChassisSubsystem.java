@@ -12,7 +12,6 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,7 +19,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.OI;
 import frc.robot.Constants.ChassisConstants;
-import frc.robot.Constants.ModuleConstants;
 import frc.robot.Constants.PathPlannerConstants;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -90,7 +88,7 @@ public class SwerveChassisSubsystem extends SubsystemBase {
   //Pathplanner Stuff
   AutoBuilder.configureHolonomic( //Configures pathfinder with basic constraints and functionality of robot
     this::getPose, //Pose2d, datatype
-    this::setPos, //Pose2d, datatype
+    this::setPose, //Pose2d, datatype
     this::getVelocities, 
     this::driveSwerve,
     new HolonomicPathFollowerConfig( //Object with the configurations for our drive train, particularly max speeds, PID Constants, and radius of our base
@@ -203,16 +201,6 @@ public Command getPathfindingCommand(String pathName){
   return AutoBuilder.followPath(path);
 }
 
-
-
-/**
- * Set pos to the new Pose2d
- * 
- * @param newPos: The new pos odometry should "be at"
- */
-public void setPos(Pose2d newPos) {
-}
-
 /**
  * @return velocities: Returns the velocities with the object ChassisSpeeds; all
  *         velocities are in meters/second
@@ -229,6 +217,11 @@ public ChassisSpeeds getVelocities() {
 
   public void disableFieldOriented() {
     isFieldOriented = false;
+  }
+
+
+  public boolean getIsFieldOriented() {
+    return isFieldOriented;
   }
 
   public void zeroHeading() {
@@ -300,7 +293,7 @@ public ChassisSpeeds getVelocities() {
    * on apriltag distances when odometry becomes inaccurate 
    * @param newPose
    */
-  public void resetOdometry(Pose2d newPose) {
+  public void setPose(Pose2d newPose) {
     odometer.resetPosition(getRotation2d(), getSwerveModulePositions(), newPose);
   }
 

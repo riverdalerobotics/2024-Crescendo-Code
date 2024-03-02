@@ -6,10 +6,11 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ShootCommand;
+import frc.robot.commands.defaultCommands.IntakeDefaultCommand;
 import frc.robot.commands.defaultCommands.SwerveDefaultCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.PivotSubsytem;
+import frc.robot.subsystems.PivotSubsystem;
 import frc.robot.subsystems.SwerveChassisSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -29,10 +30,12 @@ public class RobotContainer {
   
   //private final IntakeSubsystem INTAKE = new IntakeSubsystem();
   OI oi = new OI();
+  public static final Limelight NOTE_LIMELIGHT = new Limelight("limelight-note");
+  public static final Limelight TAG_LIMELIGHT = new Limelight("limelight-tags"); 
   private final SwerveChassisSubsystem CHASSIS = new SwerveChassisSubsystem(oi);
-  public final static PivotSubsytem PIVOT = new PivotSubsytem();
-  public final static IntakeSubsystem INTAKE = new IntakeSubsystem();
-  public final static ClimberSubsystem CLIMB = new ClimberSubsystem();
+  public static final PivotSubsystem PIVOT = new PivotSubsystem();
+  public static final IntakeSubsystem INTAKE = new IntakeSubsystem();
+  public static final ClimberSubsystem CLIMB = new ClimberSubsystem();
 
   
 
@@ -51,10 +54,16 @@ public class RobotContainer {
       () -> oi.toggleFieldOriented(),
       () -> oi.toggleSlowMode()
     ));
+
+    INTAKE.setDefaultCommand(new IntakeDefaultCommand(
+      oi, 
+      INTAKE));
   }
 
   //Put triggers here that change the active commands
   private void configureBindings() {
+
+    
       
       }
   

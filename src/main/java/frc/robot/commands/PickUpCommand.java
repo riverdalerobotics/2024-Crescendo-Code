@@ -6,10 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
-import edu.wpi.first.math.controller.PIDController;
-import java.util.concurrent.TimeUnit;
 public class PickUpCommand extends Command {
   PIDController speedController;
   double kp = 0d;
@@ -36,7 +33,6 @@ public class PickUpCommand extends Command {
   public void initialize() {
     speedController.setSetpoint(setpoint);
     speedController.setTolerance(tolerance);
-    double encoderPos = RobotContainer.PIVOT.getEncoders();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

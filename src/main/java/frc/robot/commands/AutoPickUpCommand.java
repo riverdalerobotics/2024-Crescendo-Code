@@ -8,6 +8,7 @@ import java.util.function.Supplier;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Limelight;
 import frc.robot.Constants.CommandConstants;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.SwerveChassisSubsystem;
@@ -18,22 +19,23 @@ import frc.robot.subsystems.SwerveChassisSubsystem;
 
 public class AutoPickUpCommand extends Command {
   /** Creates a new AutoAlignWithNoteSwerve. */
-  PIDController yController;
-  PIDController turningController;
-  PIDController xController;
+  private PIDController yController;
+  private PIDController turningController;
+  private PIDController xController;
 
 
   //Limelight values conveying if a note is detected & if it is, the distance values from it to the robot
-  boolean noteIsDetected;
-  double noteYOffset;
-  double noteThetaOffset;
-  double noteXOffset;
+  private boolean noteIsDetected;
+  private double noteYOffset;
+  private double noteThetaOffset;
+  private double noteXOffset;
 
   //When all PIDControllers have reached their setpoints, begin the pickup sequence by moving forward slightly and powering intake
-  boolean beginPickupSequence;
+  private boolean beginPickupSequence;
 
-  SwerveChassisSubsystem swerveSubsystem;
-  IntakeSubsystem intakeSubsystem;
+  private final SwerveChassisSubsystem swerveSubsystem;
+  private final IntakeSubsystem intakeSubsystem;
+  private final Limelight noteLimelight;
 
   private final Supplier<Double> xSpdFunction, ySpdFunction, turningSpdFunction;
   private final Supplier<Boolean> fieldOrientedFunction;
@@ -42,17 +44,27 @@ public class AutoPickUpCommand extends Command {
 
 
 
-  public AutoPickUpCommand(SwerveChassisSubsystem swerveSubsystem, IntakeSubsystem intakeSubsystem,
-  Supplier<Double> xSpdFunction, Supplier<Double> ySpdFunction, Supplier<Double> turningSpdFunction,
-  Supplier<Boolean> fieldOrientedFunction, Supplier<Boolean> toggleSlow) {
+  public AutoPickUpCommand(
+    SwerveChassisSubsystem swerveSubsystem, 
+    IntakeSubsystem intakeSubsystem,
+    Supplier<Double> xSpdFunction, 
+    Supplier<Double> ySpdFunction, 
+    Supplier<Double> turningSpdFunction,
+    Supplier<Boolean> fieldOrientedFunction, 
+    Supplier<Boolean> toggleSlow,
+    Limelight noteLimelight) {
+
     yController = new PIDController(CommandConstants.kYNoteAlignP, CommandConstants.kYNoteAlignI, CommandConstants.kYNoteAlignD);
-    yController.setSetpoint(0);
+    yController.setSetpoint(CommandConstants.kYNoteAlignSetpoint);
+    yController.setTolerance(CommandConstants.kYNoteAlignTolerance);
 
     turningController = new PIDController(CommandConstants.kTurningNoteAlignP, CommandConstants.kTurningNoteAlignI, CommandConstants.kTurningNoteAlignD);
-    turningController.setSetpoint(0);
+    turningController.setSetpoint(CommandConstants.kTurningNoteAlignSetpoint);
+    turningController.setTolerance(CommandConstants.kTurningNoteAlignTolerance);
 
     xController = new PIDController(CommandConstants.kXNoteAlignP, CommandConstants.kXNoteAlignI, CommandConstants.kXNoteAlignD);
-    xController.setSetpoint(0.5);
+    xController.setSetpoint(CommandConstants.kXNoteAlignSetpoint);
+    xController.setTolerance(CommandConstants.kXNoteAlignTolerance);
 
 
     this.xSpdFunction = xSpdFunction;
@@ -63,14 +75,17 @@ public class AutoPickUpCommand extends Command {
 
     this.swerveSubsystem = swerveSubsystem;
     this.intakeSubsystem = intakeSubsystem;
-    addRequirements(swerveSubsystem);
+    this.noteLimelight = noteLimelight;
+    addRequirements(swerveSubsystem, intakeSubsystem);
   /** Creates a new AutoPickUpCommand. */
   }
 
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    beginPickupSequence = false;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -78,6 +93,7 @@ public class AutoPickUpCommand extends Command {
     double xSpd = xSpdFunction.get();
     double ySpd = ySpdFunction.get();
     double turningSpd = turningSpdFunction.get();
+    noteIsDetected = noteLimelight.targetDetected();
 
 
     if (beginPickupSequence) {
@@ -86,7 +102,8 @@ public class AutoPickUpCommand extends Command {
       //Could also do some PID jank
     }
     else {
-      if (fieldOrientedFunction.get()) {
+
+      if (fieldOrientedFunction.get() && noteIsDetected == false) {
         swerveSubsystem.toggleFieldOriented();
       }
       
@@ -96,6 +113,11 @@ public class AutoPickUpCommand extends Command {
 
       //If a note is detected, turning will be disabled and y movement will be controlled by PID
       if (noteIsDetected) {
+
+        //y and x being swapped is intentional. Robot x and y is opposite of limelight x and y
+        noteYOffset = noteLimelight.getXDisplacementFromNote();
+        noteThetaOffset = noteLimelight.getTX();
+        noteXOffset = noteLimelight.getYDisplacementFromNote();
         //Field oriented mucks up this command so we disable it when a note is detected
         swerveSubsystem.disableFieldOriented();
         double PIDYSpeed = yController.calculate(noteYOffset);
@@ -112,6 +134,7 @@ public class AutoPickUpCommand extends Command {
       //If no note is detected, drive like normal
       else {
         swerveSubsystem.driveSwerve(xSpd, ySpd, turningSpd);
+        
       }
     }
   }
