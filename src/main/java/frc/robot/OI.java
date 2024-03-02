@@ -65,6 +65,11 @@ public boolean resetGyro() {
 }
 
 
+public boolean engageNoteAlignAssist() {
+    return moveController.getXButton();
+}
+
+
 
 
 

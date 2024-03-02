@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.AutoAlignWithNoteSwerve;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.defaultCommands.IntakeDefaultCommand;
@@ -66,6 +67,8 @@ public class RobotContainer {
 
   //Put triggers here that change the active commands
   private void configureBindings() {
+
+    new Trigger(() -> oi.engageNoteAlignAssist()).whileTrue(new AutoAlignWithNoteSwerve(CHASSIS, () -> oi.xSpeed(), () -> oi.ySpeed(), () -> oi.rotate(), () -> oi.toggleFieldOriented(), NOTE_LIMELIGHT));
       
       }
   

@@ -7,6 +7,7 @@ package frc.robot.commands;
 import java.util.function.Supplier;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Limelight;
 import frc.robot.Constants.CommandConstants;
@@ -26,7 +27,6 @@ public class AutoAlignWithNoteSwerve extends Command {
   private final Supplier<Double> xSpdFunction, ySpdFunction, turningSpdFunction;
   private final Supplier<Boolean> fieldOrientedFunction;
 
-  private final Supplier<Boolean> toggleSlowModeFunction;
 
 
 
@@ -36,7 +36,6 @@ public class AutoAlignWithNoteSwerve extends Command {
     Supplier<Double> ySpdFunction, 
     Supplier<Double> turningSpdFunction,
     Supplier<Boolean> fieldOrientedFunction, 
-    Supplier<Boolean> toggleSlow,
     Limelight noteLimelight) {
     
       yController = new PIDController(CommandConstants.kYNoteAlignP, CommandConstants.kYNoteAlignI, CommandConstants.kYNoteAlignD);
@@ -51,7 +50,6 @@ public class AutoAlignWithNoteSwerve extends Command {
     this.ySpdFunction = ySpdFunction;
     this.turningSpdFunction = turningSpdFunction;
     this.fieldOrientedFunction = fieldOrientedFunction;
-    this.toggleSlowModeFunction = toggleSlow;
 
     this.swerveSubsystem = swerveSubsystem;
     this.noteLimelight = noteLimelight;
@@ -63,32 +61,34 @@ public class AutoAlignWithNoteSwerve extends Command {
 
   @Override
   public void execute() {
+    System.out.println("COMMAND RUNNING POGGERS");
     double xSpd = xSpdFunction.get();
     double ySpd = ySpdFunction.get();
     double turningSpd = turningSpdFunction.get();
 
 
     noteIsDetected = noteLimelight.targetDetected();
-
+    SmartDashboard.putBoolean("Note detected", noteIsDetected);
 
     if (fieldOrientedFunction.get() && noteIsDetected == false) {
       swerveSubsystem.toggleFieldOriented();
     }
 
-    if (toggleSlowModeFunction.get()) {
-      //Toggle slow
-    }
+
 
     //If a note is detected, turning will be disabled and y movement will be controlled by PID
     if (noteIsDetected) {
-      noteYOffset = noteLimelight.getYDisplacementFromNote();
+      noteYOffset = noteLimelight.getXDisplacementFromNote();
       noteThetaOffset = noteLimelight.getTX();
+
+      SmartDashboard.putNumber("L/R note displacemnet", noteYOffset);
+      SmartDashboard.putNumber("Angle note offset", noteThetaOffset);
 
       //Field oriented mucks up this command so we disable it when a note is detected
       swerveSubsystem.disableFieldOriented();
       double PIDySpeed = yController.calculate(noteYOffset);
-      double PIDTurningSpeed = turningController.calculate(noteThetaOffset);
-      swerveSubsystem.driveSwerve(xSpd, PIDySpeed, PIDTurningSpeed);
+      //double PIDTurningSpeed = turningController.calculate(noteThetaOffset);
+      swerveSubsystem.driveSwerve(xSpd, PIDySpeed, 0);
     }
 
     //If no note is detected, drive like normal
