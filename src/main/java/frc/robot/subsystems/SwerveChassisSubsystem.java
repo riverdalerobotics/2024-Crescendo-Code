@@ -397,7 +397,7 @@ public ChassisSpeeds getVelocities() {
   public void setModuleStates(SwerveModuleState[] desiredStates) {
     frontLeft.setDesiredState(desiredStates[0]);
     frontRight.setDesiredState(desiredStates[1]);
-    backLeft.setDesiredState(desiredStates[2]);
+    backLeft.setDesiredState(desiredStates[0]);
     backRight.setDesiredState(desiredStates[3]);
   }
 
