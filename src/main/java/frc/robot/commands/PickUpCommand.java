@@ -7,15 +7,17 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
+import frc.robot.Constants.IntakeConstants;
+import frc.robot.Constants.PivotConstants;
 public class PickUpCommand extends Command {
-  PIDController speedController;
-  double kp = 0d;
-  double ki = 0d;
-  double kd = 0d;
+  PIDController pivotController;
+  double kp = PivotConstants.PIDConstants.kPivotP;
+  double ki = PivotConstants.PIDConstants.kPivotI;
+  double kd = PivotConstants.PIDConstants.kPivotD;
   double setpoint = 0d;
-  double tolerance = 0d;
-  double intakeSpeed = 0d;
-  double beltSpeed = 0d;
+  double tolerance = PivotConstants.PIDConstants.kPivotToleranceThreshold;
+  double intakeSpeed = IntakeConstants.kDesiredIntakeMotorRPS;
+  double beltSpeed = IntakeConstants.kIntakeBeltMotorSpeed;
   double maxVoltage = 0d;
   boolean hasPickedUp = false;
   
@@ -25,21 +27,21 @@ public class PickUpCommand extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.PIVOT);
     addRequirements(RobotContainer.INTAKE);
-    speedController = new PIDController(kp, ki, kd);
+    pivotController = new PIDController(kp, ki, kd);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    speedController.setSetpoint(setpoint);
-    speedController.setTolerance(tolerance);
+    pivotController.setSetpoint(setpoint);
+    pivotController.setTolerance(tolerance);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.PIVOT.movePivot(speedController.calculate(RobotContainer.PIVOT.getEncoders()));
-    if(speedController.atSetpoint()){
+    RobotContainer.PIVOT.movePivot(pivotController.calculate(RobotContainer.PIVOT.getEncoders()));
+    if(pivotController.atSetpoint()){
       RobotContainer.INTAKE.spinIntake(intakeSpeed);
       RobotContainer.INTAKE.spinBelt(beltSpeed);
       if (RobotContainer.INTAKE.intakeVoltage() < maxVoltage){
@@ -53,12 +55,12 @@ public class PickUpCommand extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    speedController.reset();
+    pivotController.reset();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return hasPickedUp == true && speedController.atSetpoint();
+    return hasPickedUp == true && pivotController.atSetpoint();
   }
 }
