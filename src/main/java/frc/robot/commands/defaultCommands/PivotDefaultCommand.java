@@ -57,6 +57,7 @@ public class PivotDefaultCommand extends Command {
     }
     if (pivot.getVoltage()<maxVoltage){
       angleController.setSetpoint(setpoint);
+      changeArmAngle = setpoint;
     }
   }
 
