@@ -8,18 +8,20 @@ import java.util.function.Supplier;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Limelight;
 import frc.robot.Constants.CommandConstants;
 import frc.robot.subsystems.SwerveChassisSubsystem;
 
 public class AutoAlignWithNoteSwerve extends Command {
   /** Creates a new AutoAlignWithNoteSwerve. */
-  PIDController yController;
-  PIDController turningController;
+  private PIDController yController;
+  private PIDController turningController;
 
-  boolean noteIsDetected;
-  double noteYOffset;
-  double noteThetaOffset;
-  SwerveChassisSubsystem swerveSubsystem;
+  private boolean noteIsDetected;
+  private double noteYOffset;
+  private double noteThetaOffset;
+  private final SwerveChassisSubsystem swerveSubsystem;
+  private final Limelight noteLimelight;
 
   private final Supplier<Double> xSpdFunction, ySpdFunction, turningSpdFunction;
   private final Supplier<Boolean> fieldOrientedFunction;
@@ -28,15 +30,22 @@ public class AutoAlignWithNoteSwerve extends Command {
 
 
 
-  public AutoAlignWithNoteSwerve(SwerveChassisSubsystem swerveSubsystem,
-  Supplier<Double> xSpdFunction, Supplier<Double> ySpdFunction, Supplier<Double> turningSpdFunction,
-  Supplier<Boolean> fieldOrientedFunction, Supplier<Boolean> toggleSlow) {
-    yController = new PIDController(CommandConstants.kYNoteAlignP, CommandConstants.kYNoteAlignI, CommandConstants.kYNoteAlignD);
-    yController.setSetpoint(0);
-
-    turningController = new PIDController(CommandConstants.kTurningNoteAlignP, CommandConstants.kTurningNoteAlignI, CommandConstants.kTurningNoteAlignD);
-    turningController.setSetpoint(0);
-
+  public AutoAlignWithNoteSwerve(
+    SwerveChassisSubsystem swerveSubsystem,
+    Supplier<Double> xSpdFunction, 
+    Supplier<Double> ySpdFunction, 
+    Supplier<Double> turningSpdFunction,
+    Supplier<Boolean> fieldOrientedFunction, 
+    Supplier<Boolean> toggleSlow,
+    Limelight noteLimelight) {
+    
+      yController = new PIDController(CommandConstants.kYNoteAlignP, CommandConstants.kYNoteAlignI, CommandConstants.kYNoteAlignD);
+      yController.setSetpoint(CommandConstants.kYNoteAlignSetpoint);
+      yController.setTolerance(CommandConstants.kYNoteAlignTolerance);
+  
+      turningController = new PIDController(CommandConstants.kTurningNoteAlignP, CommandConstants.kTurningNoteAlignI, CommandConstants.kTurningNoteAlignD);
+      turningController.setSetpoint(CommandConstants.kTurningNoteAlignSetpoint);
+      turningController.setTolerance(CommandConstants.kTurningNoteAlignTolerance);
 
     this.xSpdFunction = xSpdFunction;
     this.ySpdFunction = ySpdFunction;
@@ -45,6 +54,7 @@ public class AutoAlignWithNoteSwerve extends Command {
     this.toggleSlowModeFunction = toggleSlow;
 
     this.swerveSubsystem = swerveSubsystem;
+    this.noteLimelight = noteLimelight;
     addRequirements(swerveSubsystem);
   }
 
@@ -58,7 +68,10 @@ public class AutoAlignWithNoteSwerve extends Command {
     double turningSpd = turningSpdFunction.get();
 
 
-    if (fieldOrientedFunction.get()) {
+    noteIsDetected = noteLimelight.targetDetected();
+
+
+    if (fieldOrientedFunction.get() && noteIsDetected == false) {
       swerveSubsystem.toggleFieldOriented();
     }
 
@@ -68,6 +81,9 @@ public class AutoAlignWithNoteSwerve extends Command {
 
     //If a note is detected, turning will be disabled and y movement will be controlled by PID
     if (noteIsDetected) {
+      noteYOffset = noteLimelight.getYDisplacementFromNote();
+      noteThetaOffset = noteLimelight.getTX();
+
       //Field oriented mucks up this command so we disable it when a note is detected
       swerveSubsystem.disableFieldOriented();
       double PIDySpeed = yController.calculate(noteYOffset);

@@ -3,28 +3,80 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands.defaultCommands;
-
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.OI;
+import frc.robot.Constants.PivotConstants;
+import frc.robot.subsystems.PivotSubsystem;
 
 public class PivotDefaultCommand extends Command {
   /** Creates a new PivotDefaultCommand. */
-  public PivotDefaultCommand() {
-    // Use addRequirements() here to declare subsystem dependencies.
+  PivotSubsystem pivot;
+  OI operatorInput;
+  PIDController angleController;
+  double kp = PivotConstants.PIDConstants.kPivotP;
+  double ki = PivotConstants.PIDConstants.kPivotI;
+  double kd = PivotConstants.PIDConstants.kPivotD;
+  double setpoint = PivotConstants.kMinPivotRotationDegrees;
+
+  //TODO: find good tolerance value
+  double tolerance = PivotConstants.PIDConstants.kPivotToleranceThreshold;
+
+  //This tracks the current desired angle the arm is heading towards in degrees
+  double desiredArmAngle = setpoint;
+
+  double maxVoltage = PivotConstants.kPivotMaxVoltage;
+  public PivotDefaultCommand(OI opInput, PivotSubsystem pivot) {
+    // Use addRequirements() here to declare subsystem dependencies.\
+    this.pivot = pivot;
+    this.operatorInput = opInput;
+    angleController = new PIDController(kp, ki, kd);
+    addRequirements(pivot);
   }
 
   
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    angleController.setSetpoint(setpoint);
+    angleController.setTolerance(tolerance);
+    desiredArmAngle = setpoint;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    //TODO: get someone to read this over please cause it might not be worth doing...
+
+
+
+    //TODO: find better way to increase angle as this will make the angle increase way too quickly
+    pivot.movePivot(angleController.calculate(pivot.getEncoders()));
+    if(operatorInput.moveArmUp()){
+      desiredArmAngle += 1;
+      angleController.setSetpoint(desiredArmAngle);
+    }
+    else if(operatorInput.moveArmDown()){
+      desiredArmAngle -= 1;
+      angleController.setSetpoint(desiredArmAngle);
+    }
+
+    //Voltage above max voltage indicates that the arm is pushing against the hard stop and should be reset
+    //TODO: Test to see if this could be screwed up by other robots or field elements. If it can, we need to ensure this doesn't 
+    //unintenionally result in robot death
+    if (pivot.getVoltage() < maxVoltage){
+      pivot.resetPivotEncoder();
+      angleController.setSetpoint(setpoint);
+      changeArmAngle = setpoint;
+    }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+
+  }
 
   // Returns true when the command should end.
   @Override

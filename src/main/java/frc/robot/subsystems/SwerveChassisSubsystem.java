@@ -12,7 +12,6 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,7 +19,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.OI;
 import frc.robot.Constants.ChassisConstants;
-import frc.robot.Constants.ModuleConstants;
 import frc.robot.Constants.PathPlannerConstants;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -73,6 +71,7 @@ public class SwerveChassisSubsystem extends SubsystemBase {
     this.yLimiter = new SlewRateLimiter(ChassisConstants.kTeleDriveMaxAccelerationMetersPerSecond);
     this.turnLimiter = new SlewRateLimiter(ChassisConstants.kTeleDriveMaxAngularAccelerationRadiansPerSecond);
     resetModules();
+    this.isFieldOriented = false;
 
     opInput = opInp;
 
@@ -237,6 +236,11 @@ public ChassisSpeeds getVelocities() {
     isFieldOriented = false;
   }
 
+
+  public boolean getIsFieldOriented() {
+    return isFieldOriented;
+  }
+
   public void zeroHeading() {
     gyro.reset();
   }
@@ -306,7 +310,7 @@ public ChassisSpeeds getVelocities() {
    * on apriltag distances when odometry becomes inaccurate 
    * @param newPose
    */
-  public void resetOdometry(Pose2d newPose) {
+  public void setPose(Pose2d newPose) {
     odometer.resetPosition(getRotation2d(), getSwerveModulePositions(), newPose);
   }
 
@@ -346,10 +350,12 @@ public ChassisSpeeds getVelocities() {
 
     //TODO: try getting rid of these
     //I dont think this actually does anything
-    xSpeed = xLimiter.calculate(xSpeed) * maxTeleopDriveSpeed;
-    ySpeed = yLimiter.calculate(ySpeed) * maxTeleopDriveSpeed;
-    turningSpeed = turnLimiter.calculate(turningSpeed) * maxTeleopAngularSpeed;
-
+    //xSpeed = xLimiter.calculate(xSpeed) * maxTeleopDriveSpeed;
+    //ySpeed = yLimiter.calculate(ySpeed) * maxTeleopDriveSpeed;
+    //turningSpeed = turnLimiter.calculate(turningSpeed) * maxTeleopAngularSpeed;
+    xSpeed *= maxTeleopDriveSpeed;
+    ySpeed *= maxTeleopDriveSpeed;
+    turningSpeed *= maxTeleopAngularSpeed;
   
     ChassisSpeeds chassisSpeeds;
 

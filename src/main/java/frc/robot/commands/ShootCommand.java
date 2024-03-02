@@ -7,22 +7,24 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.OI;
-import frc.robot.RobotContainer;
+import frc.robot.Constants.IntakeConstants;
+import frc.robot.Constants.PivotConstants;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.PivotSubsystem;
 public class ShootCommand extends Command {
   PIDController pivotSpeedController;
   PIDController shootSpeedContller;
-  double Pkp = 0d;
-  double Pki = 0d;
-  double Pkd = 0d;
-  double Skp = 0d;
-  double Ski = 0d;
-  double Skd = 0d;
-  double setpoint = 0d;
-  double velocity = 0d;
-  double shootTolerance;
-  double pivotTolerance = 0d;
-  double intakeSpeed = 0d;
-  double beltSpeed = 0d;
+  double Pkp = PivotConstants.PIDConstants.kPivotP;
+  double Pki = PivotConstants.PIDConstants.kPivotI;
+  double Pkd = PivotConstants.PIDConstants.kPivotD;
+  double Skp = IntakeConstants.PIDConstants.kIntakeP;
+  double Ski = IntakeConstants.PIDConstants.kIntakeI;
+  double Skd = IntakeConstants.PIDConstants.kIntakeD;
+  double desiredPivotAngle;
+  double shootTolerance = IntakeConstants.PIDConstants.kIntakeToleranceThreshold;
+  double pivotTolerance = PivotConstants.PIDConstants.kPivotToleranceThreshold;
+  double intakeSpeed = IntakeConstants.kDesiredShootMotorRPS;
+  double beltSpeed = IntakeConstants.kShootBeltMotorSpeed;
   double startTime = 0d;
   double currentTime = 0d;
   double shootTime = 0d;
@@ -31,20 +33,24 @@ public class ShootCommand extends Command {
   boolean hasShot = false;
   OI oi;
 
+  private PivotSubsystem pivot;
+  private IntakeSubsystem intake;
+
   /** Creates a new AutoPickUpCommand. */
-  public ShootCommand(OI oi) {
+  public ShootCommand(OI oi, PivotSubsystem pivot, IntakeSubsystem intake) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.PIVOT);
-    addRequirements(RobotContainer.INTAKE);
+    addRequirements(intake, pivot);
     pivotSpeedController = new PIDController(Pkp, Pki, Pkd);
     shootSpeedContller = new PIDController(Skp, Ski, Skd);
     this.oi = oi;
+    this.pivot = pivot;
+    this.intake = intake;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    pivotSpeedController.setSetpoint(setpoint);
+    pivotSpeedController.setSetpoint(desiredPivotAngle);
     pivotSpeedController.setTolerance(pivotTolerance);
     shootSpeedContller.setSetpoint(intakeSpeed);
     shootSpeedContller.setTolerance(shootTolerance);
@@ -56,17 +62,17 @@ public class ShootCommand extends Command {
   //TODO: Pivot and and Shoot should both go at same time. When both at setpoint, belt note in
   public void execute() {
     currentTime = System.currentTimeMillis();
-    RobotContainer.PIVOT.movePivot(pivotSpeedController.calculate(RobotContainer.PIVOT.getEncoders()));
+    pivot.movePivot(pivotSpeedController.calculate(pivot.getEncoders()));
     if(pivotSpeedController.atSetpoint()){
-      RobotContainer.INTAKE.spinIntake(shootSpeedContller.calculate(RobotContainer.INTAKE.getSpeed()));
+      intake.spinIntake(shootSpeedContller.calculate(intake.getSpeed()));
       if (shootSpeedContller.atSetpoint()){
           if (oi.shoot()){
-            RobotContainer.INTAKE.spinBelt(beltSpeed);
+            intake.spinBelt(beltSpeed);
             startTime =  System.currentTimeMillis();
             shootTime = startTime + timeNeeded;
             if (currentTime > shootTime){
-              RobotContainer.INTAKE.spinBelt(0);
-              RobotContainer.INTAKE.spinIntake(0);
+              intake.spinBelt(0);
+              intake.spinIntake(0);
               hasShot = true;
             }
 
@@ -81,6 +87,9 @@ public class ShootCommand extends Command {
   public void end(boolean interrupted) {
     pivotSpeedController.reset();
     shootSpeedContller.reset();
+    pivot.movePivot(0);
+    intake.spinBelt(0);
+    intake.spinIntake(0);
   }
 
   // Returns true when the command should end.

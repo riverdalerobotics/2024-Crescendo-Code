@@ -6,15 +6,17 @@ package frc.robot.commands.defaultCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.OI;
-import frc.robot.RobotContainer;
+import frc.robot.subsystems.IntakeSubsystem;
 
 public class IntakeDefaultCommand extends Command {
   OI operatorInput;
+  IntakeSubsystem intake;
   /** Creates a new IntakeDefaultCommand. */
-  public IntakeDefaultCommand(OI opInput) {
+  public IntakeDefaultCommand(OI opInput, IntakeSubsystem intake) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.operatorInput = opInput;
-    addRequirements(RobotContainer.INTAKE);
+    this.intake = intake;
+    addRequirements(intake);
     
     
   }
@@ -26,8 +28,15 @@ public class IntakeDefaultCommand extends Command {
   @Override
   public void execute() {
     //TODO: this is for testing only
-    RobotContainer.INTAKE.spinIntake(operatorInput.manShoot());
-    RobotContainer.INTAKE.spinBelt(operatorInput.beltSpeed());
+    intake.spinIntake(operatorInput.manShoot());
+    intake.spinBelt(operatorInput.beltSpeed());
+
+
+    //Intake will be active as long as the operator's x button is held down
+    if(operatorInput.powerIntakeMechanisms()) {
+      intake.engageIntake();
+
+    }
   }
 
   // Called once the command ends or is interrupted.

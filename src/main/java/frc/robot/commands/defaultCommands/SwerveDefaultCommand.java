@@ -17,7 +17,6 @@ public class SwerveDefaultCommand extends Command {
   private final Supplier<Boolean> fieldOrientedFunction;
 
   private final Supplier<Boolean> toggleSlowModeFunction;
-  private boolean isFieldOriented;
 
 
   /** Creates a new SwerveDefaultCommand. */
@@ -26,7 +25,6 @@ public class SwerveDefaultCommand extends Command {
   Supplier<Boolean> fieldOrientedFunction, Supplier<Boolean> toggleSlow) {
     this.swerveSubsystem = swerveSubsystem;
     
-    this.isFieldOriented = true;
     this.xSpdFunction = xSpdFunction;
     this.ySpdFunction = ySpdFunction;
     this.toggleSlowModeFunction = toggleSlow;
@@ -47,7 +45,7 @@ public class SwerveDefaultCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SmartDashboard.putBoolean("Field Oriented Mode?", isFieldOriented);
+    SmartDashboard.putBoolean("Field Oriented Mode?", swerveSubsystem.getIsFieldOriented());
 
     if (toggleSlowModeFunction.get()) {
       //Toggle slow
@@ -55,7 +53,7 @@ public class SwerveDefaultCommand extends Command {
 
     if (fieldOrientedFunction.get()) {
       swerveSubsystem.toggleFieldOriented();
-
+    }
 
     double xSpeed = xSpdFunction.get();
     double ySpeed = ySpdFunction.get();
@@ -71,7 +69,7 @@ public class SwerveDefaultCommand extends Command {
 
 
     swerveSubsystem.driveSwerve(xSpeed, ySpeed, turnSpeed);
-  }
+  
 }
 
 

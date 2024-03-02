@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.pathplanner.lib.path.PathPlannerPath;
@@ -55,6 +54,6 @@ public class AhnafAutoBuilder {
     }
 
     public void resetOdometryUsingCamera(){
-        chassis.setPos(shootCamera.getBotPoseOdometryNotation());
+        chassis.setPose(shootCamera.getBotPoseOdometryNotation());
     }
 }

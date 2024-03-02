@@ -22,7 +22,7 @@ import edu.wpi.first.math.util.Units;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
-    public static final int kOperatorControllerPort = 0;
+    public static final int kOperatorControllerPort = 1;
   }
 
   
@@ -63,7 +63,7 @@ public final class Constants {
     //TODO: Test all these conversion FACTORS
     //One full rotation of the turning motor is 2pi radians
     public static final double kTurningMotorGearReduction = (9424 / 203);
-    public static final double kTurningEncoderPositionFactor = (2 * Math.PI) / (kTurningMotorGearReduction); // radians
+    public static final double kTurningEncoderPositionFactor = (2 * Math.PI);
     public static final double kTurningEncoderVelocityFactor = kTurningEncoderPositionFactor / 60.0; //radians per second
 
     public static final double kTurningEncoderPositionPIDMinInput = 0; // radians
@@ -76,7 +76,7 @@ public final class Constants {
 
 
     //PID values for turning
-    public static final double kTurningP = 1;
+    public static final double kTurningP = 0.4;
     public static final double kTurningI = 0;
     public static final double kTurningD = 0;
     public static final double kTurningFF = 0;
@@ -94,11 +94,18 @@ public final class Constants {
 
   public static class ChassisConstants {
 
-    //distance between the centers of the left and right modules
-    public static final double kTrackWidth = Units.inchesToMeters(25);
 
+    //Both of these variables are in meters
+
+    //distance between the centers of the left and right modules
+    public static final double kTrackWidth = 0.54587;
     //distance between the centers of the front and back modules
-    public static final double kWheelBase = Units.inchesToMeters(27);
+    public static final double kWheelBase = 0.59667;
+
+
+    //Full chassis dimensions
+    public static final double chassisWidth = Units.inchesToMeters(25);
+    public static final double chassisLength = Units.inchesToMeters(27);
 
     //Note for translation 2d. Positive x is forward, and positive y is left
     //The order of module position construction in our kinematics object is as follows
@@ -140,14 +147,14 @@ public final class Constants {
 
     //These are the absolute max limitations of the robot
     //TODO: Test both of these 
-    public static final double kPhysicalMaxSpeedMetersPerSecond = 14.9;
-    public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 9.0598;
+    public static final double kPhysicalMaxSpeedMetersPerSecond = 4.5;
+    public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 9.1144;
     
     
 
     
-    public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond * 0.5;
-    public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond * 0.5;
+    public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond * 0.3;
+    public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond * 0.3;
   
     //These are used for slew rate limiting
     public static final double kTeleDriveMaxAccelerationMetersPerSecond = 3;
@@ -159,17 +166,76 @@ public final class Constants {
     public static final double kBackRightDriveAbsoluteEncoderOffsetRad = 0;
   }
 
+  public static class IntakeConstants {
+    public static final int kLeftIntakeMotorID = -1000;
+    public static final int kRightIntakeMotorID = -1000;
+    public static final int kBeltMotorID = -1000;
+    public static final int kSpeedEncoderID = -1000;
+
+
+
+    public static final double kDesiredIntakeMotorRPS = -1000;
+    public static final double kIntakeBeltMotorSpeed = -1000;
+
+
+    public static final double kDesiredShootMotorRPS = -1000;
+    public static final double kShootBeltMotorSpeed = -1000;
+
+
+    public static class PIDConstants {
+      public static final double kIntakeP = -1000;
+      public static final double kIntakeI = -1000;
+      public static final double kIntakeD = -1000;
+      //Used for PID to determine what speed is close enough in Rotations per Second
+      public static final double kIntakeToleranceThreshold = -1000;
+
+    }
+  }
+
+
+
+  public static class PivotConstants {
+    public static final int kPivotMotor1ID = -1000;
+    public static final int kPivotMotor2ID = -1000;
+    public static final int kPivotEncoderID = -1000;
+    public static final double kPivotEncoderRotationToDegrees = 18152.7272727;
+
+    public static final int kMinPivotRotationDegrees = 0;
+    //TODO: find max rotation value for pivot of shooter
+    public static final int kMaxPivotRotationDegrees = -1000;
+
+
+    //Max voltage pivot can receive before attempting to reset position
+    public static final int kPivotMaxVoltage = -1000;
+
+
+    //Used in multiple commands to automatically move the pivot to a desired angle
+    public static class PIDConstants {
+      public static final double kPivotP = -1000;
+      public static final double kPivotI = -1000;
+      public static final double kPivotD = -1000;
+      //Used for PID to determine what rotation is close enough to desired angle
+      public static final double kPivotToleranceThreshold = -1000;
+
+    }
+
+  }
+
+
+
 
 
   public static class PathPlannerConstants { //TODO: GET THESE CONSTANTS
-    public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(-1, -1, -1);
-    public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(-1, -1, -1);
+    public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(-1, 0, 0);
+    public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(-1, 0, 0);
     public static final double MAX_TRANSLATION_SPEED = ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond;
     public static final double MAX_ROTATION_SPEED = ChassisConstants.kTeleDriveMaxAngularSpeedRadiansPerSecond;
     public static final double MAX_TRANSLATION_ACCELERATION = ChassisConstants.kTeleDriveMaxAccelerationMetersPerSecond;
     public static final double MAX_ROTATIONAL_ACCELERATION = ChassisConstants.kTeleDriveMaxAngularAccelerationRadiansPerSecond;
-    public static final double ROBOT_BASE_RADIUS = -1; // meters
-  
+    //This constant represents the distance from the origin(center) of your robot to the center of your modules
+    //You can plug in the same translation you use when constructing the kinematics object
+    public static final double ROBOT_BASE_RADIUS = new Translation2d(ChassisConstants.kWheelBase/2, ChassisConstants.kTrackWidth/2).getNorm();
+    
   }
 
   public static class CommandConstants {
@@ -178,14 +244,25 @@ public final class Constants {
     public static final double kYNoteAlignP = 0.1;
     public static final double kYNoteAlignI = 0;
     public static final double kYNoteAlignD = 0;
+    //Meters
+    public static final double kYNoteAlignSetpoint = 0;
+    public static final double kYNoteAlignTolerance = 0.05;
+
 
     public static final double kTurningNoteAlignP = 0.1;
     public static final double kTurningNoteAlignI = 0;
     public static final double kTurningNoteAlignD = 0;
+    //Degrees
+    public static final double kTurningNoteAlignSetpoint = 0;
+    public static final double kTurningNoteAlignTolerance = 1;
+
 
     public static final double kXNoteAlignP = 0.1;
     public static final double kXNoteAlignI = 0;
     public static final double kXNoteAlignD = 0;
+    //Meters
+    public static final double kXNoteAlignSetpoint = 0.5;
+    public static final double kXNoteAlignTolerance = 0.05;
   }
 
   public static class LimelightConstants {
