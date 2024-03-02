@@ -149,7 +149,7 @@ public class SwerveModule extends SubsystemBase {
     //Finding the fasted way to reach zero angle
     zero = SwerveModuleState.optimize(zero, getState().angle);
 
-    mDriveMotor.set(zero.speedMetersPerSecond / ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond);
+    mDriveMotor.set(zero.speedMetersPerSecond);
 
     //Make sure that angle is returning correctly (angle may already be radians)
     mTurnPIDController.setReference(zero.angle.getRadians(), CANSparkMax.ControlType.kPosition);

@@ -59,7 +59,7 @@ public class SwerveDefaultCommand extends Command {
 
     double xSpeed = xSpdFunction.get()*0.5;
     double ySpeed = ySpdFunction.get()*0.5;
-    double turnSpeed = turningSpdFunction.get()*0.0001;
+    double turnSpeed = turningSpdFunction.get()*0.1;
 
     
     //double speedIncrease = speedBoost.get();
