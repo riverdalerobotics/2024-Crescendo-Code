@@ -223,7 +223,7 @@ public void resetPose(Pose2d pose) {
  *         velocities are in meters/second
  */
 public ChassisSpeeds getVelocities() {
-  return null;
+  return ChassisConstants.kDriveKinematics.toChassisSpeeds(getSwerveModuleStates());
 }
 
 
@@ -292,6 +292,15 @@ public ChassisSpeeds getVelocities() {
       frontRight.getModulePosition(),
       backLeft.getModulePosition(),
       backRight.getModulePosition()
+    };
+  }
+
+  public SwerveModuleState[] getSwerveModuleStates() {
+    return new SwerveModuleState[] {
+      frontLeft.getState(),
+      frontRight.getState(),
+      backLeft.getState(),
+      backRight.getState()
     };
   }
 
