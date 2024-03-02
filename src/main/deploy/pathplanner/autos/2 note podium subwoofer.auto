@@ -1,0 +1,31 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7134190306388977,
+      "y": 4.450354048983181
+    },
+    "rotation": 119.57783868151455
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1. Podium Subwoofer to podium note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2. Return Podium Note to Podium Subwoofer"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

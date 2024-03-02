@@ -1,0 +1,37 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.6452516819624394,
+      "y": 6.641447399146282
+    },
+    "rotation": -118.20162821869474
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1. Amp Subwoofer Rotate"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2. Continue Forward to Amp note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3. Return rotate to Amp Subwoofer"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

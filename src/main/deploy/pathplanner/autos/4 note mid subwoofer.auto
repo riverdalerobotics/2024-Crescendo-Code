@@ -1,0 +1,55 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.29,
+      "y": 5.55076982040085
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1. Mid subwoofer to Mid note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2. Return from mid note to mid subwoofer"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3. Mid subwoofer to Amp note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4. Return from Amp note to mid subwoofer"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "5. Mid subwoofer podium note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "6. Return from podium note to mid subwoofer"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}
