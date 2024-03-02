@@ -1,0 +1,32 @@
+// Copyright (c) FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
+
+package frc.robot.commands;
+
+import com.pathplanner.lib.commands.PathPlannerAuto;
+
+import edu.wpi.first.wpilibj2.command.Command;
+
+/** Add your docs here. */
+public class Autos {
+   
+   
+    public Command podiumSubwooferTwoNotes(){
+        return new PathPlannerAuto("2 note podium subwoofer");
+    }
+    public Command ampSubwooferTwoNotes(){
+        return new PathPlannerAuto("2 note amp subwoofer");
+    }
+    public Command midSubWooferFourNotes(){
+        return new PathPlannerAuto("4 note mid subwoofer");
+    }
+    public Command doNothing(){
+        return new PathPlannerAuto(null);
+    }
+    public Command shootOnly(){
+        return new PathPlannerAuto(null);
+    }
+
+
+}

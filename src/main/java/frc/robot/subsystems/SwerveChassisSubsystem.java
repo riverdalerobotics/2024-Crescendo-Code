@@ -88,7 +88,7 @@ public class SwerveChassisSubsystem extends SubsystemBase {
   //Pathplanner Stuff
   AutoBuilder.configureHolonomic( //Configures pathfinder with basic constraints and functionality of robot
     this::getPose, //Pose2d, datatype
-    this::setPose, //Pose2d, datatype
+    this::resetPose, //Pose2d, datatype
     this::getVelocities, 
     this::driveSwerve,
     new HolonomicPathFollowerConfig( //Object with the configurations for our drive train, particularly max speeds, PID Constants, and radius of our base
@@ -199,6 +199,23 @@ public Command pathfindToPose(Pose2d targetPos) {
 public Command getPathfindingCommand(String pathName){
   PathPlannerPath path = PathPlannerPath.fromPathFile(pathName);
   return AutoBuilder.followPath(path);
+}
+
+
+
+//TODO: DELETE
+// /**
+//  * Set pos to the new Pose2d
+//  * 
+//  * @param newPos: The new pos odometry should "be at"
+//  */
+// public void setPos(Pose2d newPos) {
+// }
+
+
+//resets the pose of the robot. Is done at the start of auto because path planner uses the starting pose in the UI and resets it
+public void resetPose(Pose2d pose) {
+  odometer.resetPosition(gyro.getRotation2d(), getSwerveModulePositions(), pose);
 }
 
 /**
