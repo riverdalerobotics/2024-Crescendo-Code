@@ -72,6 +72,11 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {}
 
+
+  public void enabledInit() {
+
+  }
+
   @Override
   public void disabledPeriodic() {}
 
@@ -133,6 +138,7 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+    m_robotContainer.CHASSIS.straightenModules();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
