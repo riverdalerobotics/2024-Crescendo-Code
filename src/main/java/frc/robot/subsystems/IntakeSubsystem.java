@@ -9,6 +9,7 @@ import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
@@ -17,24 +18,51 @@ public class IntakeSubsystem extends SubsystemBase {
   TalonFX belt;
   CANcoder speedCoder;
   public IntakeSubsystem() {
-    belt = new TalonFX(10000);
-    leftIntake = new TalonFX(100000);
-    rightIntake = new TalonFX(100000);
+    belt = new TalonFX(IntakeConstants.kBeltMotorID);
+    leftIntake = new TalonFX(IntakeConstants.kLeftIntakeMotorID);
+    rightIntake = new TalonFX(IntakeConstants.kRightIntakeMotorID);
     rightIntake.setInverted(true);
-    speedCoder = new CANcoder(1000);
+    speedCoder = new CANcoder(IntakeConstants.kSpeedEncoderID);
     
   }
+  
+  /** 
+   * @param speed
+   */
   public void spinIntake(double speed){
     leftIntake.set(speed);
     rightIntake.set(speed);
   }
+  
+  /** 
+   * @param speed
+   */
   public void spinBelt(double speed){
     belt.set(speed);
   }
+
+  /**
+   * Powers the intake and belt motors at desired speeds for intaking notes
+   */
+  public void engageIntake() {
+    spinIntake(-0.1);
+    spinBelt(-0.1);
+  }
+
+
+  
+  /** 
+   * @return double
+   */
   public double intakeVoltage(){
     StatusSignal<Double> voltage = leftIntake.getMotorVoltage();
     return voltage.getValue();
   }
+  
+  /**
+   * Returns the speed of the intake in rotations per second
+   * @return double
+   */
   public double getSpeed(){
     StatusSignal<Double> speed = speedCoder.getVelocity();
     double speedD = speed.getValue();
