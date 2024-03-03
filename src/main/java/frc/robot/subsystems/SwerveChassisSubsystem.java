@@ -396,7 +396,7 @@ public ChassisSpeeds getVelocities() {
     SwerveModuleState[] moduleStates = ChassisConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
 
     //This resets the speed ratios when a velocity goes to high above the specified max
-    //TOOD: Switch to physical max speed instead of set max if robot is too slow
+    //TODO: Switch to physical max speed instead of set max if robot is too slow
     SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond);
     this.setModuleStates(moduleStates);
   }

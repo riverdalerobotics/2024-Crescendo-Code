@@ -28,6 +28,7 @@ public class SwerveModule extends SubsystemBase {
   private final AbsoluteEncoder mTurnEncoder;
 
   private final SparkPIDController mTurnPIDController;
+  private final SparkPIDController mDrivePIDController;
 
 
 
@@ -52,6 +53,8 @@ public class SwerveModule extends SubsystemBase {
     mTurnEncoder = mTurnMotor.getAbsoluteEncoder(Type.kDutyCycle);
     mTurnPIDController = mTurnMotor.getPIDController();
     mTurnPIDController.setFeedbackDevice(mTurnEncoder);
+    mDrivePIDController = mDriveMotor.getPIDController();
+    mDrivePIDController.setFeedbackDevice(mDriveEncoder);
 
 
     // Apply position and velocity conversion factors for the driving encoder. The
@@ -86,6 +89,12 @@ public class SwerveModule extends SubsystemBase {
     mTurnPIDController.setSmartMotionAllowedClosedLoopError(ModuleConstants.kTurningTolerance, 0);
 
 
+    mDrivePIDController.setP(ModuleConstants.kDriveP);
+    mDrivePIDController.setI(ModuleConstants.kDriveI);
+    mDrivePIDController.setD(ModuleConstants.kDriveD);
+    mDrivePIDController.setFF(ModuleConstants.kDriveFF);
+    mDrivePIDController.setOutputRange(ModuleConstants.kDriveMinOutput, ModuleConstants.kDriveMaxOutput);
+
 
     mDriveMotor.setIdleMode(ModuleConstants.kDrivingMotorIdleMode);
     mTurnMotor.setIdleMode(ModuleConstants.kTurningMotorIdleMode);
@@ -100,7 +109,7 @@ public class SwerveModule extends SubsystemBase {
   /**
    * Returns the current state of the module
    * 
-   * @return the current angle and velocity (mps) of the module
+   * @return the current angle and velocity (m/s) of the module
    */
   public SwerveModuleState getState() {
     return new SwerveModuleState(mDriveEncoder.getVelocity(),
@@ -161,19 +170,46 @@ public class SwerveModule extends SubsystemBase {
 
 
 
+  /**
+   * Sets the module to a desired state. This state has already been desaturated by swerveChassisSubsystem.
+   * This method sets the drive motor speed by dividing the desired speed by the physical max speed of the robot and passing that 
+   * value directly into the motor controller as a percentage power.
+   * @param desiredState
+   */
   public void setDesiredState(SwerveModuleState desiredState) {
     if (Math.abs(desiredState.speedMetersPerSecond) < 0.005) {
       stop();
+      return;
     }
 
     SwerveModuleState optimizedState = SwerveModuleState.optimize(desiredState, getModulePosition().angle);
     SmartDashboard.putNumber("speed (m/s)", optimizedState.speedMetersPerSecond);
 
-    mDriveMotor.set(optimizedState.speedMetersPerSecond / ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond);
+    mDriveMotor.set(optimizedState.speedMetersPerSecond / ChassisConstants.kPhysicalMaxSpeedMetersPerSecond);
     mTurnPIDController.setReference(optimizedState.angle.getRadians(), CANSparkMax.ControlType.kPosition);
 
     mDesiredState = optimizedState;
   }
+
+  /**
+   * Sets the module to a desired state. This state has already been desaturated by swerveChassisSubsystem. 
+   * This is an alternative setDesiredState method that uses a PID controller to handle the drive motor's velocity.
+   * @param desiredState
+   */
+  public void setDesiredStatePIDDrive(SwerveModuleState desiredState) {
+    if (Math.abs(desiredState.speedMetersPerSecond) < 0.005) {
+      stop();
+      return;
+  }
+
+  SwerveModuleState optimizedState = SwerveModuleState.optimize(desiredState, getModulePosition().angle);
+  SmartDashboard.putNumber("speed (m/s)", optimizedState.speedMetersPerSecond);
+
+  mDrivePIDController.setReference(optimizedState.speedMetersPerSecond, CANSparkMax.ControlType.kVelocity);
+  mTurnPIDController.setReference(optimizedState.angle.getRadians(), CANSparkMax.ControlType.kPosition);
+
+
+}
 
   public SwerveModuleState getDesiredState() {
     return mDesiredState;
