@@ -388,6 +388,11 @@ public ChassisSpeeds getVelocities() {
 
 
 
+  /**
+   * An alternative driveSwerve method that just takes in a chassisSpeeds object.
+   * Used for PathPlanner autonomous
+   * @param cSpeeds The desired chassis speeds
+   */
   public void driveSwerve(ChassisSpeeds cSpeeds) {
 
     ChassisSpeeds chassisSpeeds = cSpeeds;

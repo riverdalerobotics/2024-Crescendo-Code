@@ -163,7 +163,7 @@ public final class Constants {
     
 
     
-    public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond * 0.01;
+    public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond * 0.5;
     public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond * 0.1;
   
     //These are used for slew rate limiting
@@ -192,6 +192,7 @@ public final class Constants {
     public static final double kShootBeltMotorSpeed = -1000;
 
 
+
     public static class PIDConstants {
       public static final double kIntakeP = -1000;
       public static final double kIntakeI = -1000;
@@ -217,6 +218,10 @@ public final class Constants {
 
     //Max voltage pivot can receive before attempting to reset position
     public static final int kPivotMaxVoltage = -1000;
+
+
+    public static final int intakeAngle = -1000;
+    public static final int subwooferShootAngle = -1000;
 
 
     //Used in multiple commands to automatically move the pivot to a desired angle

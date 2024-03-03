@@ -79,11 +79,21 @@ public boolean engageNoteAlignAssist() {
 /** 
  * Operator controls ||
  * Used to engage the intake mechanisms (power shooter & indexing belt inwards)
- * returns true when the operator controller's x button is pressed
+ * Returns true while the operator's X button is held down
  * @return boolean
  */
 public boolean powerIntakeMechanisms() {
     return intakeController.getXButton();
+}
+
+/**
+ * Operator controls ||
+ * Used to pivot the arm down to the intake position. Used in tandem with the method above to pivot and start spinning intake
+ * Returns true when the operator's X button is pressed
+ * @return
+ */
+public boolean pivotToIntakePosition() {
+    return intakeController.getXButtonPressed();
 }
 
 
@@ -165,6 +175,29 @@ public boolean moveArmDown(){
 // STOP arm
 public boolean stopArm(){
     return intakeController.getStartButton();
+}
+
+
+/**
+ * Operator controls ||
+ * Used to enable manual operator of the pivot
+ * Returns true when the right stick is pressed down
+ * @return
+ */
+public boolean enableManualRotation() {
+    return intakeController.getRightStickButtonPressed();
+}
+
+
+
+/**
+ * Operator controls ||
+ * Used to manually pivot the arm when manual pivot is enabled.
+ * Returns the value of the left joystick's y axis
+ * @return
+ */
+public double pivotArm() {
+    return intakeController.getLeftY();
 }
 
 
