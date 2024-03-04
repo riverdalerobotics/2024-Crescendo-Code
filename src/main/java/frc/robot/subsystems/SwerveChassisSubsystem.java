@@ -2,6 +2,12 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+
+//SWERVE MAINTENANCE TO DO LIST (FOR YOU BRANDON):
+
+//1. Re-zero turn motor's absolute encoders after every game (put them into the physical zero then reset offset with rev hardware client)(get jack to help you rezero)
+//2. If speeds are getting out of wack, check what speeds the swerveModuleStates are requesting
+
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -355,8 +361,9 @@ public ChassisSpeeds getVelocities() {
    * @param isFieldOriented
    */
   public void driveSwerve(double xSpeed, double ySpeed, double turningSpeed) {
-    //TODO: try getting rid of these
-    //I dont think this actually does anything
+
+
+    //This is what actually limits the speed by our specified max
     xSpeed = xLimiter.calculate(xSpeed) * maxTeleopDriveSpeed;
     ySpeed = yLimiter.calculate(ySpeed) * maxTeleopDriveSpeed;
     turningSpeed = turnLimiter.calculate(turningSpeed) * maxTeleopAngularSpeed;
@@ -378,9 +385,7 @@ public ChassisSpeeds getVelocities() {
 
     //This resets the speed ratios when a velocity goes to high above the specified max
     //TOOD: Switch to physical max speed instead of set max if robot is too slow
-    SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond);
-    SmartDashboard.putNumber("FL desired angle", moduleStates[0].angle.getDegrees());
-    SmartDashboard.putNumber("BL desired angle", moduleStates[2].angle.getDegrees());
+    SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, ChassisConstants.kPhysicalMaxSpeedMetersPerSecond);
 
     this.setModuleStates(moduleStates);
   }

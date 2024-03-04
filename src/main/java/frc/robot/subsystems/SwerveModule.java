@@ -207,9 +207,9 @@ public class SwerveModule extends SubsystemBase {
 
   mDrivePIDController.setReference(optimizedState.speedMetersPerSecond, CANSparkMax.ControlType.kVelocity);
   mTurnPIDController.setReference(optimizedState.angle.getRadians(), CANSparkMax.ControlType.kPosition);
-
-
 }
+
+
 
   public SwerveModuleState getDesiredState() {
     return mDesiredState;
