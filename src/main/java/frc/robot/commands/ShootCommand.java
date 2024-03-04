@@ -14,12 +14,15 @@ import frc.robot.subsystems.PivotSubsystem;
 public class ShootCommand extends Command {
   PIDController pivotSpeedController;
   PIDController shootSpeedContller;
+  //Pivot pid constants
   double Pkp = PivotConstants.PIDConstants.kPivotP;
   double Pki = PivotConstants.PIDConstants.kPivotI;
   double Pkd = PivotConstants.PIDConstants.kPivotD;
+  //shooter pid constants
   double Skp = IntakeConstants.PIDConstants.kIntakeP;
   double Ski = IntakeConstants.PIDConstants.kIntakeI;
   double Skd = IntakeConstants.PIDConstants.kIntakeD;
+  //other stuff
   double desiredPivotAngle;
   double shootTolerance = IntakeConstants.PIDConstants.kIntakeToleranceThreshold;
   double pivotTolerance = PivotConstants.PIDConstants.kPivotToleranceThreshold;
@@ -63,21 +66,21 @@ public class ShootCommand extends Command {
   public void execute() {
     currentTime = System.currentTimeMillis();
     pivot.movePivot(pivotSpeedController.calculate(pivot.getEncoders()));
-    if(pivotSpeedController.atSetpoint()){
-      intake.spinIntake(shootSpeedContller.calculate(intake.getSpeed()));
-      if (shootSpeedContller.atSetpoint()){
-          if (oi.shoot()){
-            intake.spinBelt(beltSpeed);
-            startTime =  System.currentTimeMillis();
-            shootTime = startTime + timeNeeded;
-            if (currentTime > shootTime){
-              intake.spinBelt(0);
-              intake.spinIntake(0);
-              hasShot = true;
-            }
+    intake.spinIntake(shootSpeedContller.calculate(intake.getSpeed()));
+ 
+      
+    if (shootSpeedContller.atSetpoint() && shootSpeedContller.atSetpoint()){
+        if (oi.shoot()){
+          intake.spinBelt(beltSpeed);
+          startTime =  System.currentTimeMillis();
+          shootTime = startTime + timeNeeded;
+        if (currentTime > shootTime){
+            intake.spinBelt(0);
+            intake.spinIntake(0);
+            hasShot = true;
+        }
 
-          }
-      }
+        }
     }
     
   }

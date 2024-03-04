@@ -83,7 +83,6 @@ public class PivotDefaultCommand extends Command {
     //TODO: Test to see if this could be screwed up by other robots or field elements. If it can, we need to ensure this doesn't 
     //unintenionally result in robot death
     if (pivot.getVoltage() < maxVoltage){
-      pivot.resetPivotEncoder();
       angleController.setSetpoint(setpoint);
       desiredArmAngle = setpoint;
     }

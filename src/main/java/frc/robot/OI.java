@@ -133,7 +133,7 @@ public double beltSpeed(){
 //Shoot
 //TODO: make this a boton!! it is now in "testing mode"
 public double manShoot(){
-    return intakeController.getRightTriggerAxis();
+    return intakeController.getLeftY();
 }
 
 /** 
