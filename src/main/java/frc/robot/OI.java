@@ -56,12 +56,17 @@ public boolean toggleFieldOriented(){
 
 /** 
  * Movement controls ||
- * Used to toggle slow mode on and off on the robot
+ * Used to reset robot gyro
  * returns true when the movement controller's start button is pressed
  * @return boolean
  */
-public boolean toggleSlowMode() {
+public boolean resetGyro() {
     return moveController.getStartButtonPressed();
+}
+
+
+public boolean engageNoteAlignAssist() {
+    return moveController.getXButton();
 }
 
 
@@ -74,11 +79,21 @@ public boolean toggleSlowMode() {
 /** 
  * Operator controls ||
  * Used to engage the intake mechanisms (power shooter & indexing belt inwards)
- * returns true when the operator controller's x button is pressed
+ * Returns true while the operator's X button is held down
  * @return boolean
  */
 public boolean powerIntakeMechanisms() {
     return intakeController.getXButton();
+}
+
+/**
+ * Operator controls ||
+ * Used to pivot the arm down to the intake position. Used in tandem with the method above to pivot and start spinning intake
+ * Returns true when the operator's X button is pressed
+ * @return
+ */
+public boolean pivotToIntakePosition() {
+    return intakeController.getXButtonPressed();
 }
 
 
@@ -163,11 +178,27 @@ public boolean stopArm(){
 }
 
 
-/** 
- * @return boolean
+/**
+ * Operator controls ||
+ * Used to enable manual operator of the pivot
+ * Returns true when the right stick is pressed down
+ * @return
  */
-public boolean resetGyro(){
-    return intakeController.getBackButton();
+public boolean enableManualRotation() {
+    return intakeController.getRightStickButtonPressed();
 }
+
+
+
+/**
+ * Operator controls ||
+ * Used to manually pivot the arm when manual pivot is enabled.
+ * Returns the value of the left joystick's y axis
+ * @return
+ */
+public double pivotArm() {
+    return intakeController.getLeftY();
+}
+
 
 }

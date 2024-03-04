@@ -54,7 +54,12 @@ public class Limelight {
      */
     public boolean targetDetected(){
         NetworkTableEntry tv = table.getEntry("tv"); 
-        return tv.getBoolean(false);
+        if(tv.getDouble(0) == 1) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 

@@ -21,13 +21,14 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
   
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  public final SendableChooser<String> m_chooser = new SendableChooser<>();
   private String m_autoSelected;
   private static final String shootOnly = "Shoot and then do Nothing";
   private static final String podiumSubwooferTwoNotes = "Podium Side Subwoofer Shoot And Retrieve Podium Note and Shoot";
   private static final String ampSubwooferTwoNotes = "Amp Side Subwoofer Shoot and Retrieve Amp Note and Shoot";
   private static final String midSubWooferFourNotes = "Middle Side Subwoofer Shoot and Retrieve and Shoot 3 close notest";
   private static final String doNothingLol = "DO NOTHING";
+  private static final String test = "testlol";
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -44,7 +45,7 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("1+1 AMP side Subwoofer", ampSubwooferTwoNotes);
     m_chooser.addOption("1+3 MID side Subwoofer", midSubWooferFourNotes);
     m_chooser.addOption("DO NOTHING", doNothingLol);
-
+    m_chooser.addOption("test123", test);
   
     
     SmartDashboard.putData("Auto choices", m_chooser);
@@ -103,10 +104,13 @@ public class Robot extends TimedRobot {
         case midSubWooferFourNotes:
           m_autonomousCommand = m_robotContainer.getMidSubwooferFourNotesAuto();
           break;
-  
         case doNothingLol:
           m_autonomousCommand = m_robotContainer.getDoNothingAuto();
           break;
+        case test:
+          m_autonomousCommand = m_robotContainer.getTestAuto();
+          break;
+          
 
         //REDUNDANT, I think we can delete maybe 
         default:
@@ -121,11 +125,6 @@ public class Robot extends TimedRobot {
         System.out.println("Successfully scheduled");
         m_autonomousCommand.schedule();
       }
-
-    // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
-    }
   }
 
   /** This function is called periodically during autonomous. */

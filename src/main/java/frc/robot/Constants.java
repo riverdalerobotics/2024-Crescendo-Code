@@ -76,12 +76,22 @@ public final class Constants {
 
 
     //PID values for turning
-    public static final double kTurningP = 0.2;
+    public static final double kTurningP = 0.5; //0.2
     public static final double kTurningI = 0;
     public static final double kTurningD = 0;
     public static final double kTurningFF = 0;
     public static final double kTurningMinOutput = -1;
     public static final double kTurningMaxOutput = 1;
+    //5 degrees in radians
+    public static final double kTurningTolerance = 0.0872665;
+
+
+    public static final double kDriveP = 0.04;
+    public static final double kDriveI = 0;
+    public static final double kDriveD = 0;
+    public static final double kDriveFF = 0;
+    public static final double kDriveMinOutput = -1;
+    public static final double kDriveMaxOutput = 1;
 
 
 
@@ -153,7 +163,7 @@ public final class Constants {
     
 
     
-    public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond * 0.01;
+    public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond * 0.5;
     public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond * 0.1;
   
     //These are used for slew rate limiting
@@ -180,6 +190,7 @@ public final class Constants {
 
     public static final double kDesiredShootMotorRPS = -1000;
     public static final double kShootBeltMotorSpeed = -1000;
+
 
 
     public static class PIDConstants {
@@ -209,6 +220,10 @@ public final class Constants {
     public static final int kPivotMaxVoltage = -1000;
 
 
+    public static final int intakeAngle = -1000;
+    public static final int subwooferShootAngle = -1000;
+
+
     //Used in multiple commands to automatically move the pivot to a desired angle
     public static class PIDConstants {
       public static final double kPivotP = -1000;
@@ -226,8 +241,8 @@ public final class Constants {
 
 
   public static class PathPlannerConstants { //TODO: GET THESE CONSTANTS
-    public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(-1, 0, 0);
-    public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(-1, 0, 0);
+    public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(0.1, 0, 0);
+    public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(0.1, 0, 0);
     public static final double MAX_TRANSLATION_SPEED = ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond;
     public static final double MAX_ROTATION_SPEED = ChassisConstants.kTeleDriveMaxAngularSpeedRadiansPerSecond;
     public static final double MAX_TRANSLATION_ACCELERATION = ChassisConstants.kTeleDriveMaxAccelerationMetersPerSecond;
@@ -241,9 +256,11 @@ public final class Constants {
   public static class CommandConstants {
 
     //These PID values are for commands that line up with the note in the y axis (left/right)
-    public static final double kYNoteAlignP = 0.1;
+    public static final double kYNoteAlignP = 0.01;
     public static final double kYNoteAlignI = 0;
     public static final double kYNoteAlignD = 0;
+    public static final double kYNoteAlignMinOutput = -0.2;
+    public static final double kYNoteAlignMaxOutput = 0.2;
     //Meters
     public static final double kYNoteAlignSetpoint = 0;
     public static final double kYNoteAlignTolerance = 0.05;
@@ -268,8 +285,8 @@ public final class Constants {
   public static class LimelightConstants {
 
     public static final double noteHeight = 0; //literally it is 0 
-    public static final double noteLimelightMountAngle = 0;  //TODO: find limelight mounts
-    public static final double noteLimelightMountHeight = 0;
+    public static final double noteLimelightMountAngle = 0.63350946;  //TODO: find limelight mounts
+    public static final double noteLimelightMountHeight = 17;
 
     public static final double tagLimelightMountAngle = 0;
     public static final double tagLimelightMountHeight = 0;

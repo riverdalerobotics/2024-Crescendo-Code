@@ -223,7 +223,7 @@ public void resetPose(Pose2d pose) {
  *         velocities are in meters/second
  */
 public ChassisSpeeds getVelocities() {
-  return null;
+  return ChassisConstants.kDriveKinematics.toChassisSpeeds(getSwerveModuleStates());
 }
 
 
@@ -292,6 +292,15 @@ public ChassisSpeeds getVelocities() {
       frontRight.getModulePosition(),
       backLeft.getModulePosition(),
       backRight.getModulePosition()
+    };
+  }
+
+  public SwerveModuleState[] getSwerveModuleStates() {
+    return new SwerveModuleState[] {
+      frontLeft.getState(),
+      frontRight.getState(),
+      backLeft.getState(),
+      backRight.getState()
     };
   }
 
@@ -370,12 +379,20 @@ public ChassisSpeeds getVelocities() {
     //This resets the speed ratios when a velocity goes to high above the specified max
     //TOOD: Switch to physical max speed instead of set max if robot is too slow
     SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond);
+    SmartDashboard.putNumber("FL desired angle", moduleStates[0].angle.getDegrees());
+    SmartDashboard.putNumber("BL desired angle", moduleStates[2].angle.getDegrees());
+
     this.setModuleStates(moduleStates);
   }
 
 
 
 
+  /**
+   * An alternative driveSwerve method that just takes in a chassisSpeeds object.
+   * Used for PathPlanner autonomous
+   * @param cSpeeds The desired chassis speeds
+   */
   public void driveSwerve(ChassisSpeeds cSpeeds) {
 
     ChassisSpeeds chassisSpeeds = cSpeeds;
@@ -384,7 +401,7 @@ public ChassisSpeeds getVelocities() {
     SwerveModuleState[] moduleStates = ChassisConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
 
     //This resets the speed ratios when a velocity goes to high above the specified max
-    //TOOD: Switch to physical max speed instead of set max if robot is too slow
+    //TODO: Switch to physical max speed instead of set max if robot is too slow
     SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond);
     this.setModuleStates(moduleStates);
   }
@@ -397,7 +414,7 @@ public ChassisSpeeds getVelocities() {
   public void setModuleStates(SwerveModuleState[] desiredStates) {
     frontLeft.setDesiredState(desiredStates[0]);
     frontRight.setDesiredState(desiredStates[1]);
-    backLeft.setDesiredState(desiredStates[0]);
+    backLeft.setDesiredState(desiredStates[2]);
     backRight.setDesiredState(desiredStates[3]);
   }
 

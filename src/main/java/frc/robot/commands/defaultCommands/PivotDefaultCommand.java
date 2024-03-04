@@ -25,6 +25,9 @@ public class PivotDefaultCommand extends Command {
   //This tracks the current desired angle the arm is heading towards in degrees
   double desiredArmAngle = setpoint;
 
+  //The operator can only manually control the pivot when this is true
+  boolean manualRotationEnabled = false;
+
   double maxVoltage = PivotConstants.kPivotMaxVoltage;
   public PivotDefaultCommand(OI opInput, PivotSubsystem pivot) {
     // Use addRequirements() here to declare subsystem dependencies.\
@@ -48,16 +51,33 @@ public class PivotDefaultCommand extends Command {
   @Override
   public void execute() {
     //TODO: get someone to read this over please cause it might not be worth doing...
-    //TODO: find better way to increase angle as this will make the angle increase way too quickly
+
+
+    //Manual rotation will stop whatever desired angle the arm is currently heading towards
+    if(operatorInput.enableManualRotation()) {
+      manualRotationEnabled = true;
+      desiredArmAngle = pivot.getEncoders();
+    }
+
+
+    if(manualRotationEnabled) {
+
+      //TODO: increase this value after testing
+      desiredArmAngle += (operatorInput.pivotArm() * 0.1);
+      
+    }
+
+
+    if(operatorInput.pivotToIntakePosition()) {
+      desiredArmAngle = PivotConstants.intakeAngle;
+      manualRotationEnabled = false;
+    }
+
+
+
+    angleController.setSetpoint(desiredArmAngle);
     pivot.movePivot(angleController.calculate(pivot.getEncoders()));
-    if(operatorInput.moveArmUp()){
-      desiredArmAngle += 1;
-      angleController.setSetpoint(desiredArmAngle);
-    }
-    else if(operatorInput.moveArmDown()){
-      desiredArmAngle -= 1;
-      angleController.setSetpoint(desiredArmAngle);
-    }
+
 
     //Voltage above max voltage indicates that the arm is pushing against the hard stop and should be reset
     //TODO: Test to see if this could be screwed up by other robots or field elements. If it can, we need to ensure this doesn't 

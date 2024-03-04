@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.AutoAlignWithNoteSwerve;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.defaultCommands.IntakeDefaultCommand;
@@ -35,6 +36,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   
   //private final IntakeSubsystem INTAKE = new IntakeSubsystem();
+  
   OI oi = new OI();
   public final Limelight NOTE_LIMELIGHT = new Limelight("limelight-note");
   public final Limelight TAG_LIMELIGHT = new Limelight("limelight-tags"); 
@@ -55,11 +57,7 @@ public class RobotContainer {
     //Field reset toggle boost damp
     CHASSIS.setDefaultCommand(new SwerveDefaultCommand (
       CHASSIS,
-      () -> oi.xSpeed(),
-      () -> oi.ySpeed(),
-      () -> oi.rotate(),
-      () -> oi.toggleFieldOriented(),
-      () -> oi.toggleSlowMode()
+      oi
     ));
 
     INTAKE.setDefaultCommand(new IntakeDefaultCommand(
@@ -69,6 +67,8 @@ public class RobotContainer {
 
   //Put triggers here that change the active commands
   private void configureBindings() {
+
+    new Trigger(() -> oi.engageNoteAlignAssist()).whileTrue(new AutoAlignWithNoteSwerve(CHASSIS, () -> oi.xSpeed(), () -> oi.ySpeed(), () -> oi.rotate(), () -> oi.toggleFieldOriented(), NOTE_LIMELIGHT));
       
       }
   
@@ -92,6 +92,9 @@ public class RobotContainer {
     }
     public Command getShootOnlyAuto(){
         return autoFactory.shootOnly();
+    }
+    public Command getTestAuto(){
+        return autoFactory.test();
     }
 
 
