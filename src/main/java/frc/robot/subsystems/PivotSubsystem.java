@@ -8,7 +8,7 @@ import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.PivotConstants;
 
@@ -55,9 +55,15 @@ public class PivotSubsystem extends SubsystemBase {
     StatusSignal<Double> voltage = pivot1.getMotorVoltage();
     return voltage.getValue();
   }
-
+  public double getCurrent(){
+    StatusSignal<Double> current = pivot1.getSupplyCurrent();
+    return current.getValueAsDouble();
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Pivot Voltage", getVoltage());
+    SmartDashboard.putNumber("Pivot current", getCurrent());
+    SmartDashboard.putNumber("Pivot position", getEncoders());
   }
 }
