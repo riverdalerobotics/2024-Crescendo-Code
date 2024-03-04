@@ -93,15 +93,15 @@ public class SwerveChassisSubsystem extends SubsystemBase {
 
   //Pathplanner Stuff
   AutoBuilder.configureHolonomic( //Configures pathfinder with basic constraints and functionality of robot
-    this::getPose, //Pose2d, datatype
-    this::resetPose, //Pose2d, datatype
-    this::getVelocities, 
-    this::driveSwerve,
+    this::getPose, // Robot pose supplier (Pose2d)
+    this::resetPose, // Method to reset odometry (will be called if your auto has a starting pose) (Pose2d)
+    this::getVelocities,  // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+    this::driveSwerve,  // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
     new HolonomicPathFollowerConfig( //Object with the configurations for our drive train, particularly max speeds, PID Constants, and radius of our base
-      PathPlannerConstants.TRANSLATION_PID_CONSTANTS,
-      PathPlannerConstants.ROTATION_PID_CONSTANTS,
-      PathPlannerConstants.MAX_TRANSLATION_SPEED,
-      PathPlannerConstants.ROBOT_BASE_RADIUS,
+      PathPlannerConstants.TRANSLATION_PID_CONSTANTS, //PID constants for translation
+      PathPlannerConstants.ROTATION_PID_CONSTANTS, //PID constants for rotation
+      PathPlannerConstants.MAX_TRANSLATION_SPEED, //max possible translation speed of module, not robot itself in m/s
+      PathPlannerConstants.ROBOT_BASE_RADIUS, // Drive base radius in meters. Distance from robot center to center of furthest module
       new ReplanningConfig()),
     () -> {
       // Boolean supplier that controls when the path will be mirrored for the red
@@ -385,7 +385,10 @@ public ChassisSpeeds getVelocities() {
 
     //This resets the speed ratios when a velocity goes to high above the specified max
     //TOOD: Switch to physical max speed instead of set max if robot is too slow
-    SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, ChassisConstants.kPhysicalMaxSpeedMetersPerSecond);
+    SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond);
+    SmartDashboard.putNumber("FL desired angle", moduleStates[0].angle.getDegrees());
+    SmartDashboard.putNumber("BL desired angle", moduleStates[2].angle.getDegrees());
+  
 
     this.setModuleStates(moduleStates);
   }
@@ -408,7 +411,8 @@ public ChassisSpeeds getVelocities() {
     //This resets the speed ratios when a velocity goes to high above the specified max
     //TODO: Switch to physical max speed instead of set max if robot is too slow
     SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond);
-    this.setModuleStates(moduleStates);
+    
+    this.setModuleStates(moduleStates); 
   }
 
 

@@ -30,7 +30,7 @@ public class IntakeDefaultCommand extends Command {
     //TODO: this is for testing only
     intake.spinIntake(operatorInput.manShoot());
     intake.spinBelt(operatorInput.beltSpeed());
-
+    
 
     //Intake will be active as long as the operator's x button is held down
     if(operatorInput.powerIntakeMechanisms()) {

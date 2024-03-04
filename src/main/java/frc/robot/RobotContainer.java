@@ -45,13 +45,19 @@ public class RobotContainer {
   public final PivotSubsystem PIVOT = new PivotSubsystem();
   public final IntakeSubsystem INTAKE = new IntakeSubsystem();
   public final ClimberSubsystem CLIMB = new ClimberSubsystem();
-
+ 
   
 
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
 
+    
+    // Register Named Commands so that it can be used in the PathPlanning autos 
+    //TODO: In Path Planner UI, remember to add the named commands 
+
+    // NamedCommands.registerCommand("exampleCommand", exampleSubsystem.exampleCommand());
+    // NamedCommands.registerCommand("someOtherCommand", new IntakeDefaultCommand(oi, INTAKE));
 
 
     //Field reset toggle boost damp
@@ -75,6 +81,7 @@ public class RobotContainer {
   
    
 
+
     /** 
      * @return automonous period command
      */
@@ -97,13 +104,12 @@ public class RobotContainer {
     public Command getTestAuto(){
         return autoFactory.test();
     }
+    public Command getTestSecondAuto(){
+      return autoFactory.testTwo();
+    }
 
 
-    // Register Named Commands so that it can be used in the PathPlanning autos 
-    //TODO: In Path Planner UI, remember to add the named commands 
-
-    // NamedCommands.registerCommand("exampleCommand", exampleSubsystem.exampleCommand());
-    // NamedCommands.registerCommand("someOtherCommand", new SomeOtherCommand());
+    
 
 
 

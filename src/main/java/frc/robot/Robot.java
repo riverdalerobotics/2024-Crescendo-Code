@@ -26,9 +26,10 @@ public class Robot extends TimedRobot {
   private static final String shootOnly = "Shoot and then do Nothing";
   private static final String podiumSubwooferTwoNotes = "Podium Side Subwoofer Shoot And Retrieve Podium Note and Shoot";
   private static final String ampSubwooferTwoNotes = "Amp Side Subwoofer Shoot and Retrieve Amp Note and Shoot";
-  private static final String midSubWooferFourNotes = "Middle Side Subwoofer Shoot and Retrieve and Shoot 3 close notest";
+  private static final String midSubwooferFourNotes = "Middle Side Subwoofer Shoot and Retrieve and Shoot 3 close notest";
   private static final String doNothingLol = "DO NOTHING";
   private static final String test = "testlol";
+  private static final String testTwo = "straight line";
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -43,11 +44,11 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("SHOOT ONLY", shootOnly);
     m_chooser.addOption("1+1 PODIUM Side Subwoofer", podiumSubwooferTwoNotes);
     m_chooser.addOption("1+1 AMP side Subwoofer", ampSubwooferTwoNotes);
-    m_chooser.addOption("1+3 MID side Subwoofer", midSubWooferFourNotes);
+    m_chooser.addOption("1+3 MID side Subwoofer", midSubwooferFourNotes);
     m_chooser.addOption("DO NOTHING", doNothingLol);
     m_chooser.addOption("test123", test);
+    m_chooser.addOption("2nd test", testTwo);
   
-    
     SmartDashboard.putData("Auto choices", m_chooser);
    
     }
@@ -88,6 +89,7 @@ public class Robot extends TimedRobot {
      m_autoSelected = m_chooser.getSelected();
       System.out.println("Auto selected: " + m_autoSelected);
       /* */
+     
       switch (m_autoSelected) {
         case shootOnly:
           m_autonomousCommand = m_robotContainer.getShootOnlyAuto();
@@ -101,7 +103,7 @@ public class Robot extends TimedRobot {
           m_autonomousCommand = m_robotContainer.getAmpSubwooferTwoNotesAuto();
           break;  
           
-        case midSubWooferFourNotes:
+        case midSubwooferFourNotes:
           m_autonomousCommand = m_robotContainer.getMidSubwooferFourNotesAuto();
           break;
         case doNothingLol:
@@ -110,7 +112,9 @@ public class Robot extends TimedRobot {
         case test:
           m_autonomousCommand = m_robotContainer.getTestAuto();
           break;
-          
+        case testTwo:
+          m_autonomousCommand = m_robotContainer.getTestSecondAuto();
+          break;
 
         //REDUNDANT, I think we can delete maybe 
         default:
@@ -118,9 +122,8 @@ public class Robot extends TimedRobot {
           break;
   
       }
-      
-      //Debug info
-      // schedule the autonomous command (example)
+    
+      // schedule the autonomous command
       if (m_autonomousCommand != null) {
         System.out.println("Successfully scheduled");
         m_autonomousCommand.schedule();
