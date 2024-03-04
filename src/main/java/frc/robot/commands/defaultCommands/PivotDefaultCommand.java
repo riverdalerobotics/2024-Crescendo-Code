@@ -48,9 +48,6 @@ public class PivotDefaultCommand extends Command {
   @Override
   public void execute() {
     //TODO: get someone to read this over please cause it might not be worth doing...
-
-
-
     //TODO: find better way to increase angle as this will make the angle increase way too quickly
     pivot.movePivot(angleController.calculate(pivot.getEncoders()));
     if(operatorInput.moveArmUp()){
@@ -66,7 +63,6 @@ public class PivotDefaultCommand extends Command {
     //TODO: Test to see if this could be screwed up by other robots or field elements. If it can, we need to ensure this doesn't 
     //unintenionally result in robot death
     if (pivot.getVoltage() < maxVoltage){
-      pivot.resetPivotEncoder();
       angleController.setSetpoint(setpoint);
       desiredArmAngle = setpoint;
     }
