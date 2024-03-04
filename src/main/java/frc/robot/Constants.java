@@ -76,7 +76,7 @@ public final class Constants {
 
 
     //PID values for turning
-    public static final double kTurningP = 0.2;
+    public static final double kTurningP = 0.5; //0.2
     public static final double kTurningI = 0;
     public static final double kTurningD = 0;
     public static final double kTurningFF = 0;
@@ -84,6 +84,14 @@ public final class Constants {
     public static final double kTurningMaxOutput = 1;
     //5 degrees in radians
     public static final double kTurningTolerance = 0.0872665;
+
+
+    public static final double kDriveP = 0.04;
+    public static final double kDriveI = 0;
+    public static final double kDriveD = 0;
+    public static final double kDriveFF = 0;
+    public static final double kDriveMinOutput = -1;
+    public static final double kDriveMaxOutput = 1;
 
 
 
@@ -155,7 +163,7 @@ public final class Constants {
     
 
     
-    public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond * 0.01;
+    public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond * 0.5;
     public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond * 0.1;
   
     //These are used for slew rate limiting
@@ -184,6 +192,7 @@ public final class Constants {
     public static final double kShootBeltMotorSpeed = -1000;
 
 
+
     public static class PIDConstants {
       public static final double kIntakeP = -1000;
       public static final double kIntakeI = -1000;
@@ -209,6 +218,10 @@ public final class Constants {
 
     //Max voltage pivot can receive before attempting to reset position
     public static final int kPivotMaxVoltage = -1000;
+
+
+    public static final int intakeAngle = -1000;
+    public static final int subwooferShootAngle = -1000;
 
 
     //Used in multiple commands to automatically move the pivot to a desired angle
@@ -246,6 +259,8 @@ public final class Constants {
     public static final double kYNoteAlignP = 0.01;
     public static final double kYNoteAlignI = 0;
     public static final double kYNoteAlignD = 0;
+    public static final double kYNoteAlignMinOutput = -0.2;
+    public static final double kYNoteAlignMaxOutput = 0.2;
     //Meters
     public static final double kYNoteAlignSetpoint = 0;
     public static final double kYNoteAlignTolerance = 0.05;

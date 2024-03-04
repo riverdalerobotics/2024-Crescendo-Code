@@ -54,7 +54,6 @@ public class PickUpCommand extends Command {
         hasPickedUp = true;
       }
     }
-    
   }
 
   // Called once the command ends or is interrupted.

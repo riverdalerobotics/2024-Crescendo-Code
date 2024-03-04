@@ -9,6 +9,7 @@ import java.util.function.Supplier;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.HelperMethods;
 import frc.robot.Limelight;
 import frc.robot.Constants.CommandConstants;
 import frc.robot.subsystems.SwerveChassisSubsystem;
@@ -61,7 +62,6 @@ public class AutoAlignWithNoteSwerve extends Command {
 
   @Override
   public void execute() {
-    System.out.println("COMMAND RUNNING POGGERS");
     double xSpd = xSpdFunction.get();
     double ySpd = ySpdFunction.get();
     double turningSpd = turningSpdFunction.get();
@@ -86,7 +86,10 @@ public class AutoAlignWithNoteSwerve extends Command {
 
       //Field oriented mucks up this command so we disable it when a note is detected
       swerveSubsystem.disableFieldOriented();
+
+      //Calculate pid input using lr offset from note and limit it to max speed values to avoid overshooting
       double PIDySpeed = yController.calculate(noteYOffset);
+      PIDySpeed = HelperMethods.limitValInRange(CommandConstants.kYNoteAlignMinOutput, CommandConstants.kYNoteAlignMaxOutput, PIDySpeed);
       //double PIDTurningSpeed = turningController.calculate(noteThetaOffset);
       swerveSubsystem.driveSwerve(xSpd, PIDySpeed, 0);
     }

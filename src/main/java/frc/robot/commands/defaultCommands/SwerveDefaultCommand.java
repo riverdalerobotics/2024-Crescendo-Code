@@ -51,9 +51,9 @@ public class SwerveDefaultCommand extends Command {
       swerveSubsystem.zeroHeading();
     }
 
-    double xSpeed = oi.xSpeed()*0.5;
-    double ySpeed = oi.ySpeed()*0.5;
-    double turnSpeed = oi.rotate()*0.1;
+    double xSpeed = oi.xSpeed(); // *0.5
+    double ySpeed = oi.ySpeed(); // *0.5
+    double turnSpeed = oi.rotate(); // *0.1
 
     
     //double speedIncrease = speedBoost.get();
