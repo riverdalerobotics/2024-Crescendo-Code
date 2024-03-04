@@ -177,7 +177,7 @@ public class SwerveModule extends SubsystemBase {
    * @param desiredState
    */
   public void setDesiredState(SwerveModuleState desiredState) {
-    if (Math.abs(desiredState.speedMetersPerSecond) < 0.005) {
+    if (Math.abs(desiredState.speedMetersPerSecond) < 0.01) {
       stop();
       return;
     }

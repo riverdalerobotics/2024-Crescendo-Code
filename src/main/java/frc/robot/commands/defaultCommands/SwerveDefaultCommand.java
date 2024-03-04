@@ -55,6 +55,18 @@ public class SwerveDefaultCommand extends Command {
     double ySpeed = oi.ySpeed(); // *0.5
     double turnSpeed = oi.rotate(); // *0.1
 
+    if (xSpeed < 0.05 && xSpeed > -0.05) {
+      xSpeed = 0;
+    }
+
+    if (ySpeed < 0.05 && ySpeed > -0.05) {
+      ySpeed = 0;
+    }
+
+    if (turnSpeed < 0.05 && turnSpeed > -0.05) {
+      turnSpeed = 0;
+    }
+
     
     //double speedIncrease = speedBoost.get();
     //double speedDecrease = speedDampener.get();
