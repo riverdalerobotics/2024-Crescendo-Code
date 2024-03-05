@@ -75,7 +75,7 @@ public class RobotContainer {
   //Put triggers here that change the active commands
   private void configureBindings() {
 
-    new Trigger(() -> oi.engageNoteAlignAssist()).whileTrue(new AutoAlignWithNoteSwerve(CHASSIS, () -> oi.xSpeed(), () -> oi.ySpeed(), () -> oi.rotate(), () -> oi.toggleFieldOriented(), NOTE_LIMELIGHT));
+    new Trigger(() -> oi.engageNoteAlignAssist()).whileTrue(new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT));
       
       }
   

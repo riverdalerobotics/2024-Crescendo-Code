@@ -64,7 +64,11 @@ public boolean resetGyro() {
     return moveController.getStartButtonPressed();
 }
 
-
+/**
+ * Movement controls ||
+ * Used to engage the note auto align assist
+ * @return true when the movement controller's x button is held down
+ */
 public boolean engageNoteAlignAssist() {
     return moveController.getXButton();
 }
