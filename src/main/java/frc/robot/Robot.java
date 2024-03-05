@@ -28,8 +28,8 @@ public class Robot extends TimedRobot {
   private static final String ampSubwooferTwoNotes = "Amp Side Subwoofer Shoot and Retrieve Amp Note and Shoot";
   private static final String midSubwooferFourNotes = "Middle Side Subwoofer Shoot and Retrieve and Shoot 3 close notest";
   private static final String doNothingLol = "DO NOTHING";
-  private static final String test = "testlol";
-  private static final String testTwo = "straight line";
+  private static final String test = "curve path 1.6764 meters down, 6.35 meters to the right";
+  private static final String testTwo = "straight line goes 155 inches or 3.937 meters";
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -112,7 +112,7 @@ public class Robot extends TimedRobot {
         case test:
           m_autonomousCommand = m_robotContainer.getTestAuto();
           break;
-        case testTwo:
+        case testTwo: 
           m_autonomousCommand = m_robotContainer.getTestSecondAuto();
           break;
 
