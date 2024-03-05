@@ -419,6 +419,9 @@ public ChassisSpeeds getVelocities() {
   public void driveSwerve(ChassisSpeeds cSpeeds) {
 
     ChassisSpeeds chassisSpeeds = cSpeeds;
+    if (chassisSpeeds.omegaRadiansPerSecond > maxTeleopAngularSpeed) {
+      chassisSpeeds.omegaRadiansPerSecond = maxTeleopAngularSpeed;
+    }
 
 
     SwerveModuleState[] moduleStates = ChassisConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
