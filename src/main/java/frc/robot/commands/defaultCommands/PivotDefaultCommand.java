@@ -17,13 +17,13 @@ public class PivotDefaultCommand extends Command {
   double kp = PivotConstants.PIDConstants.kPivotP;
   double ki = PivotConstants.PIDConstants.kPivotI;
   double kd = PivotConstants.PIDConstants.kPivotD;
-  double setpoint = PivotConstants.kMinPivotRotationDegrees;
+  double hardStopPosition = PivotConstants.kMinPivotRotationDegrees;
 
   //TODO: find good tolerance value
   double tolerance = PivotConstants.PIDConstants.kPivotToleranceThreshold;
 
   //This tracks the current desired angle the arm is heading towards in degrees
-  double desiredArmAngle = setpoint;
+  double desiredArmAngle = hardStopPosition;
 
   //The operator can only manually control the pivot when this is true
   boolean manualRotationEnabled = false;
@@ -42,9 +42,12 @@ public class PivotDefaultCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    angleController.setSetpoint(setpoint);
+    angleController.setSetpoint(hardStopPosition);
     angleController.setTolerance(tolerance);
-    desiredArmAngle = setpoint;
+
+    //Sets the desired angle to the current arm angle when this command is initialized
+    //If a command that sets the arm position ends, the default command will continue holding that position
+    desiredArmAngle = pivot.getEncoders();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -69,7 +72,7 @@ public class PivotDefaultCommand extends Command {
 
 
     if(operatorInput.pivotToIntakePosition()) {
-      desiredArmAngle = PivotConstants.intakeAngle;
+      desiredArmAngle = PivotConstants.kIntakeAngle;
       manualRotationEnabled = false;
     }
 
@@ -83,8 +86,8 @@ public class PivotDefaultCommand extends Command {
     //TODO: Test to see if this could be screwed up by other robots or field elements. If it can, we need to ensure this doesn't 
     //unintenionally result in robot death
     if (pivot.getVoltage() < maxVoltage){
-      angleController.setSetpoint(setpoint);
-      desiredArmAngle = setpoint;
+      angleController.setSetpoint(hardStopPosition);
+      desiredArmAngle = hardStopPosition;
     }
   }
 

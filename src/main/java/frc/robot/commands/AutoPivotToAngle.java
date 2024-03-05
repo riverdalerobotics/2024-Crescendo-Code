@@ -16,7 +16,7 @@ public class AutoPivotToAngle extends Command {
   double kp = PivotConstants.PIDConstants.kPivotP;
   double ki = PivotConstants.PIDConstants.kPivotI;
   double kd = PivotConstants.PIDConstants.kPivotD;
-  double tolerance = 0d;
+  double tolerance = PivotConstants.PIDConstants.kPivotToleranceThreshold;
   double desiredAngle;
   PivotSubsystem pivot;
   PIDController pivotController;
@@ -45,11 +45,13 @@ public class AutoPivotToAngle extends Command {
   @Override
   public void end(boolean interrupted) {
     pivotController.reset();
+    pivot.stopAll();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    
     return pivotController.atSetpoint();
   }
 }
