@@ -45,6 +45,7 @@ public class ShootCommand extends Command {
     addRequirements(intake, pivot);
     pivotSpeedController = new PIDController(Pkp, Pki, Pkd);
     shootSpeedContller = new PIDController(Skp, Ski, Skd);
+    this.desiredPivotAngle = PivotConstants.kSubwooferShootAngle;
     this.oi = oi;
     this.pivot = pivot;
     this.intake = intake;

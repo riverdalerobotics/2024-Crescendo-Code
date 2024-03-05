@@ -220,8 +220,8 @@ public final class Constants {
     public static final int kPivotMaxVoltage = -1000;
 
 
-    public static final int intakeAngle = -1000;
-    public static final int subwooferShootAngle = -1000;
+    public static final int kIntakeAngle = -1000;
+    public static final int kSubwooferShootAngle = -1000;
 
 
     //Used in multiple commands to automatically move the pivot to a desired angle

@@ -16,20 +16,20 @@ public class AutoRevFlyWheels extends Command {
   double kp = IntakeConstants.PIDConstants.kIntakeP;
   double ki = IntakeConstants.PIDConstants.kIntakeI;
   double kd = IntakeConstants.PIDConstants.kIntakeD;
-  double tolerance = 0d;
-  double desiredSpeed;
-  public AutoRevFlyWheels(double speed, IntakeSubsystem intakeSubsystem) {
+  double tolerance = IntakeConstants.PIDConstants.kIntakeToleranceThreshold;
+  double desiredSpeedRPS;
+  public AutoRevFlyWheels(double speedRPS, IntakeSubsystem intakeSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     intakeSpeedController = new PIDController(kp, ki, kd);
     this.intake = intakeSubsystem;
-    this.desiredSpeed = speed;
+    this.desiredSpeedRPS = speedRPS;
     addRequirements(intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intakeSpeedController.setSetpoint(desiredSpeed);
+    intakeSpeedController.setSetpoint(desiredSpeedRPS);
     intakeSpeedController.setTolerance(tolerance);
   }
 

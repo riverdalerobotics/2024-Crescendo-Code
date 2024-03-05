@@ -41,6 +41,11 @@ public class PivotSubsystem extends SubsystemBase {
     pivotEncoder.setPosition(0);
   }
 
+  public void stopAll() {
+    pivot1.set(0);
+    pivot2.set(0);
+  }
+
   
   /** 
    * Returns the encoder value of the pivot in degrees

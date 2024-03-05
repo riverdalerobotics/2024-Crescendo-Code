@@ -21,10 +21,12 @@ public class PowerBeltAndShooter extends Command {
   double beltSpeed;
   boolean hasPickedUp = false;
   double maxCurrent = 0d;
-  public PowerBeltAndShooter(IntakeSubsystem intakeSubsystem) {
+  public PowerBeltAndShooter(IntakeSubsystem intakeSubsystem, double desiredSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.intake = intakeSubsystem;
     intakeSpeedController = new PIDController(kp, ki, kd);
+    this.desiredSpeed = desiredSpeed;
+    this.beltSpeed = 0.5;
     addRequirements(intake);
   }
 
@@ -41,7 +43,7 @@ public class PowerBeltAndShooter extends Command {
   public void execute() {
     intake.spinIntake(intakeSpeedController.calculate(intake.getSpeed()));
     intake.spinBelt(beltSpeed);
-    if(intake.intakeCurrent()>maxCurrent){
+    if(intake.intakeCurrent() > maxCurrent){
       intake.spinBelt(0);
       intake.spinIntake(0);
       hasPickedUp = true;
@@ -52,6 +54,8 @@ public class PowerBeltAndShooter extends Command {
   @Override
   public void end(boolean interrupted) {
     intakeSpeedController.reset();
+    intake.spinBelt(0);
+    intake.spinIntake(0);
   }
 
   // Returns true when the command should end.
