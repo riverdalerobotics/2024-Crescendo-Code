@@ -66,9 +66,10 @@ public class RobotContainer {
       oi
     ));
 
+    /**
     INTAKE.setDefaultCommand(new IntakeDefaultCommand(
       oi, 
-      INTAKE));
+      INTAKE));*/
   }
 
   //Put triggers here that change the active commands

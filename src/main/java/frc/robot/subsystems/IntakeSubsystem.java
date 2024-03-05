@@ -58,7 +58,10 @@ public class IntakeSubsystem extends SubsystemBase {
     StatusSignal<Double> voltage = leftIntake.getMotorVoltage();
     return voltage.getValue();
   }
-  
+  public double intakeCurrent(){
+    StatusSignal<Double> current = leftIntake.getSupplyCurrent();
+    return current.getValueAsDouble();
+  }
   /**
    * Returns the speed of the intake in rotations per second
    * @return double

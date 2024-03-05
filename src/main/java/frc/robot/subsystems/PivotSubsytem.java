@@ -8,27 +8,23 @@ import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.PivotConstants;
 
 
 
 
-public class PivotSubsystem extends SubsystemBase {
+public class PivotSubsytem extends SubsystemBase {
   /** Creates a new pivotSubsytems. */
   TalonFX pivot1;
   TalonFX pivot2;
   static CANcoder pivotEncoder;
-
-  //TODO Check if this works
-  double rotationToAngle = PivotConstants.kPivotEncoderRotationToDegrees;
+  double rotationToAngle = 18152.7272727;
   
-  public PivotSubsystem() {
-    pivot1 = new TalonFX(PivotConstants.kPivotMotor1ID);
-    pivot2 = new TalonFX(PivotConstants.kPivotMotor2ID);
-    pivotEncoder = new CANcoder(PivotConstants.kPivotEncoderID);
-
+  public PivotSubsytem() {
+    pivot1 = new TalonFX(10000);
+    pivot2 = new TalonFX(10000);
+    pivotEncoder = new CANcoder(10000);
     
     
   }
@@ -37,15 +33,9 @@ public class PivotSubsystem extends SubsystemBase {
     pivot1.set(speed);
     pivot2.set(speed);
   }
-  public void resetPivotEncoder(){
+  public void resetEncoders(){
     pivotEncoder.setPosition(0);
   }
-
-  
-  /** 
-   * Returns the encoder value of the pivot in degrees
-   * @return double: angle of the pivot in degrees
-   */
   public double getEncoders(){
     StatusSignal<Double> pos = pivotEncoder.getPosition();
     double encoderPos = pos.getValue() * rotationToAngle;
@@ -55,15 +45,9 @@ public class PivotSubsystem extends SubsystemBase {
     StatusSignal<Double> voltage = pivot1.getMotorVoltage();
     return voltage.getValue();
   }
-  public double getCurrent(){
-    StatusSignal<Double> current = pivot1.getSupplyCurrent();
-    return current.getValueAsDouble();
-  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Pivot Voltage", getVoltage());
-    SmartDashboard.putNumber("Pivot current", getCurrent());
-    SmartDashboard.putNumber("Pivot position", getEncoders());
   }
 }

@@ -119,7 +119,7 @@ public boolean shootPos(){
 /** 
  * @return double
  */
-public double beltSpeed(){
+public double manualBeltSpeed(){
     return intakeController.getRightY();
 }
 
@@ -132,7 +132,7 @@ public double beltSpeed(){
  */
 //Shoot
 //TODO: make this a boton!! it is now in "testing mode"
-public double manShoot(){
+public double manualShoot(){
     return intakeController.getLeftY();
 }
 
@@ -143,6 +143,23 @@ public boolean shoot(){
     return intakeController.getAButtonPressed();
 }
 
+/**
+ * Operator controls ||
+ * Used to engage the auto PID spinup of the intake fly wheels.
+ * @return true when the left trigger axis of the operator controller is pushed in above 0.2
+ */
+public boolean engageAutoIntakeSpinup(){
+    return intakeController.getLeftTriggerAxis() > 0.2;
+}
+
+/**
+ * Operator controls ||
+ * Used to engage the auto PID spinup for shooting fly wheels.
+ * @return true when the right trigger axis of the operator controller is pushed in above 0.2
+ */
+public boolean engageAutoShootSpinup(){
+    return intakeController.getRightTriggerAxis() > 0.2;
+}
 /** 
  * @return boolean
  */
@@ -151,21 +168,6 @@ public boolean drivePos(){
     return intakeController.getLeftStickButton();
 }
 
-
-/** 
- * @return boolean
- */
-// Arm Up and down
-public boolean moveArmUp(){
-    return intakeController.getRightBumperPressed();
-}
-
-/** 
- * @return boolean
- */
-public boolean moveArmDown(){
-    return intakeController.getLeftBumperPressed();
-}
 
 
 /** 
@@ -187,7 +189,10 @@ public boolean stopArm(){
 public boolean enableManualRotation() {
     return intakeController.getRightStickButtonPressed();
 }
-
+//I think this would work for testing
+public boolean disableManualIntakeControl(){
+    return intakeController.getRightStickButton();
+}
 
 
 /**
