@@ -9,7 +9,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.commands.AutoAlignWithNoteSwerve;
 import frc.robot.commands.AutoPivotToAngle;
-import frc.robot.commands.AutoRevFlyWheels;
+//import frc.robot.commands.AutoRevFlyWheels;
 import frc.robot.commands.Autos;
 import frc.robot.commands.PowerBeltAndShooter;
 import frc.robot.commands.ShootCommand;
@@ -54,7 +54,7 @@ public class RobotContainer {
   public final ClimberSubsystem CLIMB = new ClimberSubsystem();
  
   
-  private final SequentialCommandGroup PrepShotThenShoot = new SequentialCommandGroup(new ParallelCommandGroup(new AutoRevFlyWheels(IntakeConstants.kDesiredShootMotorRPS, INTAKE), new AutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT)), new PowerBeltAndShooter(INTAKE, IntakeConstants.kDesiredShootMotorRPS));
+  //private final SequentialCommandGroup PrepShotThenShoot = new SequentialCommandGroup(new ParallelCommandGroup(new AutoRevFlyWheels(IntakeConstants.kDesiredShootMotorRPS, INTAKE), new AutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT)), new PowerBeltAndShooter(INTAKE, IntakeConstants.kDesiredShootMotorRPS));
 
   public RobotContainer() {
     // Configure the trigger bindings

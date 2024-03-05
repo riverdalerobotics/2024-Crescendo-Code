@@ -95,8 +95,8 @@ public final class Constants {
 
 
 
-
-    public static final IdleMode kDrivingMotorIdleMode = IdleMode.kCoast;
+    
+    public static final IdleMode kDrivingMotorIdleMode = IdleMode.kBrake;
     public static final IdleMode kTurningMotorIdleMode = IdleMode.kBrake;
 
   
@@ -241,7 +241,7 @@ public final class Constants {
 
 
   public static class PathPlannerConstants { //TODO: GET THESE CONSTANTS
-    public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(0.1, 0, 0);
+    public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(0.005, 0, 1.5);
     public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(0.1, 0, 0);
     public static final double MAX_TRANSLATION_SPEED = ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond;
     public static final double MAX_ROTATION_SPEED = ChassisConstants.kTeleDriveMaxAngularSpeedRadiansPerSecond;
