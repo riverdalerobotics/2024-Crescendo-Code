@@ -64,9 +64,18 @@ public boolean resetGyro() {
     return moveController.getStartButtonPressed();
 }
 
-
+/**
+ * Driver controls ||
+ * Puts the robot in robot oriented so driver pushes y axis forward, while note aim assist is happening 
+ * Returns true when the driver's left trigger button is pressed basically all the way down
+ * @return
+ */
 public boolean engageNoteAlignAssist() {
-    return moveController.getXButton();
+    if (moveController.getLeftTriggerAxis() >= 0.330){ //beach bots lol
+        return true;
+    } else{
+        return false;
+    }
 }
 
 
