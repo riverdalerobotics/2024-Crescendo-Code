@@ -3,50 +3,56 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.3104826280826942,
-        "y": 4.109517305630104
+        "x": 2.3202208207500647,
+        "y": 7.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.3104826280826987,
-        "y": 4.109517305630104
+        "x": 2.3288194761442917,
+        "y": 7.001760527838968
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.688998825209987,
-        "y": 2.4345481668424793
+        "x": 6.2739270437022485,
+        "y": 7.0
       },
       "prevControl": {
-        "x": 5.640944520323204,
-        "y": 2.4053335888403695
+        "x": 6.269117003239939,
+        "y": 6.979250297765127
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.55,
+      "rotationDegrees": 180.0,
+      "rotateFast": true
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.0,
+    "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 179.8654772789389,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "1st Test Curve",
+  "folder": "3rd test rotate 180",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

@@ -30,6 +30,7 @@ public class Robot extends TimedRobot {
   private static final String doNothingLol = "DO NOTHING";
   private static final String test = "curve path 1.6764 meters down, 6.35 meters to the right";
   private static final String testTwo = "straight line goes 155 inches or 3.937 meters";
+  private static final String testThree = "rotate 180 degrees moving 3.937 meters";
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -48,6 +49,7 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("DO NOTHING", doNothingLol);
     m_chooser.addOption("test123", test);
     m_chooser.addOption("2nd test", testTwo);
+    m_chooser.addOption("3rd test", ampSubwooferTwoNotes);
   
     SmartDashboard.putData("Auto choices", m_chooser);
    
@@ -115,6 +117,10 @@ public class Robot extends TimedRobot {
         case testTwo: 
           m_autonomousCommand = m_robotContainer.getTestSecondAuto();
           break;
+        case testThree: 
+          m_autonomousCommand = m_robotContainer.getTestThreeAuto();
+          break;
+        
 
         //REDUNDANT, I think we can delete maybe 
         default:

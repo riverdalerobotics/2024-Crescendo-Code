@@ -107,6 +107,9 @@ public class RobotContainer {
     public Command getTestSecondAuto(){
       return autoFactory.testTwo();
     }
+    public Command getTestThreeAuto(){
+      return autoFactory.testThree();
+    }
 
 
     
