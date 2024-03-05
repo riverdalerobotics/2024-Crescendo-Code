@@ -88,6 +88,8 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 
+    m_robotContainer.CHASSIS.setDrivesBrake();
+
      m_autoSelected = m_chooser.getSelected();
       System.out.println("Auto selected: " + m_autoSelected);
       /* */
@@ -147,6 +149,7 @@ public class Robot extends TimedRobot {
     // continue until interrupted by another command, remove
     // this line or comment it out.
     m_robotContainer.CHASSIS.straightenModules();
+    m_robotContainer.CHASSIS.setDrivesCoast();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
