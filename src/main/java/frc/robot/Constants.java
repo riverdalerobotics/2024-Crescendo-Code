@@ -164,7 +164,7 @@ public final class Constants {
 
     
     public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond * 1; //0.5
-    public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond * 1; // 0.3
+    public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond * 0.5; // 0.3
   
     //These are used for slew rate limiting
     public static final double kTeleDriveMaxAccelerationMetersPerSecond = 3;
