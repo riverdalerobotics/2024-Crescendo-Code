@@ -56,7 +56,7 @@ public class RobotContainer {
   public final ClimberSubsystem CLIMB = new ClimberSubsystem();
  
   
-  private final SequentialCommandGroup PrepShotThenShoot = new SequentialCommandGroup(new ParallelCommandGroup(new AutoRevFlywheels(IntakeConstants.kDesiredShootMotorRPS, INTAKE, LED), new AutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT)), new PowerBeltAndShooter(INTAKE, IntakeConstants.kDesiredShootMotorRPS, LED));
+  //private final SequentialCommandGroup PrepShotThenShoot = new SequentialCommandGroup(new ParallelCommandGroup(new AutoRevFlywheels(IntakeConstants.kDesiredShootMotorRPS, INTAKE, LED), new AutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT)), new PowerBeltAndShooter(INTAKE, IntakeConstants.kDesiredShootMotorRPS, LED));
 
   public RobotContainer() {
     // Configure the trigger bindings

@@ -76,7 +76,7 @@ public final class Constants {
 
 
     //PID values for turning
-    public static final double kTurningP = 0.2; //0.2
+    public static final double kTurningP = 1; //0.2
     public static final double kTurningI = 0;
     public static final double kTurningD = 0;
     public static final double kTurningFF = 0;
@@ -298,6 +298,6 @@ public final class Constants {
 
 
   public static class LEDConstants {
-    public static final int kBlinkinPort = -1;
+    public static final int kBlinkinPort = 1;
   }
 }
