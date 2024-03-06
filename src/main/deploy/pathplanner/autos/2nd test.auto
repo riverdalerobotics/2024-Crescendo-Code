@@ -5,23 +5,16 @@
       "x": 2.3007444354153246,
       "y": 6.212966921782006
     },
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "sequential",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Straight Path"
-                }
-              }
-            ]
+            "pathName": "Straight Path"
           }
         }
       ]

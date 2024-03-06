@@ -28,13 +28,7 @@
       "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.55,
-      "rotationDegrees": 180.0,
-      "rotateFast": true
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -45,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 179.8654772789389,
+    "rotation": 1.1056134379034543,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "3rd test rotate 180",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 179.81503156124361,
     "velocity": 0
   },
   "useDefaultConstraints": true

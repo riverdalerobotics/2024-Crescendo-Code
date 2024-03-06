@@ -215,6 +215,9 @@ public Command getPathfindingCommand(String pathName){
 //resets the pose of the robot. Is done at the start of auto because path planner uses the starting pose in the UI and resets it
 public void resetPose(Pose2d pose) {
   odometer.resetPosition(getRotation2d(), getSwerveModulePositions(), pose);
+  for(int i = 0; i < 100; i++) {
+  System.out.println("POSE POSE POSE THIS IS THE POSE RAAAAAAAH" + pose);
+  }
 }
 
 /**
@@ -518,6 +521,8 @@ public ChassisSpeeds getVelocities() {
   public void periodic() {
     // This method will be called once per scheduler run
     odometer.update(getRotation2d(), getSwerveModulePositions());
+    
+    SmartDashboard.putNumber("Odometry heading", odometer.getPoseMeters().getRotation().getDegrees());
 
 
     SmartDashboard.putNumber("Robot Heading", getHeadingDegrees());
