@@ -44,17 +44,18 @@ public class RobotContainer {
   
   //private final IntakeSubsystem INTAKE = new IntakeSubsystem();
   
+  BlinkinLED LED = new BlinkinLED();
   OI oi = new OI();
   public final Limelight NOTE_LIMELIGHT = new Limelight("limelight-note");
   public final Limelight TAG_LIMELIGHT = new Limelight("limelight-tags"); 
   Autos autoFactory = new Autos();
-  public final SwerveChassisSubsystem CHASSIS = new SwerveChassisSubsystem(oi);
+  public final SwerveChassisSubsystem CHASSIS = new SwerveChassisSubsystem(LED);
   public final PivotSubsystem PIVOT = new PivotSubsystem();
   public final IntakeSubsystem INTAKE = new IntakeSubsystem();
   public final ClimberSubsystem CLIMB = new ClimberSubsystem();
  
   
-  private final SequentialCommandGroup PrepShotThenShoot = new SequentialCommandGroup(new ParallelCommandGroup(new AutoRevFlyWheels(IntakeConstants.kDesiredShootMotorRPS, INTAKE), new AutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT)), new PowerBeltAndShooter(INTAKE, IntakeConstants.kDesiredShootMotorRPS));
+  private final SequentialCommandGroup PrepShotThenShoot = new SequentialCommandGroup(new ParallelCommandGroup(new AutoRevFlyWheels(IntakeConstants.kDesiredShootMotorRPS, INTAKE, LED), new AutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT)), new PowerBeltAndShooter(INTAKE, IntakeConstants.kDesiredShootMotorRPS, LED));
 
   public RobotContainer() {
     // Configure the trigger bindings
@@ -71,7 +72,8 @@ public class RobotContainer {
     //Field reset toggle boost damp
     CHASSIS.setDefaultCommand(new SwerveDefaultCommand (
       CHASSIS,
-      oi
+      oi,
+      LED
     ));
 
     /**

@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.BlinkinLED;
 import frc.robot.OI;
 import frc.robot.Constants.ChassisConstants;
 import frc.robot.Constants.PathPlannerConstants;
@@ -66,11 +67,11 @@ public class SwerveChassisSubsystem extends SubsystemBase {
   private final AHRS gyro = new AHRS(SPI.Port.kMXP);
   private final SwerveDriveOdometry odometer = new SwerveDriveOdometry(ChassisConstants.kDriveKinematics,
   getRotation2d(), getSwerveModulePositions());
-  private final OI opInput;
 
 
+  BlinkinLED LED;
   /** Creates a new SwerveChassisSubsystem. */
-  public SwerveChassisSubsystem(OI opInp) {
+  public SwerveChassisSubsystem(BlinkinLED LED) {
     this.maxTeleopDriveSpeed = ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond;
     this.maxTeleopAngularSpeed = ChassisConstants.kTeleDriveMaxAngularSpeedRadiansPerSecond;
     this.xLimiter = new SlewRateLimiter(ChassisConstants.kTeleDriveMaxAccelerationMetersPerSecond);
@@ -78,8 +79,8 @@ public class SwerveChassisSubsystem extends SubsystemBase {
     this.turnLimiter = new SlewRateLimiter(ChassisConstants.kTeleDriveMaxAngularAccelerationRadiansPerSecond);
     resetModules();
     this.isFieldOriented = false;
+    this.LED = LED;
 
-    opInput = opInp;
 
 
 
@@ -209,19 +210,11 @@ public Command getPathfindingCommand(String pathName){
 
 
 
-//TODO: DELETE
-// /**
-//  * Set pos to the new Pose2d
-//  * 
-//  * @param newPos: The new pos odometry should "be at"
-//  */
-// public void setPos(Pose2d newPos) {
-// }
 
 
 //resets the pose of the robot. Is done at the start of auto because path planner uses the starting pose in the UI and resets it
 public void resetPose(Pose2d pose) {
-  odometer.resetPosition(gyro.getRotation2d(), getSwerveModulePositions(), pose);
+  odometer.resetPosition(getRotation2d(), getSwerveModulePositions(), pose);
 }
 
 /**
@@ -259,8 +252,27 @@ public ChassisSpeeds getVelocities() {
    * @return double: the clamped gyro value
    */
   
-  public double getHeadingDegrees() {
+  public double getHeadingDegreesOld() {
     return Math.IEEEremainder(-gyro.getAngle(), 360);
+  }
+
+
+  /** 
+   * Gyro's value is continuous, it can go past 360
+  This function clamps it between 180 and -180 degrees to make it easier to work with
+   * @return double: the clamped gyro value
+   */
+  public double getHeadingDegrees() {
+    double degrees = Math.IEEEremainder(-gyro.getAngle(), 360);
+    if (degrees > 180) {
+      return degrees - 360;
+    } 
+    else if (degrees < -180) {
+      return degrees + 360;
+    }
+    else {
+      return degrees;
+    }
   }
 
 
@@ -281,6 +293,7 @@ public ChassisSpeeds getVelocities() {
 
   
   /** 
+   * Returns a rotation 2d object clamped between 180 and -180 degrees
    * @return Rotation2d
    */
   public Rotation2d getRotation2d() {
@@ -435,6 +448,18 @@ public ChassisSpeeds getVelocities() {
   }
 
 
+  public void setLEDDriveColors() {
+    if(isFieldOriented) {
+      LED.enableFieldOrientedEnabledLED();
+      LED.disableRobotOrientedEnabledLED();
+    }
+    else {
+      LED.enableRobotOrientedEnabledLED();
+      LED.disableFieldOrientedEnabledLED();
+    }
+  }
+
+
 
 
   @Override
@@ -442,10 +467,6 @@ public ChassisSpeeds getVelocities() {
     // This method will be called once per scheduler run
     odometer.update(getRotation2d(), getSwerveModulePositions());
 
-
-    SmartDashboard.putNumber("XSpeed", opInput.xSpeed() * maxTeleopDriveSpeed);
-    SmartDashboard.putNumber("YSpeed", opInput.ySpeed() * maxTeleopDriveSpeed);
-    SmartDashboard.putNumber("TurnSpeed", opInput.rotate() * maxTeleopAngularSpeed);
 
     SmartDashboard.putNumber("Robot Heading", getHeadingDegrees());
     SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());

@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.BlinkinLED;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.IntakeSubsystem;
 
@@ -18,11 +19,13 @@ public class AutoRevFlyWheels extends Command {
   double kd = IntakeConstants.PIDConstants.kIntakeD;
   double tolerance = IntakeConstants.PIDConstants.kIntakeToleranceThreshold;
   double desiredSpeedRPS;
-  public AutoRevFlyWheels(double speedRPS, IntakeSubsystem intakeSubsystem) {
+  BlinkinLED LED;
+  public AutoRevFlyWheels(double speedRPS, IntakeSubsystem intakeSubsystem, BlinkinLED LED) {
     // Use addRequirements() here to declare subsystem dependencies.
     intakeSpeedController = new PIDController(kp, ki, kd);
     this.intake = intakeSubsystem;
     this.desiredSpeedRPS = speedRPS;
+    this.LED = LED;
     addRequirements(intake);
   }
 
@@ -31,6 +34,7 @@ public class AutoRevFlyWheels extends Command {
   public void initialize() {
     intakeSpeedController.setSetpoint(desiredSpeedRPS);
     intakeSpeedController.setTolerance(tolerance);
+    LED.enableFlywheelsRevvingLED();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -43,6 +47,7 @@ public class AutoRevFlyWheels extends Command {
   @Override
   public void end(boolean interrupted) {
   intakeSpeedController.reset();
+  LED.disableFlywheelsRevvingLED();
   }
 
   // Returns true when the command should end.
