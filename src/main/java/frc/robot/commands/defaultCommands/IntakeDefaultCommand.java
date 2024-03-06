@@ -46,37 +46,37 @@ public class IntakeDefaultCommand extends Command {
   //TODO: this is for testing only
   // intake.spinIntake(operatorInput.manShoot());
   // intake.spinBelt(operatorInput.beltSpeed());
-    if(operatorInput.disableManualIntakeControl()){
-      manual = true;
-      intakeSpeedController.setSetpoint(0);
-    }
+    // if(operatorInput.disableManualIntakeControl()){
+    //   manual = true;
+    //   intakeSpeedController.setSetpoint(0);
+    // }
     
-    if(manual){
-    intake.spinIntake(operatorInput.manualShoot());
-    intake.spinBelt(operatorInput.manualBeltSpeed());
-    }
+    // if(manual){
+    // intake.spinIntake(operatorInput.manualShoot());
+    // intake.spinBelt(operatorInput.manualBeltSpeed());
+    // }
     
-    //This is the real thing...Perhaps (Brandon please look through this and make s| ure that this is whay u want)
-    if (!manual){
-      intake.spinIntake(intakeSpeedController.calculate(intake.getSpeed()));
-    }
-    if(operatorInput.engageAutoIntakeSpinup()){
-      intakeSpeedController.setSetpoint(intakeSpeed);
-      manual = false;
-    }
-    else if(operatorInput.engageAutoShootSpinup()){
-      intakeSpeedController.setSetpoint(shootSpeed);
-      manual = false;
-    }
+    // //This is the real thing...Perhaps (Brandon please look through this and make s| ure that this is whay u want)
+    // if (!manual){
+    //   intake.spinIntake(intakeSpeedController.calculate(intake.getSpeed()));
+    // }
+    // if(operatorInput.engageAutoIntakeSpinup()){
+    //   intakeSpeedController.setSetpoint(intakeSpeed);
+    //   manual = false;
+    // }
+    // else if(operatorInput.engageAutoShootSpinup()){
+    //   intakeSpeedController.setSetpoint(shootSpeed);
+    //   manual = false;
+    // }
     
 
 
 
-    //Intake will be active as long as the operator's x button is held down
-    if(operatorInput.powerIntakeMechanisms()) {
-      intake.engageIntake();
+    // //Intake will be active as long as the operator's x button is held down
+    // if(operatorInput.powerIntakeMechanisms()) {
+    //   intake.engageIntake();
 
-    }
+    // }
   }
 
   // Called once the command ends or is interrupted.
