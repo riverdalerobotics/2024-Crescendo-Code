@@ -52,7 +52,7 @@ public class PivotSubsystem extends SubsystemBase {
    * @return double: angle of the pivot in degrees
    */
   public double getEncoders(){
-    StatusSignal<Double> pos = pivotEncoder.getPosition();
+    StatusSignal<Double> pos = pivot1.getPosition();
     double encoderPos = pos.getValue() * rotationToAngle;
     return encoderPos;
   }

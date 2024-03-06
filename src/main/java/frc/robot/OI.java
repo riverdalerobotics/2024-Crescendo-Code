@@ -142,7 +142,7 @@ public double manualBeltSpeed(){
 //Shoot
 //TODO: make this a boton!! it is now in "testing mode"
 public double manualShoot(){
-    return intakeController.getLeftY();
+    return intakeController.getLeftTriggerAxis();
 }
 
 /** 

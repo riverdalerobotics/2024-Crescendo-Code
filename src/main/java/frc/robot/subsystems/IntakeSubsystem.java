@@ -8,6 +8,7 @@ import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 
@@ -15,14 +16,14 @@ public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
   TalonFX leftIntake;
   TalonFX rightIntake;
-  TalonFX belt;
-  CANcoder speedCoder;
+  //TalonFX belt;
+  //CANcoder speedCoder;
   public IntakeSubsystem() {
-    belt = new TalonFX(IntakeConstants.kBeltMotorID);
+   // belt = new TalonFX(IntakeConstants.kBeltMotorID);
     leftIntake = new TalonFX(IntakeConstants.kLeftIntakeMotorID);
     rightIntake = new TalonFX(IntakeConstants.kRightIntakeMotorID);
     rightIntake.setInverted(true);
-    speedCoder = new CANcoder(IntakeConstants.kSpeedEncoderID);
+    //speedCoder = new CANcoder(IntakeConstants.kSpeedEncoderID);
     
   }
   
@@ -38,7 +39,7 @@ public class IntakeSubsystem extends SubsystemBase {
    * @param speed
    */
   public void spinBelt(double speed){
-    belt.set(speed);
+   // belt.set(speed);
   }
 
   /**
@@ -67,12 +68,13 @@ public class IntakeSubsystem extends SubsystemBase {
    * @return double
    */
   public double getSpeed(){
-    StatusSignal<Double> speed = speedCoder.getVelocity();
+    StatusSignal<Double> speed = leftIntake.getVelocity();
     double speedD = speed.getValue();
     return speedD;
   }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Intake Speed", getSpeed());
   }
 }

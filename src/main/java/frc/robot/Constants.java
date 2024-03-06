@@ -177,8 +177,8 @@ public final class Constants {
   }
 
   public static class IntakeConstants {
-    public static final int kLeftIntakeMotorID = -1000;
-    public static final int kRightIntakeMotorID = -1000;
+    public static final int kLeftIntakeMotorID = 12;
+    public static final int kRightIntakeMotorID = 11;
     public static final int kBeltMotorID = -1000;
     public static final int kSpeedEncoderID = -1000;
 
@@ -206,8 +206,8 @@ public final class Constants {
 
 
   public static class PivotConstants {
-    public static final int kPivotMotor1ID = -1000;
-    public static final int kPivotMotor2ID = -1000;
+    public static final int kPivotMotor1ID = 9;
+    public static final int kPivotMotor2ID = 10;
     public static final int kPivotEncoderID = -1000;
     public static final double kPivotEncoderRotationToDegrees = 18152.7272727;
 
@@ -226,9 +226,9 @@ public final class Constants {
 
     //Used in multiple commands to automatically move the pivot to a desired angle
     public static class PIDConstants {
-      public static final double kPivotP = -1000;
-      public static final double kPivotI = -1000;
-      public static final double kPivotD = -1000;
+      public static final double kPivotP = 1;
+      public static final double kPivotI = 0;
+      public static final double kPivotD = 0;
       //Used for PID to determine what rotation is close enough to desired angle
       public static final double kPivotToleranceThreshold = -1000;
 

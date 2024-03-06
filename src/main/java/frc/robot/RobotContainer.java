@@ -14,6 +14,7 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.PowerBeltAndShooter;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.defaultCommands.IntakeDefaultCommand;
+import frc.robot.commands.defaultCommands.PivotDefaultCommand;
 import frc.robot.commands.defaultCommands.SwerveDefaultCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -54,7 +55,7 @@ public class RobotContainer {
   public final ClimberSubsystem CLIMB = new ClimberSubsystem();
  
   
-  private final SequentialCommandGroup PrepShotThenShoot = new SequentialCommandGroup(new ParallelCommandGroup(new AutoRevFlyWheels(IntakeConstants.kDesiredShootMotorRPS, INTAKE), new AutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT)), new PowerBeltAndShooter(INTAKE, IntakeConstants.kDesiredShootMotorRPS));
+  //private final SequentialCommandGroup PrepShotThenShoot = new SequentialCommandGroup(new ParallelCommandGroup(new AutoRevFlyWheels(IntakeConstants.kDesiredShootMotorRPS, INTAKE), new AutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT)), new PowerBeltAndShooter(INTAKE, IntakeConstants.kDesiredShootMotorRPS));
 
   public RobotContainer() {
     // Configure the trigger bindings
@@ -74,10 +75,13 @@ public class RobotContainer {
       oi
     ));
 
-    /**
+    
     INTAKE.setDefaultCommand(new IntakeDefaultCommand(
       oi, 
-      INTAKE));*/
+      INTAKE));
+    PIVOT.setDefaultCommand(new PivotDefaultCommand(
+      oi, 
+      PIVOT));
   }
 
   //Put triggers here that change the active commands
