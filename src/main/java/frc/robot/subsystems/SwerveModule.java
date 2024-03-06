@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -223,6 +224,15 @@ public class SwerveModule extends SubsystemBase {
   public void stop() {
     mDriveMotor.set(0);
     mTurnMotor.set(0);
+  }
+
+
+  public void setDriveCoast() {
+    mDriveMotor.setIdleMode(IdleMode.kCoast);
+  }
+
+  public void setDriveBrake() {
+    mDriveMotor.setIdleMode(IdleMode.kBrake);
   }
 
   @Override

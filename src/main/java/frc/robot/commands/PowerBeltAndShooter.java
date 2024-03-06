@@ -2,10 +2,19 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+
+
+
+
+//The purpose of this command is to be called after the shooting wheels have already been revved up
+
+
+
 package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.BlinkinLED;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.IntakeSubsystem;
 
@@ -21,12 +30,14 @@ public class PowerBeltAndShooter extends Command {
   double beltSpeed;
   boolean hasPickedUp = false;
   double maxCurrent = 0d;
-  public PowerBeltAndShooter(IntakeSubsystem intakeSubsystem, double desiredSpeed) {
+  BlinkinLED LED;
+  public PowerBeltAndShooter(IntakeSubsystem intakeSubsystem, double desiredSpeed, BlinkinLED LED) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.intake = intakeSubsystem;
     intakeSpeedController = new PIDController(kp, ki, kd);
     this.desiredSpeed = desiredSpeed;
     this.beltSpeed = 0.5;
+    this.LED = LED;
     addRequirements(intake);
   }
 
@@ -36,6 +47,7 @@ public class PowerBeltAndShooter extends Command {
   public void initialize() {
     intakeSpeedController.setSetpoint(desiredSpeed);
     intakeSpeedController.setTolerance(tolerance);
+    LED.enableFlywheelsReadyLED();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -56,6 +68,7 @@ public class PowerBeltAndShooter extends Command {
     intakeSpeedController.reset();
     intake.spinBelt(0);
     intake.spinIntake(0);
+    LED.disableFlywheelsReadyLED();
   }
 
   // Returns true when the command should end.
