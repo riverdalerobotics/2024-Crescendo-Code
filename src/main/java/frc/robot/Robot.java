@@ -49,7 +49,7 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("DO NOTHING", doNothingLol);
     m_chooser.addOption("test123", test);
     m_chooser.addOption("2nd test", testTwo);
-    m_chooser.addOption("3rd test", ampSubwooferTwoNotes);
+    m_chooser.addOption("3rd test", testThree);
   
     SmartDashboard.putData("Auto choices", m_chooser);
    
