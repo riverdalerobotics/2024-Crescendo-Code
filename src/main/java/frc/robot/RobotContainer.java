@@ -9,7 +9,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.commands.AutoAlignWithNoteSwerve;
 import frc.robot.commands.AutoPivotToAngle;
-import frc.robot.commands.AutoRevFlyWheels;
+//import frc.robot.commands.AutoRevFlyWheels;
 import frc.robot.commands.Autos;
 import frc.robot.commands.PowerBeltAndShooter;
 import frc.robot.commands.ShootCommand;
@@ -85,7 +85,7 @@ public class RobotContainer {
   //Put triggers here that change the active commands
   private void configureBindings() {
 
-    new Trigger(() -> oi.engageNoteAlignAssist()).whileTrue(new AutoAlignWithNoteSwerve(CHASSIS, () -> oi.xSpeed(), () -> oi.ySpeed(), () -> oi.rotate(), () -> oi.toggleFieldOriented(), NOTE_LIMELIGHT));
+    new Trigger(() -> oi.engageNoteAlignAssist()).whileTrue(new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT));
       
       }
   
@@ -116,6 +116,9 @@ public class RobotContainer {
     }
     public Command getTestSecondAuto(){
       return autoFactory.testTwo();
+    }
+    public Command getTestThreeAuto(){
+      return autoFactory.testThree();
     }
 
 

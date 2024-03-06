@@ -33,6 +33,9 @@ public class Autos {
     public Command testTwo(){
         return new PathPlannerAuto("2nd test");
     }
+    public Command testThree(){
+        return new PathPlannerAuto("3rd test");
+    }
 
 
 }

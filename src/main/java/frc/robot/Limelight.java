@@ -91,7 +91,7 @@ public class Limelight {
      * @return The X component of the required displacement to the target, in meters
      */
     public double getXDisplacementFromNote(){
-        return Math.tan(Math.toRadians(getTX())) * getYDisplacementFromNote();
+        return Math.tan(getTX()*Math.PI /180) * getYDisplacementFromNote();
     }
 
     

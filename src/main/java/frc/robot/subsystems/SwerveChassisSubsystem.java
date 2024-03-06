@@ -245,6 +245,21 @@ public ChassisSpeeds getVelocities() {
   }
 
 
+  public void setDrivesCoast() {
+    frontLeft.setDriveCoast();
+    frontRight.setDriveCoast();
+    backLeft.setDriveCoast();
+    backRight.setDriveCoast();
+  }
+
+  public void setDrivesBrake() {
+    frontLeft.setDriveBrake();
+    frontRight.setDriveBrake();
+    backLeft.setDriveBrake();
+    backRight.setDriveBrake();
+  }
+
+
   
   /** 
    * Gyro's value is continuous, it can go past 360
@@ -409,6 +424,40 @@ public ChassisSpeeds getVelocities() {
 
 
 
+  public void driveSwerveWithPhysicalMax(double xSpeed, double ySpeed, double turningSpeed) {
+
+
+    //This is what actually limits the speed by our specified max
+    xSpeed = xLimiter.calculate(xSpeed) * ChassisConstants.kPhysicalMaxSpeedMetersPerSecond;
+    ySpeed = yLimiter.calculate(ySpeed) * ChassisConstants.kPhysicalMaxSpeedMetersPerSecond;
+    turningSpeed = turnLimiter.calculate(turningSpeed) * ChassisConstants.kPhysicalMaxAngularSpeedRadiansPerSecond;
+
+
+  
+    ChassisSpeeds chassisSpeeds;
+
+    if (isFieldOriented) {
+      chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turningSpeed, this.getRotation2d());
+    }
+    else {
+      chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turningSpeed);
+    }
+
+    SwerveModuleState[] moduleStates = ChassisConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
+
+    //This resets the speed ratios when a velocity goes to high above the specified max
+    //TOOD: Switch to physical max speed instead of set max if robot is too slow
+    SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, ChassisConstants.kPhysicalMaxSpeedMetersPerSecond);
+    SmartDashboard.putNumber("FL desired angle", moduleStates[0].angle.getDegrees());
+    SmartDashboard.putNumber("BL desired angle", moduleStates[2].angle.getDegrees());
+  
+
+    this.setModuleStates(moduleStates);
+  }
+
+
+
+
   /**
    * An alternative driveSwerve method that just takes in a chassisSpeeds object.
    * Used for PathPlanner autonomous
@@ -417,6 +466,9 @@ public ChassisSpeeds getVelocities() {
   public void driveSwerve(ChassisSpeeds cSpeeds) {
 
     ChassisSpeeds chassisSpeeds = cSpeeds;
+    if (chassisSpeeds.omegaRadiansPerSecond > maxTeleopAngularSpeed) {
+      chassisSpeeds.omegaRadiansPerSecond = maxTeleopAngularSpeed;
+    }
 
 
     SwerveModuleState[] moduleStates = ChassisConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
