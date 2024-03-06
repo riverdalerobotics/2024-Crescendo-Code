@@ -252,6 +252,21 @@ public ChassisSpeeds getVelocities() {
   }
 
 
+  public void setDrivesCoast() {
+    frontLeft.setDriveCoast();
+    frontRight.setDriveCoast();
+    backLeft.setDriveCoast();
+    backRight.setDriveCoast();
+  }
+
+  public void setDrivesBrake() {
+    frontLeft.setDriveBrake();
+    frontRight.setDriveBrake();
+    backLeft.setDriveBrake();
+    backRight.setDriveBrake();
+  }
+
+
   
   /** 
    * Gyro's value is continuous, it can go past 360
@@ -438,6 +453,9 @@ public ChassisSpeeds getVelocities() {
   public void driveSwerve(ChassisSpeeds cSpeeds) {
 
     ChassisSpeeds chassisSpeeds = cSpeeds;
+    if (chassisSpeeds.omegaRadiansPerSecond > maxTeleopAngularSpeed) {
+      chassisSpeeds.omegaRadiansPerSecond = maxTeleopAngularSpeed;
+    }
 
 
     SwerveModuleState[] moduleStates = ChassisConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);

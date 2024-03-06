@@ -4,9 +4,14 @@
 
 package frc.robot;
 
+import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.PivotConstants;
 import frc.robot.commands.AutoAlignWithNoteSwerve;
+import frc.robot.commands.AutoPivotToAngle;
+//import frc.robot.commands.AutoRevFlyWheels;
 import frc.robot.commands.Autos;
+import frc.robot.commands.PowerBeltAndShooter;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.defaultCommands.IntakeDefaultCommand;
 import frc.robot.commands.defaultCommands.SwerveDefaultCommand;
@@ -22,6 +27,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -47,6 +54,7 @@ public class RobotContainer {
   public final ClimberSubsystem CLIMB = new ClimberSubsystem();
  
   
+  //private final SequentialCommandGroup PrepShotThenShoot = new SequentialCommandGroup(new ParallelCommandGroup(new AutoRevFlyWheels(IntakeConstants.kDesiredShootMotorRPS, INTAKE), new AutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT)), new PowerBeltAndShooter(INTAKE, IntakeConstants.kDesiredShootMotorRPS));
 
   public RobotContainer() {
     // Configure the trigger bindings
@@ -106,6 +114,9 @@ public class RobotContainer {
     }
     public Command getTestSecondAuto(){
       return autoFactory.testTwo();
+    }
+    public Command getTestThreeAuto(){
+      return autoFactory.testThree();
     }
 
 

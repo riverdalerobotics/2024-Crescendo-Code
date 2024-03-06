@@ -32,7 +32,7 @@ public class ShootCommand extends Command {
   double currentTime = 0d;
   double shootTime = 0d;
   double timeNeeded = 0d;
-  boolean hasReved = false;
+  boolean beltEngaged = false;
   boolean hasShot = false;
   OI oi;
 
@@ -45,6 +45,7 @@ public class ShootCommand extends Command {
     addRequirements(intake, pivot);
     pivotSpeedController = new PIDController(Pkp, Pki, Pkd);
     shootSpeedContller = new PIDController(Skp, Ski, Skd);
+    this.desiredPivotAngle = PivotConstants.kSubwooferShootAngle;
     this.oi = oi;
     this.pivot = pivot;
     this.intake = intake;
@@ -74,15 +75,14 @@ public class ShootCommand extends Command {
           intake.spinBelt(beltSpeed);
           startTime =  System.currentTimeMillis();
           shootTime = startTime + timeNeeded;
-        if (currentTime > shootTime){
+          beltEngaged = true;
+        }
+        if (currentTime > shootTime && beltEngaged){
             intake.spinBelt(0);
             intake.spinIntake(0);
             hasShot = true;
         }
-
-        }
     }
-    
   }
 
   // Called once the command ends or is interrupted.
@@ -98,6 +98,6 @@ public class ShootCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return pivotSpeedController.atSetpoint() && shootSpeedContller.atSetpoint() && hasShot && hasReved;
+    return pivotSpeedController.atSetpoint() && shootSpeedContller.atSetpoint() && hasShot && beltEngaged;
   }
 }

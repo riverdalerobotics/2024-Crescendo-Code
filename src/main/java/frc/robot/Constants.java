@@ -76,7 +76,7 @@ public final class Constants {
 
 
     //PID values for turning
-    public static final double kTurningP = 1; //0.2
+    public static final double kTurningP = 0.2; //0.2
     public static final double kTurningI = 0;
     public static final double kTurningD = 0;
     public static final double kTurningFF = 0;
@@ -95,8 +95,8 @@ public final class Constants {
 
 
 
-
-    public static final IdleMode kDrivingMotorIdleMode = IdleMode.kCoast;
+    
+    public static final IdleMode kDrivingMotorIdleMode = IdleMode.kBrake;
     public static final IdleMode kTurningMotorIdleMode = IdleMode.kBrake;
 
   
@@ -163,8 +163,8 @@ public final class Constants {
     
 
     
-    public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond * 0.2; 
-    public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond * 1; // 0.3
+    public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond * 1; //0.5
+    public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond * 0.5; // 0.3
   
     //These are used for slew rate limiting
     public static final double kTeleDriveMaxAccelerationMetersPerSecond = 3;
@@ -220,8 +220,8 @@ public final class Constants {
     public static final int kPivotMaxVoltage = -1000;
 
 
-    public static final int intakeAngle = -1000;
-    public static final int subwooferShootAngle = -1000;
+    public static final int kIntakeAngle = -1000;
+    public static final int kSubwooferShootAngle = -1000;
 
 
     //Used in multiple commands to automatically move the pivot to a desired angle
@@ -241,7 +241,7 @@ public final class Constants {
 
 
   public static class PathPlannerConstants { //TODO: GET THESE CONSTANTS
-    public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(0.1, 0, 0);
+    public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(0.005, 0, 1.5);
     public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(0.1, 0, 0);
 
     //TODO DETERMINE whether this is desired max or physical max

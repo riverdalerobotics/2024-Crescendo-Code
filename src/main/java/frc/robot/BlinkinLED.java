@@ -32,7 +32,7 @@ public class BlinkinLED extends SubsystemBase {
     /*All LED patterns used on robot */
    
     public void robotDisabled()  {
-        LEDDriver.set(Pattern.SHOT_BLUE.value);
+        LEDDriver.set(Pattern.SOLID_COLOR_BLACK.value);
     }
 
     public void robotOnRedTeamDrivingColor() {
@@ -42,18 +42,26 @@ public class BlinkinLED extends SubsystemBase {
         LEDDriver.set(Pattern.SOLID_COLOR_BLUE.value);
     }
 
-    public void robotPossessNoteColor() {
+
+    //robot is ligned up with note in the left and right axis and still in aim assist robot oriented
+    public void robotLinedUpWithNoteAndInNoteAimAssist() {
         LEDDriver.set(Pattern.SOLID_COLOR_GOLD.value);
     }
-    public void robotAutoShootingAlignColor() {
-        LEDDriver.set(Pattern.RAINBOW_PARTY_PALETTE.value);
-    }
-    public void robotAlignedAndReadyToShootColor() {
-        LEDDriver.set(Pattern.C1_STROBE.value);
-    }
-    public void robotAutoNoteAlignColor() {
+    //robot is in note aim assist which is also intaking and in robot oriented 
+    public void robotInNoteAimAssist() {
         LEDDriver.set(Pattern.CONFETTI.value);
     }
+
+    //powers the shooter motor to rev up
+    public void robotRevingShooter() {
+        LEDDriver.set(Pattern.SOLID_COLOR_HOT_PINK.value);
+    }
+    
+    //powers the indexer to shoot
+    public void robotShootsNote() {
+        LEDDriver.set(Pattern.STROBE_GOLD.value);
+    }
+  
   
 
     @SuppressWarnings("unused")

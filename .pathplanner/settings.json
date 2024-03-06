@@ -3,15 +3,18 @@
   "robotLength": 0.76,
   "holonomicMode": true,
   "pathFolders": [
+    "1st Test Curve",
     "2 note amp subwoofer paths",
-    "4 note mid subwoofer paths",
     "2 note podium subwoofer paths",
-    "Test"
+    "2nd test straight line",
+    "3rd test rotate 180",
+    "4 note mid subwoofer paths",
+    "2 note podium subwoofer mid paths"
   ],
   "autoFolders": [],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
-  "maxModuleSpeed": 4.11
+  "maxModuleSpeed": 4.3
 }
