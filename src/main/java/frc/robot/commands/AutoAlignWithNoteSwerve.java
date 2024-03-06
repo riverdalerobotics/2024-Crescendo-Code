@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.HelperMethods;
 import frc.robot.Limelight;
+import frc.robot.OI;
 import frc.robot.Constants.CommandConstants;
 import frc.robot.subsystems.SwerveChassisSubsystem;
 
@@ -24,19 +25,13 @@ public class AutoAlignWithNoteSwerve extends Command {
   private double noteThetaOffset;
   private final SwerveChassisSubsystem swerveSubsystem;
   private final Limelight noteLimelight;
-
-  private final Supplier<Double> xSpdFunction, ySpdFunction, turningSpdFunction;
-  private final Supplier<Boolean> fieldOrientedFunction;
-
+  private final OI oi;
 
 
 
   public AutoAlignWithNoteSwerve(
     SwerveChassisSubsystem swerveSubsystem,
-    Supplier<Double> xSpdFunction, 
-    Supplier<Double> ySpdFunction, 
-    Supplier<Double> turningSpdFunction,
-    Supplier<Boolean> fieldOrientedFunction, 
+    OI oi,
     Limelight noteLimelight) {
     
       yController = new PIDController(CommandConstants.kYNoteAlignP, CommandConstants.kYNoteAlignI, CommandConstants.kYNoteAlignD);
@@ -47,13 +42,11 @@ public class AutoAlignWithNoteSwerve extends Command {
       turningController.setSetpoint(CommandConstants.kTurningNoteAlignSetpoint);
       turningController.setTolerance(CommandConstants.kTurningNoteAlignTolerance);
 
-    this.xSpdFunction = xSpdFunction;
-    this.ySpdFunction = ySpdFunction;
-    this.turningSpdFunction = turningSpdFunction;
-    this.fieldOrientedFunction = fieldOrientedFunction;
+
 
     this.swerveSubsystem = swerveSubsystem;
     this.noteLimelight = noteLimelight;
+    this.oi = oi;
     addRequirements(swerveSubsystem);
   }
 
@@ -62,15 +55,27 @@ public class AutoAlignWithNoteSwerve extends Command {
 
   @Override
   public void execute() {
-    double xSpd = xSpdFunction.get();
-    double ySpd = ySpdFunction.get();
-    double turningSpd = turningSpdFunction.get();
+    double xSpd = oi.xSpeed();
+    double ySpd = oi.ySpeed();
+    double turningSpd = oi.rotate();
+
+    if (xSpd < 0.05 && xSpd > -0.05) {
+      xSpd = 0;
+    }
+
+    if (ySpd < 0.05 && ySpd > -0.05) {
+      ySpd = 0;
+    }
+
+    if (turningSpd < 0.05 && turningSpd > -0.05) {
+      turningSpd = 0;
+    }
 
 
     noteIsDetected = noteLimelight.targetDetected();
     SmartDashboard.putBoolean("Note detected", noteIsDetected);
 
-    if (fieldOrientedFunction.get() && noteIsDetected == false) {
+    if (oi.toggleFieldOriented() && noteIsDetected == false) {
       swerveSubsystem.toggleFieldOriented();
     }
 
@@ -91,7 +96,7 @@ public class AutoAlignWithNoteSwerve extends Command {
       double PIDySpeed = yController.calculate(noteYOffset);
       PIDySpeed = HelperMethods.limitValInRange(CommandConstants.kYNoteAlignMinOutput, CommandConstants.kYNoteAlignMaxOutput, PIDySpeed);
       //double PIDTurningSpeed = turningController.calculate(noteThetaOffset);
-      swerveSubsystem.driveSwerve(xSpd, PIDySpeed, 0);
+      swerveSubsystem.driveSwerveWithPhysicalMax(xSpd, PIDySpeed, 0);
     }
 
     //If no note is detected, drive like normal

@@ -76,7 +76,7 @@ public final class Constants {
 
 
     //PID values for turning
-    public static final double kTurningP = 0.2; //0.2
+    public static final double kTurningP = 1; //0.2
     public static final double kTurningI = 0;
     public static final double kTurningD = 0;
     public static final double kTurningFF = 0;
@@ -157,7 +157,7 @@ public final class Constants {
 
     //These are the absolute max limitations of the robot
     //TODO: Test both of these 
-    public static final double kPhysicalMaxSpeedMetersPerSecond = 4.5;
+    public static final double kPhysicalMaxSpeedMetersPerSecond = 4.3;
     public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 9.1144;
     
     
@@ -243,7 +243,9 @@ public final class Constants {
   public static class PathPlannerConstants { //TODO: GET THESE CONSTANTS
     public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(0.005, 0, 1.5);
     public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(0.1, 0, 0);
-    public static final double MAX_TRANSLATION_SPEED = ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond;
+
+    //TODO DETERMINE whether this is desired max or physical max
+    public static final double MAX_TRANSLATION_SPEED = ChassisConstants.kPhysicalMaxSpeedMetersPerSecond;
     public static final double MAX_ROTATION_SPEED = ChassisConstants.kTeleDriveMaxAngularSpeedRadiansPerSecond;
     public static final double MAX_TRANSLATION_ACCELERATION = ChassisConstants.kTeleDriveMaxAccelerationMetersPerSecond;
     public static final double MAX_ROTATIONAL_ACCELERATION = ChassisConstants.kTeleDriveMaxAngularAccelerationRadiansPerSecond;
@@ -256,7 +258,7 @@ public final class Constants {
   public static class CommandConstants {
 
     //These PID values are for commands that line up with the note in the y axis (left/right)
-    public static final double kYNoteAlignP = 0.01;
+    public static final double kYNoteAlignP = 0.5;
     public static final double kYNoteAlignI = 0;
     public static final double kYNoteAlignD = 0;
     public static final double kYNoteAlignMinOutput = -0.2;
@@ -285,8 +287,8 @@ public final class Constants {
   public static class LimelightConstants {
 
     public static final double noteHeight = 0; //literally it is 0 
-    public static final double noteLimelightMountAngle = 0.63350946;  //TODO: find limelight mounts
-    public static final double noteLimelightMountHeight = 17;
+    public static final double noteLimelightMountHeight = 0.63350946;  //TODO: find limelight mounts
+    public static final double noteLimelightMountAngle = -17;
 
     public static final double tagLimelightMountAngle = 0;
     public static final double tagLimelightMountHeight = 0;
@@ -296,6 +298,6 @@ public final class Constants {
 
 
   public static class LEDConstants {
-    public static final int kBlinkinPort = -1;
+    public static final int kBlinkinPort = 1;
   }
 }

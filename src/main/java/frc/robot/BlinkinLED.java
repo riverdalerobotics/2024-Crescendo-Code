@@ -1,4 +1,10 @@
 package frc.robot;
+import java.io.File;
+import java.sql.Driver;
+
+import edu.wpi.first.hal.AllianceStationID;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.LEDConstants;
@@ -13,11 +19,64 @@ public class BlinkinLED extends SubsystemBase {
     //joojoojojoj
     //test
 
+
+    private boolean flywheelsRevving;
+    private boolean flywheelsReady;
+
+    private boolean fieldOrientedEnabled;
+    private boolean robotOrientedEnabled;
+
+
+    private Alliance allianceColor;
+
     public BlinkinLED(){
 
         LEDDriver = new Spark(LEDConstants.kBlinkinPort); //TODO: roborio PWM port
-    
+
+        flywheelsReady = false;
+        flywheelsRevving = false;
+        fieldOrientedEnabled = false;
+        robotOrientedEnabled = false;
+
+        var alliance = DriverStation.getAlliance();
+        allianceColor = alliance.get();
+        
     }
+
+
+    public void enableFlywheelsRevvingLED() {
+        flywheelsRevving = true;
+    }
+
+    public void disableFlywheelsRevvingLED() {
+        flywheelsRevving = false;
+    }
+
+    public void enableFlywheelsReadyLED() {
+        flywheelsReady = true;
+    }
+
+    public void disableFlywheelsReadyLED() {
+        flywheelsReady = false;
+    }
+
+    public void enableFieldOrientedEnabledLED() {
+        fieldOrientedEnabled = true;
+    }
+
+    public void disableFieldOrientedEnabledLED() {
+        fieldOrientedEnabled = false;
+    }
+
+    public void enableRobotOrientedEnabledLED() {
+        robotOrientedEnabled = true;
+    }
+
+    public void disableRobotOrientedEnabledLED() {
+        robotOrientedEnabled = false;
+    }
+
+
 
     // public void setPattern(Pattern p){
     //     LEDDriver.set(p.value);
@@ -43,6 +102,11 @@ public class BlinkinLED extends SubsystemBase {
     }
 
 
+    public void fieldOrientedColor() {
+        LEDDriver.set(Pattern.SHOT_WHITE.value);
+    }
+
+
     //robot is ligned up with note in the left and right axis and still in aim assist robot oriented
     public void robotLinedUpWithNoteAndInNoteAimAssist() {
         LEDDriver.set(Pattern.SOLID_COLOR_GOLD.value);
@@ -53,13 +117,34 @@ public class BlinkinLED extends SubsystemBase {
     }
 
     //powers the shooter motor to rev up
-    public void robotRevingShooter() {
+    public void robotRevvingShooter() {
         LEDDriver.set(Pattern.SOLID_COLOR_HOT_PINK.value);
     }
     
     //powers the indexer to shoot
     public void robotShootsNote() {
         LEDDriver.set(Pattern.STROBE_GOLD.value);
+    }
+
+
+    public void setLEDColor() {
+        if (flywheelsReady) {
+            robotShootsNote();
+        }
+        else if (flywheelsRevving) {
+            robotRevvingShooter();
+        }
+        else if (robotOrientedEnabled) {
+            if (allianceColor == DriverStation.Alliance.Red) {
+                robotOnRedTeamDrivingColor();
+            }
+            else if (allianceColor == DriverStation.Alliance.Blue) {
+                robotOnBlueTeamDrivingColor();
+            }
+        }
+        else if (fieldOrientedEnabled) {
+            fieldOrientedColor();
+        }
     }
   
   

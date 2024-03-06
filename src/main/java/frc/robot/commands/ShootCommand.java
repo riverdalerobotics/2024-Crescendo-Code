@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.BlinkinLED;
 import frc.robot.OI;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.PivotConstants;
@@ -13,7 +14,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
 public class ShootCommand extends Command {
   PIDController pivotSpeedController;
-  PIDController shootSpeedContller;
+  PIDController shootSpeedController;
   //Pivot pid constants
   double Pkp = PivotConstants.PIDConstants.kPivotP;
   double Pki = PivotConstants.PIDConstants.kPivotI;
@@ -35,20 +36,23 @@ public class ShootCommand extends Command {
   boolean beltEngaged = false;
   boolean hasShot = false;
   OI oi;
+  BlinkinLED LED;
 
   private PivotSubsystem pivot;
   private IntakeSubsystem intake;
 
   /** Creates a new AutoPickUpCommand. */
-  public ShootCommand(OI oi, PivotSubsystem pivot, IntakeSubsystem intake) {
+  public ShootCommand(OI oi, PivotSubsystem pivot, IntakeSubsystem intake, BlinkinLED LED) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intake, pivot);
     pivotSpeedController = new PIDController(Pkp, Pki, Pkd);
-    shootSpeedContller = new PIDController(Skp, Ski, Skd);
+    shootSpeedController = new PIDController(Skp, Ski, Skd);
     this.desiredPivotAngle = PivotConstants.kSubwooferShootAngle;
     this.oi = oi;
     this.pivot = pivot;
     this.intake = intake;
+    this.LED = LED;
+
   }
 
   // Called when the command is initially scheduled.
@@ -56,8 +60,9 @@ public class ShootCommand extends Command {
   public void initialize() {
     pivotSpeedController.setSetpoint(desiredPivotAngle);
     pivotSpeedController.setTolerance(pivotTolerance);
-    shootSpeedContller.setSetpoint(intakeSpeed);
-    shootSpeedContller.setTolerance(shootTolerance);
+    shootSpeedController.setSetpoint(intakeSpeed);
+    shootSpeedController.setTolerance(shootTolerance);
+    LED.enableFlywheelsRevvingLED();
     
   }
 
@@ -67,21 +72,24 @@ public class ShootCommand extends Command {
   public void execute() {
     currentTime = System.currentTimeMillis();
     pivot.movePivot(pivotSpeedController.calculate(pivot.getEncoders()));
-    intake.spinIntake(shootSpeedContller.calculate(intake.getSpeed()));
+    intake.spinIntake(shootSpeedController.calculate(intake.getSpeed()));
  
       
-    if (shootSpeedContller.atSetpoint() && shootSpeedContller.atSetpoint()){
-        if (oi.shoot()){
-          intake.spinBelt(beltSpeed);
-          startTime =  System.currentTimeMillis();
-          shootTime = startTime + timeNeeded;
-          beltEngaged = true;
-        }
-        if (currentTime > shootTime && beltEngaged){
-            intake.spinBelt(0);
-            intake.spinIntake(0);
-            hasShot = true;
-        }
+    if (shootSpeedController.atSetpoint() && pivotSpeedController.atSetpoint()){
+      LED.enableFlywheelsReadyLED();
+      LED.disableFlywheelsRevvingLED();
+
+      if (oi.shoot()){
+        intake.spinBelt(beltSpeed);
+        startTime =  System.currentTimeMillis();
+        shootTime = startTime + timeNeeded;
+        beltEngaged = true;
+      }
+      if (currentTime > shootTime && beltEngaged){
+          intake.spinBelt(0);
+          intake.spinIntake(0);
+          hasShot = true;
+      }
     }
   }
 
@@ -89,15 +97,18 @@ public class ShootCommand extends Command {
   @Override
   public void end(boolean interrupted) {
     pivotSpeedController.reset();
-    shootSpeedContller.reset();
+    shootSpeedController.reset();
     pivot.movePivot(0);
     intake.spinBelt(0);
     intake.spinIntake(0);
+
+    LED.disableFlywheelsReadyLED();
+    LED.disableFlywheelsRevvingLED();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return pivotSpeedController.atSetpoint() && shootSpeedContller.atSetpoint() && hasShot && beltEngaged;
+    return pivotSpeedController.atSetpoint() && shootSpeedController.atSetpoint() && hasShot && beltEngaged;
   }
 }
