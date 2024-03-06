@@ -41,6 +41,8 @@ public class IntakeDefaultCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+  intake.spinIntake(operatorInput.manualShoot());
+  //intake.spinBelt(operatorInput.manualBeltSpeed());
   //TODO: this is for testing only
   // intake.spinIntake(operatorInput.manShoot());
   // intake.spinBelt(operatorInput.beltSpeed());
