@@ -77,7 +77,7 @@ public final class Constants {
 
 
     //PID values for turning
-    public static final double kTurningP = 1; //0.2
+    public static final double kTurningP = 1; //0.2 //1
     public static final double kTurningI = 0;
     public static final double kTurningD = 0;
     public static final double kTurningFF = 0;
@@ -243,7 +243,7 @@ public final class Constants {
 
   public static class PathPlannerConstants { //TODO: GET THESE CONSTANTS
     public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(0.005, 0, 0);
-    public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(0.0004, 0, 0);
+    public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(0.01, 0, 0);
 
     //TODO DETERMINE whether this is desired max or physical max
     public static final double MAX_TRANSLATION_SPEED = ChassisConstants.kPhysicalMaxSpeedMetersPerSecond;
