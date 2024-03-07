@@ -1,5 +1,7 @@
 package frc.robot;
 
+import frc.robot.Constants.OperatorConstants;
+
 public final class HelperMethods {
 
     /**
@@ -15,6 +17,22 @@ public final class HelperMethods {
         else {return value;}
     }
 
+
+
+    /**
+     * Many of our controllers have issues with deadbands applying a small power to the motors at the joystick 0 position.
+     * All joystick inputs are passed through this method to ensure they don't have a small value when zero'd
+     * @param controllerInput the raw controller input
+     * @return raw controller input if above deadband. 0 if below
+     */
+    public static double applyInputDeadband(double controllerInput) {
+        if (controllerInput < OperatorConstants.kControllerDeadbandValue && controllerInput > -OperatorConstants.kControllerDeadbandValue) {
+            return 0;
+        }
+        else {
+            return controllerInput;
+        }
+    }
 
 
     

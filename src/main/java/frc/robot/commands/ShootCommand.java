@@ -79,7 +79,7 @@ public class ShootCommand extends Command {
       LED.enableFlywheelsReadyLED();
       LED.disableFlywheelsRevvingLED();
 
-      if (oi.shoot()){
+      if (oi.shoot() && beltEngaged == false){
         intake.spinBelt(beltSpeed);
         startTime =  System.currentTimeMillis();
         shootTime = startTime + timeNeeded;

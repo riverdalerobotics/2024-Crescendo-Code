@@ -14,6 +14,7 @@ import frc.robot.commands.AutoRevFlywheels;
 import frc.robot.commands.Autos;
 import frc.robot.commands.PowerBeltAndShooter;
 import frc.robot.commands.ShootCommand;
+import frc.robot.commands.TuckCommand;
 import frc.robot.commands.defaultCommands.IntakeDefaultCommand;
 import frc.robot.commands.defaultCommands.PivotDefaultCommand;
 import frc.robot.commands.defaultCommands.SwerveDefaultCommand;
@@ -93,7 +94,9 @@ public class RobotContainer {
   private void configureBindings() {
 
     new Trigger(() -> oi.engageNoteAlignAssist()).whileTrue(new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT));
-      
+    
+    new Trigger(() -> oi.tuckArm1()).whileTrue(new TuckCommand());
+    new Trigger(() -> oi.tuckArm2()).whileTrue(new TuckCommand());
       }
   
    

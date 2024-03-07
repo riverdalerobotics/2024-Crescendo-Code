@@ -42,12 +42,14 @@ public class PivotDefaultCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    angleController.setSetpoint(pivot.getEncoders());
-    angleController.setTolerance(tolerance);
-
     //Sets the desired angle to the current arm angle when this command is initialized
     //If a command that sets the arm position ends, the default command will continue holding that position
     desiredArmAngle = pivot.getEncoders();
+    angleController.setSetpoint(desiredArmAngle);
+    angleController.setTolerance(tolerance);
+    manualRotationEnabled = false;
+
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -90,7 +92,7 @@ public class PivotDefaultCommand extends Command {
     //Voltage above max voltage indicates that the arm is pushing against the hard stop and should be reset
     //TODO: Test to see if this could be screwed up by other robots or field elements. If it can, we need to ensure this doesn't 
     //unintenionally result in robot death
-    if (pivot.getVoltage() < maxVoltage){
+    if (pivot.getVoltage() > maxVoltage){
       angleController.setSetpoint(hardStopPosition);
       desiredArmAngle = hardStopPosition;
     }

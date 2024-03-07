@@ -23,6 +23,7 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
     public static final int kOperatorControllerPort = 1;
+    public static final double kControllerDeadbandValue = 0.05;
   }
 
   
@@ -261,8 +262,8 @@ public final class Constants {
     public static final double kYNoteAlignP = 0.5;
     public static final double kYNoteAlignI = 0;
     public static final double kYNoteAlignD = 0;
-    public static final double kYNoteAlignMinOutput = -0.2;
-    public static final double kYNoteAlignMaxOutput = 0.2;
+    public static final double kYNoteAlignMinOutput = -0.3;
+    public static final double kYNoteAlignMaxOutput = 0.3;
     //Meters
     public static final double kYNoteAlignSetpoint = 0;
     public static final double kYNoteAlignTolerance = 0.05;
@@ -276,9 +277,11 @@ public final class Constants {
     public static final double kTurningNoteAlignTolerance = 1;
 
 
-    public static final double kXNoteAlignP = 0.1;
+    public static final double kXNoteAlignP = 0.2;
     public static final double kXNoteAlignI = 0;
     public static final double kXNoteAlignD = 0;
+    public static final double kXNoteAlignMinOutput = -0.3;
+    public static final double kXNoteAlignMaxOutput = 0.3;
     //Meters
     public static final double kXNoteAlignSetpoint = 0.5;
     public static final double kXNoteAlignTolerance = 0.05;

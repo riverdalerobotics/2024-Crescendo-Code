@@ -7,6 +7,7 @@ package frc.robot.commands.defaultCommands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.OI;
+import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class IntakeDefaultCommand extends Command {
@@ -42,44 +43,44 @@ public class IntakeDefaultCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
+  //These lines were just for testing PID stuff. Keeping them here in case we want to use them again for testing
   //System.out.println(intakeSpeedController.getSetpoint());
-  System.out.println(intakeSpeedController.getPositionError());
-  System.out.println("INTAKE DEF WORKING");
-  //intake.spinBelt(operatorInput.manualBeltSpeed());
-  //TODO: this is for testing only
-  // intake.spinIntake(operatorInput.manShoot());
-  // intake.spinBelt(operatorInput.beltSpeed());
-    // if(operatorInput.disableManualIntakeControl()){
-    //   manual = true;
-    //   intakeSpeedController.setSetpoint(0);
-    // }
+  //System.out.println(intakeSpeedController.getPositionError());
+  //System.out.println("INTAKE DEF WORKING");
+
+
+     if(operatorInput.enableManualIntakeControl()){
+       manual = true;
+       intakeSpeedController.setSetpoint(0);
+     }
     
     if(manual){
-    intake.spinIntake(operatorInput.manualShoot());
-    intake.spinBelt(operatorInput.manualBeltSpeed());
+    intake.spinIntake(operatorInput.manualPowerIntake());
     }
     
-    //This is the real thing...Perhaps (Brandon please look through this and make s| ure that this is whay u want)
+    
+    //These commands are still partially manual, but rely on determined PID values
     if (!manual){
       intake.spinIntake(intakeSpeedController.calculate(intake.getSpeed()));
     }
     if(operatorInput.engageAutoIntakeSpinup()){
       intakeSpeedController.setSetpoint(intakeSpeed*2);
+      intake.spinBelt(IntakeConstants.kIntakeBeltMotorSpeed);
       manual = false;
     }
     else if(operatorInput.engageAutoShootSpinup()){
       intakeSpeedController.setSetpoint(shootSpeed*2);
       manual = false;
     }
+
+
+    //During operation, the driver can hold down the right bumper to power the indexer to shoot
+    if(operatorInput.shoot()) {
+      intake.spinBelt(IntakeConstants.kShootBeltMotorSpeed);
+    }
     
 
-
-
-    //Intake will be active as long as the operator's x button is held down
-    if(operatorInput.powerIntakeMechanisms()) {
-      intake.engageIntake();
-
-    }
   }
 
   // Called once the command ends or is interrupted.
