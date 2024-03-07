@@ -8,6 +8,7 @@ import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.commands.AutoAlignWithNoteSwerve;
+import frc.robot.commands.AutoPickUpCommand;
 import frc.robot.commands.AutoPivotToAngle;
 import frc.robot.commands.AutoRevFlywheels;
 //import frc.robot.commands.AutoRevFlyWheels;
@@ -70,6 +71,8 @@ public class RobotContainer {
 
     // NamedCommands.registerCommand("exampleCommand", exampleSubsystem.exampleCommand());
     // NamedCommands.registerCommand("someOtherCommand", new IntakeDefaultCommand(oi, INTAKE));
+    
+     NamedCommands.registerCommand("note error fix", new AutoPickUpCommand(CHASSIS, INTAKE, NOTE_LIMELIGHT, oi));
 
 
     //Field reset toggle boost damp

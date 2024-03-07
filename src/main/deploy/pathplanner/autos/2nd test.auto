@@ -16,6 +16,12 @@
           "data": {
             "pathName": "Straight Path"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "note error fix"
+          }
         }
       ]
     }
