@@ -47,6 +47,7 @@ public class PivotDefaultCommand extends Command {
     desiredArmAngle = pivot.getEncoders();
     angleController.setSetpoint(desiredArmAngle);
     angleController.setTolerance(tolerance);
+    manualRotationEnabled = false;
 
     
   }

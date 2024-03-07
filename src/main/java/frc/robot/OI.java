@@ -97,77 +97,43 @@ public double engageSlowMode() {
 
 
 
-
-
-
-
-
-/** 
- * Operator controls ||
- * Used to engage the intake mechanisms (power shooter & indexing belt inwards)
- * Returns true while the operator's X button is held down
- * @return boolean
+/**
+ * Driver controls ||
+ * When the robot is ready to shoot, the driver pressed the right bumper to power the indexer to fire the note.
+ * This can be used at any time during manual operation, but during the auto shoot command, it can only be activated once the position is ready
+ * @return true as long as the move controller's right bumper is held down
  */
-public boolean powerIntakeMechanisms() {
-    return intakeController.getXButton();
+public boolean shoot() {
+    return moveController.getRightBumper();
 }
+
+
 
 /**
  * Operator controls ||
- * Used to pivot the arm down to the intake position. Used in tandem with the method above to pivot and start spinning intake
- * Returns true when the operator's X button is pressed
- * @return
+ * Used to pivot the arm down to the intake position.
+ * @return true when the operator's X button is pressed
  */
 public boolean pivotToIntakePosition() {
-    return intakeController.getXButtonPressed();
+    return intakeController.getLeftBumperPressed();
 }
 
 
-/** 
- * Hold left bumper to activate automatic pickup
- * @return boolean
- */
-//other things
-//Go to pickup position
-public boolean pickUpPos(){
-    return intakeController.getLeftBumper();
-}
-
-
-/** 
- * @return boolean
- */
-//Go to shoot position
-public boolean shootPos(){
-    return intakeController.getAButton();
-}
-
-/** 
- * @return double
- */
-public double manualBeltSpeed(){
-    return intakeController.getRightY();
-}
 
 
 /** 
  * Operator controls ||
- * used to manually power the shooter motors
- * Returns the right trigger axis of the operator controller
- * @return double
+ * Uses to automatically pivot the arm up to the speaker shoot angle
+ * @return true when the operator controller's right bumper is pressed
  */
-//Shoot
-//TODO: make this a boton!! it is now in "testing mode"
-public double manualShoot(){
-    return intakeController.getLeftY();
+public boolean shootPos(){
+    return intakeController.getRightBumperPressed();
 }
 
-/** 
- * @return boolean
- */
-public boolean shoot(){
-    return intakeController.getAButtonPressed();
-}
+
+
+
+
 
 /**
  * Operator controls ||
@@ -186,25 +152,6 @@ public boolean engageAutoIntakeSpinup(){
 public boolean engageAutoShootSpinup(){
     return intakeController.getRightTriggerAxis() > 0.2;
 }
-/** 
- * @return boolean
- */
-//Go to drivePos
-public boolean drivePos(){
-    return intakeController.getLeftStickButton();
-}
-
-
-
-/** 
- * @return boolean
- */
-//OTHER THINGS
-// STOP arm
-public boolean stopArm(){
-    return intakeController.getStartButton();
-}
-
 
 /**
  * Operator controls ||
@@ -216,7 +163,7 @@ public boolean enableManualRotation() {
     return intakeController.getLeftStickButtonPressed();
 }
 //I think this would work for testing
-public boolean disableManualIntakeControl(){
+public boolean enableManualIntakeControl(){
     return intakeController.getRightStickButton();
 }
 
@@ -224,11 +171,21 @@ public boolean disableManualIntakeControl(){
 /**
  * Operator controls ||
  * Used to manually pivot the arm when manual pivot is enabled.
- * Returns the value of the left joystick's y axis
- * @return
+ * @return the value of the left joystick's y axis
  */
 public double pivotArm() {
     return intakeController.getLeftY();
+}
+
+
+
+/**
+ * Operator controls ||
+ * Used the manually power the arm flywheels when manual intake is enabled
+ * @return the value of the operator controller's right joystick's y axis
+ */
+public double manualPowerIntake() {
+    return intakeController.getRightY();
 }
 
 
