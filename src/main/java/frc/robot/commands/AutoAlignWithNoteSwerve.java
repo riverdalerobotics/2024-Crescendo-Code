@@ -51,7 +51,9 @@ public class AutoAlignWithNoteSwerve extends Command {
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+    swerveSubsystem.enableRobotOriented();
+  }
 
   @Override
   public void execute() {
@@ -67,9 +69,8 @@ public class AutoAlignWithNoteSwerve extends Command {
     noteIsDetected = noteLimelight.targetDetected();
     SmartDashboard.putBoolean("Note detected", noteIsDetected);
 
-    if (oi.toggleFieldOriented() && noteIsDetected == false) {
-      swerveSubsystem.toggleFieldOriented();
-    }
+
+    swerveSubsystem.slowDrive(HelperMethods.applyInputDeadband(oi.engageSlowMode()));
 
 
 
@@ -82,7 +83,7 @@ public class AutoAlignWithNoteSwerve extends Command {
       SmartDashboard.putNumber("Angle note offset", noteThetaOffset);
 
       //Field oriented mucks up this command so we disable it when a note is detected
-      swerveSubsystem.disableFieldOriented();
+      swerveSubsystem.enableRobotOriented();
 
       //Calculate pid input using lr offset from note and limit it to max speed values to avoid overshooting
       double PIDySpeed = yController.calculate(noteYOffset);

@@ -51,13 +51,20 @@ public class SwerveDefaultCommand extends Command {
     SmartDashboard.putBoolean("Field Oriented Mode?", swerveSubsystem.getIsFieldOriented());
 
 
-    if (oi.toggleFieldOriented()) {
-      swerveSubsystem.toggleFieldOriented();
+    if (oi.engageFieldOriented()) {
+      swerveSubsystem.enableFieldOriented();
     }
+    else if (oi.engageRobotOriented()) {
+      swerveSubsystem.enableRobotOriented();
+    }
+    
 
     if (oi.resetGyro()) {
       swerveSubsystem.zeroHeading();
     }
+
+
+    swerveSubsystem.slowDrive(HelperMethods.applyInputDeadband(oi.engageSlowMode()));
 
     double xSpeed = oi.xSpeed(); // *0.5
     double ySpeed = oi.ySpeed(); // *0.5
@@ -87,6 +94,7 @@ public class SwerveDefaultCommand extends Command {
   @Override
   public void end(boolean interrupted) {
     swerveSubsystem.stopModules();
+    swerveSubsystem.resetDriveSpeed();
   }
 
   // Returns true when the command should end.

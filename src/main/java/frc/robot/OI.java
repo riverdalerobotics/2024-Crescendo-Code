@@ -46,12 +46,20 @@ public double rotate(){
 //TODO: figure out which button this is
 /** 
  * Driver controls ||
- * Used to toggle the robot driving between robot and field oriented
- * returns true when one of the movement controller's center buttons is pressed
- * @return boolean
+ * Used to set the drive mode to robot oriented
+ * @return true when the movement controller's right stick is pressed
  */
-public boolean toggleFieldOriented(){
-    return moveController.getBackButtonPressed();
+public boolean engageRobotOriented(){
+    return moveController.getRightStickButtonPressed();
+}
+
+/**
+ * Driver controls ||
+ * Used to set the drive mode to field oriented
+ * @return true when the movement controller's left stick is pressed
+ */
+public boolean engageFieldOriented() {
+    return moveController.getLeftStickButtonPressed();
 }
 
 
@@ -68,8 +76,7 @@ public boolean resetGyro() {
 /**
  * Driver controls ||
  * Puts the robot in robot oriented so driver pushes y axis forward, while note aim assist is happening 
- * Returns true when the driver's left trigger button is pressed basically all the way down
- * @return
+ * @return true when the driver's left trigger button is pressed basically all the way down
  */
 public boolean engageNoteAlignAssist() {
     if (moveController.getRightTriggerAxis() >= 0.330){ //beach bots lol
@@ -77,6 +84,15 @@ public boolean engageNoteAlignAssist() {
     } else{
         return false;
     }
+}
+
+/**
+ * Driver controls ||
+ * Slows the robot down by up to 30% based on how much the trigger is pressed
+ * @return the value of the movement controller's left trigger
+ */
+public double engageSlowMode() {
+    return moveController.getLeftTriggerAxis();
 }
 
 

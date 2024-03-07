@@ -78,6 +78,7 @@ public class AutoPickUpCommand extends Command {
   @Override
   public void initialize() {
     beginPickupSequence = false;
+    swerveSubsystem.enableRobotOriented();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -93,18 +94,6 @@ public class AutoPickUpCommand extends Command {
     noteIsDetected = noteLimelight.targetDetected();
 
 
-    if (xSpd < 0.05 && xSpd > -0.05) {
-      xSpd = 0;
-    }
-
-    if (ySpd < 0.05 && ySpd > -0.05) {
-      ySpd = 0;
-    }
-
-    if (turningSpd < 0.05 && turningSpd > -0.05) {
-      turningSpd = 0;
-    }
-
 
     if (beginPickupSequence) {
       //intakeSubsystem.spinIntake(1);
@@ -112,14 +101,8 @@ public class AutoPickUpCommand extends Command {
       //Could also do some PID jank
     }
     else {
-
-      if (oi.toggleFieldOriented() && noteIsDetected == false) {
-        swerveSubsystem.toggleFieldOriented();
-      }
       
-      if (oi.to) {
-        //Toggle slow
-      }
+      swerveSubsystem.slowDrive(HelperMethods.applyInputDeadband(oi.engageSlowMode()));
 
       //If a note is detected, turning will be disabled and y movement will be controlled by PID
       if (noteIsDetected) {
@@ -128,12 +111,19 @@ public class AutoPickUpCommand extends Command {
         noteYOffset = noteLimelight.getXDisplacementFromNote();
         noteThetaOffset = noteLimelight.getTX();
         noteXOffset = noteLimelight.getYDisplacementFromNote();
+        
         //Field oriented mucks up this command so we disable it when a note is detected
-        swerveSubsystem.disableFieldOriented();
+        swerveSubsystem.enableRobotOriented();
+
         double PIDYSpeed = yController.calculate(noteYOffset);
         double PIDTurningSpeed = turningController.calculate(noteThetaOffset);
         double PIDXSpeed = xController.calculate(noteXOffset);
-        swerveSubsystem.driveSwerve(PIDXSpeed, PIDYSpeed, 0);
+
+        //Limit the max speed that can be supplied to the motors to avoid dangerously overshooting the note
+        PIDYSpeed = HelperMethods.limitValInRange(CommandConstants.kYNoteAlignMinOutput, CommandConstants.kYNoteAlignMaxOutput, PIDYSpeed);
+        PIDXSpeed = HelperMethods.limitValInRange(CommandConstants.kXNoteAlignMinOutput, CommandConstants.kXNoteAlignMaxOutput, PIDXSpeed);
+
+        swerveSubsystem.driveSwerveWithPhysicalMax(PIDXSpeed, PIDYSpeed, 0);
 
 
         if (yController.atSetpoint() && xController.atSetpoint() && turningController.atSetpoint()) {

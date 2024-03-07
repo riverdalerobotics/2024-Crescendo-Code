@@ -234,8 +234,18 @@ public ChassisSpeeds getVelocities() {
       isFieldOriented = (isFieldOriented)? false : true;
     }
 
-  public void disableFieldOriented() {
+  /**
+   * Enables robot oriented and disables field oriented
+   */
+  public void enableRobotOriented() {
     isFieldOriented = false;
+  }
+
+  /**
+   * Enables field oriented and disables robot oriented
+   */
+  public void enableFieldOriented() {
+    isFieldOriented = true;
   }
 
 
@@ -382,6 +392,19 @@ public ChassisSpeeds getVelocities() {
    */
   public double getPitchRad() {
     return gyro.getPitch() * (Math.PI / 180);
+  }
+
+
+  /**
+   * Uses a trigger input to slow the robot drive speed by up to 30%
+   * @param percentageSlow trigger axis value (should have deadband applied beforehand)
+   */
+  public void slowDrive(double percentageSlow) {
+    this.maxTeleopDriveSpeed = ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond - ((ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond) * (0.3 * percentageSlow));
+  }
+
+  public void resetDriveSpeed() {
+    this.maxTeleopDriveSpeed = ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond;
   }
 
   /**

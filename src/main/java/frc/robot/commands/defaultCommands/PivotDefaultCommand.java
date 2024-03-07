@@ -91,7 +91,7 @@ public class PivotDefaultCommand extends Command {
     //Voltage above max voltage indicates that the arm is pushing against the hard stop and should be reset
     //TODO: Test to see if this could be screwed up by other robots or field elements. If it can, we need to ensure this doesn't 
     //unintenionally result in robot death
-    if (pivot.getVoltage() < maxVoltage){
+    if (pivot.getVoltage() > maxVoltage){
       angleController.setSetpoint(hardStopPosition);
       desiredArmAngle = hardStopPosition;
     }
