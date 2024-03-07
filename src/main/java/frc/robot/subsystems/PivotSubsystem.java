@@ -27,7 +27,7 @@ public class PivotSubsystem extends SubsystemBase {
   public PivotSubsystem() {
     pivot1 = new TalonFX(PivotConstants.kPivotMotor1ID);
     pivot2 = new TalonFX(PivotConstants.kPivotMotor2ID);
-    pivotEncoder = new CANcoder(PivotConstants.kPivotEncoderID);
+    //pivotEncoder = new CANcoder(PivotConstants.kPivotEncoderID);
 
     
     

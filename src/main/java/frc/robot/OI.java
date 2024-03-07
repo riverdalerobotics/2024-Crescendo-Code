@@ -123,7 +123,7 @@ public boolean pickUpPos(){
  */
 //Go to shoot position
 public boolean shootPos(){
-    return intakeController.getRightBumper();
+    return intakeController.getAButton();
 }
 
 /** 
@@ -143,7 +143,7 @@ public double manualBeltSpeed(){
 //Shoot
 //TODO: make this a boton!! it is now in "testing mode"
 public double manualShoot(){
-    return intakeController.getLeftTriggerAxis();
+    return intakeController.getLeftY();
 }
 
 /** 
@@ -197,7 +197,7 @@ public boolean stopArm(){
  * @return
  */
 public boolean enableManualRotation() {
-    return intakeController.getRightStickButtonPressed();
+    return intakeController.getLeftStickButtonPressed();
 }
 //I think this would work for testing
 public boolean disableManualIntakeControl(){

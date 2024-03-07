@@ -13,12 +13,13 @@ public class IntakeDefaultCommand extends Command {
   OI operatorInput;
   IntakeSubsystem intake;
   PIDController intakeSpeedController;
-  double intakeSpeed = 0d;
-  double shootSpeed = 0d;
-  double kp = 0d;
+  double intakeSpeed = 10;
+  double shootSpeed = 10;
+  //half of setpoint is 0.008
+  double kp = 0.0097;
   double ki = 0d;
   double kd = 0d;
-  double tolerance = 0d;
+  double tolerance = 3;
   boolean manual = false;
 
   /** Creates a new IntakeDefaultCommand. */
@@ -28,7 +29,7 @@ public class IntakeDefaultCommand extends Command {
     this.intake = intake;
     intakeSpeedController = new PIDController(kp, ki, kd);
     addRequirements(intake);
-    
+
     
   }
   // Called when the command is initially scheduled.
@@ -41,42 +42,43 @@ public class IntakeDefaultCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-  intake.spinIntake(operatorInput.manualShoot());
+  //System.out.println(intakeSpeedController.getSetpoint());
+  System.out.println(intakeSpeedController.getPositionError());
   //intake.spinBelt(operatorInput.manualBeltSpeed());
   //TODO: this is for testing only
   // intake.spinIntake(operatorInput.manShoot());
   // intake.spinBelt(operatorInput.beltSpeed());
-    // if(operatorInput.disableManualIntakeControl()){
-    //   manual = true;
-    //   intakeSpeedController.setSetpoint(0);
-    // }
+    if(operatorInput.disableManualIntakeControl()){
+      manual = true;
+      intakeSpeedController.setSetpoint(0);
+    }
     
-    // if(manual){
-    // intake.spinIntake(operatorInput.manualShoot());
-    // intake.spinBelt(operatorInput.manualBeltSpeed());
-    // }
+    if(manual){
+    intake.spinIntake(operatorInput.manualShoot());
+    intake.spinBelt(operatorInput.manualBeltSpeed());
+    }
     
-    // //This is the real thing...Perhaps (Brandon please look through this and make s| ure that this is whay u want)
-    // if (!manual){
-    //   intake.spinIntake(intakeSpeedController.calculate(intake.getSpeed()));
-    // }
-    // if(operatorInput.engageAutoIntakeSpinup()){
-    //   intakeSpeedController.setSetpoint(intakeSpeed);
-    //   manual = false;
-    // }
-    // else if(operatorInput.engageAutoShootSpinup()){
-    //   intakeSpeedController.setSetpoint(shootSpeed);
-    //   manual = false;
-    // }
+    //This is the real thing...Perhaps (Brandon please look through this and make s| ure that this is whay u want)
+    if (!manual){
+      intake.spinIntake(intakeSpeedController.calculate(intake.getSpeed()));
+    }
+    if(operatorInput.engageAutoIntakeSpinup()){
+      intakeSpeedController.setSetpoint(intakeSpeed*2);
+      manual = false;
+    }
+    else if(operatorInput.engageAutoShootSpinup()){
+      intakeSpeedController.setSetpoint(shootSpeed*2);
+      manual = false;
+    }
     
 
 
 
-    // //Intake will be active as long as the operator's x button is held down
-    // if(operatorInput.powerIntakeMechanisms()) {
-    //   intake.engageIntake();
+    //Intake will be active as long as the operator's x button is held down
+    if(operatorInput.powerIntakeMechanisms()) {
+      intake.engageIntake();
 
-    // }
+    }
   }
 
   // Called once the command ends or is interrupted.

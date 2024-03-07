@@ -42,7 +42,7 @@ public class PivotDefaultCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    angleController.setSetpoint(hardStopPosition);
+    angleController.setSetpoint(pivot.getEncoders());
     angleController.setTolerance(tolerance);
 
     //Sets the desired angle to the current arm angle when this command is initialized
@@ -54,7 +54,7 @@ public class PivotDefaultCommand extends Command {
   @Override
   public void execute() {
     //TODO: get someone to read this over please cause it might not be worth doing...
-
+    System.out.println(angleController.getPositionError());
 
     //Manual rotation will stop whatever desired angle the arm is currently heading towards
     if(operatorInput.enableManualRotation()) {
@@ -76,6 +76,11 @@ public class PivotDefaultCommand extends Command {
       manualRotationEnabled = false;
     }
 
+
+    if(operatorInput.shootPos()) {
+      desiredArmAngle = PivotConstants.kSubwooferShootAngle;
+      manualRotationEnabled = false;
+    }
 
 
     angleController.setSetpoint(desiredArmAngle);
