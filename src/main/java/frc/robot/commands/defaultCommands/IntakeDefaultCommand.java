@@ -74,6 +74,10 @@ public class IntakeDefaultCommand extends Command {
       manual = false;
     }
 
+    if (intake.intakeCurrent()>0.085){
+      intake.spinIntake(0);
+      manual = true;
+    }
 
     //During operation, the driver can hold down the right bumper to power the indexer to shoot
     if(operatorInput.shoot()) {

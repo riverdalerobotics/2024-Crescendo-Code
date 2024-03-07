@@ -19,10 +19,12 @@ public class AutoAlignWithNoteSwerve extends Command {
   /** Creates a new AutoAlignWithNoteSwerve. */
   private PIDController yController;
   private PIDController turningController;
+  private PIDController xController;
 
   private boolean noteIsDetected;
   private double noteYOffset;
   private double noteThetaOffset;
+  private double noteXOffset;
   private final SwerveChassisSubsystem swerveSubsystem;
   private final Limelight noteLimelight;
   private final OI oi;
@@ -42,6 +44,9 @@ public class AutoAlignWithNoteSwerve extends Command {
       turningController.setSetpoint(CommandConstants.kTurningNoteAlignSetpoint);
       turningController.setTolerance(CommandConstants.kTurningNoteAlignTolerance);
 
+      xController = new PIDController(CommandConstants.kXNoteAlignP, CommandConstants.kXNoteAlignI, CommandConstants.kXNoteAlignD);
+      xController.setSetpoint(CommandConstants.kXNoteAlignSetpoint);
+      xController.setTolerance(CommandConstants.kXNoteAlignTolerance);
 
 
     this.swerveSubsystem = swerveSubsystem;
@@ -78,9 +83,11 @@ public class AutoAlignWithNoteSwerve extends Command {
     if (noteIsDetected) {
       noteYOffset = noteLimelight.getXDisplacementFromNote();
       noteThetaOffset = noteLimelight.getTX();
+      noteXOffset = noteLimelight.getYDisplacementFromNote();
 
-      SmartDashboard.putNumber("L/R note displacemnet", noteYOffset);
+      SmartDashboard.putNumber("L/R note displacement", noteYOffset);
       SmartDashboard.putNumber("Angle note offset", noteThetaOffset);
+      SmartDashboard.putNumber("F/B note displacement", noteXOffset);
 
       //Field oriented mucks up this command so we disable it when a note is detected
       swerveSubsystem.enableRobotOriented();
@@ -88,8 +95,10 @@ public class AutoAlignWithNoteSwerve extends Command {
       //Calculate pid input using lr offset from note and limit it to max speed values to avoid overshooting
       double PIDySpeed = yController.calculate(noteYOffset);
       PIDySpeed = HelperMethods.limitValInRange(CommandConstants.kYNoteAlignMinOutput, CommandConstants.kYNoteAlignMaxOutput, PIDySpeed);
-      //double PIDTurningSpeed = turningController.calculate(noteThetaOffset);
-      swerveSubsystem.driveSwerveWithPhysicalMax(xSpd, PIDySpeed, 0);
+      double PIDxSpeed = xController.calculate(noteXOffset);
+      PIDxSpeed = HelperMethods.limitValInRange(CommandConstants.kXNoteAlignMinOutput, CommandConstants.kXNoteAlignMaxOutput, PIDxSpeed);
+     
+      swerveSubsystem.driveSwerveWithPhysicalMax(-PIDxSpeed, PIDySpeed, 0);
     }
 
     //If no note is detected, drive like normal
@@ -103,6 +112,7 @@ public class AutoAlignWithNoteSwerve extends Command {
   public void end(boolean interrupted) {
     yController.reset();
     turningController.reset();
+    xController.reset();
   }
 
   // Returns true when the command should end.
