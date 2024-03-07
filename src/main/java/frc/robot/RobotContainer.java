@@ -83,14 +83,14 @@ public class RobotContainer {
     ));
 
     
-    // INTAKE.setDefaultCommand(new IntakeDefaultCommand(
-    //   oi,
-    //   INTAKE));
-    /**
-    PIVOT.setDefaultCommand(new PivotDefaultCommand(
-      oi, 
-      PIVOT
-    ));*/
+    INTAKE.setDefaultCommand(new IntakeDefaultCommand(
+      oi,
+      INTAKE));
+    
+    // PIVOT.setDefaultCommand(new PivotDefaultCommand(
+    //   oi, 
+    //   PIVOT
+    // ));
   }
 
   //Put triggers here that change the active commands

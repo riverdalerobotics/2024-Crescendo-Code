@@ -269,15 +269,17 @@ public final class Constants {
     public static final double kYNoteAlignTolerance = 0.05;
 
 
-    public static final double kTurningNoteAlignP = 0.1;
+    public static final double kTurningNoteAlignP = 0.35;
     public static final double kTurningNoteAlignI = 0;
     public static final double kTurningNoteAlignD = 0;
+    public static final double kturningNoteMinOutput = -0.3;
+    public static final double kturningNoteMaxOutput = 0.3;
     //Degrees
     public static final double kTurningNoteAlignSetpoint = 0;
     public static final double kTurningNoteAlignTolerance = 1;
 
 
-    public static final double kXNoteAlignP = 0.2;
+    public static final double kXNoteAlignP = 0.1;
     public static final double kXNoteAlignI = 0;
     public static final double kXNoteAlignD = 0;
     public static final double kXNoteAlignMinOutput = -0.3;
