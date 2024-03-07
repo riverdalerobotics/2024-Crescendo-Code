@@ -42,12 +42,13 @@ public class PivotDefaultCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    angleController.setSetpoint(pivot.getEncoders());
-    angleController.setTolerance(tolerance);
-
     //Sets the desired angle to the current arm angle when this command is initialized
     //If a command that sets the arm position ends, the default command will continue holding that position
     desiredArmAngle = pivot.getEncoders();
+    angleController.setSetpoint(desiredArmAngle);
+    angleController.setTolerance(tolerance);
+
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -12,7 +12,7 @@ public class OI {
     XboxController intakeController = new XboxController(OperatorConstants.kOperatorControllerPort);
 
 /** 
- * Movement controls ||
+ * Driver controls ||
  * returns up/down axis of left joystick
  * @return double
  */
@@ -22,7 +22,7 @@ public double xSpeed(){
 
 
 /** 
- * Movement controls ||
+ * Driver controls ||
  * returns left/right axis of left joystick
  * @return double
  */
@@ -34,7 +34,7 @@ public double ySpeed(){
 
 
 /** 
- * Movement controls ||
+ * Driver controls ||
  * returns left/right axis of right joystick 
  * @return double
  */
@@ -45,7 +45,7 @@ public double rotate(){
 
 //TODO: figure out which button this is
 /** 
- * Movement controls ||
+ * Driver controls ||
  * Used to toggle the robot driving between robot and field oriented
  * returns true when one of the movement controller's center buttons is pressed
  * @return boolean
@@ -56,7 +56,7 @@ public boolean toggleFieldOriented(){
 
 
 /** 
- * Movement controls ||
+ * Driver controls ||
  * Used to reset robot gyro
  * returns true when the movement controller's start button is pressed
  * @return boolean

@@ -59,17 +59,9 @@ public class AutoAlignWithNoteSwerve extends Command {
     double ySpd = oi.ySpeed();
     double turningSpd = oi.rotate();
 
-    if (xSpd < 0.05 && xSpd > -0.05) {
-      xSpd = 0;
-    }
-
-    if (ySpd < 0.05 && ySpd > -0.05) {
-      ySpd = 0;
-    }
-
-    if (turningSpd < 0.05 && turningSpd > -0.05) {
-      turningSpd = 0;
-    }
+    xSpd = HelperMethods.applyInputDeadband(xSpd);
+    ySpd = HelperMethods.applyInputDeadband(ySpd);
+    turningSpd = HelperMethods.applyInputDeadband(turningSpd);
 
 
     noteIsDetected = noteLimelight.targetDetected();

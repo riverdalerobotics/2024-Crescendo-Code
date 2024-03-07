@@ -10,7 +10,9 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.BlinkinLED;
 import frc.robot.Limelight;
+import frc.robot.OI;
 import frc.robot.Constants.CommandConstants;
+import frc.robot.HelperMethods;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.SwerveChassisSubsystem;
 
@@ -37,11 +39,7 @@ public class AutoPickUpCommand extends Command {
   private final SwerveChassisSubsystem swerveSubsystem;
   private final IntakeSubsystem intakeSubsystem;
   private final Limelight noteLimelight;
-
-  private final Supplier<Double> xSpdFunction, ySpdFunction, turningSpdFunction;
-  private final Supplier<Boolean> fieldOrientedFunction;
-
-  private final Supplier<Boolean> toggleSlowModeFunction;
+  private final OI oi;
 
   
 
@@ -50,12 +48,8 @@ public class AutoPickUpCommand extends Command {
   public AutoPickUpCommand(
     SwerveChassisSubsystem swerveSubsystem, 
     IntakeSubsystem intakeSubsystem,
-    Supplier<Double> xSpdFunction, 
-    Supplier<Double> ySpdFunction, 
-    Supplier<Double> turningSpdFunction,
-    Supplier<Boolean> fieldOrientedFunction, 
-    Supplier<Boolean> toggleSlow,
-    Limelight noteLimelight) {
+    Limelight noteLimelight,
+    OI oi) {
 
     yController = new PIDController(CommandConstants.kYNoteAlignP, CommandConstants.kYNoteAlignI, CommandConstants.kYNoteAlignD);
     yController.setSetpoint(CommandConstants.kYNoteAlignSetpoint);
@@ -70,12 +64,8 @@ public class AutoPickUpCommand extends Command {
     xController.setTolerance(CommandConstants.kXNoteAlignTolerance);
 
 
-    this.xSpdFunction = xSpdFunction;
-    this.ySpdFunction = ySpdFunction;
-    this.turningSpdFunction = turningSpdFunction;
-    this.fieldOrientedFunction = fieldOrientedFunction;
-    this.toggleSlowModeFunction = toggleSlow;
-
+  
+    this.oi = oi;
     this.swerveSubsystem = swerveSubsystem;
     this.intakeSubsystem = intakeSubsystem;
     this.noteLimelight = noteLimelight;
@@ -93,9 +83,13 @@ public class AutoPickUpCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double xSpd = xSpdFunction.get();
-    double ySpd = ySpdFunction.get();
-    double turningSpd = turningSpdFunction.get();
+    double xSpd = oi.xSpeed();
+    double ySpd = oi.ySpeed();
+    double turningSpd = oi.rotate();
+    xSpd = HelperMethods.applyInputDeadband(xSpd);
+    ySpd = HelperMethods.applyInputDeadband(ySpd);
+    turningSpd = HelperMethods.applyInputDeadband(turningSpd);
+
     noteIsDetected = noteLimelight.targetDetected();
 
 
@@ -106,11 +100,11 @@ public class AutoPickUpCommand extends Command {
     }
     else {
 
-      if (fieldOrientedFunction.get() && noteIsDetected == false) {
+      if (oi.toggleFieldOriented() && noteIsDetected == false) {
         swerveSubsystem.toggleFieldOriented();
       }
       
-      if (toggleSlowModeFunction.get()) {
+      if (oi.to) {
         //Toggle slow
       }
 

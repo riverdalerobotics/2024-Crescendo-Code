@@ -6,9 +6,11 @@ package frc.robot.commands.defaultCommands;
 
 import java.util.function.Supplier;
 
+import edu.wpi.first.apriltag.jni.AprilTagJNI.Helper;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.BlinkinLED;
+import frc.robot.HelperMethods;
 import frc.robot.OI;
 import frc.robot.subsystems.SwerveChassisSubsystem;
 
@@ -61,17 +63,11 @@ public class SwerveDefaultCommand extends Command {
     double ySpeed = oi.ySpeed(); // *0.5
     double turnSpeed = oi.rotate(); // *0.1
 
-    if (xSpeed < 0.05 && xSpeed > -0.05) {
-      xSpeed = 0;
-    }
+    xSpeed = HelperMethods.applyInputDeadband(xSpeed);
+    ySpeed = HelperMethods.applyInputDeadband(ySpeed);
+    turnSpeed = HelperMethods.applyInputDeadband(turnSpeed);
 
-    if (ySpeed < 0.05 && ySpeed > -0.05) {
-      ySpeed = 0;
-    }
 
-    if (turnSpeed < 0.05 && turnSpeed > -0.05) {
-      turnSpeed = 0;
-    }
 
     
     //double speedIncrease = speedBoost.get();
