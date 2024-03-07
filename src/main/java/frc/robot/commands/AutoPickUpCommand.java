@@ -93,8 +93,21 @@ public class AutoPickUpCommand extends Command {
     noteIsDetected = noteLimelight.targetDetected();
 
 
+    if (xSpd < 0.05 && xSpd > -0.05) {
+      xSpd = 0;
+    }
+
+    if (ySpd < 0.05 && ySpd > -0.05) {
+      ySpd = 0;
+    }
+
+    if (turningSpd < 0.05 && turningSpd > -0.05) {
+      turningSpd = 0;
+    }
+
+
     if (beginPickupSequence) {
-      intakeSubsystem.spinIntake(1);
+      //intakeSubsystem.spinIntake(1);
       //should probably do an odometry move forward here but it can be timed until that exists
       //Could also do some PID jank
     }
@@ -120,7 +133,7 @@ public class AutoPickUpCommand extends Command {
         double PIDYSpeed = yController.calculate(noteYOffset);
         double PIDTurningSpeed = turningController.calculate(noteThetaOffset);
         double PIDXSpeed = xController.calculate(noteXOffset);
-        swerveSubsystem.driveSwerve(PIDXSpeed, PIDYSpeed, PIDTurningSpeed);
+        swerveSubsystem.driveSwerve(PIDXSpeed, PIDYSpeed, 0);
 
 
         if (yController.atSetpoint() && xController.atSetpoint() && turningController.atSetpoint()) {

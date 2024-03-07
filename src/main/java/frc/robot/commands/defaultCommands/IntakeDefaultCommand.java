@@ -44,14 +44,15 @@ public class IntakeDefaultCommand extends Command {
   public void execute() {
   //System.out.println(intakeSpeedController.getSetpoint());
   System.out.println(intakeSpeedController.getPositionError());
+  System.out.println("INTAKE DEF WORKING");
   //intake.spinBelt(operatorInput.manualBeltSpeed());
   //TODO: this is for testing only
   // intake.spinIntake(operatorInput.manShoot());
   // intake.spinBelt(operatorInput.beltSpeed());
-    if(operatorInput.disableManualIntakeControl()){
-      manual = true;
-      intakeSpeedController.setSetpoint(0);
-    }
+    // if(operatorInput.disableManualIntakeControl()){
+    //   manual = true;
+    //   intakeSpeedController.setSetpoint(0);
+    // }
     
     if(manual){
     intake.spinIntake(operatorInput.manualShoot());
