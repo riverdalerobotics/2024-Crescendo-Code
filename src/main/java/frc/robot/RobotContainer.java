@@ -72,7 +72,7 @@ public class RobotContainer {
     // NamedCommands.registerCommand("exampleCommand", exampleSubsystem.exampleCommand());
     // NamedCommands.registerCommand("someOtherCommand", new IntakeDefaultCommand(oi, INTAKE));
     
-     NamedCommands.registerCommand("note error fix", new AutoPickUpCommand(CHASSIS, INTAKE, NOTE_LIMELIGHT, oi));
+     NamedCommands.registerCommand("note error fix", new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT));
 
 
     //Field reset toggle boost damp

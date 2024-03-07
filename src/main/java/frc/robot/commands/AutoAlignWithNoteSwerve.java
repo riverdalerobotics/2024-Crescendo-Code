@@ -118,6 +118,11 @@ public class AutoAlignWithNoteSwerve extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if (xController.atSetpoint() && yController.atSetpoint()) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 }
