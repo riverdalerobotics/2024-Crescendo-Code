@@ -58,7 +58,7 @@ public class AutoAlignWithNoteSwerve extends Command {
     double xSpd = oi.xSpeed();
     double ySpd = oi.ySpeed();
     double turningSpd = oi.rotate();
-
+    //TODO: make this a method with constants please
     if (xSpd < 0.05 && xSpd > -0.05) {
       xSpd = 0;
     }

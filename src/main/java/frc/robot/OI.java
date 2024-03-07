@@ -72,7 +72,7 @@ public boolean resetGyro() {
  * @return
  */
 public boolean engageNoteAlignAssist() {
-    if (moveController.getLeftTriggerAxis() >= 0.330){ //beach bots lol
+    if (moveController.getRightTriggerAxis() >= 0.330){ //beach bots lol
         return true;
     } else{
         return false;
@@ -143,7 +143,7 @@ public double manualBeltSpeed(){
 //Shoot
 //TODO: make this a boton!! it is now in "testing mode"
 public double manualShoot(){
-    return intakeController.getLeftTriggerAxis();
+    return intakeController.getLeftY();
 }
 
 /** 
