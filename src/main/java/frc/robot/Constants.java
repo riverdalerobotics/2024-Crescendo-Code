@@ -242,7 +242,7 @@ public final class Constants {
 
 
   public static class PathPlannerConstants { //TODO: GET THESE CONSTANTS
-    public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(0.005, 0, 0);
+    public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(0.007, 0, 0);
     public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(0.0004, 0, 0);
 
     //TODO DETERMINE whether this is desired max or physical max
@@ -269,24 +269,24 @@ public final class Constants {
     public static final double kYNoteAlignTolerance = 0.05;
 
 
-    public static final double kTurningNoteAlignP = 0.35;
+    public static final double kTurningNoteAlignP = 0.25;
     public static final double kTurningNoteAlignI = 0;
     public static final double kTurningNoteAlignD = 0;
     public static final double kturningNoteMinOutput = -0.3;
     public static final double kturningNoteMaxOutput = 0.3;
     //Degrees
     public static final double kTurningNoteAlignSetpoint = 0;
-    public static final double kTurningNoteAlignTolerance = 1;
+    public static final double kTurningNoteAlignTolerance = 1.5;
 
 
-    public static final double kXNoteAlignP = 0.1;
+    public static final double kXNoteAlignP = 0.3;
     public static final double kXNoteAlignI = 0;
     public static final double kXNoteAlignD = 0;
     public static final double kXNoteAlignMinOutput = -0.3;
     public static final double kXNoteAlignMaxOutput = 0.3;
     //Meters
     public static final double kXNoteAlignSetpoint = 0.5;
-    public static final double kXNoteAlignTolerance = 0.05;
+    public static final double kXNoteAlignTolerance = 1.5;
   }
 
   public static class LimelightConstants {

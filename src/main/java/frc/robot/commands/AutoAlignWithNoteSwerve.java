@@ -62,6 +62,7 @@ public class AutoAlignWithNoteSwerve extends Command {
 
   @Override
   public void execute() {
+    //System.out.println(xController.atSetpoint());
     double xSpd = oi.xSpeed();
     double ySpd = oi.ySpeed();
     double turningSpd = oi.rotate();
@@ -73,7 +74,6 @@ public class AutoAlignWithNoteSwerve extends Command {
 
     noteIsDetected = noteLimelight.targetDetected();
     SmartDashboard.putBoolean("Note detected", noteIsDetected);
-
 
     swerveSubsystem.slowDrive(HelperMethods.applyInputDeadband(oi.engageSlowMode()));
 
@@ -99,12 +99,17 @@ public class AutoAlignWithNoteSwerve extends Command {
       PIDxSpeed = HelperMethods.limitValInRange(CommandConstants.kXNoteAlignMinOutput, CommandConstants.kXNoteAlignMaxOutput, PIDxSpeed);
      
       swerveSubsystem.driveSwerveWithPhysicalMax(-PIDxSpeed, PIDySpeed, 0);
+      
+//      SmartDashboard.putBoolean("Is at note", xController.atSetpoint());
     }
-
+    
+    
     //If no note is detected, drive like normal
     else {
       swerveSubsystem.driveSwerve(xSpd, ySpd, turningSpd);
     }
+    SmartDashboard.putBoolean("Is at note", xController.atSetpoint());
+    System.out.println(xController.atSetpoint());
   }
 
   // Called once the command ends or is interrupted.
