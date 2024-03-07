@@ -188,5 +188,23 @@ public double manualPowerIntake() {
     return intakeController.getRightY();
 }
 
+/**
+ * Operator controls ||
+ * Uses to engage the tuck command in the event the arm's encoder is thrown off. 1 of 2 buttons to do this
+ * @return true as long as the operator controller's back button is pressed
+ */
+public boolean tuckArm1() {
+    return intakeController.getBackButton();
+}
+
+/**
+ * Operator controls ||
+ * Uses to engage the tuck command in the event the arm's encoder is thrown off. 1 of 2 buttons to do this
+ * @return true as long as the operator controller's start button is pressed
+ */
+public boolean tuckArm2() {
+    return intakeController.getStartButton();
+}
+
 
 }
