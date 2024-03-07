@@ -20,8 +20,8 @@
         "y": 6.631709206481159
       },
       "prevControl": {
-        "x": 1.648285526705005,
-        "y": 6.699876555152749
+        "x": 1.6190709486994308,
+        "y": 6.9141167938326396
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 60.52411099683933,
+    "rotation": -120.22544972503574,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "2 note amp subwoofer paths",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -179.74685455800136,
     "velocity": 0
   },
   "useDefaultConstraints": true

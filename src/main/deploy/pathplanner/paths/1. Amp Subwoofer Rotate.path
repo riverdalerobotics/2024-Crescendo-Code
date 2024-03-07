@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.6452516819624394,
-        "y": 6.641447399146282
+        "x": 0.6549898746298092,
+        "y": 6.690138362483131
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6452516819624412,
-        "y": 6.641447399146282
+        "x": 1.6549898746298108,
+        "y": 6.690138362483131
       },
       "isLocked": false,
       "linkedName": null
@@ -28,13 +28,7 @@
       "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.4,
-      "rotationDegrees": 0,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -45,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": 0,
+    "rotation": 179.57242749316669,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "2 note amp subwoofer paths",
   "previewStartingState": {
-    "rotation": 58.67130713219586,
+    "rotation": -120.06858282186245,
     "velocity": 0
   },
   "useDefaultConstraints": false

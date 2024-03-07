@@ -28,13 +28,7 @@
       "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.4,
-      "rotationDegrees": -59.839929284056865,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -45,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -58.47782275321152,
+    "rotation": 120.19800191652364,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "2 note podium subwoofer paths",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -179.4679756029147,
     "velocity": 0
   },
   "useDefaultConstraints": true
