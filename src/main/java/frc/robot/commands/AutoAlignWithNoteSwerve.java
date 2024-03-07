@@ -105,6 +105,7 @@ public class AutoAlignWithNoteSwerve extends Command {
     else {
       swerveSubsystem.driveSwerve(xSpd, ySpd, turningSpd);
     }
+    System.out.println(xController.atSetpoint());
   }
 
   // Called once the command ends or is interrupted.

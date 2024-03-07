@@ -594,5 +594,7 @@ public ChassisSpeeds getVelocities() {
     SmartDashboard.putNumber("Roll(radians)", getRollRad());
     SmartDashboard.putNumber("Yaw(radians)", getYawRad());
     SmartDashboard.putBoolean("CommandActive", commandActive);
+
+    SmartDashboard.putNumber("Front left rotation", frontLeft.getDrivePosition());
   }
 }

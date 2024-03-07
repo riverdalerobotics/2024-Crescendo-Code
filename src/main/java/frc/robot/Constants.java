@@ -53,7 +53,11 @@ public final class Constants {
     //In meters
     //What 1 rotation of the drive motor corresponds to in meters travelled
     //The native unit is rotations. We conver it to meters
+   
     public static final double kDrivingEncoderPositionFactor = (kWheelCircumferenceMeters / kDriveMotorGearReduction);
+
+
+
 
     //in meters
     //The native units is RPM. We convert it to m/s
@@ -242,7 +246,7 @@ public final class Constants {
 
 
   public static class PathPlannerConstants { //TODO: GET THESE CONSTANTS
-    public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(0.005, 0, 0);
+    public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(0.04, 0, 0);
     public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(0.01, 0, 0);
 
     //TODO DETERMINE whether this is desired max or physical max
@@ -286,7 +290,7 @@ public final class Constants {
     public static final double kXNoteAlignMaxOutput = 0.3;
     //Meters
     public static final double kXNoteAlignSetpoint = 0.5;
-    public static final double kXNoteAlignTolerance = 0.05;
+    public static final double kXNoteAlignTolerance = 2;
   }
 
   public static class LimelightConstants {
