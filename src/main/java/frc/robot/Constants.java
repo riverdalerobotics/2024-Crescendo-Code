@@ -306,6 +306,6 @@ public final class Constants {
 
 
   public static class LEDConstants {
-    public static final int kBlinkinPort = 1;
+    public static final int kBlinkinPort = 0;
   }
 }

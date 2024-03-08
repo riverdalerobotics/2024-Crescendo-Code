@@ -83,9 +83,9 @@ public class RobotContainer {
     ));
 
     
-    INTAKE.setDefaultCommand(new IntakeDefaultCommand(
+    /**INTAKE.setDefaultCommand(new IntakeDefaultCommand(
       oi,
-      INTAKE));
+      INTAKE));*/
     
     // PIVOT.setDefaultCommand(new PivotDefaultCommand(
     //   oi, 
