@@ -101,7 +101,7 @@ public class Robot extends TimedRobot {
      
       switch (m_autoSelected) {
           case mobilityWithStyle:
-          m_autonomousCommand = m_robotContainer.getMobilityOutOfWay();
+          m_autonomousCommand = m_robotContainer.getMobilityStyleAuto();
           break;
             case mobilityOutOfWay:
           m_autonomousCommand = m_robotContainer.getMobilityOutOfWay();
