@@ -31,7 +31,7 @@ public class Robot extends TimedRobot {
   private static final String test = "curve path 1.6764 meters down, 155 inches to the right"; // max velocity is 1 m/s
   private static final String testTwo = "straight line goes 155 inches or 3.937 meters"; //max velocity is 1.1 m/s
   private static final String testThree = "rotate 180 degrees moving 3.937 meters"; //max velocity is 3 m/s
-  private static final String mobilityWithStyle = "go 2.26 meters, rotate 180 degrees" ; //max velocity is 1.1 m/s
+  private static final String mobilityWithStyle = "go 2.26 meters, rotate 180 degrees" ; //max velocity is 1.5 m/s
   private static final String mobilityOutOfWay = "go 1.7 meters, 0.85 meters down "; //max velocity is 3 m/s
 
   /**
@@ -100,6 +100,12 @@ public class Robot extends TimedRobot {
       /* */
      
       switch (m_autoSelected) {
+          case mobilityWithStyle:
+          m_autonomousCommand = m_robotContainer.getMobilityOutOfWay();
+          break;
+            case mobilityOutOfWay:
+          m_autonomousCommand = m_robotContainer.getMobilityOutOfWay();
+          break;
         case shootOnly:
           m_autonomousCommand = m_robotContainer.getShootOnlyAuto();
           break;
