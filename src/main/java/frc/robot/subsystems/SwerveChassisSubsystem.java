@@ -361,14 +361,7 @@ public ChassisSpeeds getVelocities() {
   }
 
   
-  /** 
-   * Resets the swerve odometer's perceived position on the field. This is useful for adjusting odometry based
-   * on apriltag distances when odometry becomes inaccurate 
-   * @param newPose
-   */
-  public void setPose(Pose2d newPose) {
-    odometer.resetPosition(getRotation2d(), getSwerveModulePositions(), newPose);
-  }
+
 
   
   /** 
@@ -396,11 +389,11 @@ public ChassisSpeeds getVelocities() {
 
 
   /**
-   * Uses a trigger input to slow the robot drive speed by up to 30%
+   * Uses a trigger input to slow the robot drive speed by up to 50%
    * @param percentageSlow trigger axis value (should have deadband applied beforehand)
    */
   public void slowDrive(double percentageSlow) {
-    this.maxTeleopDriveSpeed = ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond - ((ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond) * (0.3 * percentageSlow));
+    this.maxTeleopDriveSpeed = ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond - ((ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond) * (0.5 * percentageSlow));
   }
 
   public void resetDriveSpeed() {
@@ -492,8 +485,8 @@ public ChassisSpeeds getVelocities() {
   public void driveSwerve(ChassisSpeeds cSpeeds) {
 
     ChassisSpeeds chassisSpeeds = cSpeeds;
-    if (chassisSpeeds.omegaRadiansPerSecond > maxTeleopAngularSpeed) {
-      chassisSpeeds.omegaRadiansPerSecond = maxTeleopAngularSpeed;
+    if (chassisSpeeds.omegaRadiansPerSecond > ChassisConstants.kPhysicalMaxAngularSpeedRadiansPerSecond) {
+      chassisSpeeds.omegaRadiansPerSecond = ChassisConstants.kPhysicalMaxAngularSpeedRadiansPerSecond;
     }
 
 
@@ -501,7 +494,7 @@ public ChassisSpeeds getVelocities() {
 
     //This resets the speed ratios when a velocity goes to high above the specified max
     //TODO: Switch to physical max speed instead of set max if robot is too slow
-    SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond);
+    SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, ChassisConstants.kPhysicalMaxSpeedMetersPerSecond);
     
     this.setModuleStates(moduleStates); 
   }
@@ -545,7 +538,7 @@ public ChassisSpeeds getVelocities() {
     // This method will be called once per scheduler run
     odometer.update(getRotation2d(), getSwerveModulePositions());
     
-    SmartDashboard.putNumber("Odometry heading", odometer.getPoseMeters().getRotation().getDegrees());
+    SmartDashboard.putString("Odometry pose", odometer.getPoseMeters().toString());
 
 
     SmartDashboard.putNumber("Robot Heading", getHeadingDegrees());
@@ -594,5 +587,7 @@ public ChassisSpeeds getVelocities() {
     SmartDashboard.putNumber("Roll(radians)", getRollRad());
     SmartDashboard.putNumber("Yaw(radians)", getYawRad());
     SmartDashboard.putBoolean("CommandActive", commandActive);
+
+    SmartDashboard.putNumber("Front left rotation", frontLeft.getDrivePosition());
   }
 }

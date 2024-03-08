@@ -8,7 +8,7 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.3007444354153272,
+        "x": 3.76150579580237,
         "y": 6.212966921782006
       },
       "isLocked": false,
@@ -16,11 +16,11 @@
     },
     {
       "anchor": {
-        "x": 6.2739270437022485,
+        "x": 6.27,
         "y": 6.212966921782006
       },
       "prevControl": {
-        "x": 5.2739270437022485,
+        "x": 5.27,
         "y": 6.212966921782006
       },
       "nextControl": null,
@@ -45,7 +45,7 @@
   "reversed": false,
   "folder": "2nd test straight line",
   "previewStartingState": {
-    "rotation": -178.11771755698925,
+    "rotation": -179.5416435419995,
     "velocity": 0
   },
   "useDefaultConstraints": false
