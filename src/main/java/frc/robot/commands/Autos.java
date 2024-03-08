@@ -36,6 +36,12 @@ public class Autos {
     public Command testThree(){
         return new PathPlannerAuto("3rd test");
     }
+    public Command mobilityWithStyle(){
+        return new PathPlannerAuto("Mobility with style");
+    }
+    public Command outOfWayMobility(){
+        return new PathPlannerAuto("Mobility GET OUT OF THE WAY");
+    }
 
 
 }
