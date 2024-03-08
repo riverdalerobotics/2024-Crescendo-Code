@@ -103,7 +103,7 @@ public class BlinkinLED extends SubsystemBase {
 
 
     public void fieldOrientedColor() {
-        LEDDriver.set(Pattern.SHOT_WHITE.value);
+        LEDDriver.set(Pattern.SOLID_COLOR_LIME.value);
     }
 
 
@@ -144,6 +144,7 @@ public class BlinkinLED extends SubsystemBase {
         }
         else if (fieldOrientedEnabled) {
             fieldOrientedColor();
+            System.out.println("FIELD FIELD FIELD FIELD POG");
         }
     }
   

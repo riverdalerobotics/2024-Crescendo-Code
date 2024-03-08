@@ -82,10 +82,11 @@ public class AutoAlignWithNoteSwerve extends Command {
     //If a note is detected, turning will be disabled and y movement will be controlled by PID
     if (noteIsDetected) {
       noteYOffset = noteLimelight.getXDisplacementFromNote();
-      noteXOffset = noteLimelight.getYDisplacementFromNote();
+      noteXOffset = -noteLimelight.getYDisplacementFromNote();
 
       SmartDashboard.putNumber("L/R note displacement", noteYOffset);
       SmartDashboard.putNumber("F/B note displacement", noteXOffset);
+      System.out.println(noteXOffset);
 
       //Field oriented mucks up this command so we disable it when a note is detected
       swerveSubsystem.enableRobotOriented();
@@ -96,7 +97,7 @@ public class AutoAlignWithNoteSwerve extends Command {
       double PIDxSpeed = xController.calculate(noteXOffset);
       PIDxSpeed = HelperMethods.limitValInRange(CommandConstants.kXNoteAlignMinOutput, CommandConstants.kXNoteAlignMaxOutput, PIDxSpeed);
      
-      swerveSubsystem.driveSwerveWithPhysicalMax(-PIDxSpeed, PIDySpeed, 0);
+      swerveSubsystem.driveSwerveWithPhysicalMax(PIDxSpeed, PIDySpeed, 0);
       
 //      SmartDashboard.putBoolean("Is at note", xController.atSetpoint());
     }
