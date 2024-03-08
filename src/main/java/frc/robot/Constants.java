@@ -160,6 +160,8 @@ public final class Constants {
 
 
 
+
+
     //These are the absolute max limitations of the robot
     //TODO: Test both of these 
     public static final double kPhysicalMaxSpeedMetersPerSecond = 4.3;
@@ -289,8 +291,8 @@ public final class Constants {
     public static final double kXNoteAlignMinOutput = -0.3;
     public static final double kXNoteAlignMaxOutput = 0.3;
     //Meters
-    public static final double kXNoteAlignSetpoint = 0.5;
-    public static final double kXNoteAlignTolerance = 2;
+    public static final double kXNoteAlignSetpoint = 1;
+    public static final double kXNoteAlignTolerance = 0.04;
   }
 
   public static class LimelightConstants {
