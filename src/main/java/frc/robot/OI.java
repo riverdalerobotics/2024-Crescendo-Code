@@ -88,7 +88,7 @@ public boolean engageNoteAlignAssist() {
 
 /**
  * Driver controls ||
- * Slows the robot down by up to 30% based on how much the trigger is pressed
+ * Slows the robot down by up to 50% based on how much the trigger is pressed
  * @return the value of the movement controller's left trigger
  */
 public double engageSlowMode() {

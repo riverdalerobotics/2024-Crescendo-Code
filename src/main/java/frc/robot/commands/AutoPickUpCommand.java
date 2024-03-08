@@ -7,6 +7,7 @@ package frc.robot.commands;
 import java.util.function.Supplier;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.BlinkinLED;
 import frc.robot.Limelight;
@@ -92,8 +93,9 @@ public class AutoPickUpCommand extends Command {
     turningSpd = HelperMethods.applyInputDeadband(turningSpd);
 
     noteIsDetected = noteLimelight.targetDetected();
+    SmartDashboard.putBoolean("Note detected", noteIsDetected);
 
-
+    swerveSubsystem.slowDrive(HelperMethods.applyInputDeadband(oi.engageSlowMode()));
 
     if (beginPickupSequence) {
       //intakeSubsystem.spinIntake(1);
@@ -109,14 +111,12 @@ public class AutoPickUpCommand extends Command {
 
         //y and x being swapped is intentional. Robot x and y is opposite of limelight x and y
         noteYOffset = noteLimelight.getXDisplacementFromNote();
-        noteThetaOffset = noteLimelight.getTX();
         noteXOffset = noteLimelight.getYDisplacementFromNote();
         
         //Field oriented mucks up this command so we disable it when a note is detected
         swerveSubsystem.enableRobotOriented();
 
         double PIDYSpeed = yController.calculate(noteYOffset);
-        double PIDTurningSpeed = turningController.calculate(noteThetaOffset);
         double PIDXSpeed = xController.calculate(noteXOffset);
 
         //Limit the max speed that can be supplied to the motors to avoid dangerously overshooting the note
@@ -126,7 +126,7 @@ public class AutoPickUpCommand extends Command {
         swerveSubsystem.driveSwerveWithPhysicalMax(PIDXSpeed, PIDYSpeed, 0);
 
 
-        if (yController.atSetpoint() && xController.atSetpoint() && turningController.atSetpoint()) {
+        if (yController.atSetpoint() && xController.atSetpoint()) {
           beginPickupSequence = true;
         }
       }

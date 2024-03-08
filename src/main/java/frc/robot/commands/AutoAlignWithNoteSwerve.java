@@ -82,11 +82,9 @@ public class AutoAlignWithNoteSwerve extends Command {
     //If a note is detected, turning will be disabled and y movement will be controlled by PID
     if (noteIsDetected) {
       noteYOffset = noteLimelight.getXDisplacementFromNote();
-      noteThetaOffset = noteLimelight.getTX();
       noteXOffset = noteLimelight.getYDisplacementFromNote();
 
       SmartDashboard.putNumber("L/R note displacement", noteYOffset);
-      SmartDashboard.putNumber("Angle note offset", noteThetaOffset);
       SmartDashboard.putNumber("F/B note displacement", noteXOffset);
 
       //Field oriented mucks up this command so we disable it when a note is detected

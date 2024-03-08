@@ -54,6 +54,6 @@ public class AhnafAutoBuilder {
     }
 
     public void resetOdometryUsingCamera(){
-        chassis.setPose(shootCamera.getBotPoseOdometryNotation());
+        chassis.resetPose(shootCamera.getBotPoseOdometryNotation());
     }
 }
