@@ -23,7 +23,7 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
     public static final int kOperatorControllerPort = 1;
-    public static final double kControllerDeadbandValue = 0.05;
+    public static final double kControllerDeadbandValue = 0.06;
   }
 
   
@@ -310,6 +310,6 @@ public final class Constants {
 
 
   public static class LEDConstants {
-    public static final int kBlinkinPort = 1;
+    public static final int kBlinkinPort = 0;
   }
 }

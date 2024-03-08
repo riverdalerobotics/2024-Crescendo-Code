@@ -83,9 +83,9 @@ public class RobotContainer {
     ));
 
     
-    INTAKE.setDefaultCommand(new IntakeDefaultCommand(
-      oi,
-      INTAKE));
+    // INTAKE.setDefaultCommand(new IntakeDefaultCommand(
+    //   oi,
+    //   INTAKE));
     
     // PIVOT.setDefaultCommand(new PivotDefaultCommand(
     //   oi, 
@@ -132,6 +132,12 @@ public class RobotContainer {
     }
     public Command getTestThreeAuto(){
       return autoFactory.testThree();
+    }
+    public Command getMobilityStyleAuto(){
+      return autoFactory.mobilityWithStyle();
+    }
+    public Command getMobilityOutOfWay(){
+      return autoFactory.outOfWayMobility();
     }
 
 
