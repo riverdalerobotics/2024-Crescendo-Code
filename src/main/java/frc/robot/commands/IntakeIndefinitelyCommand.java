@@ -59,6 +59,9 @@ public class IntakeIndefinitelyCommand extends Command {
   public void end(boolean interrupted) {
     pivotController.reset();
     intakeSpeedController.reset();
+    intake.spinBelt(0);
+    intake.spinIntake(0);
+    pivot.movePivot(0);
   }
 
   // Returns true when the command should end.

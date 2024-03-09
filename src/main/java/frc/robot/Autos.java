@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot;
 
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
@@ -22,7 +22,7 @@ public class Autos {
         return new PathPlannerAuto("4 note mid subwoofer");
     }
     public Command doNothing(){
-        return new PathPlannerAuto(null);
+        return new PathPlannerAuto("Do Nothing");
     }
     public Command shootOnly(){
         return new PathPlannerAuto(null);
@@ -42,6 +42,18 @@ public class Autos {
     public Command outOfWayMobility(){
         return new PathPlannerAuto("Mobility GET OUT OF THE WAY");
     }
+
+
+    public Command weirdPodiumSubwooferTwoNotes(){
+        return new PathPlannerAuto("2 note podium subwoofer (new)");
+    }
+    public Command weirdAmpSubwooferTwoNotes(){
+        return new PathPlannerAuto("2 note amp subwoofer (new)");
+    }
+    public Command weirdMidSubwooferTwoNotes(){
+        return new PathPlannerAuto("2 note mid subwoofer (new)");
+    }
+
 
 
 }
