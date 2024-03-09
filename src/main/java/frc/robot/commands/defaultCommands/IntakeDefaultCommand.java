@@ -84,6 +84,7 @@ public class IntakeDefaultCommand extends Command {
     
     if(operatorInput.engageAutoIntakeSpinup()){
       intakeSpeedController.setSetpoint(intakeSpeed);
+      intake.spinBelt(0.1);
       //manual = false;
     }
     else if(operatorInput.engageAutoShootSpinup()){

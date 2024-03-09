@@ -81,23 +81,23 @@ public class RobotContainer {
     NamedCommands.registerCommand("AutoPivotAndShoot", new AutoPivotAndShootCommand(PIVOT, INTAKE, LED));
     NamedCommands.registerCommand("RevToShootIndefinitely", new AutoRevFlywheelsIndefinitely( IntakeConstants.kDesiredShootMotorRPS, INTAKE, LED));
     //Field reset toggle boost damp
-    CHASSIS.setDefaultCommand(new SwerveDefaultCommand (
+    /**CHASSIS.setDefaultCommand(new SwerveDefaultCommand (
       CHASSIS,
       oi,
       LED
-    ));
+    ));*/
   
     
-    // INTAKE.setDefaultCommand(new IntakeDefaultCommand(
-    //   oi,
-    //   INTAKE,
-    //   LED
-    // ));
+     INTAKE.setDefaultCommand(new IntakeDefaultCommand(
+      oi,
+      INTAKE,
+      LED
+    ));
     
-    // PIVOT.setDefaultCommand(new PivotDefaultCommand(
-    //   oi, 
-    //   PIVOT
-    // ));
+    PIVOT.setDefaultCommand(new PivotDefaultCommand(
+      oi, 
+      PIVOT
+     ));
   }
 
   //Put triggers here that change the active commands
