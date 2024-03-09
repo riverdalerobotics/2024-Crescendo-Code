@@ -199,7 +199,7 @@ public final class Constants {
 
 
     public static class PIDConstants {
-      public static final double kIntakeP = 1;
+      public static final double kIntakeP = 0.1;
       public static final double kIntakeI = 0;
       public static final double kIntakeD = 0;
       //Used for PID to determine what speed is close enough in Rotations per Second

@@ -126,6 +126,8 @@ public class AutoPickUpCommand extends Command {
         swerveSubsystem.driveSwerveWithPhysicalMax(PIDXSpeed, PIDYSpeed, 0);
 
 
+
+
         if (yController.atSetpoint() && xController.atSetpoint()) {
           beginPickupSequence = true;
         }
@@ -141,7 +143,11 @@ public class AutoPickUpCommand extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    xController.reset();
+    yController.reset();
+    turningController.reset();
+  }
 
   // Returns true when the command should end.
   // isFinished should be able to return true right?
