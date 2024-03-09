@@ -83,7 +83,6 @@ public class IntakeDefaultCommand extends Command {
     
     if(operatorInput.engageAutoIntakeSpinup()){
       intakeSpeedController.setSetpoint(intakeSpeed*2);
-      intake.spinBelt(IntakeConstants.kIntakeBeltMotorSpeed);
       //manual = false;
     }
     else if(operatorInput.engageAutoShootSpinup()){
@@ -100,9 +99,15 @@ public class IntakeDefaultCommand extends Command {
       manual = true;
     }*/
 
+    if(operatorInput.engageAutoIntakeSpinup()) {
+      intake.spinBelt(IntakeConstants.kIntakeBeltMotorSpeed);
+    }
     //During operation, the driver can hold down the right bumper to power the indexer to shoot
-    if(operatorInput.shoot()) {
+    else if(operatorInput.shoot()) {
       intake.spinBelt(IntakeConstants.kShootBeltMotorSpeed);
+    }
+    else {
+      intake.spinBelt(0);
     }
     
 

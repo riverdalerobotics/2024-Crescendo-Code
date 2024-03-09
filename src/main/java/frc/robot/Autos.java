@@ -53,6 +53,9 @@ public class Autos {
     public Command weirdMidSubwooferTwoNotes(){
         return new PathPlannerAuto("2 note mid subwoofer (new)");
     }
+    public Command shootAndStop() {
+        return new PathPlannerAuto("shoot and stop");
+    }
 
 
 

@@ -26,6 +26,8 @@ public class BlinkinLED extends SubsystemBase {
     private boolean fieldOrientedEnabled;
     private boolean robotOrientedEnabled;
 
+    private boolean autoAlignCompleteEnabled;
+
 
     private Alliance allianceColor;
 
@@ -37,6 +39,7 @@ public class BlinkinLED extends SubsystemBase {
         flywheelsRevving = false;
         fieldOrientedEnabled = false;
         robotOrientedEnabled = false;
+        autoAlignCompleteEnabled = false;
 
         var alliance = DriverStation.getAlliance();
         allianceColor = alliance.get();
@@ -76,6 +79,14 @@ public class BlinkinLED extends SubsystemBase {
         robotOrientedEnabled = false;
     }
 
+    public void enableAutoAlignCompleteLED() {
+        autoAlignCompleteEnabled = true;
+    }
+
+    public void disableAutoAlignCompleteLED() {
+        autoAlignCompleteEnabled = false;
+    }
+
 
 
     // public void setPattern(Pattern p){
@@ -107,10 +118,12 @@ public class BlinkinLED extends SubsystemBase {
     }
 
 
-    //robot is ligned up with note in the left and right axis and still in aim assist robot oriented
+    //robot is lined up with note in the left and right axis and still in aim assist robot oriented
     public void robotLinedUpWithNoteAndInNoteAimAssist() {
-        LEDDriver.set(Pattern.SOLID_COLOR_GOLD.value);
+        LEDDriver.set(Pattern.RAINBOW_GLITTER.value);
     }
+
+    //Currently unused
     //robot is in note aim assist which is also intaking and in robot oriented 
     public void robotInNoteAimAssist() {
         LEDDriver.set(Pattern.CONFETTI.value);
@@ -118,17 +131,20 @@ public class BlinkinLED extends SubsystemBase {
 
     //powers the shooter motor to rev up
     public void robotRevvingShooter() {
-        LEDDriver.set(Pattern.SOLID_COLOR_HOT_PINK.value);
+        LEDDriver.set(Pattern.STROBE_GOLD.value);
     }
     
     //powers the indexer to shoot
     public void robotShootsNote() {
-        LEDDriver.set(Pattern.STROBE_GOLD.value);
+        LEDDriver.set(Pattern.SOLID_COLOR_GOLD.value);
     }
 
 
     public void setLEDColor() {
-        if (flywheelsReady) {
+        if (autoAlignCompleteEnabled) {
+            robotLinedUpWithNoteAndInNoteAimAssist();
+        }
+        else if (flywheelsReady) {
             robotShootsNote();
         }
         else if (flywheelsRevving) {

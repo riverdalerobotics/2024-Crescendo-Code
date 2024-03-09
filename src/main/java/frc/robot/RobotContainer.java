@@ -103,8 +103,8 @@ public class RobotContainer {
 
     new Trigger(() -> oi.engageNoteAlignAssist()).whileTrue(new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT));
     
-    new Trigger(() -> oi.tuckArm1()).whileTrue(new TuckCommand());
-    new Trigger(() -> oi.tuckArm2()).whileTrue(new TuckCommand());
+    //new Trigger(() -> oi.tuckArm1()).whileTrue(new TuckCommand());
+    //new Trigger(() -> oi.tuckArm2()).whileTrue(new TuckCommand());
       }
   
    
@@ -153,6 +153,10 @@ public class RobotContainer {
     }
     public Command getWeirdMidSubwooferFourNotesAuto(){
         return autoFactory.weirdMidSubwooferTwoNotes();
+    }
+
+    public Command getShootAndStopAuto() {
+      return autoFactory.shootAndStop();
     }
 
 

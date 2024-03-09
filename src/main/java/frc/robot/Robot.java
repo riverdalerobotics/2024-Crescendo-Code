@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
   private static final String weirdPodiumSubwooferTwoNotes = "Podium SIde Subwoofer Shoot And Rretrieve Podium Note and Shoot (Same Intake and Shoot side)"; 
   private static final String weirdAmpSubwooferTwoNotes = "Amp Side Subwoofer Shoot and Retrieve Amp Note and Shoot (Same Intake and Shoot side)";
   private static final String weirdMidSubwooferTwoNotes = "Middle Side Subwoofer Shoot and Retrieve and Shoot 3 close notest (Same Intake and Shoot side)";
-
+  private static final String shootAndStop = "Any side start - shoot note into speakker";
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -62,7 +62,8 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("1+1 AMP Side Subwoofer Same Intake/Shooter", weirdAmpSubwooferTwoNotes);
     m_chooser.addOption("1+1 MID Side Subwoofer Same Intake/Shooter", weirdMidSubwooferTwoNotes);
     m_chooser.addOption("1+1 PODIUM Side Subwoofer Same Intake/Shooter", weirdPodiumSubwooferTwoNotes);
-  
+    m_chooser.addOption("1 Shoot and stop from anywhere", shootAndStop);
+
     SmartDashboard.putData("Auto choices", m_chooser);
    
     }
@@ -150,10 +151,10 @@ public class Robot extends TimedRobot {
         case weirdPodiumSubwooferTwoNotes: 
           m_autonomousCommand = m_robotContainer.getWeirdPodiumSubwooferTwoNotesAuto();
           break;
+        case shootAndStop:
+          m_autonomousCommand = m_robotContainer.getShootAndStopAuto();
+          break;
 
-
-          
-        
 
         //REDUNDANT, I think we can delete maybe 
         default:
