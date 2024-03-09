@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.6549898746298092,
-      "y": 6.690138362483131
+      "x": 1.3074487833435935,
+      "y": 5.511817049731372
     },
-    "rotation": -118.61045966596515
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
@@ -14,24 +14,24 @@
         {
           "type": "path",
           "data": {
-            "pathName": "1. Amp Subwoofer Rotate"
+            "pathName": "1. Midsubwoofer move forward (NEW)"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "2. Continue Forward to Amp note"
+            "pathName": "2.Move Forward (NEW)"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "3. Return rotate to Amp Subwoofer"
+            "pathName": "3. Return note to mid subwoofer (NEW)"
           }
         }
       ]
     }
   },
-  "folder": "Shoot from Different Intake Auto ",
+  "folder": "Shoot from Same Intake Auto (new)",
   "choreoAuto": false
 }

@@ -22,7 +22,7 @@ public class Autos {
         return new PathPlannerAuto("4 note mid subwoofer");
     }
     public Command doNothing(){
-        return new PathPlannerAuto(null);
+        return new PathPlannerAuto("Do Nothing");
     }
     public Command shootOnly(){
         return new PathPlannerAuto(null);
@@ -42,6 +42,18 @@ public class Autos {
     public Command outOfWayMobility(){
         return new PathPlannerAuto("Mobility GET OUT OF THE WAY");
     }
+
+
+    public Command weirdPodiumSubwooferTwoNotes(){
+        return new PathPlannerAuto("2 note podium subwoofer (new)");
+    }
+    public Command weirdAmpSubwooferTwoNotes(){
+        return new PathPlannerAuto("2 note amp subwoofer (new)");
+    }
+    public Command weirdMidSubwooferTwoNotes(){
+        return new PathPlannerAuto("2 note mid subwoofer (new)");
+    }
+
 
 
 }

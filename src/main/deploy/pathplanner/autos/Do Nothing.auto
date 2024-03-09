@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 2.3104826280826942,
-      "y": 4.109517305630104
+      "x": 0.40179686528306097,
+      "y": 2.444286359504979
     },
     "rotation": 180.0
   },
@@ -14,12 +14,12 @@
         {
           "type": "path",
           "data": {
-            "pathName": "1st test"
+            "pathName": "Do Nothing"
           }
         }
       ]
     }
   },
-  "folder": "Tests at school",
+  "folder": "Shoot from Same Intake Auto (new)",
   "choreoAuto": false
 }
