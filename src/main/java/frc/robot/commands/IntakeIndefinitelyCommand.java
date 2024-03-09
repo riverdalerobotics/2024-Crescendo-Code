@@ -17,7 +17,7 @@ public class IntakeIndefinitelyCommand extends Command {
   double kp = PivotConstants.PIDConstants.kPivotP;
   double ki = PivotConstants.PIDConstants.kPivotI;
   double kd = PivotConstants.PIDConstants.kPivotD;
-  double pivotSetpoint = 0d;
+  double pivotSetpoint = PivotConstants.kIntakeAngle;
   double pivotTolerance = PivotConstants.PIDConstants.kPivotToleranceThreshold;
   double intakeSpeed = IntakeConstants.kDesiredIntakeMotorRPS;
   double beltSpeed = IntakeConstants.kIntakeBeltMotorSpeed;

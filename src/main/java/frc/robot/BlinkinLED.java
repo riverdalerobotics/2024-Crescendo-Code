@@ -27,6 +27,7 @@ public class BlinkinLED extends SubsystemBase {
     private boolean robotOrientedEnabled;
 
     private boolean autoAlignCompleteEnabled;
+    private double autoAlignLEDTimer;
 
 
     private Alliance allianceColor;
@@ -40,6 +41,7 @@ public class BlinkinLED extends SubsystemBase {
         fieldOrientedEnabled = false;
         robotOrientedEnabled = false;
         autoAlignCompleteEnabled = false;
+        autoAlignLEDTimer = 0;
 
         var alliance = DriverStation.getAlliance();
         allianceColor = alliance.get();
@@ -160,7 +162,18 @@ public class BlinkinLED extends SubsystemBase {
         }
         else if (fieldOrientedEnabled) {
             fieldOrientedColor();
-            System.out.println("FIELD FIELD FIELD FIELD POG");
+        }
+    }
+
+    public void updateAutoAlignLED() {
+        //This happens the instant auto align finishes
+        if(autoAlignCompleteEnabled && autoAlignLEDTimer == 0) {
+            autoAlignLEDTimer = System.currentTimeMillis() + 2000;
+        }
+        //This runs 2 seconds later
+        if (autoAlignLEDTimer < System.currentTimeMillis() && autoAlignCompleteEnabled) {
+            autoAlignLEDTimer = 0;
+            this.disableAutoAlignCompleteLED();
         }
     }
   

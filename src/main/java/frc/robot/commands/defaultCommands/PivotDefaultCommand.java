@@ -28,7 +28,7 @@ public class PivotDefaultCommand extends Command {
   //The operator can only manually control the pivot when this is true
   boolean manualRotationEnabled = false;
 
-  double maxVoltage = PivotConstants.kPivotMaxVoltage;
+  double maxCurrent = PivotConstants.kHardStopCurrentThreshold;
   public PivotDefaultCommand(OI opInput, PivotSubsystem pivot) {
     // Use addRequirements() here to declare subsystem dependencies.\
     this.pivot = pivot;
@@ -92,7 +92,7 @@ public class PivotDefaultCommand extends Command {
     //Voltage above max voltage indicates that the arm is pushing against the hard stop and should be reset
     //TODO: Test to see if this could be screwed up by other robots or field elements. If it can, we need to ensure this doesn't 
     //unintenionally result in robot death
-    if (pivot.getVoltage() > maxVoltage){
+    if (pivot.getCurrent() > maxCurrent){
       angleController.setSetpoint(hardStopPosition);
       desiredArmAngle = hardStopPosition;
     }

@@ -9,6 +9,7 @@ import java.util.function.Supplier;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.BlinkinLED;
 import frc.robot.HelperMethods;
 import frc.robot.Limelight;
 import frc.robot.OI;
@@ -28,13 +29,15 @@ public class AutoAlignWithNoteSwerve extends Command {
   private final SwerveChassisSubsystem swerveSubsystem;
   private final Limelight noteLimelight;
   private final OI oi;
+  private final BlinkinLED LED;
 
 
 
   public AutoAlignWithNoteSwerve(
     SwerveChassisSubsystem swerveSubsystem,
     OI oi,
-    Limelight noteLimelight) {
+    Limelight noteLimelight,
+    BlinkinLED LED) {
     
       yController = new PIDController(CommandConstants.kYNoteAlignP, CommandConstants.kYNoteAlignI, CommandConstants.kYNoteAlignD);
       yController.setSetpoint(CommandConstants.kYNoteAlignSetpoint);
@@ -50,6 +53,7 @@ public class AutoAlignWithNoteSwerve extends Command {
 
 
     this.swerveSubsystem = swerveSubsystem;
+    this.LED = LED;
     this.noteLimelight = noteLimelight;
     this.oi = oi;
     addRequirements(swerveSubsystem);
@@ -114,9 +118,13 @@ public class AutoAlignWithNoteSwerve extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    if (xController.atSetpoint() && yController.atSetpoint()) {
+      LED.enableAutoAlignCompleteLED();
+    }
     yController.reset();
     turningController.reset();
     xController.reset();
+    swerveSubsystem.stopModules();
   }
 
   // Returns true when the command should end.

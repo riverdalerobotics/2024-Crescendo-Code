@@ -44,16 +44,6 @@ public class IntakeSubsystem extends SubsystemBase {
   public void spinBelt(double speed){
     belt.set(speed);
   }
-
-  /**
-   * Powers the intake and belt motors at desired speeds for intaking notes
-   */
-  public void engageIntake() {
-    spinIntake(-0.1);
-    spinBelt(-0.1);
-  }
-
-
   
   /** 
    * @return double

@@ -56,6 +56,7 @@ public class PivotSubsystem extends SubsystemBase {
     double encoderPos = pos.getValue() * rotationToAngle;
     return encoderPos;
   }
+
   public double getVoltage(){
     StatusSignal<Double> voltage = pivot1.getMotorVoltage();
     return voltage.getValue();

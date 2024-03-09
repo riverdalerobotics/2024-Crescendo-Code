@@ -16,13 +16,13 @@ public class IntakeDefaultCommand extends Command {
   IntakeSubsystem intake;
   PIDController intakeSpeedController;
   BlinkinLED LED;
-  double intakeSpeed = 10;
-  double shootSpeed = 10;
+  double intakeSpeed = IntakeConstants.kDesiredIntakeMotorRPS;
+  double shootSpeed = IntakeConstants.kDesiredShootMotorRPS;
   //half of setpoint is 0.008
-  double kp = 0.0097;
-  double ki = 0d;
-  double kd = 0d;
-  double tolerance = 3;
+  double kp = IntakeConstants.PIDConstants.kIntakeP;
+  double ki = IntakeConstants.PIDConstants.kIntakeI;
+  double kd = IntakeConstants.PIDConstants.kIntakeD;
+  double tolerance = IntakeConstants.PIDConstants.kIntakeToleranceThreshold;
   boolean manual = false;
 
   /** Creates a new IntakeDefaultCommand. */
