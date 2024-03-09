@@ -12,26 +12,71 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "1. Amp Subwoofer to note (NEW)"
+            "name": "AutoPivotAndShoot"
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "2. Go Forward To Collect (NEW)"
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "1. Amp Subwoofer to note (NEW)"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "2. Go Forward To Collect (NEW)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeIndefinitely"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "3. Return note to amp subwoofer (NEW)"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "3. Return note to amp subwoofer (NEW)"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoPivotAndRevShooterIndefinitely"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoPivotAndShoot"
           }
         }
       ]
     }
   },
-  "folder": "Shoot from Same Intake Auto (new)",
+  "folder": null,
   "choreoAuto": false
 }

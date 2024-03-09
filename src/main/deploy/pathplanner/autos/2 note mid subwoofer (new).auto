@@ -12,26 +12,71 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "1. Midsubwoofer move forward (NEW)"
+            "name": "AutoPivotAndShoot"
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "2.Move Forward (NEW)"
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "1. Midsubwoofer move forward (NEW)"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "2.Move Forward (NEW)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeIndefinitely"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "3. Return note to mid subwoofer (NEW)"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "3. Return note to mid subwoofer (NEW)"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoPivotAndRevShooterIndefinitely"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoPivotAndShoot"
           }
         }
       ]
     }
   },
-  "folder": "Shoot from Same Intake Auto (new)",
+  "folder": null,
   "choreoAuto": false
 }

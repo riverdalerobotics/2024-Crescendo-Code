@@ -12,26 +12,71 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "1. Podium Subwoofer to note (NEW)"
+            "name": "AutoPivotAndRevShooterIndefinitely"
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "2. Go Forward Podium (NEW)"
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "1. Podium Subwoofer to note (NEW)"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "2. Go Forward Podium (NEW)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeIndefinitely"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "3. Return note to Podium Subwoofer (NEW)"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "3. Return note to Podium Subwoofer (NEW)"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoPivotAndRevShooterIndefinitely"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoPivotAndShootCommand"
           }
         }
       ]
     }
   },
-  "folder": "Shoot from Same Intake Auto (new)",
+  "folder": null,
   "choreoAuto": false
 }
