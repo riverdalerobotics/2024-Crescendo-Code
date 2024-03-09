@@ -5,14 +5,23 @@
   "pathFolders": [
     "1st Test Curve",
     "2 note amp subwoofer paths",
+    "2 note amp subwoofer paths (NEW)",
+    "2 note mid subwoofer (NEW)",
     "2 note podium subwoofer mid paths",
     "2 note podium subwoofer paths",
+    "2 note podium subwoofer paths (NEW)",
     "2nd test straight line",
     "3rd test rotate 180",
     "4 note mid subwoofer paths",
-    "Mobility"
+    "Mobility",
+    "Do Nothing"
   ],
-  "autoFolders": [],
+  "autoFolders": [
+    "Mobilities",
+    "Shoot from Different Intake Auto ",
+    "Shoot from Same Intake Auto (new)",
+    "Tests at school"
+  ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 540.0,

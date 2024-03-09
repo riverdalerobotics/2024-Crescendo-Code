@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.6647280672971791,
-        "y": 4.440615856320681
+        "x": 2.18,
+        "y": 4.1
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0505852708028076,
-        "y": 1.295179624760199
+        "x": 1.3756161320151827,
+        "y": 3.4181056262468403
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.763870521809846,
-        "y": 0.7595790280548544
+        "x": 0.6062989112929598,
+        "y": 4.3627103149817215
       },
       "prevControl": {
-        "x": 4.452885014904075,
-        "y": 0.856960954728552
+        "x": 1.570379985362581,
+        "y": 3.8563242962784865
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 179.5965152649413,
+    "rotation": -60.94539590092292,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "2 note podium subwoofer mid paths",
+  "folder": "2 note podium subwoofer paths (NEW)",
   "previewStartingState": {
-    "rotation": 119.85207626918267,
+    "rotation": -179.34006020486652,
     "velocity": 0
   },
   "useDefaultConstraints": true

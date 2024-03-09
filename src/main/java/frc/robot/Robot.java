@@ -34,6 +34,10 @@ public class Robot extends TimedRobot {
   private static final String mobilityWithStyle = "go 2.26 meters, rotate 180 degrees" ; //max velocity is 1.5 m/s
   private static final String mobilityOutOfWay = "go 1.7 meters, 0.85 meters down "; //max velocity is 3 m/s
 
+  private static final String weirdPodiumSubwooferTwoNotes = "Podium SIde Subwoofer Shoot And Rretrieve Podium Note and Shoot (Same Intake and Shoot side)"; 
+  private static final String weirdAmpSubwooferTwoNotes = "Amp Side Subwoofer Shoot and Retrieve Amp Note and Shoot (Same Intake and Shoot side)";
+  private static final String weirdMidSubwooferTwoNotes = "Middle Side Subwoofer Shoot and Retrieve and Shoot 3 close notest (Same Intake and Shoot side)";
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -54,6 +58,10 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("2nd test", testTwo);
     m_chooser.addOption("3rd test", testThree);
     m_chooser.addOption("SHOOT ONLY", shootOnly);
+
+    m_chooser.addOption("1+1 AMP Side Subwoofer Same Intake/Shooter", weirdAmpSubwooferTwoNotes);
+    m_chooser.addOption("1+1 MID Side Subwoofer Same Intake/Shooter", weirdMidSubwooferTwoNotes);
+    m_chooser.addOption("1+1 PODIUM Side Subwoofer Same Intake/Shooter", weirdPodiumSubwooferTwoNotes);
   
     SmartDashboard.putData("Auto choices", m_chooser);
    
@@ -100,10 +108,10 @@ public class Robot extends TimedRobot {
       /* */
      
       switch (m_autoSelected) {
-          case mobilityWithStyle:
+        case mobilityWithStyle:
           m_autonomousCommand = m_robotContainer.getMobilityStyleAuto();
           break;
-            case mobilityOutOfWay:
+        case mobilityOutOfWay:
           m_autonomousCommand = m_robotContainer.getMobilityOutOfWay();
           break;
         case shootOnly:
@@ -133,6 +141,18 @@ public class Robot extends TimedRobot {
         case testThree: 
           m_autonomousCommand = m_robotContainer.getTestThreeAuto();
           break;
+        case weirdAmpSubwooferTwoNotes:
+          m_autonomousCommand = m_robotContainer.getWeirdAmpSubwooferTwoNotesAuto();
+          break;
+        case weirdMidSubwooferTwoNotes: 
+          m_autonomousCommand = m_robotContainer.getWeirdMidSubwooferFourNotesAuto();
+          break;
+        case weirdPodiumSubwooferTwoNotes: 
+          m_autonomousCommand = m_robotContainer.getWeirdPodiumSubwooferTwoNotesAuto();
+          break;
+
+
+          
         
 
         //REDUNDANT, I think we can delete maybe 

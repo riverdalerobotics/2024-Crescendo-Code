@@ -140,6 +140,16 @@ public class RobotContainer {
       return autoFactory.outOfWayMobility();
     }
 
+    public Command getWeirdPodiumSubwooferTwoNotesAuto(){
+        return autoFactory.weirdPodiumSubwooferTwoNotes();
+    }
+    public Command getWeirdAmpSubwooferTwoNotesAuto(){
+        return autoFactory.weirdAmpSubwooferTwoNotes();
+    }
+    public Command getWeirdMidSubwooferFourNotesAuto(){
+        return autoFactory.weirdMidSubwooferTwoNotes();
+    }
+
 
     
 
