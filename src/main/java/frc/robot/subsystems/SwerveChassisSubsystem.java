@@ -535,6 +535,7 @@ public ChassisSpeeds getVelocities() {
 
   @Override
   public void periodic() {
+    setLEDDriveColors();
     // This method will be called once per scheduler run
     odometer.update(getRotation2d(), getSwerveModulePositions());
     

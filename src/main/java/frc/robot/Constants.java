@@ -23,7 +23,7 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
     public static final int kOperatorControllerPort = 1;
-    public static final double kControllerDeadbandValue = 0.05;
+    public static final double kControllerDeadbandValue = 0.06;
   }
 
   
@@ -160,6 +160,8 @@ public final class Constants {
 
 
 
+
+
     //These are the absolute max limitations of the robot
     //TODO: Test both of these 
     public static final double kPhysicalMaxSpeedMetersPerSecond = 4.3;
@@ -246,8 +248,8 @@ public final class Constants {
 
 
   public static class PathPlannerConstants { //TODO: GET THESE CONSTANTS
-    public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(0.04, 0, 0);
-    public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(0.01, 0, 0);
+    public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(3, 0, 0);
+    public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(0.1, 0, 0);
 
     //TODO DETERMINE whether this is desired max or physical max
     public static final double MAX_TRANSLATION_SPEED = ChassisConstants.kPhysicalMaxSpeedMetersPerSecond;
@@ -289,8 +291,8 @@ public final class Constants {
     public static final double kXNoteAlignMinOutput = -0.3;
     public static final double kXNoteAlignMaxOutput = 0.3;
     //Meters
-    public static final double kXNoteAlignSetpoint = 0.5;
-    public static final double kXNoteAlignTolerance = 2;
+    public static final double kXNoteAlignSetpoint = 1;
+    public static final double kXNoteAlignTolerance = 0.04;
   }
 
   public static class LimelightConstants {
@@ -310,6 +312,6 @@ public final class Constants {
 
 
   public static class LEDConstants {
-    public static final int kBlinkinPort = 1;
+    public static final int kBlinkinPort = 0;
   }
 }

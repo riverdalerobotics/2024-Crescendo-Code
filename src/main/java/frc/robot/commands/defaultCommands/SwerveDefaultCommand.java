@@ -75,7 +75,6 @@ public class SwerveDefaultCommand extends Command {
     turnSpeed = HelperMethods.applyInputDeadband(turnSpeed);
 
 
-
     
     //double speedIncrease = speedBoost.get();
     //double speedDecrease = speedDampener.get();
