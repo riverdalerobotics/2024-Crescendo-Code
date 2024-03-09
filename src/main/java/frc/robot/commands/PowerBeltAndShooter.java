@@ -25,18 +25,16 @@ public class PowerBeltAndShooter extends Command {
   double kp = IntakeConstants.PIDConstants.kIntakeP;
   double ki = IntakeConstants.PIDConstants.kIntakeI;
   double kd = IntakeConstants.PIDConstants.kIntakeD;
-  double tolerance = 0d;
-  double desiredSpeed;
-  double beltSpeed;
+  double tolerance = IntakeConstants.PIDConstants.kIntakeToleranceThreshold;
+  double desiredSpeed = IntakeConstants.kDesiredShootMotorRPS;
+  double beltSpeed = IntakeConstants.kShootBeltMotorSpeed;
   boolean hasPickedUp = false;
   double maxCurrent = 0d;
   BlinkinLED LED;
-  public PowerBeltAndShooter(IntakeSubsystem intakeSubsystem, double desiredSpeed, BlinkinLED LED) {
+  public PowerBeltAndShooter(IntakeSubsystem intakeSubsystem, BlinkinLED LED) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.intake = intakeSubsystem;
     intakeSpeedController = new PIDController(kp, ki, kd);
-    this.desiredSpeed = desiredSpeed;
-    this.beltSpeed = 0.5;
     this.LED = LED;
     addRequirements(intake);
   }
