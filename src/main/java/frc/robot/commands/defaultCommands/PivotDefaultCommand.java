@@ -44,6 +44,7 @@ public class PivotDefaultCommand extends Command {
   public void initialize() {
     //Sets the desired angle to the current arm angle when this command is initialized
     //If a command that sets the arm position ends, the default command will continue holding that position
+    pivot.resetPivotEncoder();
     desiredArmAngle = pivot.getEncoders();
     angleController.setSetpoint(desiredArmAngle);
     angleController.setTolerance(tolerance);
@@ -56,7 +57,8 @@ public class PivotDefaultCommand extends Command {
   @Override
   public void execute() {
     //TODO: get someone to read this over please cause it might not be worth doing...
-    System.out.println(angleController.getPositionError());
+    //System.out.println(angleController.getPositionError());
+    System.out.println(pivot.getEncoders());
 
     //Manual rotation will stop whatever desired angle the arm is currently heading towards
     if(operatorInput.enableManualRotation()) {

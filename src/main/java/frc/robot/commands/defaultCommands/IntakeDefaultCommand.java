@@ -41,6 +41,7 @@ public class IntakeDefaultCommand extends Command {
   public void initialize() {
     intakeSpeedController.setSetpoint(0);
     intakeSpeedController.setTolerance(tolerance);
+  
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -82,11 +83,11 @@ public class IntakeDefaultCommand extends Command {
     intake.spinIntake(intakeSpeedController.calculate(intake.getSpeed()));
     
     if(operatorInput.engageAutoIntakeSpinup()){
-      intakeSpeedController.setSetpoint(intakeSpeed*2);
+      intakeSpeedController.setSetpoint(intakeSpeed);
       //manual = false;
     }
     else if(operatorInput.engageAutoShootSpinup()){
-      intakeSpeedController.setSetpoint(shootSpeed*2);
+      intakeSpeedController.setSetpoint(shootSpeed);
       //manual = false;
     }
     else {
