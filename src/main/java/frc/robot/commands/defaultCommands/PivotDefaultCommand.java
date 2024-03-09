@@ -23,7 +23,7 @@ public class PivotDefaultCommand extends Command {
   double tolerance = PivotConstants.PIDConstants.kPivotToleranceThreshold;
 
   //This tracks the current desired angle the arm is heading towards in degrees
-  double desiredArmAngle = hardStopPosition;
+  double desiredArmAngle;
 
   //The operator can only manually control the pivot when this is true
   boolean manualRotationEnabled = false;
