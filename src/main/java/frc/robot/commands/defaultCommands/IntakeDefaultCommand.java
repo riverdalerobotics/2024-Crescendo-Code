@@ -71,7 +71,7 @@ public class IntakeDefaultCommand extends Command {
       LED.disableFlywheelsRevvingLED();
       LED.enableFlywheelsReadyLED();
     }
-    else if (intakeSpeedController.atSetpoint() == false && intakeSpeedController.getSetpoint() != 0) {
+    else if (!intakeSpeedController.atSetpoint() && intakeSpeedController.getSetpoint() != 0) {
       LED.disableFlywheelsReadyLED();
       LED.enableFlywheelsRevvingLED();
     }

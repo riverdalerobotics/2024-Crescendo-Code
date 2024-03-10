@@ -191,11 +191,11 @@ public final class Constants {
 
 
 
-    public static final double kDesiredIntakeMotorRPS = -10;
+    public static final double kDesiredIntakeMotorRPS = -20;
     public static final double kIntakeBeltMotorSpeed = -1000;
 
 
-    public static final double kDesiredShootMotorRPS = 10;
+    public static final double kDesiredShootMotorRPS = 50;
     public static final double kShootBeltMotorSpeed = -1000;
 
 
