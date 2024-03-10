@@ -76,7 +76,7 @@ public class PivotDefaultCommand extends Command {
     if(manualRotationEnabled) {
 
       //TODO: increase this value after testing
-      desiredArmAngle += (operatorInput.pivotArm() * 0.1);
+      desiredArmAngle += (operatorInput.pivotArm() * 0.2);
       
     }
 

@@ -108,7 +108,8 @@ public class IntakeDefaultCommand extends Command {
     else if(operatorInput.shoot()) {
       intake.spinBelt(IntakeConstants.kShootBeltMotorSpeed);
     }
-    else {
+
+    if (!operatorInput.shoot() && !operatorInput.engageAutoIntakeSpinup()){
       intake.spinBelt(0);
     }
     

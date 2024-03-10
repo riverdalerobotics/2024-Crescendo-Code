@@ -101,7 +101,7 @@ public final class Constants {
 
 
     
-    public static final IdleMode kDrivingMotorIdleMode = IdleMode.kBrake;
+    public static final IdleMode kDrivingMotorIdleMode = IdleMode.kCoast;
     public static final IdleMode kTurningMotorIdleMode = IdleMode.kBrake;
 
   
@@ -225,7 +225,7 @@ public final class Constants {
     //Max voltage pivot can receive before attempting to reset position
     public static final int kPivotMaxVoltage = -1000;
 
-    public static final double kHardStopCurrentThreshold = -1000;
+    public static final double kHardStopCurrentThreshold = 5;
 
 
 
@@ -240,9 +240,8 @@ public final class Constants {
       public static final double kPivotD = 0;
       //Used for PID to determine what rotation is close enough to desired angle
       public static final double kPivotToleranceThreshold = 3;
-
-      public static final double kPivotPIDMaxOutput = 0.4;
-      public static final double kPivotPIDMinOutput = -0.4;
+      public static final double kPivotPIDMinOutput = -0.3;
+      public static final double kPivotPIDMaxOutput = 0.3;
 
     }
 
