@@ -147,6 +147,7 @@ public class AutoPickUpCommand extends Command {
     xController.reset();
     yController.reset();
     turningController.reset();
+    swerveSubsystem.enableFieldOriented();
   }
 
   // Returns true when the command should end.

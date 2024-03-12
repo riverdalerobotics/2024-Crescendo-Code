@@ -28,7 +28,13 @@
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": -51.139308938532864,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -39,13 +45,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 124.86219614691488,
+    "rotation": -58.10920819806764,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "2 note podium subwoofer mid paths",
+  "folder": "3 note podium subwoofer mid paths (NEW)",
   "previewStartingState": {
-    "rotation": 179.16712698472804,
+    "rotation": -179.95545461786884,
     "velocity": 0
   },
   "useDefaultConstraints": true

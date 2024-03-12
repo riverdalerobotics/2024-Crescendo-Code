@@ -64,6 +64,7 @@ public class PivotDefaultCommand extends Command {
   @Override
   public void execute() {
     //TODO: get someone to read this over please cause it might not be worth doing...
+    System.out.println(angleController.getPositionError());
     //System.out.println(angleController.getPositionError());
     System.out.println(pivot.getEncoders());
     System.out.println(angleController.getSetpoint());

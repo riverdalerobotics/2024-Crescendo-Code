@@ -20,15 +20,21 @@
         "y": 2.4345481668424793
       },
       "prevControl": {
-        "x": 4.00492815220506,
-        "y": 0.9056519180654026
+        "x": 3.819902491525031,
+        "y": 0.9640810740696224
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 179.53172158927853,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -43,9 +49,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "2 note podium subwoofer mid paths",
+  "folder": "3 note podium subwoofer mid paths (NEW)",
   "previewStartingState": {
-    "rotation": 120.95772039545493,
+    "rotation": -59.37352296829565,
     "velocity": 0
   },
   "useDefaultConstraints": true

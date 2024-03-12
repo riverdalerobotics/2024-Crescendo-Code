@@ -49,8 +49,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   
-  //private final IntakeSubsystem INTAKE = new IntakeSubsystem();
+
   
+  //This is where we construct all our subsystem and other important objects 
   BlinkinLED LED = new BlinkinLED();
   OI oi = new OI();
   public final Limelight NOTE_LIMELIGHT = new Limelight("limelight-note");
@@ -69,18 +70,18 @@ public class RobotContainer {
     configureBindings();
 
     
+    
     // Register Named Commands so that it can be used in the PathPlanning autos 
     //TODO: In Path Planner UI, remember to add the named commands 
-
-    // NamedCommands.registerCommand("exampleCommand", exampleSubsystem.exampleCommand());
-    // NamedCommands.registerCommand("someOtherCommand", new IntakeDefaultCommand(oi, INTAKE));
-    
-    NamedCommands.registerCommand("note error fix", new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT, LED));
+    //Path planner is the software we use to make our autos
+    NamedCommands.registerCommand("note error fix", new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT));
     NamedCommands.registerCommand("IntakeIndefinitely", new IntakeIndefinitelyCommand(INTAKE, PIVOT));
     NamedCommands.registerCommand("AutoPivotAndRevShooterIndefinitely", new AutoPivotAndRevShooterIndefinitelyCommand(PIVOT, INTAKE, LED));
     NamedCommands.registerCommand("AutoPivotAndShoot", new AutoPivotAndShootCommand(PIVOT, INTAKE, LED));
     NamedCommands.registerCommand("RevToShootIndefinitely", new AutoRevFlywheelsIndefinitely( IntakeConstants.kDesiredShootMotorRPS, INTAKE, LED));
-    //Field reset toggle boost damp
+
+
+
     CHASSIS.setDefaultCommand(new SwerveDefaultCommand (
       CHASSIS,
       oi,
@@ -101,21 +102,26 @@ public class RobotContainer {
   }
 
   //Put triggers here that change the active commands
+  //Triggers are conditions that activate commands
+  //Triggers can activate as long as an input is true, or toggle on and off based on the input
+  //For more information on triggers, see: https://first.wpi.edu/wpilib/allwpilib/docs/release/java/edu/wpi/first/wpilibj2/command/button/Trigger.html
   private void configureBindings() {
 
-    new Trigger(() -> oi.engageNoteAlignAssist()).whileTrue(new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT, LED));
+    //as long as the right trigger is held, note align will be active
+    new Trigger(() -> oi.engageNoteAlignAssist()).whileTrue(new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT));
     
-    //new Trigger(() -> oi.tuckArm1()).whileTrue(new TuckCommand());
-    //new Trigger(() -> oi.tuckArm2()).whileTrue(new TuckCommand());
+
+    //This command is unfinished, but the purpose is to rezero the arm if the encoder value is innacurate
+    new Trigger(() -> oi.tuckArm1()).whileTrue(new TuckCommand());
+    new Trigger(() -> oi.tuckArm2()).whileTrue(new TuckCommand());
       }
   
    
 
 
-    /** 
-     * @return automonous period command
-     */
     //autos that that we use Robot.java using the Sendable Chooser   
+    //all the autos we use should have a method that returns them in robot container 
+
     public Command getPodiumSubwooferTwoNotesAuto(){
         return autoFactory.podiumSubwooferTwoNotes();
     }
@@ -140,6 +146,10 @@ public class RobotContainer {
     public Command getTestThreeAuto(){
       return autoFactory.testThree();
     }
+   
+
+
+    
     public Command getMobilityStyleAuto(){
       return autoFactory.mobilityWithStyle();
     }
@@ -148,13 +158,13 @@ public class RobotContainer {
     }
 
     public Command getWeirdPodiumSubwooferTwoNotesAuto(){
-        return autoFactory.weirdPodiumSubwooferTwoNotes();
+      return autoFactory.weirdPodiumSubwooferTwoNotes();
     }
     public Command getWeirdAmpSubwooferTwoNotesAuto(){
-        return autoFactory.weirdAmpSubwooferTwoNotes();
+      return autoFactory.weirdAmpSubwooferTwoNotes();
     }
     public Command getWeirdMidSubwooferFourNotesAuto(){
-        return autoFactory.weirdMidSubwooferTwoNotes();
+      return autoFactory.weirdMidSubwooferTwoNotes();
     }
 
     public Command getShootAndStopAuto() {

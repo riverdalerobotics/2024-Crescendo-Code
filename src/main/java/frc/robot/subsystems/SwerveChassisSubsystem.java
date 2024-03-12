@@ -39,6 +39,10 @@ import com.pathplanner.lib.util.ReplanningConfig;
 public class SwerveChassisSubsystem extends SubsystemBase {
   
   public boolean commandActive = false;
+
+  //we create 4 swerve module objects representing the 4 swerve modules on our chassis
+  //see SwerveModule.java for more information on these objects as that is where we create the class
+
   private final SwerveModule frontLeft = new SwerveModule(ChassisConstants.kFrontLeftDriveMotorPort, 
   ChassisConstants.kFrontLeftTurningMotorPort, 
   ChassisConstants.kFrontLeftDriveEncoderReversed, 
@@ -74,6 +78,9 @@ public class SwerveChassisSubsystem extends SubsystemBase {
   public SwerveChassisSubsystem(BlinkinLED LED) {
     this.maxTeleopDriveSpeed = ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond;
     this.maxTeleopAngularSpeed = ChassisConstants.kTeleDriveMaxAngularSpeedRadiansPerSecond;
+
+    //slew rate limiters are meant to limit acceleration to avoid sudden speed increases that can damage motors
+    //they create smoother motion with gradual acceleration
     this.xLimiter = new SlewRateLimiter(ChassisConstants.kTeleDriveMaxAccelerationMetersPerSecond);
     this.yLimiter = new SlewRateLimiter(ChassisConstants.kTeleDriveMaxAccelerationMetersPerSecond);
     this.turnLimiter = new SlewRateLimiter(ChassisConstants.kTeleDriveMaxAngularAccelerationRadiansPerSecond);
@@ -83,7 +90,8 @@ public class SwerveChassisSubsystem extends SubsystemBase {
 
 
 
-
+    //This resets the gyro heading when the robot is turned on after a short delay.
+    //The reason we need a delay is to give the gyroscope time to calibrate, as if we did it instantly, the value may become innacurate
     new Thread(() -> {
       try {
         Thread.sleep(1000);
@@ -92,6 +100,8 @@ public class SwerveChassisSubsystem extends SubsystemBase {
     }
   }).start();
 
+  //IF YOU ARE ROOKIE READING THIS CODE: Please ignore this code as it is for path planner and you don't need to learn about that yet
+  
   //Pathplanner Stuff
   AutoBuilder.configureHolonomic( //Configures pathfinder with basic constraints and functionality of robot
     this::getPose, // Robot pose supplier (Pose2d)
@@ -120,61 +130,7 @@ public class SwerveChassisSubsystem extends SubsystemBase {
       }
     },
     this);
-    
   }
-
-    // REDUNDANT
-  // /**
-  // * This is useful for odometry paths created through getting position from
-  // other sensors, such as camera
-  // * @param currentPos: a Pose2d that represents the current position of the
-  // robot
-  // * @param targetPos: a Pose2d that represents the target position of the robot
-  // */
-  // public PathPlannerPath createCustomStraightLinePath(Pose2d currentPos, Pose2d
-  // targetPos) {
-  // // Create a list of bezier points from poses. Each pose represents one
-  // waypoint.
-  // // The rotation component of the pose should be the direction of travel. Do
-  // not
-  // // use holonomic rotation.
-
-  // double changeInX = targetPos.getX() - currentPos.getX();
-  // double changeInY = targetPos.getY() - currentPos.getY();
-  // double changeInAngle = targetPos.getRotation().getDegrees() -
-  // currentPos.getRotation().getDegrees();
-
-  // List<Translation2d> bezierPoints = PathPlannerPath.bezierFromPoses(
-  // new Pose2d(currentPos.getX()+(changeInX/3), currentPos.getY()+(changeInY/3),
-  // Rotation2d.fromDegrees(currentPos.getRotation().getDegrees()+(changeInAngle/3))),
-  // new Pose2d(currentPos.getX()+(changeInX/3*2),
-  // currentPos.getY()+(changeInY/3*2),
-  // Rotation2d.fromDegrees(currentPos.getRotation().getDegrees()+(changeInAngle/3*2))),
-  // new Pose2d(targetPos.getX(), targetPos.getY(),
-  // Rotation2d.fromDegrees(targetPos.getRotation().getDegrees()))
-  // );
-
-  // // Create the path using the bezier points created above
-  // PathPlannerPath path = new PathPlannerPath(
-  // bezierPoints,
-  // new PathConstraints(MAX_TRANSLATION_SPEED, MAX_TRANSLATION_ACCELERATION,
-  // MAX_ROTATION_SPEED, MAX_ROTATIONAL_ACCELERATION), // The constraints for this
-  // path. If using a
-  // // differential drivetrain, the angular constraints
-  // // have no effect.
-  // new GoalEndState(0.0, 0) // Goal end state. You can set a holonomic rotation
-  // here. If
-  // // using a differential drivetrain, the rotation will have no
-  // // effect.
-  // );
-
-  // // Prevent the path from being flipped if the coordinates are already correct
-  // path.preventFlipping = true;
-
-  // return path;
-
-  // }
-
 
 /**
  * This is useful for odometry paths created through getting position from
@@ -212,11 +168,15 @@ public Command getPathfindingCommand(String pathName){
 
 
 
-//resets the pose of the robot. Is done at the start of auto because path planner uses the starting pose in the UI and resets it
+
+//Pose just means the robot's coordinates on the field (x, y) as well as it's rotation
+/**
+ * Resets the pose of the robot. This is done at the start of auto because path planner uses the starting pose in the UI and resets it
+ * @param pose the new robot pose
+ */
 public void resetPose(Pose2d pose) {
   odometer.resetPosition(getRotation2d(), getSwerveModulePositions(), pose);
   for(int i = 0; i < 100; i++) {
-  System.out.println("POSE POSE POSE THIS IS THE POSE RAAAAAAAH" + pose);
   }
 }
 
@@ -229,6 +189,9 @@ public ChassisSpeeds getVelocities() {
 }
 
 
+  //Field oriented vs robot oriented
+  //in robot oriented, pushing forward on the joystick moves the robot forward, based on what direction the robot is facing
+  //in field oriented, pushing forward on the joystick moves the robot, forward, based on what direction is forward to the drivers
 
   public void toggleFieldOriented() {
       isFieldOriented = (isFieldOriented)? false : true;
@@ -253,11 +216,20 @@ public ChassisSpeeds getVelocities() {
     return isFieldOriented;
   }
 
+
+
   public void zeroHeading() {
     gyro.reset();
   }
 
 
+  //brake vs coast mode
+  //coast: when the motors stop receiving power, they will spin freely until friction stops them
+  // brake: when the motors stop receiving power, they will actively attempt to stop their movement and stop 
+
+  /**
+   * Sets all drive motors to coast
+   */
   public void setDrivesCoast() {
     frontLeft.setDriveCoast();
     frontRight.setDriveCoast();
@@ -265,6 +237,9 @@ public ChassisSpeeds getVelocities() {
     backRight.setDriveCoast();
   }
 
+  /**
+   * Sets all drive motors to Brake
+   */
   public void setDrivesBrake() {
     frontLeft.setDriveBrake();
     frontRight.setDriveBrake();
@@ -276,18 +251,9 @@ public ChassisSpeeds getVelocities() {
   
   /** 
    * Gyro's value is continuous, it can go past 360
-  This function clamps it between 180 and -180 degrees to make it easier to work with
-   * @return double: the clamped gyro value
-   */
-  
-  public double getHeadingDegreesOld() {
-    return Math.IEEEremainder(-gyro.getAngle(), 360);
-  }
-
-
-  /** 
-   * Gyro's value is continuous, it can go past 360
-  This function clamps it between 180 and -180 degrees to make it easier to work with
+  This function clamps it between 180 and -180 degrees to make it easier to work with.
+  Positive values are CCW
+  Negative values are CW
    * @return double: the clamped gyro value
    */
   public double getHeadingDegrees() {
@@ -320,8 +286,10 @@ public ChassisSpeeds getVelocities() {
 
 
   
+
+  //Rotation 2d is a type of object that stores a rotational value
   /** 
-   * Returns a rotation 2d object clamped between 180 and -180 degrees
+   * Returns a rotation 2d object clamped between 180 and -180 degrees.
    * @return Rotation2d
    */
   public Rotation2d getRotation2d() {

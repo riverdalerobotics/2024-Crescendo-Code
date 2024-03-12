@@ -2,6 +2,12 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+
+
+//The auto code in this file looks very confusing, but it's not actually too bad. All it does is put options on smart dashboard that drivers can select 
+//before the match. Depending on which option was selected, a different auto will run. 
+
+
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -27,9 +33,9 @@ public class Robot extends TimedRobot {
   public final SendableChooser<String> m_chooser = new SendableChooser<>();
   private String m_autoSelected;
   private static final String shootOnly = "Shoot and then do Nothing";
-  private static final String podiumSubwooferTwoNotes = "Podium Side Subwoofer Shoot And Retrieve Podium Note and Shoot";
-  private static final String ampSubwooferTwoNotes = "Amp Side Subwoofer Shoot and Retrieve Amp Note and Shoot";
-  private static final String midSubwooferFourNotes = "Middle Side Subwoofer Shoot and Retrieve and Shoot 3 close notest";
+  //private static final String podiumSubwooferTwoNotes = "Podium Side Subwoofer Shoot And Retrieve Podium Note and Shoot";
+  // private static final String ampSubwooferTwoNotes = "Amp Side Subwoofer Shoot and Retrieve Amp Note and Shoot";
+  private static final String weirdMidSubwooferFourNotes = "Middle Side Subwoofer Shoot and Retrieve and Shoot 3 close notest";
   private static final String doNothingLol = "DO NOTHING";
   private static final String test = "curve path 1.6764 meters down, 155 inches to the right"; // max velocity is 1 m/s
   private static final String testTwo = "straight line goes 155 inches or 3.937 meters"; //max velocity is 1.1 m/s
@@ -40,6 +46,8 @@ public class Robot extends TimedRobot {
   private static final String weirdPodiumSubwooferTwoNotes = "Podium SIde Subwoofer Shoot And Rretrieve Podium Note and Shoot (Same Intake and Shoot side)"; 
   private static final String weirdAmpSubwooferTwoNotes = "Amp Side Subwoofer Shoot and Retrieve Amp Note and Shoot (Same Intake and Shoot side)";
   private static final String weirdMidSubwooferTwoNotes = "Middle Side Subwoofer Shoot and Retrieve and Shoot 3 close notest (Same Intake and Shoot side)";
+
+  private static final String firstAlliancePodium = "letsg oooosoo";
   private static final String shootAndStop = "Any side start - shoot note into speakker";
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -54,9 +62,9 @@ public class Robot extends TimedRobot {
 
     m_chooser.setDefaultOption("mobilityWithStyle", mobilityWithStyle);
     m_chooser.addOption("mobilityOutOfWay", mobilityOutOfWay);
-    m_chooser.addOption("1+1 PODIUM Side Subwoofer", podiumSubwooferTwoNotes);
-    m_chooser.addOption("1+1 AMP side Subwoofer", ampSubwooferTwoNotes);
-    m_chooser.addOption("1+3 MID side Subwoofer", midSubwooferFourNotes);
+    //m_chooser.addOption("1+1 PODIUM Side Subwoofer", podiumSubwooferTwoNotes);
+    // m_chooser.addOption("1+1 AMP side Subwoofer", ampSubwooferTwoNotes);
+    m_chooser.addOption("1+3 MID side Subwoofer", weirdMidSubwooferFourNotes);
     m_chooser.addOption("DO NOTHING", doNothingLol);
     m_chooser.addOption("test123", test);
     m_chooser.addOption("2nd test", testTwo);
@@ -66,6 +74,9 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("1+1 AMP Side Subwoofer Same Intake/Shooter", weirdAmpSubwooferTwoNotes);
     m_chooser.addOption("1+1 MID Side Subwoofer Same Intake/Shooter", weirdMidSubwooferTwoNotes);
     m_chooser.addOption("1+1 PODIUM Side Subwoofer Same Intake/Shooter", weirdPodiumSubwooferTwoNotes);
+
+    m_chooser.addOption("1+mobility podium ", firstAlliancePodium);
+  
     m_chooser.addOption("1 Shoot and stop from anywhere", shootAndStop);
 
     SmartDashboard.putData("Auto choices", m_chooser);
@@ -87,6 +98,8 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+
+    //we always want our LED's to update as long as the robot is on, so we call this in robotperiodic
     m_robotContainer.LED.setLEDColor();
     m_robotContainer.LED.updateAutoAlignLED();
   } 
@@ -107,37 +120,31 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 
-    //m_robotContainer.CHASSIS.setDrivesBrake();
+
+    //When auto begins, this large statement selects the autonomous command based on what was selected in smart dashboard
+    //switch statements just act like big if else statements
 
      m_autoSelected = m_chooser.getSelected();
       System.out.println("Auto selected: " + m_autoSelected);
       /* */
      
       switch (m_autoSelected) {
-        case mobilityWithStyle:
-          m_autonomousCommand = m_robotContainer.getMobilityStyleAuto();
-          break;
-        case mobilityOutOfWay:
-          m_autonomousCommand = m_robotContainer.getMobilityOutOfWay();
-          break;
+     
         case shootOnly:
           m_autonomousCommand = new FinalCompCommandUseThis(m_robotContainer.PIVOT, m_robotContainer.INTAKE, m_robotContainer.LED);
           break;
   
-        case podiumSubwooferTwoNotes:
-          m_autonomousCommand = m_robotContainer.getPodiumSubwooferTwoNotesAuto();
-          break;
+        // case podiumSubwooferTwoNotes:
+        //   m_autonomousCommand = m_robotContainer.getPodiumSubwooferTwoNotesAuto();
+        //   break;
   
-        case ampSubwooferTwoNotes:
-          m_autonomousCommand = m_robotContainer.getAmpSubwooferTwoNotesAuto();
-          break;  
-          
-        case midSubwooferFourNotes:
-          m_autonomousCommand = m_robotContainer.getMidSubwooferFourNotesAuto();
-          break;
+        // case ampSubwooferTwoNotes:
+        //   m_autonomousCommand = m_robotContainer.getAmpSubwooferTwoNotesAuto();
+        //   break; 
         case doNothingLol:
           m_autonomousCommand = m_robotContainer.getDoNothingAuto();
           break;
+       
         case test:
           m_autonomousCommand = m_robotContainer.getTestAuto();
           break;
@@ -147,6 +154,16 @@ public class Robot extends TimedRobot {
         case testThree: 
           m_autonomousCommand = m_robotContainer.getTestThreeAuto();
           break;
+
+
+        case mobilityWithStyle:
+          m_autonomousCommand = m_robotContainer.getMobilityStyleAuto();
+          break;
+        case mobilityOutOfWay:
+          m_autonomousCommand = m_robotContainer.getMobilityOutOfWay();
+          break;
+
+
         case weirdAmpSubwooferTwoNotes:
           m_autonomousCommand = m_robotContainer.getWeirdAmpSubwooferTwoNotesAuto();
           break;
@@ -160,6 +177,9 @@ public class Robot extends TimedRobot {
           m_autonomousCommand = m_robotContainer.getShootAndStopAuto();
           break;
 
+         case weirdMidSubwooferFourNotes:
+          m_autonomousCommand = m_robotContainer.getMidSubwooferFourNotesAuto();
+          break;
 
         //REDUNDANT, I think we can delete maybe 
         default:
@@ -185,11 +205,10 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    m_robotContainer.CHASSIS.straightenModules();
-    //m_robotContainer.CHASSIS.setDrivesCoast();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+     m_robotContainer.CHASSIS.straightenModules();
   }
 
   /** This function is called periodically during operator control. */
