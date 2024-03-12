@@ -74,7 +74,7 @@ public class RobotContainer {
     // Register Named Commands so that it can be used in the PathPlanning autos 
     //TODO: In Path Planner UI, remember to add the named commands 
     //Path planner is the software we use to make our autos
-    NamedCommands.registerCommand("note error fix", new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT));
+    NamedCommands.registerCommand("note error fix", new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT, LED));
     NamedCommands.registerCommand("IntakeIndefinitely", new IntakeIndefinitelyCommand(INTAKE, PIVOT));
     NamedCommands.registerCommand("AutoPivotAndRevShooterIndefinitely", new AutoPivotAndRevShooterIndefinitelyCommand(PIVOT, INTAKE, LED));
     NamedCommands.registerCommand("AutoPivotAndShoot", new AutoPivotAndShootCommand(PIVOT, INTAKE, LED));
@@ -107,12 +107,12 @@ public class RobotContainer {
   private void configureBindings() {
 
     //as long as the right trigger is held, note align will be active
-    new Trigger(() -> oi.engageNoteAlignAssist()).whileTrue(new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT));
+    new Trigger(() -> oi.engageNoteAlignAssist()).whileTrue(new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT, LED));
     
 
     //This command is unfinished, but the purpose is to rezero the arm if the encoder value is innacurate
-    new Trigger(() -> oi.tuckArm1()).whileTrue(new TuckCommand());
-    new Trigger(() -> oi.tuckArm2()).whileTrue(new TuckCommand());
+    new Trigger(() -> oi.tuckArm1()).whileTrue(new TuckCommand(PIVOT));
+    new Trigger(() -> oi.tuckArm2()).whileTrue(new TuckCommand(PIVOT));
       }
   
    
@@ -120,16 +120,6 @@ public class RobotContainer {
 
     //autos that that we use Robot.java using the Sendable Chooser   
     //all the autos we use should have a method that returns them in robot container 
-
-    public Command getPodiumSubwooferTwoNotesAuto(){
-        return autoFactory.podiumSubwooferTwoNotes();
-    }
-    public Command getAmpSubwooferTwoNotesAuto(){
-        return autoFactory.ampSubwooferTwoNotes();
-    }
-    public Command getMidSubwooferFourNotesAuto(){
-        return autoFactory.midSubWooferFourNotes();
-    }
     public Command getDoNothingAuto(){
         return autoFactory.doNothing();
     }
@@ -145,17 +135,12 @@ public class RobotContainer {
     public Command getTestThreeAuto(){
       return autoFactory.testThree();
     }
-   
-
-
-    
     public Command getMobilityStyleAuto(){
       return autoFactory.mobilityWithStyle();
     }
     public Command getMobilityOutOfWay(){
       return autoFactory.outOfWayMobility();
     }
-
     public Command getWeirdPodiumSubwooferTwoNotesAuto(){
       return autoFactory.weirdPodiumSubwooferTwoNotes();
     }
@@ -165,19 +150,8 @@ public class RobotContainer {
     public Command getWeirdMidSubwooferFourNotesAuto(){
       return autoFactory.weirdMidSubwooferTwoNotes();
     }
-
     public Command getShootAndStopAuto() {
       return autoFactory.shootAndStop();
     }
-
-
-    
-
-
-
-
-
-      
-
 }
 
