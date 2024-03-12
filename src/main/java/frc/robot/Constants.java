@@ -242,17 +242,10 @@ public final class Constants {
       //Used for PID to determine what rotation is close enough to desired angle
       public static final double kPivotToleranceThreshold = 3;
 
-      public static final double kPivotPIDMaxOutput = 0.1;
-      public static final double kPivotPIDMinOutput = -0.1;
+      public static final double kPivotPIDMaxOutput = 0.3;
+      public static final double kPivotPIDMinOutput = -0.3;
       public static final double kMinSetpoint = 0;
       public static final double kMaxSetpoint = 188.25;
-
-    }
-
-  }
-
-      public static final double kPivotPIDMinOutput = -0.3;
-      public static final double kPivotPIDMaxOutput = 0.3;
 
     }
 
