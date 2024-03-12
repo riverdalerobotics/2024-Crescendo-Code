@@ -101,7 +101,7 @@ public final class Constants {
 
 
     
-    public static final IdleMode kDrivingMotorIdleMode = IdleMode.kBrake;
+    public static final IdleMode kDrivingMotorIdleMode = IdleMode.kCoast;
     public static final IdleMode kTurningMotorIdleMode = IdleMode.kBrake;
 
   
@@ -201,11 +201,11 @@ public final class Constants {
 
 
     public static class PIDConstants {
-      public static final double kIntakeP = 0.1;
+      public static final double kIntakeP = 0.0097;
       public static final double kIntakeI = 0;
       public static final double kIntakeD = 0;
       //Used for PID to determine what speed is close enough in Rotations per Second
-      public static final double kIntakeToleranceThreshold = -1000;
+      public static final double kIntakeToleranceThreshold = 3;
 
     }
   }
@@ -215,8 +215,7 @@ public final class Constants {
   public static class PivotConstants {
     public static final int kPivotMotor1ID = 9;
     public static final int kPivotMotor2ID = 10;
-   // public static final int kPivotEncoderID = -1000;
-    public static final double kPivotEncoderRotationToDegrees = 360/38.8;
+    public static final double kPivotEncoderRotationToDegrees = 360 / ((50*60*64)/(8*22*24));
 
     public static final int kMinPivotRotationDegrees = 0;
     //TODO: find max rotation value for pivot of shooter
@@ -225,6 +224,9 @@ public final class Constants {
 
     //Max voltage pivot can receive before attempting to reset position
     public static final int kPivotMaxVoltage = -1000;
+
+    public static final double kHardStopCurrentThreshold = 5;
+
 
 
     public static final int kIntakeAngle = 30;
@@ -237,7 +239,9 @@ public final class Constants {
       public static final double kPivotI = 0;
       public static final double kPivotD = 0;
       //Used for PID to determine what rotation is close enough to desired angle
-      public static final double kPivotToleranceThreshold = 30;
+      public static final double kPivotToleranceThreshold = 3;
+      public static final double kPivotPIDMinOutput = -0.3;
+      public static final double kPivotPIDMaxOutput = 0.3;
 
     }
 

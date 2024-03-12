@@ -11,11 +11,14 @@ import frc.robot.commands.AutoAlignWithNoteSwerve;
 import frc.robot.commands.AutoPickUpCommand;
 import frc.robot.commands.AutoPivotToAngle;
 import frc.robot.commands.AutoRevFlywheels;
-//import frc.robot.commands.AutoRevFlyWheels;
-import frc.robot.commands.Autos;
+import frc.robot.commands.AutoRevFlywheelsIndefinitely;
+import frc.robot.commands.IntakeIndefinitelyCommand;
 import frc.robot.commands.PowerBeltAndShooter;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.TuckCommand;
+import frc.robot.commands.autonomousCommands.AutoPivotAndRevShooterCommand;
+import frc.robot.commands.autonomousCommands.AutoPivotAndRevShooterIndefinitelyCommand;
+import frc.robot.commands.autonomousCommands.AutoPivotAndShootCommand;
 import frc.robot.commands.defaultCommands.IntakeDefaultCommand;
 import frc.robot.commands.defaultCommands.PivotDefaultCommand;
 import frc.robot.commands.defaultCommands.SwerveDefaultCommand;
@@ -72,9 +75,11 @@ public class RobotContainer {
     // NamedCommands.registerCommand("exampleCommand", exampleSubsystem.exampleCommand());
     // NamedCommands.registerCommand("someOtherCommand", new IntakeDefaultCommand(oi, INTAKE));
     
-     NamedCommands.registerCommand("note error fix", new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT));
-
-
+    NamedCommands.registerCommand("note error fix", new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT, LED));
+    NamedCommands.registerCommand("IntakeIndefinitely", new IntakeIndefinitelyCommand(INTAKE, PIVOT));
+    NamedCommands.registerCommand("AutoPivotAndRevShooterIndefinitely", new AutoPivotAndRevShooterIndefinitelyCommand(PIVOT, INTAKE, LED));
+    NamedCommands.registerCommand("AutoPivotAndShoot", new AutoPivotAndShootCommand(PIVOT, INTAKE, LED));
+    NamedCommands.registerCommand("RevToShootIndefinitely", new AutoRevFlywheelsIndefinitely( IntakeConstants.kDesiredShootMotorRPS, INTAKE, LED));
     //Field reset toggle boost damp
     CHASSIS.setDefaultCommand(new SwerveDefaultCommand (
       CHASSIS,
@@ -83,23 +88,25 @@ public class RobotContainer {
     ));
   
     
-    // INTAKE.setDefaultCommand(new IntakeDefaultCommand(
+    //  INTAKE.setDefaultCommand(new IntakeDefaultCommand(
     //   oi,
-    //   INTAKE));
+    //   INTAKE,
+    //   LED
+    // ));
     
     // PIVOT.setDefaultCommand(new PivotDefaultCommand(
     //   oi, 
     //   PIVOT
-    // ));
+    //  ));
   }
 
   //Put triggers here that change the active commands
   private void configureBindings() {
 
-    new Trigger(() -> oi.engageNoteAlignAssist()).whileTrue(new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT));
+    new Trigger(() -> oi.engageNoteAlignAssist()).whileTrue(new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT, LED));
     
-    new Trigger(() -> oi.tuckArm1()).whileTrue(new TuckCommand());
-    new Trigger(() -> oi.tuckArm2()).whileTrue(new TuckCommand());
+    //new Trigger(() -> oi.tuckArm1()).whileTrue(new TuckCommand());
+    //new Trigger(() -> oi.tuckArm2()).whileTrue(new TuckCommand());
       }
   
    
@@ -154,6 +161,17 @@ public class RobotContainer {
     public Command getMidSubwooferFourNotesAuto(){
       return autoFactory.weirdMidSubWooferFourNotes();
     }
+
+    public Command getShootAndStopAuto() {
+      return autoFactory.shootAndStop();
+    }
+
+
+    
+
+
+
+
 
       
 

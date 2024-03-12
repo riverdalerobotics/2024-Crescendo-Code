@@ -39,6 +39,7 @@ public class Robot extends TimedRobot {
   private static final String weirdMidSubwooferTwoNotes = "Middle Side Subwoofer Shoot and Retrieve and Shoot 3 close notest (Same Intake and Shoot side)";
 
   private static final String firstAlliancePodium = "letsg oooosoo";
+  private static final String shootAndStop = "Any side start - shoot note into speakker";
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -66,6 +67,8 @@ public class Robot extends TimedRobot {
 
     m_chooser.addOption("1+mobility podium ", firstAlliancePodium);
   
+    m_chooser.addOption("1 Shoot and stop from anywhere", shootAndStop);
+
     SmartDashboard.putData("Auto choices", m_chooser);
    
     }
@@ -86,6 +89,7 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     m_robotContainer.LED.setLEDColor();
+    m_robotContainer.LED.updateAutoAlignLED();
   } 
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -155,6 +159,10 @@ public class Robot extends TimedRobot {
         case weirdPodiumSubwooferTwoNotes: 
           m_autonomousCommand = m_robotContainer.getWeirdPodiumSubwooferTwoNotesAuto();
           break;
+        case shootAndStop:
+          m_autonomousCommand = m_robotContainer.getShootAndStopAuto();
+          break;
+
          case weirdMidSubwooferFourNotes:
           m_autonomousCommand = m_robotContainer.getMidSubwooferFourNotesAuto();
           break;

@@ -17,7 +17,7 @@ public class IntakeIndefinitelyCommand extends Command {
   double kp = PivotConstants.PIDConstants.kPivotP;
   double ki = PivotConstants.PIDConstants.kPivotI;
   double kd = PivotConstants.PIDConstants.kPivotD;
-  double pivotSetpoint = 0d;
+  double pivotSetpoint = PivotConstants.kIntakeAngle;
   double pivotTolerance = PivotConstants.PIDConstants.kPivotToleranceThreshold;
   double intakeSpeed = IntakeConstants.kDesiredIntakeMotorRPS;
   double beltSpeed = IntakeConstants.kIntakeBeltMotorSpeed;
@@ -59,6 +59,9 @@ public class IntakeIndefinitelyCommand extends Command {
   public void end(boolean interrupted) {
     pivotController.reset();
     intakeSpeedController.reset();
+    intake.spinBelt(0);
+    intake.spinIntake(0);
+    pivot.movePivot(0);
   }
 
   // Returns true when the command should end.

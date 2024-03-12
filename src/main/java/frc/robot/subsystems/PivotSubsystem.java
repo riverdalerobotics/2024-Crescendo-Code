@@ -19,7 +19,6 @@ public class PivotSubsystem extends SubsystemBase {
   /** Creates a new pivotSubsytems. */
   TalonFX pivot1;
   TalonFX pivot2;
-  static CANcoder pivotEncoder;
 
   //TODO Check if this works
   double rotationToAngle = PivotConstants.kPivotEncoderRotationToDegrees;
@@ -27,7 +26,6 @@ public class PivotSubsystem extends SubsystemBase {
   public PivotSubsystem() {
     pivot1 = new TalonFX(PivotConstants.kPivotMotor1ID);
     pivot2 = new TalonFX(PivotConstants.kPivotMotor2ID);
-    //pivotEncoder = new CANcoder(PivotConstants.kPivotEncoderID);
 
     
     
@@ -38,7 +36,7 @@ public class PivotSubsystem extends SubsystemBase {
     pivot2.set(speed);
   }
   public void resetPivotEncoder(){
-    pivotEncoder.setPosition(0);
+    pivot1.setPosition(0);
   }
 
   public void stopAll() {
@@ -56,6 +54,7 @@ public class PivotSubsystem extends SubsystemBase {
     double encoderPos = pos.getValue() * rotationToAngle;
     return encoderPos;
   }
+
   public double getVoltage(){
     StatusSignal<Double> voltage = pivot1.getMotorVoltage();
     return voltage.getValue();
