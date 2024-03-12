@@ -34,23 +34,23 @@ public class AhnafAutoBuilder {
     //     lastPath = path;
     // }
 
-    public Pose2d getEndPoseOfPath(PathPlannerPath path){
-        List<Pose2d> arrayOfCoords = path.getPathPoses();
-        Pose2d pos = arrayOfCoords.get(arrayOfCoords.size()-1);
-        return pos;
-    }
+    // public Pose2d getEndPoseOfPath(PathPlannerPath path){
+    //     List<Pose2d> arrayOfCoords = path.getPathPoses();
+    //     Pose2d pos = arrayOfCoords.get(arrayOfCoords.size()-1);
+    //     return pos;
+    // }
 
-    public Command pathFindNoteUsingLimelight() {
-        Pose2d botCurrentPos = this.chassis.getPose();
-        Pose2d notePose = new Pose2d(
-                botCurrentPos.getX() + intakeCamera.getXDisplacementFromNote(),
-                botCurrentPos.getY() + intakeCamera.getYDisplacementFromNote(),
-                new Rotation2d(
-                        botCurrentPos.getRotation().getDegrees() + intakeCamera.getTX()));
+    // public Command pathFindNoteUsingLimelight() {
+    //     Pose2d botCurrentPos = this.chassis.getPose();
+    //     Pose2d notePose = new Pose2d(
+    //             botCurrentPos.getX() + intakeCamera.getXDisplacementFromNote(),
+    //             botCurrentPos.getY() + intakeCamera.getYDisplacementFromNote(),
+    //             new Rotation2d(
+    //                     botCurrentPos.getRotation().getDegrees() + intakeCamera.getTX()));
         
-        // setLastPose(getEndPoseOfPath(lastPath));
-        return this.chassis.pathfindToPose(notePose);
-    }
+    //     // setLastPose(getEndPoseOfPath(lastPath));
+    //     return this.chassis.pathfindToPose(notePose);
+    // }
 
     public void resetOdometryUsingCamera(){
         chassis.resetPose(shootCamera.getBotPoseOdometryNotation());
