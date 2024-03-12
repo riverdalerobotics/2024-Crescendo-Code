@@ -16,13 +16,13 @@ public class IntakeDefaultCommand extends Command {
   IntakeSubsystem intake;
   PIDController intakeSpeedController;
   BlinkinLED LED;
-  double intakeSpeed = 10;
-  double shootSpeed = 10;
+  double intakeSpeed = IntakeConstants.kDesiredIntakeMotorRPS;
+  double shootSpeed = IntakeConstants.kDesiredShootMotorRPS;
   //half of setpoint is 0.008
-  double kp = 0.0097;
-  double ki = 0d;
-  double kd = 0d;
-  double tolerance = 3;
+  double kp = IntakeConstants.PIDConstants.kIntakeP;
+  double ki = IntakeConstants.PIDConstants.kIntakeI;
+  double kd = IntakeConstants.PIDConstants.kIntakeD;
+  double tolerance = IntakeConstants.PIDConstants.kIntakeToleranceThreshold;
   boolean manual = false;
 
   /** Creates a new IntakeDefaultCommand. */
@@ -41,6 +41,7 @@ public class IntakeDefaultCommand extends Command {
   public void initialize() {
     intakeSpeedController.setSetpoint(0);
     intakeSpeedController.setTolerance(tolerance);
+  
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -82,12 +83,12 @@ public class IntakeDefaultCommand extends Command {
     intake.spinIntake(intakeSpeedController.calculate(intake.getSpeed()));
     
     if(operatorInput.engageAutoIntakeSpinup()){
-      intakeSpeedController.setSetpoint(intakeSpeed*2);
-      intake.spinBelt(IntakeConstants.kIntakeBeltMotorSpeed);
+      intakeSpeedController.setSetpoint(intakeSpeed);
+      intake.spinBelt(0.1);
       //manual = false;
     }
     else if(operatorInput.engageAutoShootSpinup()){
-      intakeSpeedController.setSetpoint(shootSpeed*2);
+      intakeSpeedController.setSetpoint(shootSpeed);
       //manual = false;
     }
     else {
@@ -100,9 +101,16 @@ public class IntakeDefaultCommand extends Command {
       manual = true;
     }*/
 
+    if(operatorInput.engageAutoIntakeSpinup()) {
+      intake.spinBelt(IntakeConstants.kIntakeBeltMotorSpeed);
+    }
     //During operation, the driver can hold down the right bumper to power the indexer to shoot
-    if(operatorInput.shoot()) {
+    else if(operatorInput.shoot()) {
       intake.spinBelt(IntakeConstants.kShootBeltMotorSpeed);
+    }
+
+    if (!operatorInput.shoot() && !operatorInput.engageAutoIntakeSpinup()){
+      intake.spinBelt(0);
     }
     
 

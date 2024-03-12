@@ -5,22 +5,26 @@
 package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.IntakeConstants;
+import frc.robot.Constants.PivotConstants;
+import frc.robot.subsystems.PivotSubsystem;
 
 public class TuckCommand extends Command {
   /** Creates a new AutoTuckCommand.  */
   PIDController speedController;
   double setpoint = 0d;
   double tolerance = 0d;
-  double maxVoltage = 0d;
+  double maxCurrent = PivotConstants.kHardStopCurrentThreshold;
   double speed = 0d;
   boolean hasStoped = false;
-  public TuckCommand() {
+  PivotSubsystem pivot;
+  public TuckCommand(PivotSubsystem pivot) {
     // Use addRequirements() here to declare subsystem dependencies.
     // double kp = 0d;
     // double ki = 0d;
     // double kd = 0d;
-    
-    //addRequirements(RobotContainer.PIVOT);
+    this.pivot = pivot;
+    addRequirements(pivot);
     // speedController = new PIDController(kp, ki, kd);
   }
 
@@ -38,12 +42,12 @@ public class TuckCommand extends Command {
   public void execute() {
 
 
-    /*RobotContainer.PIVOT.movePivot(speed);
-    if( RobotContainer.PIVOT.getVoltage() < maxVoltage){
-      RobotContainer.PIVOT.resetEncoders();
-      RobotContainer.PIVOT.movePivot(0);
+    pivot.movePivot(speed);
+    if( pivot.getCurrent() > maxCurrent){
+      pivot.resetPivotEncoder();
+      pivot.movePivot(0);
       hasStoped = true;
-    }*/
+    }
   }
 
   // Called once the command ends or is interrupted.

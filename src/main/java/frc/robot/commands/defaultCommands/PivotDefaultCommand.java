@@ -5,6 +5,7 @@
 package frc.robot.commands.defaultCommands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.HelperMethods;
 import frc.robot.OI;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.subsystems.PivotSubsystem;
@@ -28,7 +29,7 @@ public class PivotDefaultCommand extends Command {
   //The operator can only manually control the pivot when this is true
   boolean manualRotationEnabled = false;
 
-  double maxVoltage = PivotConstants.kPivotMaxVoltage;
+  double maxCurrent = PivotConstants.kHardStopCurrentThreshold;
   public PivotDefaultCommand(OI opInput, PivotSubsystem pivot) {
     // Use addRequirements() here to declare subsystem dependencies.\
     this.pivot = pivot;
@@ -44,6 +45,10 @@ public class PivotDefaultCommand extends Command {
   public void initialize() {
     //Sets the desired angle to the current arm angle when this command is initialized
     //If a command that sets the arm position ends, the default command will continue holding that position
+    
+    //get rid of this line after testing
+    pivot.resetPivotEncoder();
+
     desiredArmAngle = pivot.getEncoders();
     angleController.setSetpoint(desiredArmAngle);
     angleController.setTolerance(tolerance);
@@ -57,6 +62,9 @@ public class PivotDefaultCommand extends Command {
   public void execute() {
     //TODO: get someone to read this over please cause it might not be worth doing...
     System.out.println(angleController.getPositionError());
+    //System.out.println(angleController.getPositionError());
+    System.out.println(pivot.getEncoders());
+    System.out.println(angleController.getSetpoint());
 
     //Manual rotation will stop whatever desired angle the arm is currently heading towards
     if(operatorInput.enableManualRotation()) {
@@ -68,7 +76,7 @@ public class PivotDefaultCommand extends Command {
     if(manualRotationEnabled) {
 
       //TODO: increase this value after testing
-      desiredArmAngle += (operatorInput.pivotArm() * 0.1);
+      desiredArmAngle += (operatorInput.pivotArm() * 0.2);
       
     }
 
@@ -86,16 +94,20 @@ public class PivotDefaultCommand extends Command {
 
 
     angleController.setSetpoint(desiredArmAngle);
-    pivot.movePivot(angleController.calculate(pivot.getEncoders()));
+
+    //TODO: Commented out for testing
+    //pivot.movePivot(angleController.calculate(pivot.getEncoders()));
+    pivot.movePivot(HelperMethods.limitValInRange(PivotConstants.PIDConstants.kPivotPIDMinOutput, PivotConstants.PIDConstants.kPivotPIDMaxOutput, angleController.calculate(pivot.getEncoders())));
 
 
     //Voltage above max voltage indicates that the arm is pushing against the hard stop and should be reset
     //TODO: Test to see if this could be screwed up by other robots or field elements. If it can, we need to ensure this doesn't 
     //unintenionally result in robot death
-    if (pivot.getVoltage() > maxVoltage){
+    
+    /**if (pivot.getCurrent() > maxCurrent){
       angleController.setSetpoint(hardStopPosition);
       desiredArmAngle = hardStopPosition;
-    }
+    }*/
   }
 
   // Called once the command ends or is interrupted.

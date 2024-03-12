@@ -112,7 +112,7 @@ public boolean shoot() {
 /**
  * Operator controls ||
  * Used to pivot the arm down to the intake position.
- * @return true when the operator's X button is pressed
+ * @return true when the operator's left bumper is pressed
  */
 public boolean pivotToIntakePosition() {
     return intakeController.getLeftBumperPressed();
@@ -156,7 +156,7 @@ public boolean engageAutoShootSpinup(){
 /**
  * Operator controls ||
  * Used to enable manual operator of the pivot
- * Returns true when the right stick is pressed down
+ * Returns true when the left stick is pressed down
  * @return
  */
 public boolean enableManualRotation() {

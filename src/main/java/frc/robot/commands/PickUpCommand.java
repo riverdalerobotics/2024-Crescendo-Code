@@ -16,7 +16,7 @@ public class PickUpCommand extends Command {
   double kp = PivotConstants.PIDConstants.kPivotP;
   double ki = PivotConstants.PIDConstants.kPivotI;
   double kd = PivotConstants.PIDConstants.kPivotD;
-  double setpoint = 0d;
+  double setpoint = PivotConstants.kIntakeAngle;
   double tolerance = PivotConstants.PIDConstants.kPivotToleranceThreshold;
   double intakeSpeed = IntakeConstants.kDesiredIntakeMotorRPS;
   double beltSpeed = IntakeConstants.kIntakeBeltMotorSpeed;

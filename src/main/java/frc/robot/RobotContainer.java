@@ -145,6 +145,10 @@ public class RobotContainer {
     public Command getTestThreeAuto(){
       return autoFactory.testThree();
     }
+   
+
+
+    
     public Command getMobilityStyleAuto(){
       return autoFactory.mobilityWithStyle();
     }
@@ -153,13 +157,17 @@ public class RobotContainer {
     }
 
     public Command getWeirdPodiumSubwooferTwoNotesAuto(){
-        return autoFactory.weirdPodiumSubwooferTwoNotes();
+      return autoFactory.weirdPodiumSubwooferTwoNotes();
     }
     public Command getWeirdAmpSubwooferTwoNotesAuto(){
-        return autoFactory.weirdAmpSubwooferTwoNotes();
+      return autoFactory.weirdAmpSubwooferTwoNotes();
     }
     public Command getWeirdMidSubwooferFourNotesAuto(){
-        return autoFactory.weirdMidSubwooferTwoNotes();
+      return autoFactory.weirdMidSubwooferTwoNotes();
+    }
+
+    public Command getShootAndStopAuto() {
+      return autoFactory.shootAndStop();
     }
 
 
