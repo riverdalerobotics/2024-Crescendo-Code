@@ -2,6 +2,12 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+
+
+//The auto code in this file looks very confusing, but it's not actually too bad. All it does is put options on smart dashboard that drivers can select 
+//before the match. Depending on which option was selected, a different auto will run. 
+
+
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -82,6 +88,8 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+
+    //we always want our LED's to update as long as the robot is on, so we call this in robotperiodic
     m_robotContainer.LED.setLEDColor();
   } 
 
@@ -101,7 +109,9 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 
-    //m_robotContainer.CHASSIS.setDrivesBrake();
+
+    //When auto begins, this large statement selects the autonomous command based on what was selected in smart dashboard
+    //switch statements just act like big if else statements
 
      m_autoSelected = m_chooser.getSelected();
       System.out.println("Auto selected: " + m_autoSelected);
@@ -179,11 +189,10 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    m_robotContainer.CHASSIS.straightenModules();
-    //m_robotContainer.CHASSIS.setDrivesCoast();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+     m_robotContainer.CHASSIS.straightenModules();
   }
 
   /** This function is called periodically during operator control. */
