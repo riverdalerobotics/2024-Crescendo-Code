@@ -39,6 +39,10 @@ public class PivotSubsystem extends SubsystemBase {
     pivot1.setPosition(0);
   }
 
+  public void setPivotEncoder(double angle) {
+    pivot1.setPosition(angle);
+  }
+
   public void stopAll() {
     pivot1.set(0);
     pivot2.set(0);

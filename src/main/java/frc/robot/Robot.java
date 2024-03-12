@@ -15,6 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.autonomousCommands.AutoPivotAndShootCommand;
+import frc.robot.commands.autonomousCommands.CompShootOnlyAuto;
+import frc.robot.commands.autonomousCommands.FinalCompCommandUseThis;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -55,6 +58,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer(); 
+    m_robotContainer.PIVOT.resetPivotEncoder();
 
     m_chooser.setDefaultOption("mobilityWithStyle", mobilityWithStyle);
     m_chooser.addOption("mobilityOutOfWay", mobilityOutOfWay);
@@ -127,7 +131,7 @@ public class Robot extends TimedRobot {
       switch (m_autoSelected) {
      
         case shootOnly:
-          m_autonomousCommand = m_robotContainer.getShootOnlyAuto();
+          m_autonomousCommand = new FinalCompCommandUseThis(m_robotContainer.PIVOT, m_robotContainer.INTAKE, m_robotContainer.LED);
           break;
   
         // case podiumSubwooferTwoNotes:

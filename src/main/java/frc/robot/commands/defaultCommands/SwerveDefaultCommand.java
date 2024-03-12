@@ -85,7 +85,9 @@ public class SwerveDefaultCommand extends Command {
 
 
     swerveSubsystem.driveSwerve(xSpeed, ySpeed, turnSpeed);
-  
+    if (oi.engageXModulePosition()) {
+      swerveSubsystem.setModuleXPosition();
+    }
 }
 
 

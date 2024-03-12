@@ -171,7 +171,7 @@ public final class Constants {
 
     
     public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond * 1; //0.5
-    public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond * 0.5; // 0.3
+    public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond * 0.8; // 0.3
   
     //These are used for slew rate limiting
     public static final double kTeleDriveMaxAccelerationMetersPerSecond = 3;
@@ -186,17 +186,19 @@ public final class Constants {
   public static class IntakeConstants {
     public static final int kLeftIntakeMotorID = 12;
     public static final int kRightIntakeMotorID = 11;
-    public static final int kBeltMotorID = -1000;
-    public static final int kSpeedEncoderID = -1000;
+    public static final int kBeltMotorID = 13;
 
 
 
-    public static final double kDesiredIntakeMotorRPS = -10;
-    public static final double kIntakeBeltMotorSpeed = -1000;
+    public static final double kDesiredIntakeMotorRPS = -60;
+    public static final double kIntakeBeltMotorSpeed = 1;
 
 
-    public static final double kDesiredShootMotorRPS = 10;
-    public static final double kShootBeltMotorSpeed = -1000;
+    public static final double kDesiredShootMotorRPS = 80;
+    public static final double kShootBeltMotorSpeed = -1;
+
+    public static final double kDesiredFeedMotorRPS = 60;
+    public static final double kDesiredFeedBeltSpeed = -1;
 
 
 
@@ -219,18 +221,17 @@ public final class Constants {
 
     public static final int kMinPivotRotationDegrees = 0;
     //TODO: find max rotation value for pivot of shooter
-    public static final int kMaxPivotRotationDegrees = 10;
 
 
     //Max voltage pivot can receive before attempting to reset position
     public static final int kPivotMaxVoltage = -1000;
 
-    public static final double kHardStopCurrentThreshold = 5;
+    public static final double kHardStopCurrentThreshold = 10;
 
 
-
-    public static final int kIntakeAngle = 30;
-    public static final int kSubwooferShootAngle = 50;
+    public static final int kIntakeAngle = 188;
+    public static final int kSubwooferShootAngle = 61;
+    public static final int kFeedAngle = 150;
 
 
     //Used in multiple commands to automatically move the pivot to a desired angle
@@ -240,6 +241,16 @@ public final class Constants {
       public static final double kPivotD = 0;
       //Used for PID to determine what rotation is close enough to desired angle
       public static final double kPivotToleranceThreshold = 3;
+
+      public static final double kPivotPIDMaxOutput = 0.1;
+      public static final double kPivotPIDMinOutput = -0.1;
+      public static final double kMinSetpoint = 0;
+      public static final double kMaxSetpoint = 188.25;
+
+    }
+
+  }
+
       public static final double kPivotPIDMinOutput = -0.3;
       public static final double kPivotPIDMaxOutput = 0.3;
 

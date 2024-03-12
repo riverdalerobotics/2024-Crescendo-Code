@@ -479,6 +479,14 @@ public ChassisSpeeds getVelocities() {
     backRight.setDesiredState(desiredStates[3]);
   }
 
+  public void setModuleXPosition() {
+    frontLeft.setDesiredStateNoDeadband(new SwerveModuleState(0, new Rotation2d(Math.PI/4)));
+    frontRight.setDesiredStateNoDeadband(new SwerveModuleState(0, new Rotation2d(-Math.PI/4)));
+    backLeft.setDesiredStateNoDeadband(new SwerveModuleState(0, new Rotation2d(-Math.PI/4)));
+    backRight.setDesiredStateNoDeadband(new SwerveModuleState(0, new Rotation2d(Math.PI/4)));
+
+  }
+
   public void stopModules() {
     frontLeft.stop();
     frontRight.stop();

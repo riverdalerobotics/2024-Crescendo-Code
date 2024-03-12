@@ -4,23 +4,26 @@
 
 package frc.robot.commands.autonomousCommands;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import frc.robot.BlinkinLED;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.PivotConstants;
-import frc.robot.commands.PowerBeltAndShooter;
+import frc.robot.commands.AutoPivotToAngle;
+import frc.robot.commands.AutoRevFlywheels;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoPivotAndShootCommand extends SequentialCommandGroup {
-  /** Creates a new AutoRotateAndShootCommand. */
-  public AutoPivotAndShootCommand(PivotSubsystem pivot, IntakeSubsystem intake, BlinkinLED LED) {
-    // Add your commands in the addCommands() call, e.g.
+public class DeadLinePiv extends ParallelDeadlineGroup {
+  /** Creates a new DeadLinePiv. */
+  public DeadLinePiv(PivotSubsystem pivot, IntakeSubsystem intake, BlinkinLED LED) {
+    // Add the deadline command in the super() call. Add other commands using
+    // addCommands().
+    super(new WaitTime(2));
+    addCommands(new AutoPivotAndRevShooterIndefinitelyCommand(pivot, intake, LED));
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new DeadLinePiv(pivot, intake, LED), new PowerBeltAndShooter(intake, LED));
   }
 }
