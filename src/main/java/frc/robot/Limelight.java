@@ -7,6 +7,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.Constants.LimelightConstants;
+import frc.robot.subsystems.SwerveChassisSubsystem;
 
 public class Limelight {
       //Adapted from https://docs.limelightvision.io/en/latest/getting_started.html#basic-programming
@@ -16,6 +17,7 @@ public class Limelight {
     NetworkTable table;
 
     double[] botPose;  
+    SwerveChassisSubsystem chassis;
 
     
     /** Creates a new limelight object. Sets up the NetworkTable object */
@@ -135,6 +137,10 @@ public class Limelight {
         double convertedTheta = this.getBotPoseYaw() + Constants.LimelightConstants.ORIGIN_PATHPLANNER_FROM_ORIGIN_LIMELIGHT[0];//TODO: This is 0 right now as we think converted is the same.
 
         return new Pose2d(new Translation2d(convertedX, convertedY), new Rotation2d(convertedTheta));
+    }
+
+    public void resetOdometryUsingCamera(){
+        chassis.resetPose(getBotPoseOdometryNotation());
     }
     
 

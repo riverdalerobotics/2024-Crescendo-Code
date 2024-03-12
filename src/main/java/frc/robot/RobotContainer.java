@@ -164,16 +164,6 @@ public class RobotContainer {
 
     public Command getShootAndStopAuto() {
       return autoFactory.shootAndStop();
-    }
-
-
-    
-
-
-
-
-
-      
+    }  
 
 }
-

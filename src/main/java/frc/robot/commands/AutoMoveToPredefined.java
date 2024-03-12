@@ -109,7 +109,7 @@ public class AutoMoveToPredefined extends Command {
     double ampPredefinedPositionVectorFromRobot = Math.sqrt(Math.pow(nearAmpY - tagLimelight.getYPosition(), 2) + Math.pow(nearAmpX - tagLimelight.getXPosition(), 2));
     double stagePredefinedPositionVectorFromRobot = Math.sqrt(Math.pow(stageY - tagLimelight.getYPosition(), 2) + Math.pow(stageX- tagLimelight.getXPosition(), 2));
 
-    //finds the closest predefined
+    //finds the closest predefined and makes the predefined
     if (podiumPredefinedPositionVectorFromRobot >= ampPredefinedPositionVectorFromRobot){
       if(podiumPredefinedPositionVectorFromRobot >= stagePredefinedPositionVectorFromRobot){
         xPredefined = nearPodiumX;
