@@ -1,0 +1,73 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.3269251686783332,
+      "y": 5.54
+    },
+    "rotation": 0.789389038720126
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1. Mid subwoofer to Mid note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2. Continue Forward To Pickup Mid Note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3. Return Centre Note to Mid Subwoofer"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4. Mid subwoofer to Amp Note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "5. Continue Forward To Pickup Amp Note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "6. Return Amp Note To Mid Subwoofer"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "7. Mid Subwoofer to Podium Note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "8. Continue Forward To Pickup Podium Note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "9. Return Podium Note To Mid Subwoofer"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Shoot from Different Intake Auto ",
+  "choreoAuto": false
+}

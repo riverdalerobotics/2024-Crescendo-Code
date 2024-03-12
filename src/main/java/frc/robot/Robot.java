@@ -24,9 +24,9 @@ public class Robot extends TimedRobot {
   public final SendableChooser<String> m_chooser = new SendableChooser<>();
   private String m_autoSelected;
   private static final String shootOnly = "Shoot and then do Nothing";
-  private static final String podiumSubwooferTwoNotes = "Podium Side Subwoofer Shoot And Retrieve Podium Note and Shoot";
-  private static final String ampSubwooferTwoNotes = "Amp Side Subwoofer Shoot and Retrieve Amp Note and Shoot";
-  private static final String midSubwooferFourNotes = "Middle Side Subwoofer Shoot and Retrieve and Shoot 3 close notest";
+  //private static final String podiumSubwooferTwoNotes = "Podium Side Subwoofer Shoot And Retrieve Podium Note and Shoot";
+  // private static final String ampSubwooferTwoNotes = "Amp Side Subwoofer Shoot and Retrieve Amp Note and Shoot";
+  private static final String weirdMidSubwooferFourNotes = "Middle Side Subwoofer Shoot and Retrieve and Shoot 3 close notest";
   private static final String doNothingLol = "DO NOTHING";
   private static final String test = "curve path 1.6764 meters down, 155 inches to the right"; // max velocity is 1 m/s
   private static final String testTwo = "straight line goes 155 inches or 3.937 meters"; //max velocity is 1.1 m/s
@@ -38,6 +38,7 @@ public class Robot extends TimedRobot {
   private static final String weirdAmpSubwooferTwoNotes = "Amp Side Subwoofer Shoot and Retrieve Amp Note and Shoot (Same Intake and Shoot side)";
   private static final String weirdMidSubwooferTwoNotes = "Middle Side Subwoofer Shoot and Retrieve and Shoot 3 close notest (Same Intake and Shoot side)";
 
+  private static final String firstAlliancePodium = "letsg oooosoo";
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -50,9 +51,9 @@ public class Robot extends TimedRobot {
 
     m_chooser.setDefaultOption("mobilityWithStyle", mobilityWithStyle);
     m_chooser.addOption("mobilityOutOfWay", mobilityOutOfWay);
-    m_chooser.addOption("1+1 PODIUM Side Subwoofer", podiumSubwooferTwoNotes);
-    m_chooser.addOption("1+1 AMP side Subwoofer", ampSubwooferTwoNotes);
-    m_chooser.addOption("1+3 MID side Subwoofer", midSubwooferFourNotes);
+    //m_chooser.addOption("1+1 PODIUM Side Subwoofer", podiumSubwooferTwoNotes);
+    // m_chooser.addOption("1+1 AMP side Subwoofer", ampSubwooferTwoNotes);
+    m_chooser.addOption("1+3 MID side Subwoofer", weirdMidSubwooferFourNotes);
     m_chooser.addOption("DO NOTHING", doNothingLol);
     m_chooser.addOption("test123", test);
     m_chooser.addOption("2nd test", testTwo);
@@ -62,6 +63,8 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("1+1 AMP Side Subwoofer Same Intake/Shooter", weirdAmpSubwooferTwoNotes);
     m_chooser.addOption("1+1 MID Side Subwoofer Same Intake/Shooter", weirdMidSubwooferTwoNotes);
     m_chooser.addOption("1+1 PODIUM Side Subwoofer Same Intake/Shooter", weirdPodiumSubwooferTwoNotes);
+
+    m_chooser.addOption("1+mobility podium ", firstAlliancePodium);
   
     SmartDashboard.putData("Auto choices", m_chooser);
    
@@ -108,30 +111,22 @@ public class Robot extends TimedRobot {
       /* */
      
       switch (m_autoSelected) {
-        case mobilityWithStyle:
-          m_autonomousCommand = m_robotContainer.getMobilityStyleAuto();
-          break;
-        case mobilityOutOfWay:
-          m_autonomousCommand = m_robotContainer.getMobilityOutOfWay();
-          break;
+     
         case shootOnly:
           m_autonomousCommand = m_robotContainer.getShootOnlyAuto();
           break;
   
-        case podiumSubwooferTwoNotes:
-          m_autonomousCommand = m_robotContainer.getPodiumSubwooferTwoNotesAuto();
-          break;
+        // case podiumSubwooferTwoNotes:
+        //   m_autonomousCommand = m_robotContainer.getPodiumSubwooferTwoNotesAuto();
+        //   break;
   
-        case ampSubwooferTwoNotes:
-          m_autonomousCommand = m_robotContainer.getAmpSubwooferTwoNotesAuto();
-          break;  
-          
-        case midSubwooferFourNotes:
-          m_autonomousCommand = m_robotContainer.getMidSubwooferFourNotesAuto();
-          break;
+        // case ampSubwooferTwoNotes:
+        //   m_autonomousCommand = m_robotContainer.getAmpSubwooferTwoNotesAuto();
+        //   break; 
         case doNothingLol:
           m_autonomousCommand = m_robotContainer.getDoNothingAuto();
           break;
+       
         case test:
           m_autonomousCommand = m_robotContainer.getTestAuto();
           break;
@@ -141,6 +136,16 @@ public class Robot extends TimedRobot {
         case testThree: 
           m_autonomousCommand = m_robotContainer.getTestThreeAuto();
           break;
+
+
+        case mobilityWithStyle:
+          m_autonomousCommand = m_robotContainer.getMobilityStyleAuto();
+          break;
+        case mobilityOutOfWay:
+          m_autonomousCommand = m_robotContainer.getMobilityOutOfWay();
+          break;
+
+
         case weirdAmpSubwooferTwoNotes:
           m_autonomousCommand = m_robotContainer.getWeirdAmpSubwooferTwoNotesAuto();
           break;
@@ -150,10 +155,9 @@ public class Robot extends TimedRobot {
         case weirdPodiumSubwooferTwoNotes: 
           m_autonomousCommand = m_robotContainer.getWeirdPodiumSubwooferTwoNotesAuto();
           break;
-
-
-          
-        
+         case weirdMidSubwooferFourNotes:
+          m_autonomousCommand = m_robotContainer.getMidSubwooferFourNotesAuto();
+          break;
 
         //REDUNDANT, I think we can delete maybe 
         default:

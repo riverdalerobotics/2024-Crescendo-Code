@@ -243,6 +243,55 @@ public final class Constants {
 
   }
 
+  //x and y relative to how far from center of the field, with red side on the right
+  //x is long side of field from center, y is short side of field from center
+  public static class PredefinedLocations{
+   
+    public static final double nearPodiumX = 266; //105 in
+    public static final double nearPodiumY = -254; //100 in
+
+    public static final double stageX = 381; //150 in
+    public static final double stageY = 83.82; //33 in
+
+    public static final double nearAmpX = 330.2; //130 in
+    public static final double nearAmpY = 254; //100 in
+
+    
+    //PID
+    public static final double kXPositionAlignP = 0.5;
+    public static final double kXPositionAlignI = 0;
+    public static final double kXPositionAlignD = 0;
+      
+    public static final double kYPositionAlignP = 0.5;
+    public static final double kYPositionAlignI = 0;
+    public static final double kYPositionAlignD = 0;
+
+    public static final double kTurningPositionAlignP = 0.25;
+    public static final double kTurningPositionAlignI = 0;
+    public static final double kTurningPositionAlignD = 0;
+    
+    //Setpoint and Tolerance
+    public static final double kYPositionAlignSetpoint = 0;
+    public static final double kYPositionAlignTolerance = 0.07;
+   
+    public static final double kXPositionAlignSetpoint = 0;
+    public static final double kXPositionAlignTolerance = 0.07;
+
+    public static final double kTurningPositionSetpoint = 0;
+    public static final double kTurningPositionTolerance = 0.07;
+
+    //Min and Max Outputs
+    public static final double kturningPositionMinOutput = -0.3;
+    public static final double kturningPositionMaxOutput = 0.3;
+   
+    public static final double kYPositionAlignMinOutput = -0.3;
+    public static final double kYPositionAlignMaxOutput = 0.3;
+
+    public static final double kXPositionAlignMinOutput = -0.3;
+    public static final double kXPositionAlignMaxOutput = 0.3;
+
+
+  }
   
 
 

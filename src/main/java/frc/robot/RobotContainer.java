@@ -109,21 +109,13 @@ public class RobotContainer {
      * @return automonous period command
      */
     //autos that that we use Robot.java using the Sendable Chooser   
-    public Command getPodiumSubwooferTwoNotesAuto(){
-        return autoFactory.podiumSubwooferTwoNotes();
-    }
-    public Command getAmpSubwooferTwoNotesAuto(){
-        return autoFactory.ampSubwooferTwoNotes();
-    }
-    public Command getMidSubwooferFourNotesAuto(){
-        return autoFactory.midSubWooferFourNotes();
-    }
-    public Command getDoNothingAuto(){
-        return autoFactory.doNothing();
-    }
-    public Command getShootOnlyAuto(){
-        return autoFactory.shootOnly();
-    }
+    // public Command getPodiumSubwooferTwoNotesAuto(){
+    //     return autoFactory.podiumSubwooferTwoNotes();
+    // }
+    // public Command getAmpSubwooferTwoNotesAuto(){
+    //     return autoFactory.ampSubwooferTwoNotes();
+    // }
+
     public Command getTestAuto(){
         return autoFactory.test();
     }
@@ -133,6 +125,16 @@ public class RobotContainer {
     public Command getTestThreeAuto(){
       return autoFactory.testThree();
     }
+   
+  
+    public Command getDoNothingAuto(){
+        return autoFactory.doNothing();
+    }
+    public Command getShootOnlyAuto(){
+        return autoFactory.shootOnly();
+    }
+
+    
     public Command getMobilityStyleAuto(){
       return autoFactory.mobilityWithStyle();
     }
@@ -141,21 +143,17 @@ public class RobotContainer {
     }
 
     public Command getWeirdPodiumSubwooferTwoNotesAuto(){
-        return autoFactory.weirdPodiumSubwooferTwoNotes();
+      return autoFactory.weirdPodiumSubwooferTwoNotes();
     }
     public Command getWeirdAmpSubwooferTwoNotesAuto(){
-        return autoFactory.weirdAmpSubwooferTwoNotes();
+      return autoFactory.weirdAmpSubwooferTwoNotes();
     }
     public Command getWeirdMidSubwooferFourNotesAuto(){
-        return autoFactory.weirdMidSubwooferTwoNotes();
+      return autoFactory.weirdMidSubwooferTwoNotes();
     }
-
-
-    
-
-
-
-
+    public Command getMidSubwooferFourNotesAuto(){
+      return autoFactory.weirdMidSubWooferFourNotes();
+    }
 
       
 
