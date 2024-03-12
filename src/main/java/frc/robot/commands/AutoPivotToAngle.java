@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Constants;
 import frc.robot.Constants.PivotConstants;
+import frc.robot.HelperMethods;
 import frc.robot.subsystems.PivotSubsystem;
 
 public class AutoPivotToAngle extends Command {
@@ -38,7 +39,7 @@ public class AutoPivotToAngle extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    pivot.movePivot(pivotController.calculate(pivot.getEncoders()));
+    pivot.movePivot(HelperMethods.limitValInRange(PivotConstants.PIDConstants.kPivotPIDMinOutput, PivotConstants.PIDConstants.kPivotPIDMaxOutput, pivotController.calculate(pivot.getEncoders())));
   }
 
   // Called once the command ends or is interrupted.

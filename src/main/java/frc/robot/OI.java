@@ -108,6 +108,11 @@ public boolean shoot() {
 }
 
 
+public boolean engageXModulePosition() {
+    return moveController.getXButton();
+}
+
+
 
 /**
  * Operator controls ||
@@ -177,6 +182,14 @@ public double pivotArm() {
     return intakeController.getLeftY();
 }
 
+public boolean pivotToFeed()  {
+    return intakeController.getBButtonPressed();
+}
+
+public boolean shootFeed() {
+    return intakeController.getAButton();
+}
+
 
 
 /**
@@ -204,6 +217,14 @@ public boolean tuckArm1() {
  */
 public boolean tuckArm2() {
     return intakeController.getStartButton();
+}
+
+public boolean resetArmMinPos() {
+    return intakeController.getBackButtonPressed();
+}
+
+public boolean resetArmMaxPos() {
+    return intakeController.getStartButtonPressed();
 }
 
 

@@ -192,6 +192,15 @@ public class SwerveModule extends SubsystemBase {
     mDesiredState = optimizedState;
   }
 
+  public void setDesiredStateNoDeadband(SwerveModuleState desiredState) {
+    SwerveModuleState optimizedState = SwerveModuleState.optimize(desiredState, getModulePosition().angle);
+
+    mDriveMotor.set(optimizedState.speedMetersPerSecond / ChassisConstants.kPhysicalMaxSpeedMetersPerSecond);
+    mTurnPIDController.setReference(optimizedState.angle.getRadians(), CANSparkMax.ControlType.kPosition);
+
+    mDesiredState = optimizedState;
+  }
+
   /**
    * Sets the module to a desired state. This state has already been desaturated by swerveChassisSubsystem. 
    * This is an alternative setDesiredState method that uses a PID controller to handle the drive motor's velocity.

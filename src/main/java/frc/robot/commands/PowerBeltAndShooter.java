@@ -29,7 +29,7 @@ public class PowerBeltAndShooter extends Command {
   double desiredSpeed = IntakeConstants.kDesiredShootMotorRPS;
   double beltSpeed = IntakeConstants.kShootBeltMotorSpeed;
   boolean hasPickedUp = false;
-  double maxCurrent = 0d;
+  double maxCurrent = 1000;
   BlinkinLED LED;
   public PowerBeltAndShooter(IntakeSubsystem intakeSubsystem, BlinkinLED LED) {
     // Use addRequirements() here to declare subsystem dependencies.
