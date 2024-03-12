@@ -89,7 +89,9 @@ public class IntakeDefaultCommand extends Command {
     }
     else if(operatorInput.engageAutoShootSpinup()){
       intakeSpeedController.setSetpoint(shootSpeed);
-      //manual = false;
+    }
+    else if(operatorInput.shootFeed()) {
+      intakeSpeedController.setSetpoint(IntakeConstants.kDesiredFeedMotorRPS);
     }
     else {
       intakeSpeedController.setSetpoint(0);
