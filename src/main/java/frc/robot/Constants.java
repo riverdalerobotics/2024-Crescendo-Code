@@ -249,14 +249,14 @@ public final class Constants {
 
     }
 
-  }
+  
 
       public static final double kPivotPIDMinOutput = -0.3;
       public static final double kPivotPIDMaxOutput = 0.3;
 
     }
 
-  }
+  
 
   //x and y relative to how far from center of the field, with red side on the right
   //x is long side of field from center, y is short side of field from center
@@ -296,8 +296,8 @@ public final class Constants {
     public static final double kTurningPositionTolerance = 0.07;
 
     //Min and Max Outputs
-    public static final double kturningPositionMinOutput = -0.3;
-    public static final double kturningPositionMaxOutput = 0.3;
+    public static final double kTurningPositionMinOutput = -0.3;
+    public static final double kTurningPositionMaxOutput = 0.3;
    
     public static final double kYPositionAlignMinOutput = -0.3;
     public static final double kYPositionAlignMaxOutput = 0.3;

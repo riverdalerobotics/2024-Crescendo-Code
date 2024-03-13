@@ -178,7 +178,7 @@ public class Robot extends TimedRobot {
           break;
 
          case weirdMidSubwooferFourNotes:
-          m_autonomousCommand = m_robotContainer.getMidSubwooferFourNotesAuto();
+          m_autonomousCommand = m_robotContainer.getWeirdMidSubwooferFourNotesAuto();
           break;
 
         //REDUNDANT, I think we can delete maybe 

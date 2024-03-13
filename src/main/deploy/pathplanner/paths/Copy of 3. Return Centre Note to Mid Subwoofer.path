@@ -39,11 +39,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.7588356887777923,
+    "rotation": -178.63241003603704,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "4 note mid subwoofer paths",
   "previewStartingState": {
     "rotation": -179.6545820692939,
     "velocity": 0

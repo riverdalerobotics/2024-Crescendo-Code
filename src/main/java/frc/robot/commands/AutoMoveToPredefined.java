@@ -15,7 +15,6 @@ import frc.robot.Constants;
 import frc.robot.HelperMethods;
 import frc.robot.Limelight;
 import frc.robot.OI;
-import frc.robot.Constants.CommandConstants;
 import frc.robot.Constants.PredefinedLocations;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.subsystems.SwerveChassisSubsystem;
@@ -26,10 +25,6 @@ public class AutoMoveToPredefined extends Command {
   private PIDController turningController;
   private PIDController xController;
 
-  private boolean noteIsDetected;
-  private double noteYOffset;
-  private double noteThetaOffset;
-  private double noteXOffset;
   private final SwerveChassisSubsystem swerveSubsystem;
   private final Limelight tagLimelight;
   private final OI oi;
@@ -46,6 +41,7 @@ public class AutoMoveToPredefined extends Command {
   
   private double xDisplacementFromRobot;
   private double yDisplacementFromRobot;
+  private double rotationFromAprilTagToRobot;
 
 
   public AutoMoveToPredefined(
@@ -130,10 +126,11 @@ public class AutoMoveToPredefined extends Command {
       //finds x and y displacement from predefined
       xDisplacementFromRobot = xPredefined - tagLimelight.getXPosition();
       yDisplacementFromRobot = yPredefined - tagLimelight.getYPosition();
+      rotationFromAprilTagToRobot = tagLimelight.getTX();
+      
 
     //If a tag  is detected, x and y movement will be controlled by PID
     if (tagLimelight.targetDetected() == true) {
-    //finds x and y displacement from predefined
 
 
       SmartDashboard.putNumber("XDisplacementNeededToTravel", xDisplacementFromRobot);
@@ -144,11 +141,14 @@ public class AutoMoveToPredefined extends Command {
 
       //Calculate pid input using lr offset from note and limit it to max speed values to avoid overshooting
       double PIDySpeed = yController.calculate(yDisplacementFromRobot);
-      PIDySpeed = HelperMethods.limitValInRange(PredefinedLocations.kYPositionAlignMinOutput, CommandConstants.kYNoteAlignMaxOutput, PIDySpeed);
+      PIDySpeed = HelperMethods.limitValInRange(PredefinedLocations.kYPositionAlignMinOutput, PredefinedLocations.kYPositionAlignMaxOutput, PIDySpeed);
       double PIDxSpeed = xController.calculate(xDisplacementFromRobot);
-      PIDxSpeed = HelperMethods.limitValInRange(CommandConstants.kXNoteAlignMinOutput, CommandConstants.kXNoteAlignMaxOutput, PIDxSpeed);
-     
-      swerveSubsystem.driveSwerveWithPhysicalMax(PIDxSpeed, PIDySpeed, 0);
+      PIDxSpeed = HelperMethods.limitValInRange(PredefinedLocations.kXPositionAlignMinOutput, PredefinedLocations.kXPositionAlignMaxOutput, PIDxSpeed);
+      double PIDRotationSpeed = turningController.calculate(rotationFromAprilTagToRobot);
+      PIDRotationSpeed = HelperMethods.limitValInRange(PredefinedLocations.kTurningPositionMinOutput, PredefinedLocations.kTurningPositionMaxOutput, PIDRotationSpeed);
+
+      //output
+      swerveSubsystem.driveSwerveWithPhysicalMax(PIDxSpeed, PIDySpeed, PIDRotationSpeed);
       
 //      SmartDashboard.putBoolean("Is at note", xController.atSetpoint());
     }

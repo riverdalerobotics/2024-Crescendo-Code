@@ -31,7 +31,7 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 0.5,
-      "rotationDegrees": -51.139308938532864,
+      "rotationDegrees": 137.8542290572965,
       "rotateFast": false
     }
   ],
@@ -45,11 +45,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -58.10920819806764,
+    "rotation": 122.81634341394546,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "3 note podium subwoofer mid paths (NEW)",
+  "folder": "3 note podium subwoofer mid paths",
   "previewStartingState": {
     "rotation": -179.95545461786884,
     "velocity": 0

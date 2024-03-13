@@ -43,9 +43,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "4 note mid subwoofer paths",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -179.70613309648763,
     "velocity": 0
   },
   "useDefaultConstraints": true
