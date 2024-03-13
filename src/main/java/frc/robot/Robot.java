@@ -167,9 +167,7 @@ public class Robot extends TimedRobot {
         case weirdAmpSubwooferTwoNotes:
           m_autonomousCommand = m_robotContainer.getWeirdAmpSubwooferTwoNotesAuto();
           break;
-        case weirdMidSubwooferTwoNotes: 
-          m_autonomousCommand = m_robotContainer.getWeirdMidSubwooferFourNotesAuto();
-          break;
+
         case weirdPodiumSubwooferTwoNotes: 
           m_autonomousCommand = m_robotContainer.getWeirdPodiumSubwooferTwoNotesAuto();
           break;

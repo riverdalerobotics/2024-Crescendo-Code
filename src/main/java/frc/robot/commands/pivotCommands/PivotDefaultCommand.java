@@ -7,7 +7,7 @@
 //cosine ratio feed forward for arm
 //motion talonfx gradual PID setpoint change
 
-package frc.robot.commands.defaultCommands;
+package frc.robot.commands.pivotCommands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.HelperMethods;
@@ -23,7 +23,7 @@ public class PivotDefaultCommand extends Command {
   double kp = PivotConstants.PIDConstants.kPivotP;
   double ki = PivotConstants.PIDConstants.kPivotI;
   double kd = PivotConstants.PIDConstants.kPivotD;
-  double hardStopPosition = PivotConstants.kMinPivotRotationDegrees;
+  double hardStopPosition = PivotConstants.PIDConstants.kMinSetpoint;
 
   //TODO: find good tolerance value
   double tolerance = PivotConstants.PIDConstants.kPivotToleranceThreshold;
@@ -122,6 +122,8 @@ public class PivotDefaultCommand extends Command {
     //TODO: Test to see if this could be screwed up by other robots or field elements. If it can, we need to ensure this doesn't 
     //unintenionally result in robot death
     
+
+    //TODO: Fix the logic here. Probably have it activate the tuck command to reset or figure out which hard stop is being pressed and change encoder pos to it
     if (pivot.getCurrent() > maxCurrent){
       angleController.setSetpoint(hardStopPosition);
       desiredArmAngle = hardStopPosition;

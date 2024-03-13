@@ -24,10 +24,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.BlinkinLED;
-import frc.robot.OI;
 import frc.robot.Constants.ChassisConstants;
 import frc.robot.Constants.PathPlannerConstants;
-
 import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.path.PathConstraints;
@@ -66,7 +64,6 @@ public class SwerveChassisSubsystem extends SubsystemBase {
   private final SlewRateLimiter xLimiter, yLimiter, turnLimiter;
   private double maxTeleopDriveSpeed;
   private double maxTeleopAngularSpeed;
-  private boolean slowMode;
   private boolean isFieldOriented;
   private final AHRS gyro = new AHRS(SPI.Port.kMXP);
   private final SwerveDriveOdometry odometer = new SwerveDriveOdometry(ChassisConstants.kDriveKinematics,
@@ -299,6 +296,7 @@ public ChassisSpeeds getVelocities() {
 
   
   /** 
+   * https://first.wpi.edu/wpilib/allwpilib/docs/release/java/edu/wpi/first/math/kinematics/SwerveModulePosition.html
    * @return SwerveModulePosition[]
    */
   public SwerveModulePosition[] getSwerveModulePositions() {
@@ -310,6 +308,10 @@ public ChassisSpeeds getVelocities() {
     };
   }
 
+  /**
+   * https://first.wpi.edu/wpilib/allwpilib/docs/release/java/edu/wpi/first/math/kinematics/SwerveModuleState.html
+   * @return an array of all the swerve module states
+   */
   public SwerveModuleState[] getSwerveModuleStates() {
     return new SwerveModuleState[] {
       frontLeft.getState(),
@@ -364,6 +366,11 @@ public ChassisSpeeds getVelocities() {
     this.maxTeleopDriveSpeed = ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond - ((ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond) * (0.5 * percentageSlow));
   }
 
+
+  //TODO: add this method to all the swerve commands which enable slow mode
+  /**
+   * Sets the robot's max speed back to the default value
+   */
   public void resetDriveSpeed() {
     this.maxTeleopDriveSpeed = ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond;
   }
@@ -373,18 +380,17 @@ public ChassisSpeeds getVelocities() {
    * @param xSpeed - y-axis of left joystick
    * @param ySpeed - x-axis of left joystick
    * @param turningSpeed - x-axis of right joystick
-   * @param isFieldOriented
+   * @param isFieldOriented whether or not the robot is field oriented
    */
   public void driveSwerve(double xSpeed, double ySpeed, double turningSpeed) {
 
 
     //This is what actually limits the speed by our specified max
+    //The limiters ensure that our velocity can only increase by a max amount per second
+    //They limit our acceleration to provide a smoother drive
     xSpeed = xLimiter.calculate(xSpeed) * maxTeleopDriveSpeed;
     ySpeed = yLimiter.calculate(ySpeed) * maxTeleopDriveSpeed;
     turningSpeed = turnLimiter.calculate(turningSpeed) * maxTeleopAngularSpeed;
-    //xSpeed *= maxTeleopDriveSpeed;
-    //ySpeed *= maxTeleopDriveSpeed;
-    //turningSpeed *= maxTeleopAngularSpeed;
   
     ChassisSpeeds chassisSpeeds;
 
@@ -401,10 +407,6 @@ public ChassisSpeeds getVelocities() {
     //This resets the speed ratios when a velocity goes to high above the specified max
     //TOOD: Switch to physical max speed instead of set max if robot is too slow
     SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond);
-    SmartDashboard.putNumber("FL desired angle", moduleStates[0].angle.getDegrees());
-    SmartDashboard.putNumber("BL desired angle", moduleStates[2].angle.getDegrees());
-  
-
     this.setModuleStates(moduleStates);
   }
 
@@ -415,6 +417,8 @@ public ChassisSpeeds getVelocities() {
 
 
     //This is what actually limits the speed by our specified max
+    //The limiters ensure that our velocity can only increase by a max amount per second
+    //They limit our acceleration to provide a smoother drive
     xSpeed = xLimiter.calculate(xSpeed) * ChassisConstants.kPhysicalMaxSpeedMetersPerSecond;
     ySpeed = yLimiter.calculate(ySpeed) * ChassisConstants.kPhysicalMaxSpeedMetersPerSecond;
     turningSpeed = turnLimiter.calculate(turningSpeed) * ChassisConstants.kPhysicalMaxAngularSpeedRadiansPerSecond;
@@ -432,13 +436,8 @@ public ChassisSpeeds getVelocities() {
 
     SwerveModuleState[] moduleStates = ChassisConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
 
-    //This resets the speed ratios when a velocity goes to high above the specified max
-    //TOOD: Switch to physical max speed instead of set max if robot is too slow
+    //This resets the speed ratios when a velocity goes too high above the specified max
     SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, ChassisConstants.kPhysicalMaxSpeedMetersPerSecond);
-    SmartDashboard.putNumber("FL desired angle", moduleStates[0].angle.getDegrees());
-    SmartDashboard.putNumber("BL desired angle", moduleStates[2].angle.getDegrees());
-  
-
     this.setModuleStates(moduleStates);
   }
 
@@ -460,17 +459,16 @@ public ChassisSpeeds getVelocities() {
 
     SwerveModuleState[] moduleStates = ChassisConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
 
-    //This resets the speed ratios when a velocity goes to high above the specified max
-    //TODO: Switch to physical max speed instead of set max if robot is too slow
+    //This resets the speed ratios when a velocity goes too high above the specified max
     SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, ChassisConstants.kPhysicalMaxSpeedMetersPerSecond);
-    
     this.setModuleStates(moduleStates); 
   }
 
 
   
   /** 
-   * @param desiredStates
+   * Used by drive methods to pass the states created by the swerve kinematics on to the individual modules
+   * @param desiredStates An array of the desired states of each module
    */
   public void setModuleStates(SwerveModuleState[] desiredStates) {
     frontLeft.setDesiredState(desiredStates[0]);
@@ -479,6 +477,10 @@ public ChassisSpeeds getVelocities() {
     backRight.setDesiredState(desiredStates[3]);
   }
 
+  /**
+   * This method sets the wheels in an x configuration. All the wheels point outwards from the robot and the wheels diagonal from eachother have the same angle.
+   * The purpose of this position is that in this configuration, the robot becomes very hard to push which is a good defensive tool.
+   */
   public void setModuleXPosition() {
     frontLeft.setDesiredStateNoDeadband(new SwerveModuleState(0, new Rotation2d(Math.PI/4)));
     frontRight.setDesiredStateNoDeadband(new SwerveModuleState(0, new Rotation2d(-Math.PI/4)));
@@ -487,6 +489,10 @@ public ChassisSpeeds getVelocities() {
 
   }
 
+  /**
+   * Mostly used at the end of commands to stop all motors.
+   * This doesn't reset the angle of the turn motor to 0, it just sets the speed of both motors to 0, leaving it in the angle where it was stopped
+   */
   public void stopModules() {
     frontLeft.stop();
     frontRight.stop();
@@ -495,6 +501,9 @@ public ChassisSpeeds getVelocities() {
   }
 
 
+  /**
+   * Updates the LED colors based on the current drive mode
+   */
   public void setLEDDriveColors() {
     if(isFieldOriented) {
       LED.enableFieldOrientedEnabledLED();
@@ -515,6 +524,9 @@ public ChassisSpeeds getVelocities() {
     // This method will be called once per scheduler run
     odometer.update(getRotation2d(), getSwerveModulePositions());
     
+
+    //Sends a ton of drive data to smart dashboard for testing
+
     SmartDashboard.putString("Odometry pose", odometer.getPoseMeters().toString());
 
 
@@ -522,28 +534,28 @@ public ChassisSpeeds getVelocities() {
     SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
 
 
-    //SmartDashboard.putNumber("drive enc pos FR (m)", frontRight.getDrivePosition());
+    SmartDashboard.putNumber("drive enc pos FR (m)", frontRight.getDrivePosition());
     SmartDashboard.putNumber("turn enc pos FR (rad)", frontRight.getTurningPosition());
-    //SmartDashboard.putNumber("drive enc FR velocity", frontRight.getDriveVelocity());
-    //SmartDashboard.putNumber("angular velocity FR", frontRight.getTurnVelocity());
+    SmartDashboard.putNumber("drive enc FR velocity", frontRight.getDriveVelocity());
+    SmartDashboard.putNumber("angular velocity FR", frontRight.getTurnVelocity());
     SmartDashboard.putNumber("turn motor voltage FR", frontRight.getTurnMotorVoltage());
 
-    //SmartDashboard.putNumber("drive enc pos FL (m)", frontLeft.getDrivePosition());
+    SmartDashboard.putNumber("drive enc pos FL (m)", frontLeft.getDrivePosition());
     SmartDashboard.putNumber("turn enc pos FL (rad)", frontLeft.getTurningPosition());
-    //SmartDashboard.putNumber("drive enc FL velocity", frontLeft.getDriveVelocity());
-    //SmartDashboard.putNumber("angular velocity FL", frontLeft.getTurnVelocity()); 
+    SmartDashboard.putNumber("drive enc FL velocity", frontLeft.getDriveVelocity());
+    SmartDashboard.putNumber("angular velocity FL", frontLeft.getTurnVelocity()); 
     SmartDashboard.putNumber("turn motor voltage FL", frontLeft.getTurnMotorVoltage());
     
-    //SmartDashboard.putNumber("drive enc pos BR (m)", backRight.getDrivePosition());
+    SmartDashboard.putNumber("drive enc pos BR (m)", backRight.getDrivePosition());
     SmartDashboard.putNumber("turn enc pos BR (rad)", backRight.getTurningPosition());
-    //SmartDashboard.putNumber("drive enc BR velocity", backRight.getDriveVelocity());
-    //SmartDashboard.putNumber("angular velocity BR", backRight.getTurnVelocity()); 
+    SmartDashboard.putNumber("drive enc BR velocity", backRight.getDriveVelocity());
+    SmartDashboard.putNumber("angular velocity BR", backRight.getTurnVelocity()); 
     SmartDashboard.putNumber("turn motor voltage BR", backRight.getTurnMotorVoltage());
 
-    //SmartDashboard.putNumber("drive enc pos BL (m)", backLeft.getDrivePosition());
+    SmartDashboard.putNumber("drive enc pos BL (m)", backLeft.getDrivePosition());
     SmartDashboard.putNumber("turn enc pos BL (rad)", backLeft.getTurningPosition());
-    //SmartDashboard.putNumber("drive enc BL velocity", backLeft.getDriveVelocity());
-    //SmartDashboard.putNumber("angular velocity BL", backLeft.getTurnVelocity()); 
+    SmartDashboard.putNumber("drive enc BL velocity", backLeft.getDriveVelocity());
+    SmartDashboard.putNumber("angular velocity BL", backLeft.getTurnVelocity()); 
     SmartDashboard.putNumber("turn motor voltage BL", backLeft.getTurnMotorVoltage());
 
 

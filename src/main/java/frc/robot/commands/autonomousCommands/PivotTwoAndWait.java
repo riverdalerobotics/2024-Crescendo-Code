@@ -6,7 +6,7 @@ package frc.robot.commands.autonomousCommands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants.PivotConstants;
-import frc.robot.commands.AutoPivotToAngle;
+import frc.robot.commands.pivotCommands.AutoPivotToAngle;
 import frc.robot.subsystems.PivotSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more

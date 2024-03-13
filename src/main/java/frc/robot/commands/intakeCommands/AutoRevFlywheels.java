@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.intakeCommands;
 
 // // Copyright (c) FIRST and other WPILib contributors.
 // // Open Source Software; you can modify and/or share it under the terms of
@@ -12,6 +12,12 @@ import frc.robot.BlinkinLED;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.IntakeSubsystem;
 
+
+/**
+ * Revs the arm fly wheels to the desired rotaions per second. This command ends as soon as the desired
+ * RPM is reached. The default command doesn't retain this RPS so this command should only be used
+ * when the next command is continuing to power the flywheels
+ */
 public class AutoRevFlywheels extends Command {
   /** Creates a new AutoRevFlyWheels. */
   PIDController intakeSpeedController;
@@ -50,6 +56,7 @@ public class AutoRevFlywheels extends Command {
   public void end(boolean interrupted) {
   intakeSpeedController.reset();
   LED.disableFlywheelsRevvingLED();
+  intake.spinIntake(0);
   }
 
    // Returns true when the command should end.

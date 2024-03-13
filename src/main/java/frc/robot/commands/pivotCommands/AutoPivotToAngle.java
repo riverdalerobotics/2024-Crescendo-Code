@@ -2,12 +2,10 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.pivotCommands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.PIDCommand;
-import frc.robot.Constants;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.HelperMethods;
 import frc.robot.subsystems.PivotSubsystem;
@@ -20,6 +18,8 @@ public class AutoPivotToAngle extends Command {
   double tolerance = PivotConstants.PIDConstants.kPivotToleranceThreshold;
   double desiredAngle;
   PivotSubsystem pivot;
+  double maxCurrent = PivotConstants.kHardStopCurrentThreshold;
+  double hardStopPosition = PivotConstants.PIDConstants.kMinSetpoint;
   PIDController pivotController;
   public AutoPivotToAngle(double angle, PivotSubsystem pivotSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -40,6 +40,11 @@ public class AutoPivotToAngle extends Command {
   @Override
   public void execute() {
     pivot.movePivot(HelperMethods.limitValInRange(PivotConstants.PIDConstants.kPivotPIDMinOutput, PivotConstants.PIDConstants.kPivotPIDMaxOutput, pivotController.calculate(pivot.getEncoders())));
+  
+    //TODO: Fix the logic for this because it kind of sucks rn
+    if (pivot.getCurrent() > maxCurrent){
+      pivotController.setSetpoint(hardStopPosition);
+    }
   }
 
   // Called once the command ends or is interrupted.

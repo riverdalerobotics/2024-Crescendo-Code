@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.BlinkinLED;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.PivotConstants;
-import frc.robot.commands.AutoPivotToAngle;
-import frc.robot.commands.AutoRevFlywheels;
+import frc.robot.commands.intakeCommands.AutoRevFlywheels;
+import frc.robot.commands.pivotCommands.AutoPivotToAngle;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
 

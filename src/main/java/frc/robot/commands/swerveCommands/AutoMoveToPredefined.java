@@ -2,11 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
-
-import java.sql.Driver;
-import java.util.function.Supplier;
-
+package frc.robot.commands.swerveCommands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -16,7 +12,6 @@ import frc.robot.HelperMethods;
 import frc.robot.Limelight;
 import frc.robot.OI;
 import frc.robot.Constants.PredefinedLocations;
-import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.subsystems.SwerveChassisSubsystem;
 
 public class AutoMoveToPredefined extends Command {
@@ -24,6 +19,7 @@ public class AutoMoveToPredefined extends Command {
   private PIDController yController;
   private PIDController turningController;
   private PIDController xController;
+
 
   private final SwerveChassisSubsystem swerveSubsystem;
   private final Limelight tagLimelight;
@@ -49,17 +45,13 @@ public class AutoMoveToPredefined extends Command {
     OI oi,
     Limelight tagLimelight) {
     
-      yController = new PIDController(PredefinedLocations.kYPositionAlignP, PredefinedLocations.kYPositionAlignI, PredefinedLocations.kYPositionAlignD);
-      yController.setSetpoint(PredefinedLocations.kYPositionAlignSetpoint);
-      yController.setTolerance(PredefinedLocations.kYPositionAlignTolerance);
+    yController = new PIDController(PredefinedLocations.kYPositionAlignP, PredefinedLocations.kYPositionAlignI, PredefinedLocations.kYPositionAlignD);
+    yController.setSetpoint(PredefinedLocations.kYPositionAlignSetpoint);
+    yController.setTolerance(PredefinedLocations.kYPositionAlignTolerance);
   
-      turningController = new PIDController(PredefinedLocations.kTurningPositionAlignP, PredefinedLocations.kTurningPositionAlignI, PredefinedLocations.kTurningPositionAlignD);
-      turningController.setSetpoint(PredefinedLocations.kTurningPositionSetpoint);
-      turningController.setTolerance(PredefinedLocations.kTurningPositionTolerance);
-
-      xController = new PIDController(PredefinedLocations.kXPositionAlignP, PredefinedLocations.kXPositionAlignI, PredefinedLocations.kXPositionAlignD);
-      xController.setSetpoint(PredefinedLocations.kXPositionAlignSetpoint);
-      xController.setTolerance(PredefinedLocations.kXPositionAlignTolerance);
+    xController = new PIDController(PredefinedLocations.kXPositionAlignP, PredefinedLocations.kXPositionAlignI, PredefinedLocations.kXPositionAlignD);
+    xController.setSetpoint(PredefinedLocations.kXPositionAlignSetpoint);
+    xController.setTolerance(PredefinedLocations.kXPositionAlignTolerance);
 
 
     this.swerveSubsystem = swerveSubsystem;

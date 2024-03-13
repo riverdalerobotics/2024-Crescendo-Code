@@ -4,12 +4,9 @@
 
 package frc.robot.commands.autonomousCommands;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.BlinkinLED;
-import frc.robot.Constants.IntakeConstants;
-import frc.robot.Constants.PivotConstants;
-import frc.robot.commands.PowerBeltAndShooter;
+import frc.robot.commands.intakeCommands.PowerBeltAndShooter;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
 

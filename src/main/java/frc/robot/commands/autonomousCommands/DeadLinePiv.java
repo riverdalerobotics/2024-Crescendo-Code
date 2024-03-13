@@ -4,13 +4,9 @@
 
 package frc.robot.commands.autonomousCommands;
 
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import frc.robot.BlinkinLED;
-import frc.robot.Constants.IntakeConstants;
-import frc.robot.Constants.PivotConstants;
-import frc.robot.commands.AutoPivotToAngle;
-import frc.robot.commands.AutoRevFlywheels;
+
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
 
