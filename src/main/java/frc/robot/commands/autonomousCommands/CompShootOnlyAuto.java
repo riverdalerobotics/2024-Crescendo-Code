@@ -4,12 +4,11 @@
 
 package frc.robot.commands.autonomousCommands;
 
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import frc.robot.BlinkinLED;
 import frc.robot.Constants.PivotConstants;
-import frc.robot.commands.AutoPivotToAngle;
-import frc.robot.commands.PowerBeltAndShooter;
+import frc.robot.commands.intakeCommands.PowerBeltAndShooter;
+import frc.robot.commands.pivotCommands.AutoPivotToAngle;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
 

@@ -224,9 +224,6 @@ public final class Constants {
     public static final int kPivotMotor2ID = 10;
     public static final double kPivotEncoderRotationToDegrees = 360 / ((50*60*64)/(8*22*24));
 
-    public static final int kMinPivotRotationDegrees = 0;
-    //TODO: find max rotation value for pivot of shooter
-
 
     //Max voltage pivot can receive before attempting to reset position
     public static final int kPivotMaxVoltage = -1000;

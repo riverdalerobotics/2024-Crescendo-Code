@@ -24,10 +24,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.BlinkinLED;
-import frc.robot.OI;
 import frc.robot.Constants.ChassisConstants;
 import frc.robot.Constants.PathPlannerConstants;
-
 import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.path.PathConstraints;
@@ -66,7 +64,6 @@ public class SwerveChassisSubsystem extends SubsystemBase {
   private final SlewRateLimiter xLimiter, yLimiter, turnLimiter;
   private double maxTeleopDriveSpeed;
   private double maxTeleopAngularSpeed;
-  private boolean slowMode;
   private boolean isFieldOriented;
   private final AHRS gyro = new AHRS(SPI.Port.kMXP);
   private final SwerveDriveOdometry odometer = new SwerveDriveOdometry(ChassisConstants.kDriveKinematics,
