@@ -53,17 +53,13 @@ public class AutoMoveToPredefined extends Command {
     OI oi,
     Limelight tagLimelight) {
     
-      yController = new PIDController(PredefinedLocations.kYPositionAlignP, PredefinedLocations.kYPositionAlignI, PredefinedLocations.kYPositionAlignD);
-      yController.setSetpoint(PredefinedLocations.kYPositionAlignSetpoint);
-      yController.setTolerance(PredefinedLocations.kYPositionAlignTolerance);
+    yController = new PIDController(PredefinedLocations.kYPositionAlignP, PredefinedLocations.kYPositionAlignI, PredefinedLocations.kYPositionAlignD);
+    yController.setSetpoint(PredefinedLocations.kYPositionAlignSetpoint);
+    yController.setTolerance(PredefinedLocations.kYPositionAlignTolerance);
   
-      turningController = new PIDController(PredefinedLocations.kTurningPositionAlignP, PredefinedLocations.kTurningPositionAlignI, PredefinedLocations.kTurningPositionAlignD);
-      turningController.setSetpoint(PredefinedLocations.kTurningPositionSetpoint);
-      turningController.setTolerance(PredefinedLocations.kTurningPositionTolerance);
-
-      xController = new PIDController(PredefinedLocations.kXPositionAlignP, PredefinedLocations.kXPositionAlignI, PredefinedLocations.kXPositionAlignD);
-      xController.setSetpoint(PredefinedLocations.kXPositionAlignSetpoint);
-      xController.setTolerance(PredefinedLocations.kXPositionAlignTolerance);
+    xController = new PIDController(PredefinedLocations.kXPositionAlignP, PredefinedLocations.kXPositionAlignI, PredefinedLocations.kXPositionAlignD);
+    xController.setSetpoint(PredefinedLocations.kXPositionAlignSetpoint);
+    xController.setTolerance(PredefinedLocations.kXPositionAlignTolerance);
 
 
     this.swerveSubsystem = swerveSubsystem;

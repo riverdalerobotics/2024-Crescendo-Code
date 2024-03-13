@@ -14,14 +14,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SwerveChassisSubsystem;
 
 /** Add your docs here. */
-public class AhnafAutoBuilder {
+public class AutoBuilderTools {
     SwerveChassisSubsystem chassis;
     Limelight intakeCamera;
     Limelight shootCamera;
     // Pose2d lastPose;
     PathPlannerPath lastPath;
 
-    AhnafAutoBuilder(Limelight intakeCamera, Limelight shootCamera) {
+    AutoBuilderTools(Limelight intakeCamera, Limelight shootCamera) {
         this.intakeCamera = intakeCamera;
         this.shootCamera = shootCamera;
     }

@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import java.util.function.Supplier;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -16,13 +15,14 @@ import frc.robot.OI;
 import frc.robot.Constants.CommandConstants;
 import frc.robot.subsystems.SwerveChassisSubsystem;
 
-public class AutoAlignWithNoteSwerve extends Command {
+public class AutoAlignWithNoteSwerveTurn extends Command {
   /** Creates a new AutoAlignWithNoteSwerve. */
   private PIDController yController;
   private PIDController turningController;
   private PIDController xController;
+
   private boolean noteIsDetected;
-  private double noteYOffset;
+  private double noteThetaOffset;
   private double noteXOffset;
   private final SwerveChassisSubsystem swerveSubsystem;
   private final Limelight noteLimelight;
@@ -30,13 +30,13 @@ public class AutoAlignWithNoteSwerve extends Command {
   private final BlinkinLED LED;
 
 
-
-  public AutoAlignWithNoteSwerve(
+  //TODO: Consider using slew rate limiters here
+  public AutoAlignWithNoteSwerveTurn(
     SwerveChassisSubsystem swerveSubsystem,
     OI oi,
     Limelight noteLimelight,
     BlinkinLED LED) {
-  
+    
     turningController = new PIDController(CommandConstants.kTurningNoteAlignP, CommandConstants.kTurningNoteAlignI, CommandConstants.kTurningNoteAlignD);
     turningController.setSetpoint(CommandConstants.kTurningNoteAlignSetpoint);
     turningController.setTolerance(CommandConstants.kTurningNoteAlignTolerance);
@@ -79,23 +79,30 @@ public class AutoAlignWithNoteSwerve extends Command {
 
     //If a note is detected, turning will be disabled and y movement will be controlled by PID
     if (noteIsDetected) {
-      noteYOffset = noteLimelight.getXDisplacementFromNote();
       noteXOffset = -noteLimelight.getYDisplacementFromNote();
+      noteThetaOffset = noteLimelight.getTX();
 
-      SmartDashboard.putNumber("L/R note displacement", noteYOffset);
+      SmartDashboard.putNumber("Angle offset from note", noteThetaOffset);
       SmartDashboard.putNumber("F/B note displacement", noteXOffset);
-      System.out.println(noteXOffset);
 
       //Field oriented mucks up this command so we disable it when a note is detected
       swerveSubsystem.enableRobotOriented();
 
-      //Calculate pid input using lr offset from note and limit it to max speed values to avoid overshooting
-      double PIDySpeed = yController.calculate(noteYOffset);
-      PIDySpeed = HelperMethods.limitValInRange(CommandConstants.kYNoteAlignMinOutput, CommandConstants.kYNoteAlignMaxOutput, PIDySpeed);
+      //Calculate pid input using dist and angle offset from note and limit it to max speed values to avoid overshooting
       double PIDxSpeed = xController.calculate(noteXOffset);
       PIDxSpeed = HelperMethods.limitValInRange(CommandConstants.kXNoteAlignMinOutput, CommandConstants.kXNoteAlignMaxOutput, PIDxSpeed);
      
-      swerveSubsystem.driveSwerveWithPhysicalMax(PIDxSpeed, PIDySpeed, 0);
+      double PIDThetaSpeed = turningController.calculate(noteThetaOffset);
+      PIDThetaSpeed = HelperMethods.limitValInRange(CommandConstants.kTurningNoteMinOutput, CommandConstants.kTurningNoteMaxOutput, PIDThetaSpeed);
+
+      //Dont move forward until angle is close
+      if (Math.abs(noteThetaOffset) < 10) {
+        swerveSubsystem.driveSwerveWithPhysicalMax(PIDxSpeed, 0, PIDThetaSpeed);
+      }
+
+      else {
+        swerveSubsystem.driveSwerveWithPhysicalMax(0, 0, PIDThetaSpeed);
+      }
       
 //      SmartDashboard.putBoolean("Is at note", xController.atSetpoint());
     }

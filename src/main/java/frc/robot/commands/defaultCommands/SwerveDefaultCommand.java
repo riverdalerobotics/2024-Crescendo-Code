@@ -28,7 +28,6 @@ public class SwerveDefaultCommand extends Command {
     BlinkinLED LED) {
 
     this.swerveSubsystem = swerveSubsystem;
-    
     this.oi = opInput;
     swerveSubsystem.commandActive = true;
     this.LED = LED;
@@ -51,6 +50,10 @@ public class SwerveDefaultCommand extends Command {
     SmartDashboard.putBoolean("Field Oriented Mode?", swerveSubsystem.getIsFieldOriented());
 
 
+    //The left joystick engages field oriented when pressed. The right joystick disables it
+    //Field oriented means that when the left joystick is pressed up, the robot will move forwards
+    //relative to what the drivers see as forwards
+    //robot oriented would move forward depending on the current orientation of the robot
     if (oi.engageFieldOriented()) {
       swerveSubsystem.enableFieldOriented();
     }
@@ -59,17 +62,21 @@ public class SwerveDefaultCommand extends Command {
     }
     
 
+    //This can be used to change what forward is for field oriented
     if (oi.resetGyro()) {
       swerveSubsystem.zeroHeading();
     }
 
 
+    //hold left trigger to slow the robot down
     swerveSubsystem.slowDrive(HelperMethods.applyInputDeadband(oi.engageSlowMode()));
 
-    double xSpeed = oi.xSpeed(); // *0.5
-    double ySpeed = oi.ySpeed(); // *0.5
-    double turnSpeed = oi.rotate(); // *0.1
+    double xSpeed = oi.xSpeed(); 
+    double ySpeed = oi.ySpeed(); 
+    double turnSpeed = oi.rotate(); 
 
+    //Some joysticks will have small values even when they're not being pressed
+    //This method applies an input deadband to account for this, setting small input values to 0
     xSpeed = HelperMethods.applyInputDeadband(xSpeed);
     ySpeed = HelperMethods.applyInputDeadband(ySpeed);
     turnSpeed = HelperMethods.applyInputDeadband(turnSpeed);
@@ -85,6 +92,8 @@ public class SwerveDefaultCommand extends Command {
 
 
     swerveSubsystem.driveSwerve(xSpeed, ySpeed, turnSpeed);
+    
+    
     if (oi.engageXModulePosition()) {
       swerveSubsystem.setModuleXPosition();
     }
@@ -94,6 +103,8 @@ public class SwerveDefaultCommand extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+
+    //Drive speed should always be reset in any method that has the option to use slow mode
     swerveSubsystem.stopModules();
     swerveSubsystem.resetDriveSpeed();
   }

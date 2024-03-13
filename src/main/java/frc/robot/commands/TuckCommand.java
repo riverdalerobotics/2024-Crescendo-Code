@@ -9,15 +9,19 @@ import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.subsystems.PivotSubsystem;
 
+/**
+ * This command resets the arm pivot from anywhere, returning it to the starting hard stop position
+ */
 public class TuckCommand extends Command {
   /** Creates a new AutoTuckCommand.  */
   PIDController speedController;
   double setpoint = 0d;
-  double tolerance = 0d;
   double maxCurrent = PivotConstants.kHardStopCurrentThreshold;
   double speed = 0d;
-  boolean hasStoped = false;
+  boolean hasStopped = false;
   PivotSubsystem pivot;
+  double waitTime = 0;
+  boolean commandComplete;
   public TuckCommand(PivotSubsystem pivot) {
     // Use addRequirements() here to declare subsystem dependencies.
     // double kp = 0d;
@@ -41,12 +45,24 @@ public class TuckCommand extends Command {
   //TODO: Remove PID controller and just supply a constant speed to the pivot until it hits the hard stop
   public void execute() {
 
+    //When the arm pushes against the hard stop, stop the arm.
+    if (hasStopped == false) {
+      pivot.movePivot(speed);
+      if(pivot.getCurrent() > maxCurrent){
+        pivot.movePivot(0);
+        hasStopped = true;
+      }
+    }
 
-    pivot.movePivot(speed);
-    if( pivot.getCurrent() > maxCurrent){
+    //wait half a second before resetting the encoder to ensure the rio has received the updated
+    //position
+    if (hasStopped && waitTime == 0) {
+      waitTime = System.currentTimeMillis() + 500;
+    }
+
+    if (hasStopped && System.currentTimeMillis() > waitTime) {
       pivot.resetPivotEncoder();
-      pivot.movePivot(0);
-      hasStoped = true;
+      commandComplete = true;
     }
   }
 
@@ -59,6 +75,6 @@ public class TuckCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return hasStoped;
+    return commandComplete;
   }
 }

@@ -14,10 +14,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 
+/**
+ * Contains the motors that power the arm fly wheels and index belt
+ */
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
+  
+  //There are 2 motors that power the intake flywheels
   TalonFX leftIntake;
   TalonFX rightIntake;
+
   CANSparkMax belt;
   //CANcoder speedCoder;
   public IntakeSubsystem() {
@@ -26,7 +32,6 @@ public class IntakeSubsystem extends SubsystemBase {
     leftIntake = new TalonFX(IntakeConstants.kLeftIntakeMotorID);
     rightIntake = new TalonFX(IntakeConstants.kRightIntakeMotorID);
     rightIntake.setInverted(true);
-    //speedCoder = new CANcoder(IntakeConstants.kSpeedEncoderID);
     
   }
   

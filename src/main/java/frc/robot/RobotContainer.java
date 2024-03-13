@@ -14,7 +14,7 @@ import frc.robot.commands.AutoRevFlywheels;
 import frc.robot.commands.AutoRevFlywheelsIndefinitely;
 import frc.robot.commands.IntakeIndefinitelyCommand;
 import frc.robot.commands.PowerBeltAndShooter;
-import frc.robot.commands.ShootCommand;
+import frc.robot.commands.TeleopShootCommand;
 import frc.robot.commands.TuckCommand;
 import frc.robot.commands.autonomousCommands.AutoPivotAndRevShooterCommand;
 import frc.robot.commands.autonomousCommands.AutoPivotAndRevShooterIndefinitelyCommand;
@@ -75,7 +75,7 @@ public class RobotContainer {
     //TODO: In Path Planner UI, remember to add the named commands 
     //Path planner is the software we use to make our autos
     NamedCommands.registerCommand("note error fix", new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT, LED));
-    NamedCommands.registerCommand("IntakeIndefinitely", new IntakeIndefinitelyCommand(INTAKE, PIVOT));
+    NamedCommands.registerCommand("IntakeIndefinitely", new IntakeIndefinitelyCommand(PIVOT, INTAKE, LED));
     NamedCommands.registerCommand("AutoPivotAndRevShooterIndefinitely", new AutoPivotAndRevShooterIndefinitelyCommand(PIVOT, INTAKE, LED));
     NamedCommands.registerCommand("AutoPivotAndShoot", new AutoPivotAndShootCommand(PIVOT, INTAKE, LED));
     NamedCommands.registerCommand("RevToShootIndefinitely", new AutoRevFlywheelsIndefinitely( IntakeConstants.kDesiredShootMotorRPS, INTAKE, LED));

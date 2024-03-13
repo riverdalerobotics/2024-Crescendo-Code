@@ -103,6 +103,9 @@ public final class Constants {
     
     public static final IdleMode kDrivingMotorIdleMode = IdleMode.kCoast;
     public static final IdleMode kTurningMotorIdleMode = IdleMode.kBrake;
+    
+    public static final int kDrivingMotorCurrentLimit = 60;
+    public static final int kTurningMotorCurrentLimit = 20;
 
   
   }
@@ -192,6 +195,7 @@ public final class Constants {
 
     public static final double kDesiredIntakeMotorRPS = -60;
     public static final double kIntakeBeltMotorSpeed = 1;
+    public static final double kIntakeCurrentThreshold = -1000;
 
 
     public static final double kDesiredShootMotorRPS = 80;
@@ -199,6 +203,7 @@ public final class Constants {
 
     public static final double kDesiredFeedMotorRPS = 60;
     public static final double kDesiredFeedBeltSpeed = -1;
+
 
 
 
@@ -335,8 +340,8 @@ public final class Constants {
     public static final double kTurningNoteAlignP = 0.25;
     public static final double kTurningNoteAlignI = 0;
     public static final double kTurningNoteAlignD = 0;
-    public static final double kturningNoteMinOutput = -0.3;
-    public static final double kturningNoteMaxOutput = 0.3;
+    public static final double kTurningNoteMinOutput = -0.5;
+    public static final double kTurningNoteMaxOutput = 0.5;
     //Degrees
     public static final double kTurningNoteAlignSetpoint = 0;
     public static final double kTurningNoteAlignTolerance = 1.5;

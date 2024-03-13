@@ -15,6 +15,9 @@ import frc.robot.Constants.PivotConstants;
 
 
 
+/**
+ * Handles the pivoting of the main arm mechanism
+ */
 public class PivotSubsystem extends SubsystemBase {
   /** Creates a new pivotSubsytems. */
   TalonFX pivot1;
@@ -35,14 +38,27 @@ public class PivotSubsystem extends SubsystemBase {
     pivot1.set(speed);
     pivot2.set(speed);
   }
+
+  /**
+   * Used when rezeroing the encoder position of the arm when it becomes inaccurate.
+   * Sets the pivot encoder value to 0, representing the starting hard stop position
+   */
   public void resetPivotEncoder(){
     pivot1.setPosition(0);
   }
 
+  /**
+   * Used to set a specific encoder angle
+   * @param angle the desired angle
+   */
   public void setPivotEncoder(double angle) {
     pivot1.setPosition(angle);
   }
 
+  /**
+   * Stops both pivot motors. Used when a current spike is detected, indicating
+   * the pivot is pushing against a hard stop
+   */
   public void stopAll() {
     pivot1.set(0);
     pivot2.set(0);
@@ -50,7 +66,9 @@ public class PivotSubsystem extends SubsystemBase {
 
   
   /** 
-   * Returns the encoder value of the pivot in degrees
+   * Returns the encoder value of the pivot in degrees.
+   * Currently, 0 degrees refers to the position where the arm 
+   * is resting on the hard stop inside frame perimeter (not intake hardstop)
    * @return double: angle of the pivot in degrees
    */
   public double getEncoders(){
@@ -63,6 +81,7 @@ public class PivotSubsystem extends SubsystemBase {
     StatusSignal<Double> voltage = pivot1.getMotorVoltage();
     return voltage.getValue();
   }
+
   public double getCurrent(){
     StatusSignal<Double> current = pivot1.getSupplyCurrent();
     return current.getValueAsDouble();

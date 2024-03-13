@@ -65,6 +65,7 @@ public class AutoRevFlywheelsIndefinitely extends Command {
   intakeSpeedController.reset();
   LED.disableFlywheelsRevvingLED();
   LED.disableFlywheelsReadyLED();
+  intake.spinIntake(0);
   }
 
    // Returns true when the command should end.
