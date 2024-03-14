@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0767660040658162,
-        "y": 5.453387893727152
+        "x": 1.7651438387099796,
+        "y": 5.823439215087209
       },
       "isLocked": false,
       "linkedName": null
@@ -39,11 +39,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 1.2424762721786486,
+    "rotation": -178.77591747782375,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "4 note mid subwoofer paths",
   "previewStartingState": {
     "rotation": 179.92674883196977,
     "velocity": 0

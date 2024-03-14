@@ -10,6 +10,7 @@ import frc.robot.commands.intakeCommands.PowerBeltAndShooter;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
 
+
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
@@ -19,5 +20,5 @@ public class AutoPivotAndShootCommand extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new DeadLinePiv(pivot, intake, LED), new PowerBeltAndShooter(intake, LED));
-  }
+  } 
 }
