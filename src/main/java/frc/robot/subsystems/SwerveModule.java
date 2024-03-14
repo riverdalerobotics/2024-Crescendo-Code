@@ -58,6 +58,7 @@ public class SwerveModule {
     mTurnMotor.setInverted(turnMotorInverted);
     mDriveMotor.setSmartCurrentLimit(ModuleConstants.kDrivingMotorCurrentLimit);
     mTurnMotor.setSmartCurrentLimit(ModuleConstants.kTurningMotorCurrentLimit);
+    
     mDriveEncoder = mDriveMotor.getEncoder();
     mTurnEncoder = mTurnMotor.getAbsoluteEncoder(Type.kDutyCycle);
     mTurnPIDController = mTurnMotor.getPIDController();

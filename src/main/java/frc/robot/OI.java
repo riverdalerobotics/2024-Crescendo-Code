@@ -182,10 +182,20 @@ public double pivotArm() {
     return intakeController.getLeftY();
 }
 
+/**
+ * Operator controls ||
+ * Used to pivot the arm to the feed angle to drop it on the ground.
+ * @return true when the intake controller's B button is pressed
+ */
 public boolean pivotToFeed()  {
     return intakeController.getBButtonPressed();
 }
 
+/**
+ * Operator controls ||
+ * Used to engage the fly wheels at the feed RPS.
+ * @return true as long as the intake controller's A button is held
+ */
 public boolean shootFeed() {
     return intakeController.getAButton();
 }

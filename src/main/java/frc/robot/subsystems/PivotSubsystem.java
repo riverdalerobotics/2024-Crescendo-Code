@@ -14,6 +14,7 @@ import com.ctre.phoenix6.signals.GravityTypeValue;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.TalonHelper;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.PivotConstants;
 
@@ -37,59 +38,32 @@ public class PivotSubsystem extends SubsystemBase {
     pivot1 = new TalonFX(PivotConstants.kPivotMotor1ID);
     pivot2 = new TalonFX(PivotConstants.kPivotMotor2ID);
 
-    //These reset the motors to factory default every time the code runs
-    pivot1.getConfigurator().apply(new TalonFXConfiguration());
-    pivot2.getConfigurator().apply(new TalonFXConfiguration());
-
-
-
     //Create the configuration object that we will be using to apply our settings 
     //to both motors
-    var talonFXConfigs = new TalonFXConfiguration();
+    var talonFXConfigs = TalonHelper.createTalonConfig(
+      PivotConstants.PIDConstants.kPivotP,
+      PivotConstants.PIDConstants.kPivotI,
+      PivotConstants.PIDConstants.kPivotD,
+      PivotConstants.PIDConstants.kPivotV,
+      PivotConstants.PIDConstants.kPivotS,
+      PivotConstants.PIDConstants.kMotionMagicCruiseVelocity,
+      PivotConstants.PIDConstants.kMotionMagicAcceleration,
+      PivotConstants.PIDConstants.kMotionMagicJerk,
+      PivotConstants.kStatorCurrentLimit,
+      0,
+      PivotConstants.kPivotGearRatio,
+      GravityTypeValue.Arm_Cosine
+    );
 
-    var slot0Config = talonFXConfigs.Slot0;
-    slot0Config.kS = 0;
-    //TODO: Find voltage required maintain position at the horizontal
-    slot0Config.kV = 0;
-    slot0Config.kP = PivotConstants.PIDConstants.kPivotP;
-    slot0Config.kI = PivotConstants.PIDConstants.kPivotI;
-    slot0Config.kD = PivotConstants.PIDConstants.kPivotD;
 
+    //TODO: Apply the velocity factor in the set velocity method
     //TODO: change the 0 encoder position of the arm to be horizontal with the ground
-
-    //This tells the system that the controller is affecting an arm.
-    //This changes how to feedforward values are applied to the system.
-    //The highest voltage is needed when the arm is horizontal, and the lowest is needed when the arm is vertical
-    //This voltage requirement follows a cosine ratio
-    slot0Config.GravityType = GravityTypeValue.Arm_Cosine;
-
-
     //TODO: Figure out how to apply gear ratio conversion factor to the internal encoders (currently only measuring rotations when it should be degrees)
-
-    /**Motion magic is a form of motion profiling offered by CTRE
-    Read this page for more information on what motion profiling is: https://docs.wpilib.org/en/stable/docs/software/commandbased/profile-subsystems-commands.html
-    In short, it gradually raises the desired setpoint, instead of abruptly changing the set point,
-    resulting in a smoother motion with fewer voltage/current spikes */
-    var motionMagicConfig = talonFXConfigs.MotionMagic;
-    motionMagicConfig.MotionMagicCruiseVelocity = 0; //no limit on max velocity in degrees
-    motionMagicConfig.MotionMagicAcceleration = 70; // limit of 160 degrees/s acceleration
-    motionMagicConfig.MotionMagicJerk = 700; // limit of 700 degrees/s^2 jerk (limits acceleration)
-
-    //Sets the current limit of our intake to ensure we don't explode our motors (which is bad)
-    var currentConfig = talonFXConfigs.CurrentLimits;
-    currentConfig.SupplyCurrentLimit = 60;
-    currentConfig.SupplyCurrentLimitEnable = true;
-
-
-    //This is not currently used, but may be useful for avoiding voltage spikes
-    var closedLoopRampsConfig = talonFXConfigs.ClosedLoopRamps;
-    closedLoopRampsConfig.VoltageClosedLoopRampPeriod = 0;
-    
     
 
     //The motors are opposite to eachother, so one must be inverted
-    pivot1.getConfigurator().apply(talonFXConfigs, 0.050);
-    pivot2.getConfigurator().apply(talonFXConfigs, 0.050);
+    TalonHelper.configTalon(pivot1, talonFXConfigs);
+    TalonHelper.configTalon(pivot2, talonFXConfigs);
     pivot2.setControl(new StrictFollower(pivot1.getDeviceID()));
 
     //We create a closedLoop controller and set the desired velocity to 0.
