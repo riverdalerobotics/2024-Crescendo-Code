@@ -56,6 +56,11 @@ public class PivotSubsystem extends SubsystemBase {
     slot0Config.kD = PivotConstants.PIDConstants.kPivotD;
 
     //TODO: change the 0 encoder position of the arm to be horizontal with the ground
+
+    //This tells the system that the controller is affecting an arm.
+    //This changes how to feedforward values are applied to the system.
+    //The highest voltage is needed when the arm is horizontal, and the lowest is needed when the arm is vertical
+    //This voltage requirement follows a cosine ratio
     slot0Config.GravityType = GravityTypeValue.Arm_Cosine;
 
 
