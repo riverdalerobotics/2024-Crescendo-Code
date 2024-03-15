@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.motorcontrol.Talon;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.BlinkinLED;
+import frc.robot.OI;
 import frc.robot.TalonHelper;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -26,11 +27,22 @@ public class NewAutoRevFlywheelsIndefinitely extends Command {
   double tolerance = IntakeConstants.PIDConstants.kIntakeToleranceThreshold;
   double desiredSpeedRPS;
   BlinkinLED LED;
-  public NewAutoRevFlywheelsIndefinitely(double speedRPS, IntakeSubsystem intakeSubsystem, BlinkinLED LED) {
+  OI oi;
+  double beltSpeed;
+  boolean manualBeltControl;
+  public NewAutoRevFlywheelsIndefinitely(double speedRPS, double beltSpeed, IntakeSubsystem intakeSubsystem, BlinkinLED LED, OI oi) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.intake = intakeSubsystem;
     this.desiredSpeedRPS = speedRPS;
     this.LED = LED;
+    this.oi = oi;
+    this.beltSpeed = beltSpeed;
+    if (beltSpeed == 0) {
+      manualBeltControl = true;
+    }
+    else{
+      manualBeltControl = false;
+    }
     addRequirements(intake);
   }
 
@@ -48,6 +60,18 @@ public class NewAutoRevFlywheelsIndefinitely extends Command {
     if (intake.getLeftIntakeMotor().atSetpointPosition(desiredSpeedRPS)) {
       LED.disableFlywheelsRevvingLED();
       LED.enableFlywheelsReadyLED();
+    }
+    if (manualBeltControl) {
+      //During operation, the driver can hold down the right bumper to power the indexer to shoot
+      if(oi.shoot()) {
+        intake.spinBelt(IntakeConstants.kShootBeltMotorSpeed);
+      }
+      else {
+        intake.spinBelt(0);
+      }
+    }
+    else {
+      intake.spinBelt(beltSpeed);
     }
    }
 
