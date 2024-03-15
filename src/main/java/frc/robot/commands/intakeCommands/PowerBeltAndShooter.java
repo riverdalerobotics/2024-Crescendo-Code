@@ -68,7 +68,7 @@ public class PowerBeltAndShooter extends Command {
     //TODO: we could also just changed this and make it timed. Would be more consistent and basically 
     //do it in the same time
     //This detects when the note has been shot out of the fly wheels, ending the command
-    if(intake.intakeCurrent() > maxCurrent){
+    if(intake.flywheelTorqueCurrent() > maxCurrent){
       intake.spinBelt(0);
       intake.spinIntake(0);
       hasFired = true;

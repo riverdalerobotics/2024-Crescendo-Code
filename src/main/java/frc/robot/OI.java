@@ -131,7 +131,7 @@ public boolean pivotToIntakePosition() {
  * Uses to automatically pivot the arm up to the speaker shoot angle
  * @return true when the operator controller's right bumper is pressed
  */
-public boolean shootPos(){
+public boolean pivotToSubwooferShoot(){
     return intakeController.getRightBumperPressed();
 }
 

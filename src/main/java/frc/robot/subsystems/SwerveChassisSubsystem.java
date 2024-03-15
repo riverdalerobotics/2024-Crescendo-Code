@@ -173,8 +173,6 @@ public Command getPathfindingCommand(String pathName){
  */
 public void resetPose(Pose2d pose) {
   odometer.resetPosition(getRotation2d(), getSwerveModulePositions(), pose);
-  for(int i = 0; i < 100; i++) {
-  }
 }
 
 /**
@@ -517,66 +515,63 @@ public ChassisSpeeds getVelocities() {
 
 
 
+  public void sendSmartDashboard() {
+    SmartDashboard.putString("Odometry pose", odometer.getPoseMeters().toString());
+
+
+    SmartDashboard.putNumber("Robot Heading", getHeadingDegrees());
+
+    //FRONT RIGHT
+    //SmartDashboard.putNumber("drive enc pos FR (m)", frontRight.getDrivePosition());
+    SmartDashboard.putNumber("turn enc pos FR (rad)", frontRight.getTurningPosition());
+    //SmartDashboard.putNumber("drive enc FR velocity", frontRight.getDriveVelocity());
+    //SmartDashboard.putNumber("angular velocity FR", frontRight.getTurnVelocity());
+    SmartDashboard.putNumber("turn motor voltage FR", frontRight.getTurnMotorVoltage());
+
+    //FRONT LEFT
+    //SmartDashboard.putNumber("drive enc pos FL (m)", frontLeft.getDrivePosition());
+    SmartDashboard.putNumber("turn enc pos FL (rad)", frontLeft.getTurningPosition());
+    //SmartDashboard.putNumber("drive enc FL velocity", frontLeft.getDriveVelocity());
+    //SmartDashboard.putNumber("angular velocity FL", frontLeft.getTurnVelocity()); 
+    SmartDashboard.putNumber("turn motor voltage FL", frontLeft.getTurnMotorVoltage());
+    
+    //BACK RIGHT
+    //SmartDashboard.putNumber("drive enc pos BR (m)", backRight.getDrivePosition());
+    SmartDashboard.putNumber("turn enc pos BR (rad)", backRight.getTurningPosition());
+    //SmartDashboard.putNumber("drive enc BR velocity", backRight.getDriveVelocity());
+    //SmartDashboard.putNumber("angular velocity BR", backRight.getTurnVelocity()); 
+    SmartDashboard.putNumber("turn motor voltage BR", backRight.getTurnMotorVoltage());
+
+    //BACK LEFT
+    //SmartDashboard.putNumber("drive enc pos BL (m)", backLeft.getDrivePosition());
+    SmartDashboard.putNumber("turn enc pos BL (rad)", backLeft.getTurningPosition());
+    //SmartDashboard.putNumber("drive enc BL velocity", backLeft.getDriveVelocity());
+    //SmartDashboard.putNumber("angular velocity BL", backLeft.getTurnVelocity()); 
+    SmartDashboard.putNumber("turn motor voltage BL", backLeft.getTurnMotorVoltage());
+
+
+    //Driver info
+
+
+    //This method is natively in radians. This turns it into degrees for drivers
+    SmartDashboard.putNumber("Angular Velocity (FR)", frontRight.getTurnVelocity() * (180 / Math.PI));
+
+    //Gyro info
+    //SmartDashboard.putNumber("Pitch(degrees)", gyro.getPitch());
+    //SmartDashboard.putNumber("Roll(degrees)", gyro.getRoll());
+    SmartDashboard.putNumber("Yaw(degrees)", gyro.getYaw());
+    //SmartDashboard.putNumber("Pitch(radians)", getPitchRad());
+    //SmartDashboard.putNumber("Roll(radians)", getRollRad());
+    SmartDashboard.putNumber("Yaw(radians)", getYawRad());
+
+
+  }
 
   @Override
   public void periodic() {
     setLEDDriveColors();
     // This method will be called once per scheduler run
     odometer.update(getRotation2d(), getSwerveModulePositions());
-    
-
-    //Sends a ton of drive data to smart dashboard for testing
-
-    SmartDashboard.putString("Odometry pose", odometer.getPoseMeters().toString());
-
-
-    SmartDashboard.putNumber("Robot Heading", getHeadingDegrees());
-    SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
-
-
-    SmartDashboard.putNumber("drive enc pos FR (m)", frontRight.getDrivePosition());
-    SmartDashboard.putNumber("turn enc pos FR (rad)", frontRight.getTurningPosition());
-    SmartDashboard.putNumber("drive enc FR velocity", frontRight.getDriveVelocity());
-    SmartDashboard.putNumber("angular velocity FR", frontRight.getTurnVelocity());
-    SmartDashboard.putNumber("turn motor voltage FR", frontRight.getTurnMotorVoltage());
-
-    SmartDashboard.putNumber("drive enc pos FL (m)", frontLeft.getDrivePosition());
-    SmartDashboard.putNumber("turn enc pos FL (rad)", frontLeft.getTurningPosition());
-    SmartDashboard.putNumber("drive enc FL velocity", frontLeft.getDriveVelocity());
-    SmartDashboard.putNumber("angular velocity FL", frontLeft.getTurnVelocity()); 
-    SmartDashboard.putNumber("turn motor voltage FL", frontLeft.getTurnMotorVoltage());
-    
-    SmartDashboard.putNumber("drive enc pos BR (m)", backRight.getDrivePosition());
-    SmartDashboard.putNumber("turn enc pos BR (rad)", backRight.getTurningPosition());
-    SmartDashboard.putNumber("drive enc BR velocity", backRight.getDriveVelocity());
-    SmartDashboard.putNumber("angular velocity BR", backRight.getTurnVelocity()); 
-    SmartDashboard.putNumber("turn motor voltage BR", backRight.getTurnMotorVoltage());
-
-    SmartDashboard.putNumber("drive enc pos BL (m)", backLeft.getDrivePosition());
-    SmartDashboard.putNumber("turn enc pos BL (rad)", backLeft.getTurningPosition());
-    SmartDashboard.putNumber("drive enc BL velocity", backLeft.getDriveVelocity());
-    SmartDashboard.putNumber("angular velocity BL", backLeft.getTurnVelocity()); 
-    SmartDashboard.putNumber("turn motor voltage BL", backLeft.getTurnMotorVoltage());
-
-
-    //Driver info
-
-    //Changes method to degrees for drivers
-    SmartDashboard.putNumber("Absolute Turn Angle (FR)", frontRight.getTurningPosition() * (180 / Math.PI));
-    SmartDashboard.putNumber("Velocity (FR)", frontRight.getDriveVelocity());
-
-    //This method is natively in radians. This turns it into degrees for drivers
-    SmartDashboard.putNumber("Angular Velocity (FR)", frontRight.getTurnVelocity() * (180 / Math.PI));
-
-    //Gyro info
-    SmartDashboard.putNumber("Pitch(degrees)", gyro.getPitch());
-    SmartDashboard.putNumber("Roll(degrees)", gyro.getRoll());
-    SmartDashboard.putNumber("Yaw(degrees)", gyro.getYaw());
-    SmartDashboard.putNumber("Pitch(radians)", getPitchRad());
-    SmartDashboard.putNumber("Roll(radians)", getRollRad());
-    SmartDashboard.putNumber("Yaw(radians)", getYawRad());
-    SmartDashboard.putBoolean("CommandActive", commandActive);
-
-    SmartDashboard.putNumber("Front left rotation", frontLeft.getDrivePosition());
+    sendSmartDashboard();
   }
 }

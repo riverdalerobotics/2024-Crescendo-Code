@@ -224,6 +224,10 @@ public final class Constants {
       public static final double kMotionMagicAcceleration = 160;
       public static final double kMotionMagicJerk = 1600;
 
+
+      public static final double kIntakePIDMinOutput = 1;
+      public static final double kIntakePIDMaxOutput = 1;
+
     }
   }
 
