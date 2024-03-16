@@ -58,6 +58,7 @@ public class SwerveModule {
     mTurnMotor.setInverted(turnMotorInverted);
     mDriveMotor.setSmartCurrentLimit(ModuleConstants.kDrivingMotorCurrentLimit);
     mTurnMotor.setSmartCurrentLimit(ModuleConstants.kTurningMotorCurrentLimit);
+    
     mDriveEncoder = mDriveMotor.getEncoder();
     mTurnEncoder = mTurnMotor.getAbsoluteEncoder(Type.kDutyCycle);
     mTurnPIDController = mTurnMotor.getPIDController();
@@ -151,10 +152,18 @@ public class SwerveModule {
     return mTurnEncoder.getPosition();
   }
 
+  /**
+   * Returns the velocity of the drive motor for the specific module
+   * @return the velocity of the drive motor
+   */
   public double getDriveVelocity() {
     return mDriveEncoder.getVelocity();
   }
 
+  /**
+   * Returns the velocity of the turning motor for the specific module
+   * @return the velocity of the turn motor
+   */
   public double getTurnVelocity() {
     return mTurnEncoder.getVelocity();
   }

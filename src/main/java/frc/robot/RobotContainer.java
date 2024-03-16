@@ -16,8 +16,10 @@ import frc.robot.commands.autonomousCommands.AutoPivotAndShootCommand;
 import frc.robot.commands.intakeCommands.AutoRevFlywheels;
 import frc.robot.commands.intakeCommands.AutoRevFlywheelsIndefinitely;
 import frc.robot.commands.intakeCommands.IntakeDefaultCommand;
+import frc.robot.commands.intakeCommands.NewAutoRevFlywheelsIndefinitely;
 import frc.robot.commands.intakeCommands.PowerBeltAndShooter;
 import frc.robot.commands.pivotCommands.AutoPivotToAngle;
+import frc.robot.commands.pivotCommands.NewAutoPivotToAngle;
 import frc.robot.commands.pivotCommands.PivotDefaultCommand;
 import frc.robot.commands.pivotCommands.TuckCommand;
 import frc.robot.commands.swerveCommands.AutoAlignWithNoteSwerve;
@@ -118,11 +120,16 @@ public class RobotContainer {
     //This command is unfinished, but the purpose is to rezero the arm if the encoder value is innacurate
     new Trigger(() -> oi.tuckArm1()).whileTrue(new TuckCommand(PIVOT));
     new Trigger(() -> oi.tuckArm2()).whileTrue(new TuckCommand(PIVOT));
-      }
+
+    new Trigger(() -> oi.pivotToIntakePosition()).onTrue(new NewAutoPivotToAngle(PivotConstants.kIntakeAngle, PIVOT));
+    new Trigger(() -> oi.pivotToSubwooferShoot()).onTrue(new NewAutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT));
+    new Trigger(() -> oi.pivotToFeed()).onTrue(new NewAutoPivotToAngle(PivotConstants.kFeedAngle, PIVOT));
+      
+    new Trigger(() -> oi.shootFeed()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredFeedMotorRPS, IntakeConstants.kDesiredFeedBeltSpeed, INTAKE, LED, oi));
+    new Trigger(() -> oi.engageAutoShootSpinup()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredShootMotorRPS, 0, INTAKE, LED, oi));
+    new Trigger(() -> oi.engageAutoIntakeSpinup()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredIntakeMotorRPS, IntakeConstants.kIntakeBeltMotorSpeed, INTAKE, LED, oi));
+  }
   
-   
-
-
     //autos that that we use Robot.java using the Sendable Chooser   
     //all the autos we use should have a method that returns them in robot container 
     public Command getDoNothingAuto(){

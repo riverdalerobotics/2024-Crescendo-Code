@@ -62,7 +62,7 @@ public class PickUpCommand extends Command {
 
       //TODO: Create a new thread that sleeps then disables the intake spin
       //The intake current will spike when the note enters the intake.
-      if (intake.intakeCurrent() > maxCurrent){
+      if (intake.flywheelTorqueCurrent() > maxCurrent){
         intake.spinIntake(0);
         intake.spinBelt(0);
         hasPickedUp = true;

@@ -12,10 +12,14 @@ import com.ctre.phoenix6.controls.StrictFollower;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.HelperMethods;
+import frc.robot.TalonHelper;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.PivotConstants;
+import frc.robot.R3P2CustomClasses.P2TalonFX;
 
 
 
@@ -25,66 +29,48 @@ import frc.robot.Constants.PivotConstants;
  */
 public class PivotSubsystem extends SubsystemBase {
   /** Creates a new pivotSubsytems. */
-  TalonFX pivot1;
-  TalonFX pivot2;
+  P2TalonFX pivot1;
+  P2TalonFX pivot2;
 
+  double maxPivotAngle = PivotConstants.PIDConstants.kMaxSetpoint;
+  double minPivotAngle = PivotConstants.PIDConstants.kMinSetpoint;
 
+  double desiredAngleDegrees = 0;
   MotionMagicVoltage motionPositionVController;
   //TODO Check if this works
   double rotationToAngle = PivotConstants.kPivotEncoderRotationToDegrees;
   
   public PivotSubsystem() {
-    pivot1 = new TalonFX(PivotConstants.kPivotMotor1ID);
-    pivot2 = new TalonFX(PivotConstants.kPivotMotor2ID);
-
-    //These reset the motors to factory default every time the code runs
-    pivot1.getConfigurator().apply(new TalonFXConfiguration());
-    pivot2.getConfigurator().apply(new TalonFXConfiguration());
-
-
+    pivot1 = new P2TalonFX(PivotConstants.kPivotMotor1ID);
+    pivot2 = new P2TalonFX(PivotConstants.kPivotMotor2ID);
 
     //Create the configuration object that we will be using to apply our settings 
     //to both motors
-    var talonFXConfigs = new TalonFXConfiguration();
+    var talonFXConfigs = TalonHelper.createTalonConfig(
+      PivotConstants.PIDConstants.kPivotP,
+      PivotConstants.PIDConstants.kPivotI,
+      PivotConstants.PIDConstants.kPivotD,
+      PivotConstants.PIDConstants.kPivotV,
+      PivotConstants.PIDConstants.kPivotS,
+      PivotConstants.PIDConstants.kMotionMagicCruiseVelocity,
+      PivotConstants.PIDConstants.kMotionMagicAcceleration,
+      PivotConstants.PIDConstants.kMotionMagicJerk,
+      PivotConstants.kStatorCurrentLimit,
+      0,
+      PivotConstants.kPivotGearRatio,
+      PivotConstants.PIDConstants.kPivotPIDMaxOutput,
+      GravityTypeValue.Arm_Cosine
+    );
 
-    var slot0Config = talonFXConfigs.Slot0;
-    slot0Config.kS = 0;
-    //TODO: Find voltage required maintain position at the horizontal
-    slot0Config.kV = 0;
-    slot0Config.kP = PivotConstants.PIDConstants.kPivotP;
-    slot0Config.kI = PivotConstants.PIDConstants.kPivotI;
-    slot0Config.kD = PivotConstants.PIDConstants.kPivotD;
 
+    //TODO: Apply the velocity factor in the set velocity method
     //TODO: change the 0 encoder position of the arm to be horizontal with the ground
-    slot0Config.GravityType = GravityTypeValue.Arm_Cosine;
-
-
     //TODO: Figure out how to apply gear ratio conversion factor to the internal encoders (currently only measuring rotations when it should be degrees)
-
-    /**Motion magic is a form of motion profiling offered by CTRE
-    Read this page for more information on what motion profiling is: https://docs.wpilib.org/en/stable/docs/software/commandbased/profile-subsystems-commands.html
-    In short, it gradually raises the desired setpoint, instead of abruptly changing the set point,
-    resulting in a smoother motion with fewer voltage/current spikes */
-    var motionMagicConfig = talonFXConfigs.MotionMagic;
-    motionMagicConfig.MotionMagicCruiseVelocity = 0; //no limit on max velocity in degrees
-    motionMagicConfig.MotionMagicAcceleration = 70; // limit of 160 degrees/s acceleration
-    motionMagicConfig.MotionMagicJerk = 700; // limit of 700 degrees/s^2 jerk (limits acceleration)
-
-    //Sets the current limit of our intake to ensure we don't explode our motors (which is bad)
-    var currentConfig = talonFXConfigs.CurrentLimits;
-    currentConfig.SupplyCurrentLimit = 60;
-    currentConfig.SupplyCurrentLimitEnable = true;
-
-
-    //This is not currently used, but may be useful for avoiding voltage spikes
-    var closedLoopRampsConfig = talonFXConfigs.ClosedLoopRamps;
-    closedLoopRampsConfig.VoltageClosedLoopRampPeriod = 0;
-    
     
 
     //The motors are opposite to eachother, so one must be inverted
-    pivot1.getConfigurator().apply(talonFXConfigs, 0.050);
-    pivot2.getConfigurator().apply(talonFXConfigs, 0.050);
+    pivot1.config(talonFXConfigs);
+    pivot2.config(talonFXConfigs);
     pivot2.setControl(new StrictFollower(pivot1.getDeviceID()));
 
     //We create a closedLoop controller and set the desired velocity to 0.
@@ -101,6 +87,21 @@ public class PivotSubsystem extends SubsystemBase {
   }
 
   /**
+   * Sets the pivot ControlMode to begin moving towards the desired angle in degress.
+   * 0 degrees is horizontal facing towards the front of the robot. Positive angles move towards intake position. Negative angles move towards shoot position.
+   * This method limits the degree value to be within the min and max range of the arm's movement
+   * @param degrees
+   */
+  public void setPivotAngleDegrees(double degrees) {
+    //ensure the pivot doesnt try to rotate outside of the max or min range
+    degrees = HelperMethods.limitValInRange(minPivotAngle, maxPivotAngle, degrees);
+    pivot1.setControl(motionPositionVController.withPosition(Units.degreesToRotations(degrees)));
+    desiredAngleDegrees = degrees;
+  }
+
+
+
+  /**
    * Used when rezeroing the encoder position of the arm when it becomes inaccurate.
    * Sets the pivot encoder value to 0, representing the starting hard stop position
    */
@@ -114,6 +115,7 @@ public class PivotSubsystem extends SubsystemBase {
    */
   public void setPivotEncoder(double angle) {
     pivot1.setPosition(angle);
+    desiredAngleDegrees = angle;
   }
 
   /**
@@ -126,6 +128,7 @@ public class PivotSubsystem extends SubsystemBase {
   }
 
   
+  //TODO: Change this javadoc to explain new angle measurements
   /** 
    * Returns the encoder value of the pivot in degrees.
    * Currently, 0 degrees refers to the position where the arm 
@@ -138,6 +141,16 @@ public class PivotSubsystem extends SubsystemBase {
     return encoderPos;
   }
 
+
+  /**
+   * Returns the encoder value of the pivot in rotations.
+   * This value is affected by the pivot's specified gear ration
+   * @return double: number of rotations of the pivot
+   */
+  public double getRotation() {
+    return pivot1.getPosition().getValueAsDouble();
+  }
+
   public double getVoltage(){
     StatusSignal<Double> voltage = pivot1.getMotorVoltage();
     return voltage.getValue();
@@ -147,11 +160,30 @@ public class PivotSubsystem extends SubsystemBase {
     StatusSignal<Double> current = pivot1.getSupplyCurrent();
     return current.getValueAsDouble();
   }
+
+
+  public P2TalonFX getPivot1() {
+    return pivot1;
+  }
+
+  /**
+   * Sets the tolerance used to check if the arm is at setpoint during closed loop control
+   * @param tolerance
+   */
+  public void setPivotTolerance(double tolerance) {
+    pivot1.setTolerance(tolerance);
+    pivot2.setTolerance(tolerance);
+  }
+
+  public void sendSmartDashboard() {
+    SmartDashboard.putNumber("Pivot Voltage", getVoltage());
+    SmartDashboard.putNumber("Pivot Current", getCurrent());
+    SmartDashboard.putNumber("Pivot Position", getEncoders());
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Pivot Voltage", getVoltage());
-    SmartDashboard.putNumber("Pivot current", getCurrent());
-    SmartDashboard.putNumber("Pivot position", getEncoders());
+    sendSmartDashboard();
   }
 }

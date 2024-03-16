@@ -80,26 +80,19 @@ public class AutoMoveToPredefined extends Command {
 
   @Override
   public void execute() {
-    //System.out.println(xController.atSetpoint());
-    double xSpd = oi.xSpeed();
-    double ySpd = oi.ySpeed();
-    double turningSpd = oi.rotate();
+    
 
-    xSpd = HelperMethods.applyInputDeadband(xSpd);
-    ySpd = HelperMethods.applyInputDeadband(ySpd);
-    turningSpd = HelperMethods.applyInputDeadband(turningSpd);
-
-
-    swerveSubsystem.slowDrive(HelperMethods.applyInputDeadband(oi.engageSlowMode()));
+    //If a tag  is detected, x and y movement will be controlled by PID
+    if (tagLimelight.targetDetected() == true) {
 
     //calculate vector in absolute to find closest predefined position
     double podiumPredefinedPositionVectorFromRobot = Math.sqrt(Math.pow(nearPodiumY - tagLimelight.getYPosition(), 2) + Math.pow(nearPodiumX - tagLimelight.getXPosition(), 2));
     double ampPredefinedPositionVectorFromRobot = Math.sqrt(Math.pow(nearAmpY - tagLimelight.getYPosition(), 2) + Math.pow(nearAmpX - tagLimelight.getXPosition(), 2));
     double stagePredefinedPositionVectorFromRobot = Math.sqrt(Math.pow(stageY - tagLimelight.getYPosition(), 2) + Math.pow(stageX- tagLimelight.getXPosition(), 2));
-
+      
     //finds the closest predefined and makes the predefined
-    if (podiumPredefinedPositionVectorFromRobot >= ampPredefinedPositionVectorFromRobot){
-      if(podiumPredefinedPositionVectorFromRobot >= stagePredefinedPositionVectorFromRobot){
+    if (podiumPredefinedPositionVectorFromRobot <= ampPredefinedPositionVectorFromRobot){
+      if(podiumPredefinedPositionVectorFromRobot <= stagePredefinedPositionVectorFromRobot){
         xPredefined = nearPodiumX;
         yPredefined= nearPodiumY;
       } else {
@@ -107,7 +100,7 @@ public class AutoMoveToPredefined extends Command {
         yPredefined = stageY;
       }
     } else{
-      if (ampPredefinedPositionVectorFromRobot >= stagePredefinedPositionVectorFromRobot){
+      if (ampPredefinedPositionVectorFromRobot <= stagePredefinedPositionVectorFromRobot){
         xPredefined = nearAmpX;
         yPredefined = nearAmpY;
       } else {
@@ -119,14 +112,11 @@ public class AutoMoveToPredefined extends Command {
       xDisplacementFromRobot = xPredefined - tagLimelight.getXPosition();
       yDisplacementFromRobot = yPredefined - tagLimelight.getYPosition();
       rotationFromAprilTagToRobot = tagLimelight.getTX();
-      
-
-    //If a tag  is detected, x and y movement will be controlled by PID
-    if (tagLimelight.targetDetected() == true) {
 
 
       SmartDashboard.putNumber("XDisplacementNeededToTravel", xDisplacementFromRobot);
       SmartDashboard.putNumber("YDisplacementNeededToTravel", yDisplacementFromRobot);
+      SmartDashboard.putNumber("OmegaFromTag", rotationFromAprilTagToRobot);
 
       //Field oriented mucks up this command so we disable it when a note is detected
       swerveSubsystem.enableRobotOriented();
@@ -144,15 +134,26 @@ public class AutoMoveToPredefined extends Command {
       
 //      SmartDashboard.putBoolean("Is at note", xController.atSetpoint());
     }
+  }
     
     
     //If no note is detected, drive like normal
     else {
+      //System.out.println(xController.atSetpoint());
+      double xSpd = oi.xSpeed();
+      double ySpd = oi.ySpeed();
+      double turningSpd = oi.rotate();
+
+      xSpd = HelperMethods.applyInputDeadband(xSpd);
+      ySpd = HelperMethods.applyInputDeadband(ySpd);
+      turningSpd = HelperMethods.applyInputDeadband(turningSpd);
+
+
+      swerveSubsystem.slowDrive(HelperMethods.applyInputDeadband(oi.engageSlowMode()));
       swerveSubsystem.driveSwerve(xSpd, ySpd, turningSpd);
     }
     SmartDashboard.putBoolean("Is at note", xController.atSetpoint());
     System.out.println(xController.atSetpoint());
-  }
 }
 
   // Called once the command ends or is interrupted.
@@ -161,6 +162,7 @@ public class AutoMoveToPredefined extends Command {
     yController.reset();
     turningController.reset();
     xController.reset();
+    swerveSubsystem.stopModules();
   }
 
   // Returns true when the command should end.

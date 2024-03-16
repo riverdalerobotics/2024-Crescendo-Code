@@ -43,7 +43,6 @@ public final class Constants {
 
     // 45 teeth on the wheel's bevel gear, 22 teeth on the first-stage spur gear, 15 teeth on the bevel pinion
     //This constant was taken directly from the MAXSwerve example code. 
-    //TODO: Confirm this ratio is correct
     //THIS VALUE DOES NOT REPRESENT THE GEAR RATIO. IT is the gear ratio's reciprocal
     //ie if gear ratio was 1:4 this would be 4
     public static final double kDriveMotorGearReduction = (45.0 * 22) / (kDrivingMotorPinionTeeth * 15);
@@ -65,9 +64,8 @@ public final class Constants {
 
 
 
-    //TODO: Test all these conversion FACTORS
     //One full rotation of the turning motor is 2pi radians
-    public static final double kTurningMotorGearReduction = (9424 / 203);
+    public static final double kTurningMotorGearReduction = (9424d / 203d);
     public static final double kTurningEncoderPositionFactor = (2 * Math.PI);
     public static final double kTurningEncoderVelocityFactor = kTurningEncoderPositionFactor / 60.0; //radians per second
 
@@ -192,6 +190,7 @@ public final class Constants {
     public static final int kBeltMotorID = 13;
 
 
+    public static final double kStatorCurrentLimit = 60;
 
     public static final double kDesiredIntakeMotorRPS = -60;
     public static final double kIntakeBeltMotorSpeed = 1;
@@ -204,6 +203,7 @@ public final class Constants {
     public static final double kDesiredFeedMotorRPS = 60;
     public static final double kDesiredFeedBeltSpeed = -1;
 
+    public static final double kFlywheelsGearRatio = (34d/15d);
 
 
 
@@ -211,8 +211,22 @@ public final class Constants {
       public static final double kIntakeP = 0.0097;
       public static final double kIntakeI = 0;
       public static final double kIntakeD = 0;
+      //dynamic feedforward
+      public static final double kIntakeV = -1000;
+      //static feedforward
+      public static final double kIntakeS = -1000;
+
       //Used for PID to determine what speed is close enough in Rotations per Second
       public static final double kIntakeToleranceThreshold = 3;
+
+
+      public static final double kMotionMagicCruiseVelocity = 0;
+      public static final double kMotionMagicAcceleration = 160;
+      public static final double kMotionMagicJerk = 1600;
+
+
+      public static final double kIntakePIDMinOutput = 1;
+      public static final double kIntakePIDMaxOutput = 1;
 
     }
   }
@@ -222,13 +236,13 @@ public final class Constants {
   public static class PivotConstants {
     public static final int kPivotMotor1ID = 9;
     public static final int kPivotMotor2ID = 10;
-    public static final double kPivotEncoderRotationToDegrees = 360 / ((50*60*64)/(8*22*24));
+    public static final double kPivotEncoderRotationToDegrees = 360 / ((50*64*64)/(8*22*24));
+    public static final double kPivotGearRatio = 1d/ ((50*64*64)/(8*22*24));
 
-
-    //Max voltage pivot can receive before attempting to reset position
-    public static final int kPivotMaxVoltage = -1000;
 
     public static final double kHardStopCurrentThreshold = 10;
+
+    public static final double kStatorCurrentLimit = 60;
 
 
     public static final int kIntakeAngle = 188;
@@ -241,13 +255,22 @@ public final class Constants {
       public static final double kPivotP = 0.017;
       public static final double kPivotI = 0;
       public static final double kPivotD = 0;
+      //dynamic feedforward
+      public static final double kPivotV = -1000;
+      //static feedforward
+      public static final double kPivotS = -1000;
+
       //Used for PID to determine what rotation is close enough to desired angle
-      public static final double kPivotToleranceThreshold = 3;
+      public static final double kPivotToleranceThreshold = 1.5;
 
       public static final double kPivotPIDMaxOutput = 0.3;
       public static final double kPivotPIDMinOutput = -0.3;
       public static final double kMinSetpoint = 0;
       public static final double kMaxSetpoint = 188.25;
+
+      public static final double kMotionMagicCruiseVelocity = 0;
+      public static final double kMotionMagicAcceleration = 70;
+      public static final double kMotionMagicJerk = 700;
 
     }
 
@@ -264,14 +287,14 @@ public final class Constants {
   //x is long side of field from center, y is short side of field from center
   public static class PredefinedLocations{
    
-    public static final double nearPodiumX = 266; //105 in
-    public static final double nearPodiumY = -254; //100 in
+    public static final double nearPodiumX = 2.66; //105 in
+    public static final double nearPodiumY = -2.54; //100 in
 
-    public static final double stageX = 381; //150 in
-    public static final double stageY = 83.82; //33 in
+    public static final double stageX = 3.81; //150 in
+    public static final double stageY = 0.8382; //33 in
 
-    public static final double nearAmpX = 330.2; //130 in
-    public static final double nearAmpY = 254; //100 in
+    public static final double nearAmpX = 3.302; //130 in
+    public static final double nearAmpY = 2.54; //100 in
 
     
     //PID
@@ -370,7 +393,7 @@ public final class Constants {
     public static final double tagLimelightMountAngle = 0;
     public static final double tagLimelightMountHeight = 0;
 
-    public static final double[] ORIGIN_PATHPLANNER_FROM_ORIGIN_LIMELIGHT = {-827, -4.1021, 0}; //Meters
+    public static final double[] ORIGIN_PATHPLANNER_FROM_ORIGIN_LIMELIGHT = {-8.27, -4.1021, 0}; //Meters
 
     //limelight camera is being weird by 5 degrees
     public static final double kLimelightTXOffset = -5;
