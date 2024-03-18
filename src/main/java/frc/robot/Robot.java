@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Constants.PivotConstants;
 import frc.robot.commands.autonomousCommands.AutoPivotAndShootCommand;
 import frc.robot.commands.autonomousCommands.CompShootOnlyAuto;
 import frc.robot.commands.autonomousCommands.FinalCompCommandUseThis;
@@ -58,7 +59,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer(); 
-    m_robotContainer.PIVOT.resetPivotEncoder();
+    m_robotContainer.PIVOT.setPivotEncoder(PivotConstants.PIDConstants.kMinSetpoint);
 
     m_chooser.setDefaultOption("mobilityWithStyle", mobilityWithStyle);
     m_chooser.addOption("mobilityOutOfWay", mobilityOutOfWay);

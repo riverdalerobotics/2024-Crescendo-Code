@@ -2,6 +2,17 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+
+
+/* --------------------------------------------------------------------------- *
+ * This class was created with the purpose of simplifying the configuration    *
+ * process of the TalonFX objects in WPI. It also adds the functionality to    *
+ * check if the motor has reached a desired position/velocity setpoint.        *
+ * Please also view the TalonHelper class for other methods used to simplify   *
+ * the TalonFX configuration process                                           *
+ * This class was created on March 15th, 2024                                  *
+ * --------------------------------------------------------------------------- */
+ 
 package frc.robot.R3P2CustomClasses;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
