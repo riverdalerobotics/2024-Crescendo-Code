@@ -45,7 +45,7 @@ public class AutoBuilderTools {
     //     return this.chassis.pathfindToPose(notePose);
     // }
 
-    public void resetOdometryUsingCamera(){
-        chassis.resetPose(shootCamera.getBotPoseOdometryNotation());
-    }
+    // public void resetOdometryUsingCamera(){
+    //     chassis.resetPose(shootCamera.getBotPoseOdometryNotation());
+    // }
 }

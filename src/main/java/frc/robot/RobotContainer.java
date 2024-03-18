@@ -23,6 +23,7 @@ import frc.robot.commands.pivotCommands.NewAutoPivotToAngle;
 import frc.robot.commands.pivotCommands.PivotDefaultCommand;
 import frc.robot.commands.pivotCommands.TuckCommand;
 import frc.robot.commands.swerveCommands.AutoAlignWithNoteSwerve;
+import frc.robot.commands.swerveCommands.AutoMoveToPredefined;
 import frc.robot.commands.swerveCommands.SwerveDefaultCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -109,8 +110,11 @@ public class RobotContainer {
   //For more information on triggers, see: https://first.wpi.edu/wpilib/allwpilib/docs/release/java/edu/wpi/first/wpilibj2/command/button/Trigger.html
   private void configureBindings() {
 
-    //as long as the right trigger is held, note align will be active
+    //as long as the left trigger is held, note align will be active
     new Trigger(() -> oi.engageNoteAlignAssist()).whileTrue(new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT, LED));
+
+    //as long as the right trigger is held, auto move to predefined will be active
+    new Trigger(() -> oi.engageAutoMoveToPredefined()).whileTrue(new AutoMoveToPredefined(CHASSIS, oi, TAG_LIMELIGHT));
     
 
     //This command is unfinished, but the purpose is to rezero the arm if the encoder value is innacurate
