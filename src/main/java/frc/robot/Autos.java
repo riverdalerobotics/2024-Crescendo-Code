@@ -31,14 +31,9 @@ public class Autos {
         return new PathPlannerAuto("3rd test");
     }
     
-
-    public Command shootOnly(){
-        return new PathPlannerAuto(null);
-    }
     public Command doNothing(){
         return new PathPlannerAuto("Do Nothing");
     }
-
     
     public Command mobilityWithStyle(){
         return new PathPlannerAuto("Mobility with style");
@@ -48,18 +43,17 @@ public class Autos {
     }
 
 
-    public Command weirdMidSubWooferFourNotes(){
+    public Command midSubWooferFourNotes(){
         return new PathPlannerAuto("4 note mid subwoofer");
     }
-    public Command weirdPodiumSubwooferTwoNotes(){
-        return new PathPlannerAuto("2 note podium subwoofer (new)");
+    public Command podiumSubwooferTwoNotes(){
+        return new PathPlannerAuto("2 note podium subwoofer");
     }
-    public Command weirdAmpSubwooferTwoNotes(){
-        return new PathPlannerAuto("2 note amp subwoofer (new)");
+    public Command ampSubwooferTwoNotes(){
+        return new PathPlannerAuto("2 note amp subwoofer");
     }
-    public Command weirdMidSubwooferTwoNotes(){
-        return new PathPlannerAuto("2 note mid subwoofer (new)");
-    }
+
+
     public Command shootAndStop() {
         return new PathPlannerAuto("shoot and stop");
     }

@@ -14,18 +14,18 @@
         {
           "type": "path",
           "data": {
-            "pathName": "New New Path"
+            "pathName": "Go To mid troll"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "New Path"
+            "pathName": "Start trolling"
           }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "Shoot from Different Intake Auto ",
   "choreoAuto": false
 }

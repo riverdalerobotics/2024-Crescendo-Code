@@ -32,22 +32,18 @@ public class Robot extends TimedRobot {
   
   public final SendableChooser<String> m_chooser = new SendableChooser<>();
   private String m_autoSelected;
-  private static final String shootOnly = "Shoot and then do Nothing";
-  //private static final String podiumSubwooferTwoNotes = "Podium Side Subwoofer Shoot And Retrieve Podium Note and Shoot";
-  // private static final String ampSubwooferTwoNotes = "Amp Side Subwoofer Shoot and Retrieve Amp Note and Shoot";
-  private static final String weirdMidSubwooferFourNotes = "Middle Side Subwoofer Shoot and Retrieve and Shoot 3 close notest";
+  private static final String shootOnly = "Shoot and then do Nothing"; //centennial comp win
+
   private static final String doNothingLol = "DO NOTHING";
   private static final String test = "curve path 1.6764 meters down, 155 inches to the right"; // max velocity is 1 m/s
   private static final String testTwo = "straight line goes 155 inches or 3.937 meters"; //max velocity is 1.1 m/s
   private static final String testThree = "rotate 180 degrees moving 3.937 meters"; //max velocity is 3 m/s
   private static final String mobilityWithStyle = "go 2.26 meters, rotate 180 degrees" ; //max velocity is 1.5 m/s
-  private static final String mobilityOutOfWay = "go 1.7 meters, 0.85 meters down "; //max velocity is 3 m/s
 
-  private static final String weirdPodiumSubwooferTwoNotes = "Podium SIde Subwoofer Shoot And Rretrieve Podium Note and Shoot (Same Intake and Shoot side)"; 
-  private static final String weirdAmpSubwooferTwoNotes = "Amp Side Subwoofer Shoot and Retrieve Amp Note and Shoot (Same Intake and Shoot side)";
-  private static final String weirdMidSubwooferTwoNotes = "Middle Side Subwoofer Shoot and Retrieve and Shoot 3 close notest (Same Intake and Shoot side)";
+  private static final String podiumSubwooferTwoNotes = "Podium SIde Subwoofer Shoot And Rretrieve Podium Note and Shoot (different Intake and Shoot side)"; 
+  private static final String ampSubwooferTwoNotes = "Amp Side Subwoofer Shoot and Retrieve Amp Note and Shoot (different Intake and Shoot side)";
+  private static final String midSubwooferFourNotes = "Middle Side Subwoofer Shoot and Retrieve and Shoot 3 close notest (different Intake and Shoot side)";
 
-  private static final String firstAlliancePodium = "letsg oooosoo";
   private static final String shootAndStop = "Any side start - shoot note into speakker";
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -61,22 +57,17 @@ public class Robot extends TimedRobot {
     m_robotContainer.PIVOT.resetPivotEncoder();
 
     m_chooser.setDefaultOption("mobilityWithStyle", mobilityWithStyle);
-    m_chooser.addOption("mobilityOutOfWay", mobilityOutOfWay);
-    //m_chooser.addOption("1+1 PODIUM Side Subwoofer", podiumSubwooferTwoNotes);
-    // m_chooser.addOption("1+1 AMP side Subwoofer", ampSubwooferTwoNotes);
-    m_chooser.addOption("1+3 MID side Subwoofer", weirdMidSubwooferFourNotes);
+
+    m_chooser.addOption("1+1 PODIUM Side Subwoofer", podiumSubwooferTwoNotes);
+    m_chooser.addOption("1+1 AMP side Subwoofer", ampSubwooferTwoNotes);
+    m_chooser.addOption("1+3 MID side Subwoofer", midSubwooferFourNotes);
+
     m_chooser.addOption("DO NOTHING", doNothingLol);
     m_chooser.addOption("test123", test);
     m_chooser.addOption("2nd test", testTwo);
     m_chooser.addOption("3rd test", testThree);
-    m_chooser.addOption("SHOOT ONLY", shootOnly);
 
-    m_chooser.addOption("1+1 AMP Side Subwoofer Same Intake/Shooter", weirdAmpSubwooferTwoNotes);
-    m_chooser.addOption("1+1 MID Side Subwoofer Same Intake/Shooter", weirdMidSubwooferTwoNotes);
-    m_chooser.addOption("1+1 PODIUM Side Subwoofer Same Intake/Shooter", weirdPodiumSubwooferTwoNotes);
-
-    m_chooser.addOption("1+mobility podium ", firstAlliancePodium);
-  
+    
     m_chooser.addOption("1 Shoot and stop from anywhere", shootAndStop);
 
     SmartDashboard.putData("Auto choices", m_chooser);
@@ -134,13 +125,19 @@ public class Robot extends TimedRobot {
           m_autonomousCommand = new FinalCompCommandUseThis(m_robotContainer.PIVOT, m_robotContainer.INTAKE, m_robotContainer.LED);
           break;
   
-        // case podiumSubwooferTwoNotes:
-        //   m_autonomousCommand = m_robotContainer.getPodiumSubwooferTwoNotesAuto();
-        //   break;
+        case podiumSubwooferTwoNotes:
+          m_autonomousCommand = m_robotContainer.getPodiumSubwooferTwoNotesAuto();
+          break;
   
-        // case ampSubwooferTwoNotes:
-        //   m_autonomousCommand = m_robotContainer.getAmpSubwooferTwoNotesAuto();
-        //   break; 
+        case ampSubwooferTwoNotes:
+          m_autonomousCommand = m_robotContainer.getAmpSubwooferTwoNotesAuto();
+          break; 
+
+        case midSubwooferFourNotes:
+          m_autonomousCommand = m_robotContainer.getMidSubwooferFourNotesAuto();
+          break;
+  
+
         case doNothingLol:
           m_autonomousCommand = m_robotContainer.getDoNothingAuto();
           break;
@@ -159,30 +156,10 @@ public class Robot extends TimedRobot {
         case mobilityWithStyle:
           m_autonomousCommand = m_robotContainer.getMobilityStyleAuto();
           break;
-        case mobilityOutOfWay:
-          m_autonomousCommand = m_robotContainer.getMobilityOutOfWay();
-          break;
 
-
-        case weirdAmpSubwooferTwoNotes:
-          m_autonomousCommand = m_robotContainer.getWeirdAmpSubwooferTwoNotesAuto();
-          break;
-
-        case weirdPodiumSubwooferTwoNotes: 
-          m_autonomousCommand = m_robotContainer.getWeirdPodiumSubwooferTwoNotesAuto();
-          break;
-        case shootAndStop:
-          m_autonomousCommand = m_robotContainer.getShootAndStopAuto();
-          break;
-
-         case weirdMidSubwooferFourNotes:
-          m_autonomousCommand = m_robotContainer.getWeirdMidSubwooferFourNotesAuto();
-          break;
-
-        //REDUNDANT, I think we can delete maybe 
-        default:
-          m_autonomousCommand = m_robotContainer.getShootOnlyAuto();
-          break;
+        // case shootAndStop:
+        //   m_autonomousCommand = m_robotContainer.getShootAndStopAuto();
+        //   break;
   
       }
     
