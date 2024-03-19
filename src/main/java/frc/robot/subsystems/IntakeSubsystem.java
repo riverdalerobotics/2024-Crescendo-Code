@@ -83,8 +83,7 @@ public class IntakeSubsystem extends SubsystemBase {
     //The motors are opposite to eachother, so one must be inverted
     leftIntake.config(talonFXConfigs);
     rightIntake.config(talonFXConfigs);
-    rightIntake.setControl(new StrictFollower(leftIntake.getDeviceID()));
-    rightIntake.setInverted(true);
+    rightIntake.setControl(new Follower(leftIntake.getDeviceID(), true));
 
     //We create a closedLoop controller and set the desired velocity to 0.
     //We can change the desired velocity whenever we choose to

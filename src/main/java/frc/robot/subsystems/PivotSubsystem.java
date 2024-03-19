@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.MotionMagicDutyCycle;
 import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
@@ -71,7 +72,7 @@ public class PivotSubsystem extends SubsystemBase {
     //The motors are opposite to eachother, so one must be inverted
     pivot1.config(talonFXConfigs);
     pivot2.config(talonFXConfigs);
-    pivot2.setControl(new StrictFollower(pivot1.getDeviceID()));
+    pivot2.setControl(new Follower(pivot1.getDeviceID(), false));
 
     //We create a closedLoop controller and set the desired velocity to 0.
     //We can change the desired velocity whenever we choose to
@@ -109,6 +110,7 @@ public class PivotSubsystem extends SubsystemBase {
     pivot1.setPosition(0);
   }
 
+  //TODO: set the arm angle to the min position on robot start
   /**
    * Used to set a specific encoder angle
    * @param angle the desired angle

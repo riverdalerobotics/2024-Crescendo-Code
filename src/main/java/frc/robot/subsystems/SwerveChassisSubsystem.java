@@ -244,6 +244,7 @@ public ChassisSpeeds getVelocities() {
 
 
   
+  //TODO: test what gyro reads on robot start
   /** 
    * Gyro's value is continuous, it can go past 360
   This function clamps it between 180 and -180 degrees to make it easier to work with.
