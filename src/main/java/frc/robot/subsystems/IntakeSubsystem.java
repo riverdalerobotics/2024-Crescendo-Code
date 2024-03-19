@@ -74,7 +74,7 @@ public class IntakeSubsystem extends SubsystemBase {
       IntakeConstants.PIDConstants.kMotionMagicJerk,
       IntakeConstants.kStatorCurrentLimit,
       0,
-      IntakeConstants.kFlywheelsGearRatio,
+      1/IntakeConstants.kFlywheelsGearRatio,
       IntakeConstants.PIDConstants.kIntakePIDMaxOutput
     );
 

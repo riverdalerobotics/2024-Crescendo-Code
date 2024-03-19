@@ -192,7 +192,7 @@ public final class Constants {
 
     public static final double kStatorCurrentLimit = 40;
 
-    public static final double kDesiredIntakeMotorRPS = -60;
+    public static final double kDesiredIntakeMotorRPS = -5; //60
     public static final double kIntakeBeltMotorSpeed = 1;
     public static final double kIntakeCurrentThreshold = -1000;
 
