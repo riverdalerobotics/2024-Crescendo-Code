@@ -63,12 +63,6 @@ public class PivotDefaultCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //TODO: get someone to read this over please cause it might not be worth doing...
-    System.out.println(angleController.getPositionError());
-    //System.out.println(angleController.getPositionError());
-    System.out.println(pivot.getEncoders());
-    System.out.println(angleController.getSetpoint());
-
     //Manual rotation will stop whatever desired angle the arm is currently heading towards
     if(operatorInput.enableManualRotation()) {
       manualRotationEnabled = true;

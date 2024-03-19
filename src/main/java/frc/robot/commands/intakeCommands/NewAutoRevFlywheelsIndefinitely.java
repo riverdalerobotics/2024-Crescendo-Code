@@ -57,6 +57,8 @@ public class NewAutoRevFlywheelsIndefinitely extends Command {
    // Called every time the scheduler runs while the command is scheduled.
    @Override
    public void execute() {
+    intake.specCommandRunning = true;
+    System.out.println("COMMAND RUN");
     if (intake.getLeftIntakeMotor().atSetpointPosition(desiredSpeedRPS)) {
       LED.disableFlywheelsRevvingLED();
       LED.enableFlywheelsReadyLED();

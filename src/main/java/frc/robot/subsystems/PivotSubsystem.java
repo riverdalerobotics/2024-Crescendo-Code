@@ -58,7 +58,7 @@ public class PivotSubsystem extends SubsystemBase {
       PivotConstants.PIDConstants.kMotionMagicJerk,
       PivotConstants.kStatorCurrentLimit,
       0,
-      PivotConstants.kPivotGearRatio,
+      1/PivotConstants.kPivotGearRatio,
       PivotConstants.PIDConstants.kPivotPIDMaxOutput,
       GravityTypeValue.Arm_Cosine
     );
@@ -139,14 +139,14 @@ public class PivotSubsystem extends SubsystemBase {
    */
   public double getEncoders(){
     StatusSignal<Double> pos = pivot1.getPosition();
-    double encoderPos = pos.getValue() * rotationToAngle;
+    double encoderPos = pos.getValue() * 360;
     return encoderPos;
   }
 
 
   /**
    * Returns the encoder value of the pivot in rotations.
-   * This value is affected by the pivot's specified gear ration
+   * This value is affected by the pivot's specified gear ratio
    * @return double: number of rotations of the pivot
    */
   public double getRotation() {
@@ -181,6 +181,7 @@ public class PivotSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Pivot Voltage", getVoltage());
     SmartDashboard.putNumber("Pivot Current", getCurrent());
     SmartDashboard.putNumber("Pivot Position", getEncoders());
+    SmartDashboard.putNumber("Pivot rotation", getRotation());
   }
 
   @Override

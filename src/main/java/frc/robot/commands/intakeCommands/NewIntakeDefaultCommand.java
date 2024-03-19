@@ -33,6 +33,7 @@ public class NewIntakeDefaultCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    System.out.println("DEF COMMAND STARTED");
     intake.setIntakeVelocityRPS(0);
     manual = false;
 
@@ -42,7 +43,7 @@ public class NewIntakeDefaultCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
+    intake.specCommandRunning = false;
 
 
      if(operatorInput.enableManualIntakeControl()){

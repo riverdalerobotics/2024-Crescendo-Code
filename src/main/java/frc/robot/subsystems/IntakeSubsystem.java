@@ -43,6 +43,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
   MotionMagicVelocityVoltage motionVelV;
   double desiredRPS = 0;
+  public boolean specCommandRunning = false;
 
   //TODO: Use motion magic built   into the talons to make smoother rev up that doesn't draw 5 volts
   CANSparkMax belt;
@@ -169,6 +170,7 @@ public class IntakeSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Intake Speed", getSpeed());
     SmartDashboard.putNumber("Intake Torque Current", flywheelTorqueCurrent());
     SmartDashboard.putNumber("Intake Supply Current", flywheelSupplyCurrent());
+    SmartDashboard.putBoolean("Is command active", specCommandRunning);
   }
 
   @Override

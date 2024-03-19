@@ -173,7 +173,14 @@ public boolean engageAutoIntakeSpinup(){
  * @return true when the right trigger axis of the operator controller is pushed in above 0.2
  */
 public boolean engageAutoShootSpinup(){
+    /*if (intakeController.getRightTriggerAxis() > 0.2) {
+        System.out.println("POG RUN SHOOT");
+    }
+    else {
+        System.out.println("NO");
+    }*/
     return intakeController.getRightTriggerAxis() > 0.2;
+    
 }
 
 /**

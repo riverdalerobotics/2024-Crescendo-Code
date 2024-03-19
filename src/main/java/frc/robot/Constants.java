@@ -190,7 +190,7 @@ public final class Constants {
     public static final int kBeltMotorID = 13;
 
 
-    public static final double kStatorCurrentLimit = 60;
+    public static final double kStatorCurrentLimit = 40;
 
     public static final double kDesiredIntakeMotorRPS = -60;
     public static final double kIntakeBeltMotorSpeed = 1;
@@ -245,7 +245,7 @@ public final class Constants {
     public static final double kStatorCurrentLimit = 60;
 
 
-    public static final int kIntakeAngle = 188;
+    public static final int kIntakeAngle = 178;
     public static final int kSubwooferShootAngle = 61;
     public static final int kFeedAngle = 150;
 
@@ -266,7 +266,7 @@ public final class Constants {
       public static final double kPivotPIDMaxOutput = 0.3;
       public static final double kPivotPIDMinOutput = -0.3;
       public static final double kMinSetpoint = 0;
-      public static final double kMaxSetpoint = 188.25;
+      public static final double kMaxSetpoint = 178d;
 
       public static final double kMotionMagicCruiseVelocity = 0;
       public static final double kMotionMagicAcceleration = 70;

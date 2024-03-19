@@ -56,6 +56,8 @@ public class NewAutoRevFlywheels extends Command {
    // Called every time the scheduler runs while the command is scheduled.
    @Override
    public void execute() {
+    intake.specCommandRunning = true;
+
     if (manualBeltControl) {
       //During operation, the driver can hold down the right bumper to power the indexer to shoot
       if(oi.shoot()) {
