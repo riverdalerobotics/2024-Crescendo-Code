@@ -192,7 +192,7 @@ public final class Constants {
 
     public static final double kStatorCurrentLimit = 40;
 
-    public static final double kDesiredIntakeMotorRPS = -5; //60
+    public static final double kDesiredIntakeMotorRPS = -60;
     public static final double kIntakeBeltMotorSpeed = 1;
     public static final double kIntakeCurrentThreshold = -1000;
 
@@ -211,10 +211,12 @@ public final class Constants {
       public static final double kIntakeP = 0.0097;
       public static final double kIntakeI = 0;
       public static final double kIntakeD = 0;
+
+      //TODO: Find these values
       //dynamic feedforward
-      public static final double kIntakeV = -1000;
+      public static final double kIntakeV = 0;
       //static feedforward
-      public static final double kIntakeS = -1000;
+      public static final double kIntakeS = 0;
 
       //Used for PID to determine what speed is close enough in Rotations per Second
       public static final double kIntakeToleranceThreshold = 3;
@@ -255,10 +257,12 @@ public final class Constants {
       public static final double kPivotP = 0.017;
       public static final double kPivotI = 0;
       public static final double kPivotD = 0;
+
+      //TODO: Find these values
       //dynamic feedforward
-      public static final double kPivotV = -1000;
+      public static final double kPivotV = 0;
       //static feedforward
-      public static final double kPivotS = -1000;
+      public static final double kPivotS = 0;
 
       //Used for PID to determine what rotation is close enough to desired angle
       public static final double kPivotToleranceThreshold = 1.5;

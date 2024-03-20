@@ -8,6 +8,7 @@
 //motion talonfx gradual PID setpoint change
 
 package frc.robot.commands.pivotCommands;
+import edu.wpi.first.apriltag.jni.AprilTagJNI.Helper;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.HelperMethods;
@@ -65,7 +66,7 @@ public class NewPivotDefaultCommand extends Command {
 
     if(manualRotationEnabled) {
       //TODO: increase this value after testing
-      requestedArmAngle = HelperMethods.limitValInRange(PivotConstants.PIDConstants.kMinSetpoint, PivotConstants.PIDConstants.kMaxSetpoint, requestedArmAngle + (operatorInput.pivotArm() * 0.25));
+      requestedArmAngle = HelperMethods.limitValInRange(PivotConstants.PIDConstants.kMinSetpoint, PivotConstants.PIDConstants.kMaxSetpoint, requestedArmAngle + (HelperMethods.applyInputDeadband(operatorInput.pivotArm()) * 0.25));
 
       
     }
