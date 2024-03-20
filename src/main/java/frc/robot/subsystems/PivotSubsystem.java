@@ -40,6 +40,7 @@ public class PivotSubsystem extends SubsystemBase {
   MotionMagicVoltage motionPositionVController;
   //TODO Check if this works
   double rotationToAngle = PivotConstants.kPivotEncoderRotationToDegrees;
+  public boolean specCommandRunning = false;
   
   public PivotSubsystem() {
     pivot1 = new P2TalonFX(PivotConstants.kPivotMotor1ID);
@@ -178,10 +179,11 @@ public class PivotSubsystem extends SubsystemBase {
   }
 
   public void sendSmartDashboard() {
-    SmartDashboard.putNumber("Pivot Voltage", getVoltage());
-    SmartDashboard.putNumber("Pivot Current", getCurrent());
-    SmartDashboard.putNumber("Pivot Position", getEncoders());
-    SmartDashboard.putNumber("Pivot rotation", getRotation());
+    SmartDashboard.putNumber("Pivot/Pivot Voltage", getVoltage());
+    SmartDashboard.putNumber("Pivot/Pivot Current", getCurrent());
+    SmartDashboard.putNumber("Pivot/Pivot Position", getEncoders());
+    SmartDashboard.putNumber("Pivot/Pivot rotation", getRotation());
+    SmartDashboard.putBoolean("Pivot/Auto Piv", specCommandRunning);
   }
 
   @Override

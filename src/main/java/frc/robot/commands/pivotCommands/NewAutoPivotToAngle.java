@@ -31,6 +31,7 @@ public class NewAutoPivotToAngle extends Command {
   public void initialize() {
     pivot.setPivotAngleDegrees(desiredAngle);
     pivot.setPivotTolerance(tolerance);
+    pivot.specCommandRunning = true;
   }
 
   // Called every time the scheduler runs while the command is scheduled.

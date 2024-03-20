@@ -51,6 +51,7 @@ public class NewPivotDefaultCommand extends Command {
     pivot.setPivotAngleDegrees(pivot.getRotation());
     manualRotationEnabled = false;
     requestedArmAngle = pivot.getEncoders();
+    pivot.specCommandRunning = false;
 
     
   }
