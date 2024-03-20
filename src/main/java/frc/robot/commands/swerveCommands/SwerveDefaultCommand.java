@@ -50,6 +50,7 @@ public class SwerveDefaultCommand extends Command {
     //Field oriented means that when the left joystick is pressed up, the robot will move forwards
     //relative to what the drivers see as forwards
     //robot oriented would move forward depending on the current orientation of the robot
+    //We avoid using a single toggle button as it creates confusion for drivers
     if (oi.engageFieldOriented()) {
       swerveSubsystem.enableFieldOriented();
     }

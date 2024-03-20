@@ -159,6 +159,7 @@ public class PivotSubsystem extends SubsystemBase {
     return voltage.getValue();
   }
 
+  /** */
   public double getCurrent(){
     StatusSignal<Double> current = pivot1.getSupplyCurrent();
     return current.getValueAsDouble();
@@ -177,6 +178,7 @@ public class PivotSubsystem extends SubsystemBase {
     pivot1.setTolerance(tolerance);
     pivot2.setTolerance(tolerance);
   }
+
 
   public void sendSmartDashboard() {
     SmartDashboard.putNumber("Pivot/Pivot Voltage", getVoltage());
