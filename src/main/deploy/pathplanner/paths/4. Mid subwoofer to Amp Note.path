@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.33,
+        "y": 5.54
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.6318429861059016,
+        "y": 5.472864279061892
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.028075040728967,
+        "y": 6.982284142504229
+      },
+      "prevControl": {
+        "x": 1.4048307100172932,
+        "y": 7.011498720506339
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.5,
+    "maxAcceleration": 4.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -179.7191405853166,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "4 note mid subwoofer paths (NEW)",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

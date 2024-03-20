@@ -75,11 +75,11 @@ public boolean resetGyro() {
 
 /**
  * Driver controls ||
- * Puts the robot in robot oriented so driver pushes y axis forward, while note aim assist is happening 
+ * Puts the robot in robot oriented and auto drives to note in both axis
  * @return true when the driver's left trigger button is pressed basically all the way down
  */
 public boolean engageNoteAlignAssist() {
-    if (moveController.getRightTriggerAxis() >= 0.330){ //beach bots lol
+    if (moveController.getLeftTriggerAxis() >= 0.330){ //beach bots lol
         return true;
     } else{
         return false;
@@ -88,11 +88,29 @@ public boolean engageNoteAlignAssist() {
 
 /**
  * Driver controls ||
- * Slows the robot down by up to 50% based on how much the trigger is pressed
- * @return the value of the movement controller's left trigger
+ * Slows the robot down by 50% when held
+ * @return 0.5 if bumper is down
  */
 public double engageSlowMode() {
-    return moveController.getLeftTriggerAxis();
+    if(moveController.getLeftBumper()){
+        return 0.5;
+    } else{
+        return 1;
+    }
+}
+
+
+/**
+ * Driver controls ||
+ * Engages Robot to auto move to closest predefined shooting position on the field
+ * @return True if axis is down, false if axis is not down
+ */
+public boolean engageAutoMoveToPredefined() {
+    if(moveController.getRightTriggerAxis() >= 0.330){
+        return true;
+    } else{
+        return false;
+    }
 }
 
 
@@ -105,6 +123,11 @@ public double engageSlowMode() {
  */
 public boolean shoot() {
     return moveController.getRightBumper();
+}
+
+
+public boolean engageXModulePosition() {
+    return moveController.getXButton();
 }
 
 
@@ -126,7 +149,7 @@ public boolean pivotToIntakePosition() {
  * Uses to automatically pivot the arm up to the speaker shoot angle
  * @return true when the operator controller's right bumper is pressed
  */
-public boolean shootPos(){
+public boolean pivotToSubwooferShoot(){
     return intakeController.getRightBumperPressed();
 }
 
@@ -150,7 +173,14 @@ public boolean engageAutoIntakeSpinup(){
  * @return true when the right trigger axis of the operator controller is pushed in above 0.2
  */
 public boolean engageAutoShootSpinup(){
+    /*if (intakeController.getRightTriggerAxis() > 0.2) {
+        System.out.println("POG RUN SHOOT");
+    }
+    else {
+        System.out.println("NO");
+    }*/
     return intakeController.getRightTriggerAxis() > 0.2;
+    
 }
 
 /**
@@ -175,6 +205,24 @@ public boolean enableManualIntakeControl(){
  */
 public double pivotArm() {
     return intakeController.getLeftY();
+}
+
+/**
+ * Operator controls ||
+ * Used to pivot the arm to the feed angle to drop it on the ground.
+ * @return true when the intake controller's B button is pressed
+ */
+public boolean pivotToFeed()  {
+    return intakeController.getBButtonPressed();
+}
+
+/**
+ * Operator controls ||
+ * Used to engage the fly wheels at the feed RPS.
+ * @return true as long as the intake controller's A button is held
+ */
+public boolean shootFeed() {
+    return intakeController.getAButton();
 }
 
 
@@ -204,6 +252,14 @@ public boolean tuckArm1() {
  */
 public boolean tuckArm2() {
     return intakeController.getStartButton();
+}
+
+public boolean resetArmMinPos() {
+    return intakeController.getBackButtonPressed();
+}
+
+public boolean resetArmMaxPos() {
+    return intakeController.getStartButtonPressed();
 }
 
 

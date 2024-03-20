@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.intakeCommands;
 
 // // Copyright (c) FIRST and other WPILib contributors.
 // // Open Source Software; you can modify and/or share it under the terms of
@@ -65,6 +65,7 @@ public class AutoRevFlywheelsIndefinitely extends Command {
   intakeSpeedController.reset();
   LED.disableFlywheelsRevvingLED();
   LED.disableFlywheelsReadyLED();
+  intake.spinIntake(0);
   }
 
    // Returns true when the command should end.

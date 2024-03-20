@@ -7,24 +7,26 @@
     "2 note amp subwoofer paths",
     "2 note amp subwoofer paths (NEW)",
     "2 note mid subwoofer (NEW)",
-    "2 note podium subwoofer mid paths",
     "2 note podium subwoofer paths",
     "2 note podium subwoofer paths (NEW)",
     "2nd test straight line",
+    "3 note podium subwoofer mid paths",
     "3rd test rotate 180",
     "4 note mid subwoofer paths",
+    "4 note mid subwoofer paths (NEW)",
+    "Do Nothing",
     "Mobility",
-    "Do Nothing"
+    "Troll"
   ],
   "autoFolders": [
-    "Mobilities",
+    "Mobilities and no movement",
     "Shoot from Different Intake Auto ",
     "Shoot from Same Intake Auto (new)",
     "Tests at school"
   ],
-  "defaultMaxVel": 3.0,
-  "defaultMaxAccel": 3.0,
+  "defaultMaxVel": 3.5,
+  "defaultMaxAccel": 4.0,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
-  "maxModuleSpeed": 4.3
+  "maxModuleSpeed": 4.6
 }

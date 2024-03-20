@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.38,
-        "y": 5.54
+        "x": 2.26,
+        "y": 4.08
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.592890215436422,
-        "y": 4.859358141017587
+        "x": 2.144933352737406,
+        "y": 5.005431031028136
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.22,
-        "y": 4.109517305630104
+        "x": 1.3366633613457033,
+        "y": 5.4923406643966315
       },
       "prevControl": {
-        "x": 1.343562659936708,
-        "y": 4.119255498297474
+        "x": 1.998860462726858,
+        "y": 5.414435123057672
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,20 +32,20 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 3.5,
+    "maxAcceleration": 4.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0,
+    "rotation": 1.332219853869602,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "4 note mid subwoofer paths",
+  "folder": "4 note mid subwoofer paths (NEW)",
   "previewStartingState": {
-    "rotation": -179.3670613324022,
+    "rotation": -179.17755633791487,
     "velocity": 0
   },
   "useDefaultConstraints": true

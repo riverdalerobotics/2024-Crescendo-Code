@@ -5,7 +5,7 @@
       "x": 1.3950925173499227,
       "y": 1.5483726341118162
     },
-    "rotation": 0
+    "rotation": 179.0451587461278
   },
   "command": {
     "type": "sequential",
@@ -20,6 +20,6 @@
       ]
     }
   },
-  "folder": "Mobilities",
+  "folder": "Mobilities and no movement",
   "choreoAuto": false
 }

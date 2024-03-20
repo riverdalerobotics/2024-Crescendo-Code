@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.154034886954709,
-        "y": 1.0614630007433212
+        "x": 4.959271033607311,
+        "y": 0.4674332480337568
       },
       "isLocked": false,
       "linkedName": null
@@ -28,22 +28,28 @@
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 135.7770012793791,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 3.5,
+    "maxAcceleration": 4.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 122.5075244226389,
+    "rotation": 120.75264555102586,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "2 note podium subwoofer mid paths",
+  "folder": "3 note podium subwoofer mid paths",
   "previewStartingState": {
     "rotation": -179.6379180527672,
     "velocity": 0

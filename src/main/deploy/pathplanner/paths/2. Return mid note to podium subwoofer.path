@@ -28,24 +28,30 @@
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 137.8542290572965,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 3.5,
+    "maxAcceleration": 4.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 124.86219614691488,
+    "rotation": 122.81634341394546,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "2 note podium subwoofer mid paths",
+  "folder": "3 note podium subwoofer mid paths",
   "previewStartingState": {
-    "rotation": 179.16712698472804,
+    "rotation": -179.95545461786884,
     "velocity": 0
   },
   "useDefaultConstraints": true

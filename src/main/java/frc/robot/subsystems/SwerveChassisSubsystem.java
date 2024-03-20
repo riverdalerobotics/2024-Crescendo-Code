@@ -24,10 +24,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.BlinkinLED;
-import frc.robot.OI;
 import frc.robot.Constants.ChassisConstants;
 import frc.robot.Constants.PathPlannerConstants;
-
 import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.path.PathConstraints;
@@ -39,6 +37,10 @@ import com.pathplanner.lib.util.ReplanningConfig;
 public class SwerveChassisSubsystem extends SubsystemBase {
   
   public boolean commandActive = false;
+
+  //we create 4 swerve module objects representing the 4 swerve modules on our chassis
+  //see SwerveModule.java for more information on these objects as that is where we create the class
+
   private final SwerveModule frontLeft = new SwerveModule(ChassisConstants.kFrontLeftDriveMotorPort, 
   ChassisConstants.kFrontLeftTurningMotorPort, 
   ChassisConstants.kFrontLeftDriveEncoderReversed, 
@@ -62,7 +64,6 @@ public class SwerveChassisSubsystem extends SubsystemBase {
   private final SlewRateLimiter xLimiter, yLimiter, turnLimiter;
   private double maxTeleopDriveSpeed;
   private double maxTeleopAngularSpeed;
-  private boolean slowMode;
   private boolean isFieldOriented;
   private final AHRS gyro = new AHRS(SPI.Port.kMXP);
   private final SwerveDriveOdometry odometer = new SwerveDriveOdometry(ChassisConstants.kDriveKinematics,
@@ -74,6 +75,9 @@ public class SwerveChassisSubsystem extends SubsystemBase {
   public SwerveChassisSubsystem(BlinkinLED LED) {
     this.maxTeleopDriveSpeed = ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond;
     this.maxTeleopAngularSpeed = ChassisConstants.kTeleDriveMaxAngularSpeedRadiansPerSecond;
+
+    //slew rate limiters are meant to limit acceleration to avoid sudden speed increases that can damage motors
+    //they create smoother motion with gradual acceleration
     this.xLimiter = new SlewRateLimiter(ChassisConstants.kTeleDriveMaxAccelerationMetersPerSecond);
     this.yLimiter = new SlewRateLimiter(ChassisConstants.kTeleDriveMaxAccelerationMetersPerSecond);
     this.turnLimiter = new SlewRateLimiter(ChassisConstants.kTeleDriveMaxAngularAccelerationRadiansPerSecond);
@@ -83,7 +87,8 @@ public class SwerveChassisSubsystem extends SubsystemBase {
 
 
 
-
+    //This resets the gyro heading when the robot is turned on after a short delay.
+    //The reason we need a delay is to give the gyroscope time to calibrate, as if we did it instantly, the value may become innacurate
     new Thread(() -> {
       try {
         Thread.sleep(1000);
@@ -92,6 +97,8 @@ public class SwerveChassisSubsystem extends SubsystemBase {
     }
   }).start();
 
+  //IF YOU ARE ROOKIE READING THIS CODE: Please ignore this code as it is for path planner and you don't need to learn about that yet
+  
   //Pathplanner Stuff
   AutoBuilder.configureHolonomic( //Configures pathfinder with basic constraints and functionality of robot
     this::getPose, // Robot pose supplier (Pose2d)
@@ -120,61 +127,7 @@ public class SwerveChassisSubsystem extends SubsystemBase {
       }
     },
     this);
-    
   }
-
-    // REDUNDANT
-  // /**
-  // * This is useful for odometry paths created through getting position from
-  // other sensors, such as camera
-  // * @param currentPos: a Pose2d that represents the current position of the
-  // robot
-  // * @param targetPos: a Pose2d that represents the target position of the robot
-  // */
-  // public PathPlannerPath createCustomStraightLinePath(Pose2d currentPos, Pose2d
-  // targetPos) {
-  // // Create a list of bezier points from poses. Each pose represents one
-  // waypoint.
-  // // The rotation component of the pose should be the direction of travel. Do
-  // not
-  // // use holonomic rotation.
-
-  // double changeInX = targetPos.getX() - currentPos.getX();
-  // double changeInY = targetPos.getY() - currentPos.getY();
-  // double changeInAngle = targetPos.getRotation().getDegrees() -
-  // currentPos.getRotation().getDegrees();
-
-  // List<Translation2d> bezierPoints = PathPlannerPath.bezierFromPoses(
-  // new Pose2d(currentPos.getX()+(changeInX/3), currentPos.getY()+(changeInY/3),
-  // Rotation2d.fromDegrees(currentPos.getRotation().getDegrees()+(changeInAngle/3))),
-  // new Pose2d(currentPos.getX()+(changeInX/3*2),
-  // currentPos.getY()+(changeInY/3*2),
-  // Rotation2d.fromDegrees(currentPos.getRotation().getDegrees()+(changeInAngle/3*2))),
-  // new Pose2d(targetPos.getX(), targetPos.getY(),
-  // Rotation2d.fromDegrees(targetPos.getRotation().getDegrees()))
-  // );
-
-  // // Create the path using the bezier points created above
-  // PathPlannerPath path = new PathPlannerPath(
-  // bezierPoints,
-  // new PathConstraints(MAX_TRANSLATION_SPEED, MAX_TRANSLATION_ACCELERATION,
-  // MAX_ROTATION_SPEED, MAX_ROTATIONAL_ACCELERATION), // The constraints for this
-  // path. If using a
-  // // differential drivetrain, the angular constraints
-  // // have no effect.
-  // new GoalEndState(0.0, 0) // Goal end state. You can set a holonomic rotation
-  // here. If
-  // // using a differential drivetrain, the rotation will have no
-  // // effect.
-  // );
-
-  // // Prevent the path from being flipped if the coordinates are already correct
-  // path.preventFlipping = true;
-
-  // return path;
-
-  // }
-
 
 /**
  * This is useful for odometry paths created through getting position from
@@ -212,12 +165,14 @@ public Command getPathfindingCommand(String pathName){
 
 
 
-//resets the pose of the robot. Is done at the start of auto because path planner uses the starting pose in the UI and resets it
+
+//Pose just means the robot's coordinates on the field (x, y) as well as it's rotation
+/**
+ * Resets the pose of the robot. This is done at the start of auto because path planner uses the starting pose in the UI and resets it
+ * @param pose the new robot pose
+ */
 public void resetPose(Pose2d pose) {
   odometer.resetPosition(getRotation2d(), getSwerveModulePositions(), pose);
-  for(int i = 0; i < 100; i++) {
-  System.out.println("POSE POSE POSE THIS IS THE POSE RAAAAAAAH" + pose);
-  }
 }
 
 /**
@@ -229,6 +184,9 @@ public ChassisSpeeds getVelocities() {
 }
 
 
+  //Field oriented vs robot oriented
+  //in robot oriented, pushing forward on the joystick moves the robot forward, based on what direction the robot is facing
+  //in field oriented, pushing forward on the joystick moves the robot, forward, based on what direction is forward to the drivers
 
   public void toggleFieldOriented() {
       isFieldOriented = (isFieldOriented)? false : true;
@@ -253,11 +211,20 @@ public ChassisSpeeds getVelocities() {
     return isFieldOriented;
   }
 
+
+
   public void zeroHeading() {
     gyro.reset();
   }
 
 
+  //brake vs coast mode
+  //coast: when the motors stop receiving power, they will spin freely until friction stops them
+  // brake: when the motors stop receiving power, they will actively attempt to stop their movement and stop 
+
+  /**
+   * Sets all drive motors to coast
+   */
   public void setDrivesCoast() {
     frontLeft.setDriveCoast();
     frontRight.setDriveCoast();
@@ -265,6 +232,9 @@ public ChassisSpeeds getVelocities() {
     backRight.setDriveCoast();
   }
 
+  /**
+   * Sets all drive motors to Brake
+   */
   public void setDrivesBrake() {
     frontLeft.setDriveBrake();
     frontRight.setDriveBrake();
@@ -274,20 +244,12 @@ public ChassisSpeeds getVelocities() {
 
 
   
+  //TODO: test what gyro reads on robot start
   /** 
    * Gyro's value is continuous, it can go past 360
-  This function clamps it between 180 and -180 degrees to make it easier to work with
-   * @return double: the clamped gyro value
-   */
-  
-  public double getHeadingDegreesOld() {
-    return Math.IEEEremainder(-gyro.getAngle(), 360);
-  }
-
-
-  /** 
-   * Gyro's value is continuous, it can go past 360
-  This function clamps it between 180 and -180 degrees to make it easier to work with
+  This function clamps it between 180 and -180 degrees to make it easier to work with.
+  Positive values are CCW
+  Negative values are CW
    * @return double: the clamped gyro value
    */
   public double getHeadingDegrees() {
@@ -320,8 +282,10 @@ public ChassisSpeeds getVelocities() {
 
 
   
+
+  //Rotation 2d is a type of object that stores a rotational value
   /** 
-   * Returns a rotation 2d object clamped between 180 and -180 degrees
+   * Returns a rotation 2d object clamped between 180 and -180 degrees.
    * @return Rotation2d
    */
   public Rotation2d getRotation2d() {
@@ -331,6 +295,7 @@ public ChassisSpeeds getVelocities() {
 
   
   /** 
+   * https://first.wpi.edu/wpilib/allwpilib/docs/release/java/edu/wpi/first/math/kinematics/SwerveModulePosition.html
    * @return SwerveModulePosition[]
    */
   public SwerveModulePosition[] getSwerveModulePositions() {
@@ -342,6 +307,10 @@ public ChassisSpeeds getVelocities() {
     };
   }
 
+  /**
+   * https://first.wpi.edu/wpilib/allwpilib/docs/release/java/edu/wpi/first/math/kinematics/SwerveModuleState.html
+   * @return an array of all the swerve module states
+   */
   public SwerveModuleState[] getSwerveModuleStates() {
     return new SwerveModuleState[] {
       frontLeft.getState(),
@@ -396,6 +365,11 @@ public ChassisSpeeds getVelocities() {
     this.maxTeleopDriveSpeed = ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond - ((ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond) * (0.5 * percentageSlow));
   }
 
+
+  //TODO: add this method to all the swerve commands which enable slow mode
+  /**
+   * Sets the robot's max speed back to the default value
+   */
   public void resetDriveSpeed() {
     this.maxTeleopDriveSpeed = ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond;
   }
@@ -405,18 +379,17 @@ public ChassisSpeeds getVelocities() {
    * @param xSpeed - y-axis of left joystick
    * @param ySpeed - x-axis of left joystick
    * @param turningSpeed - x-axis of right joystick
-   * @param isFieldOriented
+   * @param isFieldOriented whether or not the robot is field oriented
    */
   public void driveSwerve(double xSpeed, double ySpeed, double turningSpeed) {
 
 
     //This is what actually limits the speed by our specified max
+    //The limiters ensure that our velocity can only increase by a max amount per second
+    //They limit our acceleration to provide a smoother drive
     xSpeed = xLimiter.calculate(xSpeed) * maxTeleopDriveSpeed;
     ySpeed = yLimiter.calculate(ySpeed) * maxTeleopDriveSpeed;
     turningSpeed = turnLimiter.calculate(turningSpeed) * maxTeleopAngularSpeed;
-    //xSpeed *= maxTeleopDriveSpeed;
-    //ySpeed *= maxTeleopDriveSpeed;
-    //turningSpeed *= maxTeleopAngularSpeed;
   
     ChassisSpeeds chassisSpeeds;
 
@@ -433,10 +406,6 @@ public ChassisSpeeds getVelocities() {
     //This resets the speed ratios when a velocity goes to high above the specified max
     //TOOD: Switch to physical max speed instead of set max if robot is too slow
     SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond);
-    SmartDashboard.putNumber("FL desired angle", moduleStates[0].angle.getDegrees());
-    SmartDashboard.putNumber("BL desired angle", moduleStates[2].angle.getDegrees());
-  
-
     this.setModuleStates(moduleStates);
   }
 
@@ -447,6 +416,8 @@ public ChassisSpeeds getVelocities() {
 
 
     //This is what actually limits the speed by our specified max
+    //The limiters ensure that our velocity can only increase by a max amount per second
+    //They limit our acceleration to provide a smoother drive
     xSpeed = xLimiter.calculate(xSpeed) * ChassisConstants.kPhysicalMaxSpeedMetersPerSecond;
     ySpeed = yLimiter.calculate(ySpeed) * ChassisConstants.kPhysicalMaxSpeedMetersPerSecond;
     turningSpeed = turnLimiter.calculate(turningSpeed) * ChassisConstants.kPhysicalMaxAngularSpeedRadiansPerSecond;
@@ -464,13 +435,8 @@ public ChassisSpeeds getVelocities() {
 
     SwerveModuleState[] moduleStates = ChassisConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
 
-    //This resets the speed ratios when a velocity goes to high above the specified max
-    //TOOD: Switch to physical max speed instead of set max if robot is too slow
+    //This resets the speed ratios when a velocity goes too high above the specified max
     SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, ChassisConstants.kPhysicalMaxSpeedMetersPerSecond);
-    SmartDashboard.putNumber("FL desired angle", moduleStates[0].angle.getDegrees());
-    SmartDashboard.putNumber("BL desired angle", moduleStates[2].angle.getDegrees());
-  
-
     this.setModuleStates(moduleStates);
   }
 
@@ -492,17 +458,16 @@ public ChassisSpeeds getVelocities() {
 
     SwerveModuleState[] moduleStates = ChassisConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
 
-    //This resets the speed ratios when a velocity goes to high above the specified max
-    //TODO: Switch to physical max speed instead of set max if robot is too slow
+    //This resets the speed ratios when a velocity goes too high above the specified max
     SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, ChassisConstants.kPhysicalMaxSpeedMetersPerSecond);
-    
     this.setModuleStates(moduleStates); 
   }
 
 
   
   /** 
-   * @param desiredStates
+   * Used by drive methods to pass the states created by the swerve kinematics on to the individual modules
+   * @param desiredStates An array of the desired states of each module
    */
   public void setModuleStates(SwerveModuleState[] desiredStates) {
     frontLeft.setDesiredState(desiredStates[0]);
@@ -511,6 +476,23 @@ public ChassisSpeeds getVelocities() {
     backRight.setDesiredState(desiredStates[3]);
   }
 
+  /**
+   * This method sets the wheels in an x configuration. All the wheels point outwards from the robot and the wheels diagonal from 
+   * eachother have the same angle.The purpose of this position is that in this configuration, the robot becomes very hard to 
+   * push which is a good defensive tool.
+   */
+  public void setModuleXPosition() {
+    frontLeft.setDesiredStateNoDeadband(new SwerveModuleState(0, new Rotation2d(Math.PI/4)));
+    frontRight.setDesiredStateNoDeadband(new SwerveModuleState(0, new Rotation2d(-Math.PI/4)));
+    backLeft.setDesiredStateNoDeadband(new SwerveModuleState(0, new Rotation2d(-Math.PI/4)));
+    backRight.setDesiredStateNoDeadband(new SwerveModuleState(0, new Rotation2d(Math.PI/4)));
+
+  }
+
+  /**
+   * Mostly used at the end of commands to stop all motors.
+   * This doesn't reset the angle of the turn motor to 0, it just sets the speed of both motors to 0, leaving it in the angle where it was stopped
+   */
   public void stopModules() {
     frontLeft.stop();
     frontRight.stop();
@@ -519,6 +501,9 @@ public ChassisSpeeds getVelocities() {
   }
 
 
+  /**
+   * Updates the LED colors based on the current drive mode
+   */
   public void setLEDDriveColors() {
     if(isFieldOriented) {
       LED.enableFieldOrientedEnabledLED();
@@ -532,38 +517,34 @@ public ChassisSpeeds getVelocities() {
 
 
 
-
-  @Override
-  public void periodic() {
-    setLEDDriveColors();
-    // This method will be called once per scheduler run
-    odometer.update(getRotation2d(), getSwerveModulePositions());
-    
+  public void sendSmartDashboard() {
     SmartDashboard.putString("Odometry pose", odometer.getPoseMeters().toString());
 
 
     SmartDashboard.putNumber("Robot Heading", getHeadingDegrees());
-    SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
 
-
+    //FRONT RIGHT
     //SmartDashboard.putNumber("drive enc pos FR (m)", frontRight.getDrivePosition());
     SmartDashboard.putNumber("turn enc pos FR (rad)", frontRight.getTurningPosition());
     //SmartDashboard.putNumber("drive enc FR velocity", frontRight.getDriveVelocity());
     //SmartDashboard.putNumber("angular velocity FR", frontRight.getTurnVelocity());
     SmartDashboard.putNumber("turn motor voltage FR", frontRight.getTurnMotorVoltage());
 
+    //FRONT LEFT
     //SmartDashboard.putNumber("drive enc pos FL (m)", frontLeft.getDrivePosition());
     SmartDashboard.putNumber("turn enc pos FL (rad)", frontLeft.getTurningPosition());
     //SmartDashboard.putNumber("drive enc FL velocity", frontLeft.getDriveVelocity());
     //SmartDashboard.putNumber("angular velocity FL", frontLeft.getTurnVelocity()); 
     SmartDashboard.putNumber("turn motor voltage FL", frontLeft.getTurnMotorVoltage());
     
+    //BACK RIGHT
     //SmartDashboard.putNumber("drive enc pos BR (m)", backRight.getDrivePosition());
     SmartDashboard.putNumber("turn enc pos BR (rad)", backRight.getTurningPosition());
     //SmartDashboard.putNumber("drive enc BR velocity", backRight.getDriveVelocity());
     //SmartDashboard.putNumber("angular velocity BR", backRight.getTurnVelocity()); 
     SmartDashboard.putNumber("turn motor voltage BR", backRight.getTurnMotorVoltage());
 
+    //BACK LEFT
     //SmartDashboard.putNumber("drive enc pos BL (m)", backLeft.getDrivePosition());
     SmartDashboard.putNumber("turn enc pos BL (rad)", backLeft.getTurningPosition());
     //SmartDashboard.putNumber("drive enc BL velocity", backLeft.getDriveVelocity());
@@ -573,22 +554,26 @@ public ChassisSpeeds getVelocities() {
 
     //Driver info
 
-    //Changes method to degrees for drivers
-    SmartDashboard.putNumber("Absolute Turn Angle (FR)", frontRight.getTurningPosition() * (180 / Math.PI));
-    SmartDashboard.putNumber("Velocity (FR)", frontRight.getDriveVelocity());
 
     //This method is natively in radians. This turns it into degrees for drivers
     SmartDashboard.putNumber("Angular Velocity (FR)", frontRight.getTurnVelocity() * (180 / Math.PI));
 
     //Gyro info
-    SmartDashboard.putNumber("Pitch(degrees)", gyro.getPitch());
-    SmartDashboard.putNumber("Roll(degrees)", gyro.getRoll());
+    //SmartDashboard.putNumber("Pitch(degrees)", gyro.getPitch());
+    //SmartDashboard.putNumber("Roll(degrees)", gyro.getRoll());
     SmartDashboard.putNumber("Yaw(degrees)", gyro.getYaw());
-    SmartDashboard.putNumber("Pitch(radians)", getPitchRad());
-    SmartDashboard.putNumber("Roll(radians)", getRollRad());
+    //SmartDashboard.putNumber("Pitch(radians)", getPitchRad());
+    //SmartDashboard.putNumber("Roll(radians)", getRollRad());
     SmartDashboard.putNumber("Yaw(radians)", getYawRad());
-    SmartDashboard.putBoolean("CommandActive", commandActive);
 
-    SmartDashboard.putNumber("Front left rotation", frontLeft.getDrivePosition());
+
+  }
+
+  @Override
+  public void periodic() {
+    setLEDDriveColors();
+    // This method will be called once per scheduler run
+    odometer.update(getRotation2d(), getSwerveModulePositions());
+    sendSmartDashboard();
   }
 }

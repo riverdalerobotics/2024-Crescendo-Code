@@ -7,21 +7,25 @@ package frc.robot;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PivotConstants;
-import frc.robot.commands.AutoAlignWithNoteSwerve;
 import frc.robot.commands.AutoPickUpCommand;
-import frc.robot.commands.AutoPivotToAngle;
-import frc.robot.commands.AutoRevFlywheels;
-import frc.robot.commands.AutoRevFlywheelsIndefinitely;
 import frc.robot.commands.IntakeIndefinitelyCommand;
-import frc.robot.commands.PowerBeltAndShooter;
-import frc.robot.commands.ShootCommand;
-import frc.robot.commands.TuckCommand;
+import frc.robot.commands.TeleopShootCommand;
 import frc.robot.commands.autonomousCommands.AutoPivotAndRevShooterCommand;
 import frc.robot.commands.autonomousCommands.AutoPivotAndRevShooterIndefinitelyCommand;
 import frc.robot.commands.autonomousCommands.AutoPivotAndShootCommand;
-import frc.robot.commands.defaultCommands.IntakeDefaultCommand;
-import frc.robot.commands.defaultCommands.PivotDefaultCommand;
-import frc.robot.commands.defaultCommands.SwerveDefaultCommand;
+import frc.robot.commands.intakeCommands.AutoRevFlywheels;
+import frc.robot.commands.intakeCommands.AutoRevFlywheelsIndefinitely;
+import frc.robot.commands.intakeCommands.IntakeDefaultCommand;
+import frc.robot.commands.intakeCommands.NewAutoRevFlywheelsIndefinitely;
+import frc.robot.commands.intakeCommands.NewIntakeDefaultCommand;
+import frc.robot.commands.intakeCommands.PowerBeltAndShooter;
+import frc.robot.commands.pivotCommands.AutoPivotToAngle;
+import frc.robot.commands.pivotCommands.NewAutoPivotToAngle;
+import frc.robot.commands.pivotCommands.PivotDefaultCommand;
+import frc.robot.commands.pivotCommands.TuckCommand;
+import frc.robot.commands.swerveCommands.AutoAlignWithNoteSwerve;
+import frc.robot.commands.swerveCommands.AutoMoveToPredefined;
+import frc.robot.commands.swerveCommands.SwerveDefaultCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
@@ -49,8 +53,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   
-  //private final IntakeSubsystem INTAKE = new IntakeSubsystem();
+
   
+  //This is where we construct all our subsystem and other important objects 
   BlinkinLED LED = new BlinkinLED();
   OI oi = new OI();
   public final Limelight NOTE_LIMELIGHT = new Limelight("limelight-note");
@@ -69,18 +74,18 @@ public class RobotContainer {
     configureBindings();
 
     
+    
     // Register Named Commands so that it can be used in the PathPlanning autos 
     //TODO: In Path Planner UI, remember to add the named commands 
-
-    // NamedCommands.registerCommand("exampleCommand", exampleSubsystem.exampleCommand());
-    // NamedCommands.registerCommand("someOtherCommand", new IntakeDefaultCommand(oi, INTAKE));
-    
+    //Path planner is the software we use to make our autos
     NamedCommands.registerCommand("note error fix", new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT, LED));
-    NamedCommands.registerCommand("IntakeIndefinitely", new IntakeIndefinitelyCommand(INTAKE, PIVOT));
+    NamedCommands.registerCommand("IntakeIndefinitely", new IntakeIndefinitelyCommand(PIVOT, INTAKE, LED));
     NamedCommands.registerCommand("AutoPivotAndRevShooterIndefinitely", new AutoPivotAndRevShooterIndefinitelyCommand(PIVOT, INTAKE, LED));
     NamedCommands.registerCommand("AutoPivotAndShoot", new AutoPivotAndShootCommand(PIVOT, INTAKE, LED));
     NamedCommands.registerCommand("RevToShootIndefinitely", new AutoRevFlywheelsIndefinitely( IntakeConstants.kDesiredShootMotorRPS, INTAKE, LED));
-    //Field reset toggle boost damp
+
+
+
     CHASSIS.setDefaultCommand(new SwerveDefaultCommand (
       CHASSIS,
       oi,
@@ -88,49 +93,52 @@ public class RobotContainer {
     ));
   
     
-    //  INTAKE.setDefaultCommand(new IntakeDefaultCommand(
-    //   oi,
-    //   INTAKE,
-    //   LED
-    // ));
+    INTAKE.setDefaultCommand(new NewIntakeDefaultCommand(
+      oi,
+      INTAKE,
+      LED
+    ));
     
-    // PIVOT.setDefaultCommand(new PivotDefaultCommand(
-    //   oi, 
-    //   PIVOT
-    //  ));
+    PIVOT.setDefaultCommand(new PivotDefaultCommand(
+      oi, 
+      PIVOT
+    ));
   }
 
   //Put triggers here that change the active commands
+  //Triggers are conditions that activate commands
+  //Triggers can activate as long as an input is true, or toggle on and off based on the input
+  //For more information on triggers, see: https://first.wpi.edu/wpilib/allwpilib/docs/release/java/edu/wpi/first/wpilibj2/command/button/Trigger.html
   private void configureBindings() {
 
+    //as long as the left trigger is held, note align will be active
     new Trigger(() -> oi.engageNoteAlignAssist()).whileTrue(new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT, LED));
+
+    //as long as the right trigger is held, auto move to predefined will be active
+    new Trigger(() -> oi.engageAutoMoveToPredefined()).whileTrue(new AutoMoveToPredefined(CHASSIS, oi, TAG_LIMELIGHT));
     
-    //new Trigger(() -> oi.tuckArm1()).whileTrue(new TuckCommand());
-    //new Trigger(() -> oi.tuckArm2()).whileTrue(new TuckCommand());
-      }
+
+    //This command is unfinished, but the purpose is to rezero the arm if the encoder value is innacurate
+    new Trigger(() -> oi.tuckArm1()).whileTrue(new TuckCommand(PIVOT));
+    new Trigger(() -> oi.tuckArm2()).whileTrue(new TuckCommand(PIVOT));
+
+    /* 
+    new Trigger(() -> oi.pivotToIntakePosition()).onTrue(new NewAutoPivotToAngle(PivotConstants.kIntakeAngle, PIVOT));
+    new Trigger(() -> oi.pivotToSubwooferShoot()).onTrue(new NewAutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT));
+    new Trigger(() -> oi.pivotToFeed()).onTrue(new NewAutoPivotToAngle(PivotConstants.kFeedAngle, PIVOT));
+      */
+    new Trigger(() -> oi.shootFeed()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredFeedMotorRPS, IntakeConstants.kDesiredFeedBeltSpeed, INTAKE, LED, oi));
+    new Trigger(() -> oi.engageAutoShootSpinup()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredShootMotorRPS, 0, INTAKE, LED, oi));
+    new Trigger(() -> oi.engageAutoIntakeSpinup()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredIntakeMotorRPS, IntakeConstants.kIntakeBeltMotorSpeed, INTAKE, LED, oi));
   
-   
-
-
-    /** 
-     * @return automonous period command
-     */
+  }
+  
     //autos that that we use Robot.java using the Sendable Chooser   
-    public Command getPodiumSubwooferTwoNotesAuto(){
-        return autoFactory.podiumSubwooferTwoNotes();
-    }
-    public Command getAmpSubwooferTwoNotesAuto(){
-        return autoFactory.ampSubwooferTwoNotes();
-    }
-    public Command getMidSubwooferFourNotesAuto(){
-        return autoFactory.midSubWooferFourNotes();
-    }
+    //all the autos we use should have a method that returns them in robot container 
     public Command getDoNothingAuto(){
         return autoFactory.doNothing();
     }
-    public Command getShootOnlyAuto(){
-        return autoFactory.shootOnly();
-    }
+
     public Command getTestAuto(){
         return autoFactory.test();
     }
@@ -140,35 +148,23 @@ public class RobotContainer {
     public Command getTestThreeAuto(){
       return autoFactory.testThree();
     }
+
     public Command getMobilityStyleAuto(){
       return autoFactory.mobilityWithStyle();
     }
-    public Command getMobilityOutOfWay(){
-      return autoFactory.outOfWayMobility();
-    }
 
-    public Command getWeirdPodiumSubwooferTwoNotesAuto(){
-        return autoFactory.weirdPodiumSubwooferTwoNotes();
+    public Command getPodiumSubwooferTwoNotesAuto(){
+      return autoFactory.podiumSubwooferTwoNotes();
     }
-    public Command getWeirdAmpSubwooferTwoNotesAuto(){
-        return autoFactory.weirdAmpSubwooferTwoNotes();
+    public Command getAmpSubwooferTwoNotesAuto(){
+      return autoFactory.ampSubwooferTwoNotes();
     }
-    public Command getWeirdMidSubwooferFourNotesAuto(){
-        return autoFactory.weirdMidSubwooferTwoNotes();
+    public Command getMidSubwooferFourNotesAuto(){
+      return autoFactory.midSubWooferFourNotes();
     }
 
     public Command getShootAndStopAuto() {
       return autoFactory.shootAndStop();
-    }
-
-
-    
-
-
-
-
-
-      
+    }  
 
 }
-

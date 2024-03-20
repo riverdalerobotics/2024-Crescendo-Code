@@ -4,14 +4,12 @@
 
 package frc.robot.commands.autonomousCommands;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.BlinkinLED;
-import frc.robot.Constants.IntakeConstants;
-import frc.robot.Constants.PivotConstants;
-import frc.robot.commands.PowerBeltAndShooter;
+import frc.robot.commands.intakeCommands.PowerBeltAndShooter;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
+
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -21,6 +19,6 @@ public class AutoPivotAndShootCommand extends SequentialCommandGroup {
   public AutoPivotAndShootCommand(PivotSubsystem pivot, IntakeSubsystem intake, BlinkinLED LED) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new AutoPivotAndRevShooterCommand(pivot, intake, LED), new PowerBeltAndShooter(intake, LED));
-  }
+    addCommands(new DeadLinePiv(pivot, intake, LED), new PowerBeltAndShooter(intake, LED));
+  } 
 }

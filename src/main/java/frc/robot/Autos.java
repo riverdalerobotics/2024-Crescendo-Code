@@ -12,21 +12,15 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class Autos {
    
    
-    public Command podiumSubwooferTwoNotes(){
-        return new PathPlannerAuto("2 note podium subwoofer");
-    }
-    public Command ampSubwooferTwoNotes(){
-        return new PathPlannerAuto("2 note amp subwoofer");
-    }
-    public Command midSubWooferFourNotes(){
-        return new PathPlannerAuto("4 note mid subwoofer");
-    }
-    public Command doNothing(){
-        return new PathPlannerAuto("Do Nothing");
-    }
-    public Command shootOnly(){
-        return new PathPlannerAuto(null);
-    }
+    // public Command podiumSubwooferTwoNotes(){
+    //     return new PathPlannerAuto("2 note podium subwoofer");
+    // }
+    // public Command ampSubwooferTwoNotes(){
+    //     return new PathPlannerAuto("2 note amp subwoofer");
+    // }
+    
+    
+
     public Command test(){
         return new PathPlannerAuto("1st test");
     }
@@ -36,6 +30,11 @@ public class Autos {
     public Command testThree(){
         return new PathPlannerAuto("3rd test");
     }
+    
+    public Command doNothing(){
+        return new PathPlannerAuto("Do Nothing");
+    }
+    
     public Command mobilityWithStyle(){
         return new PathPlannerAuto("Mobility with style");
     }
@@ -44,15 +43,17 @@ public class Autos {
     }
 
 
-    public Command weirdPodiumSubwooferTwoNotes(){
-        return new PathPlannerAuto("2 note podium subwoofer (new)");
+    public Command midSubWooferFourNotes(){
+        return new PathPlannerAuto("4 note mid subwoofer");
     }
-    public Command weirdAmpSubwooferTwoNotes(){
-        return new PathPlannerAuto("2 note amp subwoofer (new)");
+    public Command podiumSubwooferTwoNotes(){
+        return new PathPlannerAuto("2 note podium subwoofer");
     }
-    public Command weirdMidSubwooferTwoNotes(){
-        return new PathPlannerAuto("2 note mid subwoofer (new)");
+    public Command ampSubwooferTwoNotes(){
+        return new PathPlannerAuto("2 note amp subwoofer");
     }
+
+
     public Command shootAndStop() {
         return new PathPlannerAuto("shoot and stop");
     }

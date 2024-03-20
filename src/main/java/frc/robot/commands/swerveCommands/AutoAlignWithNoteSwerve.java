@@ -2,9 +2,8 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.swerveCommands;
 
-import java.util.function.Supplier;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -21,10 +20,8 @@ public class AutoAlignWithNoteSwerve extends Command {
   private PIDController yController;
   private PIDController turningController;
   private PIDController xController;
-
   private boolean noteIsDetected;
   private double noteYOffset;
-  private double noteThetaOffset;
   private double noteXOffset;
   private final SwerveChassisSubsystem swerveSubsystem;
   private final Limelight noteLimelight;
@@ -38,18 +35,14 @@ public class AutoAlignWithNoteSwerve extends Command {
     OI oi,
     Limelight noteLimelight,
     BlinkinLED LED) {
-    
-      yController = new PIDController(CommandConstants.kYNoteAlignP, CommandConstants.kYNoteAlignI, CommandConstants.kYNoteAlignD);
-      yController.setSetpoint(CommandConstants.kYNoteAlignSetpoint);
-      yController.setTolerance(CommandConstants.kYNoteAlignTolerance);
   
-      turningController = new PIDController(CommandConstants.kTurningNoteAlignP, CommandConstants.kTurningNoteAlignI, CommandConstants.kTurningNoteAlignD);
-      turningController.setSetpoint(CommandConstants.kTurningNoteAlignSetpoint);
-      turningController.setTolerance(CommandConstants.kTurningNoteAlignTolerance);
+    turningController = new PIDController(CommandConstants.kTurningNoteAlignP, CommandConstants.kTurningNoteAlignI, CommandConstants.kTurningNoteAlignD);
+    turningController.setSetpoint(CommandConstants.kTurningNoteAlignSetpoint);
+    turningController.setTolerance(CommandConstants.kTurningNoteAlignTolerance);
 
-      xController = new PIDController(CommandConstants.kXNoteAlignP, CommandConstants.kXNoteAlignI, CommandConstants.kXNoteAlignD);
-      xController.setSetpoint(CommandConstants.kXNoteAlignSetpoint);
-      xController.setTolerance(CommandConstants.kXNoteAlignTolerance);
+    xController = new PIDController(CommandConstants.kXNoteAlignP, CommandConstants.kXNoteAlignI, CommandConstants.kXNoteAlignD);
+    xController.setSetpoint(CommandConstants.kXNoteAlignSetpoint);
+    xController.setTolerance(CommandConstants.kXNoteAlignTolerance);
 
 
     this.swerveSubsystem = swerveSubsystem;

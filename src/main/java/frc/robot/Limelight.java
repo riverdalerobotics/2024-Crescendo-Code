@@ -7,6 +7,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.Constants.LimelightConstants;
+import frc.robot.subsystems.SwerveChassisSubsystem;
 
 public class Limelight {
       //Adapted from https://docs.limelightvision.io/en/latest/getting_started.html#basic-programming
@@ -15,14 +16,17 @@ public class Limelight {
     /**The NetworkTable we are reading limelight values from*/
     NetworkTable table;
 
-    double[] botPose;  
+    double[] centerFieldBotPose;  
+    double[] fieldBotPose;
+    SwerveChassisSubsystem chassis;
 
     
     /** Creates a new limelight object. Sets up the NetworkTable object */
     /** For the limelightName, ll3: "limelight-note", ll2: "limelight-tags" */
     public Limelight(String limelightName ){
         table = NetworkTableInstance.getDefault().getTable(limelightName);
-        botPose = getBotPose();
+        centerFieldBotPose = getBotPose();
+        fieldBotPose = getBlueBotPose();
     }
 
     
@@ -47,6 +51,7 @@ public class Limelight {
         NetworkTableEntry ty = table.getEntry("ty");
         return ty.getDouble(360);
     }
+
 
 
     /**
@@ -103,39 +108,82 @@ public class Limelight {
         return botpose.getDoubleArray(new double[6]);
         }
 
+    /**
+     * @return The robot pose (0,0,0,0,0,0 at the red source and x position on long side of field) (X position, y position, z position, Roll,Pitch,Yaw). Returns (0,0,0,0,0,0) if no value
+     */
+    public double[] getBlueBotPose(){
+        NetworkTableEntry botpose = table.getEntry("botpose_wpiblue");
+        return botpose.getDoubleArray(new double[6]);
+        }
+
+    /**
+     * @return The robot pose (0,0,0,0,0,0 at the blue source and x position on long side of field) (X position, y position, z position, Roll,Pitch,Yaw). Returns (0,0,0,0,0,0) if no value
+     */
+    public double[] getRedBotPose(){
+        NetworkTableEntry botpose = table.getEntry("botpose_wpired");
+        return botpose.getDoubleArray(new double[6]);
+        }
+
+
+  /**
+     * @return The robot x position pose relative to the blue corner of the field
+     */
+    public double getFieldXPosition(){
+        fieldBotPose=getBlueBotPose();
+        return fieldBotPose[0];
+    }
+
+    /**
+     * @return The robot y position pose relative to the blue corner of the field
+     */
+    public double getFieldYPosition(){
+        fieldBotPose=getBlueBotPose();
+        return fieldBotPose[1];
+    }
+
 
     /**
      * @return The robot yaw
      */
     public double getBotPoseYaw(){
-        botPose=getBotPose();
-        return botPose[5];
+        centerFieldBotPose=getBotPose();
+        return centerFieldBotPose[5];
      }
+
 
     /**
      * @return The robot x position pose relative to the center of the field
      */
     public double getXPosition(){
-        botPose=getBotPose();
-        return botPose[0];
+        centerFieldBotPose=getBotPose();
+        return centerFieldBotPose[0];
     }
 
     /**
      * @return The robot y position pose relative to the center of the field
      */
     public double getYPosition(){
-        botPose=getBotPose();
-        return botPose[1];
+        centerFieldBotPose=getBotPose();
+        return centerFieldBotPose[1];
     }
 
-    public Pose2d getBotPoseOdometryNotation(){
+    
 
-        double convertedX = this.getXPosition() + Constants.LimelightConstants.ORIGIN_PATHPLANNER_FROM_ORIGIN_LIMELIGHT[0];
-        double convertedY = this.getYPosition() + Constants.LimelightConstants.ORIGIN_PATHPLANNER_FROM_ORIGIN_LIMELIGHT[1];
-        double convertedTheta = this.getBotPoseYaw() + Constants.LimelightConstants.ORIGIN_PATHPLANNER_FROM_ORIGIN_LIMELIGHT[0];//TODO: This is 0 right now as we think converted is the same.
 
-        return new Pose2d(new Translation2d(convertedX, convertedY), new Rotation2d(convertedTheta));
-    }
+
+
+    // public Pose2d getBotPoseOdometryNotation(){
+
+    //     double convertedX = this.getXPosition() + Constants.LimelightConstants.ORIGIN_PATHPLANNER_FROM_ORIGIN_LIMELIGHT[0];
+    //     double convertedY = this.getYPosition() + Constants.LimelightConstants.ORIGIN_PATHPLANNER_FROM_ORIGIN_LIMELIGHT[1];
+    //     double convertedTheta = this.getBotPoseYaw() + Constants.LimelightConstants.ORIGIN_PATHPLANNER_FROM_ORIGIN_LIMELIGHT[0];//TODO: This is 0 right now as we think converted is the same.
+
+    //     return new Pose2d(new Translation2d(convertedX, convertedY), new Rotation2d(convertedTheta));
+    // }
+
+    // public void resetOdometryUsingCamera(){
+    //     chassis.resetPose(getBotPoseOdometryNotation());
+    // }
     
 
 
