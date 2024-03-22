@@ -64,7 +64,7 @@ public class SwerveDefaultCommand extends Command {
     }
 
 
-    //hold left trigger to slow the robot down
+    //hold left bumper to slow the robot down
     swerveSubsystem.slowDrive(HelperMethods.applyInputDeadband(oi.engageSlowMode()));
 
     double xSpeed = oi.xSpeed(); 
