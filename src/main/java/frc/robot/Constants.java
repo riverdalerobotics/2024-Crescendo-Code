@@ -211,10 +211,12 @@ public final class Constants {
       public static final double kIntakeP = 0.0097;
       public static final double kIntakeI = 0;
       public static final double kIntakeD = 0;
+
+      //TODO: Find these values
       //dynamic feedforward
-      public static final double kIntakeV = -1000;
+      public static final double kIntakeV = 0;
       //static feedforward
-      public static final double kIntakeS = -1000;
+      public static final double kIntakeS = 0;
 
       //Used for PID to determine what speed is close enough in Rotations per Second
       public static final double kIntakeToleranceThreshold = 3;
@@ -239,8 +241,8 @@ public final class Constants {
     public static final double kPivotEncoderRotationToDegrees = 360 / ((50*64*64)/(8*22*24));
     public static final double kPivotGearRatio = 1d/ ((50*64*64)/(8*22*24));
 
-
-    public static final double kHardStopCurrentThreshold = 10;
+//TODO: change later
+    public static final double kHardStopCurrentThreshold = 10000;
 
     public static final double kStatorCurrentLimit = 60;
 
@@ -252,13 +254,16 @@ public final class Constants {
 
     //Used in multiple commands to automatically move the pivot to a desired angle
     public static class PIDConstants {
-      public static final double kPivotP = 0.017;
+      //P was adjusted to be 360 * 0.017 as the internal PID controller receives error in rotations and not degrees
+      public static final double kPivotP = 6.12; //0,017
       public static final double kPivotI = 0;
       public static final double kPivotD = 0;
+
+      //TODO: Find these values
       //dynamic feedforward
-      public static final double kPivotV = -1000;
+      public static final double kPivotV = 0;
       //static feedforward
-      public static final double kPivotS = -1000;
+      public static final double kPivotS = 0;
 
       //Used for PID to determine what rotation is close enough to desired angle
       public static final double kPivotToleranceThreshold = 1.5;

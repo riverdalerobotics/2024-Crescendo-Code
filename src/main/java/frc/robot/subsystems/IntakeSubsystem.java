@@ -74,7 +74,7 @@ public class IntakeSubsystem extends SubsystemBase {
       IntakeConstants.PIDConstants.kMotionMagicJerk,
       IntakeConstants.kStatorCurrentLimit,
       0,
-      IntakeConstants.kFlywheelsGearRatio,
+      1/IntakeConstants.kFlywheelsGearRatio,
       IntakeConstants.PIDConstants.kIntakePIDMaxOutput
     );
 
@@ -152,6 +152,11 @@ public class IntakeSubsystem extends SubsystemBase {
     return flyWheelVelocity.getValue();
   }
 
+
+  public double getRotations() {
+    return leftIntake.getPosition().getValueAsDouble();
+  }
+
   public P2TalonFX getLeftIntakeMotor() {
     return leftIntake;
   }
@@ -167,10 +172,11 @@ public class IntakeSubsystem extends SubsystemBase {
 
 
   public void sendSmartDashboard() {
-    SmartDashboard.putNumber("Intake Speed", getSpeed());
-    SmartDashboard.putNumber("Intake Torque Current", flywheelTorqueCurrent());
-    SmartDashboard.putNumber("Intake Supply Current", flywheelSupplyCurrent());
-    SmartDashboard.putBoolean("Is command active", specCommandRunning);
+    SmartDashboard.putNumber("Intake/Intake Speed", getSpeed());
+    SmartDashboard.putNumber("Intake/Intake Rotations", getRotations());
+    SmartDashboard.putNumber("Intake/Intake Torque Current", flywheelTorqueCurrent());
+    SmartDashboard.putNumber("Intake/Intake Supply Current", flywheelSupplyCurrent());
+    SmartDashboard.putBoolean("Intake/Is command active", specCommandRunning);
   }
 
   @Override

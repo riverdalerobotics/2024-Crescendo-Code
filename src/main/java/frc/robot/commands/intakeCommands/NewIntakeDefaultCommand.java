@@ -7,6 +7,7 @@ package frc.robot.commands.intakeCommands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.BlinkinLED;
+import frc.robot.HelperMethods;
 import frc.robot.OI;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -52,7 +53,7 @@ public class NewIntakeDefaultCommand extends Command {
      }
     
     if(manual){
-    intake.spinIntake(operatorInput.manualPowerIntake());
+    intake.spinIntake(HelperMethods.applyInputDeadband(operatorInput.manualPowerIntake()));
     }
     
     
@@ -67,7 +68,7 @@ public class NewIntakeDefaultCommand extends Command {
     
 
   }
-
+  
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {

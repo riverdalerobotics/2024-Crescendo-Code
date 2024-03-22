@@ -30,7 +30,8 @@ public class NewAutoPivotToAngle extends Command {
   @Override
   public void initialize() {
     pivot.setPivotAngleDegrees(desiredAngle);
-    pivot.setPivotTolerance(tolerance);
+    pivot.setPivotTolerance(Units.degreesToRotations(tolerance));
+    pivot.specCommandRunning = true;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -46,6 +47,7 @@ public class NewAutoPivotToAngle extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    System.out.println("command ended");
   }
 
   // Returns true when the command should end.

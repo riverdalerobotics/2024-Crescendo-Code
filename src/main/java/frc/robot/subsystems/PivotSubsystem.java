@@ -39,7 +39,7 @@ public class PivotSubsystem extends SubsystemBase {
   double desiredAngleDegrees = 0;
   MotionMagicVoltage motionPositionVController;
   //TODO Check if this works
-  double rotationToAngle = PivotConstants.kPivotEncoderRotationToDegrees;
+  public boolean specCommandRunning = false;
   
   public PivotSubsystem() {
     pivot1 = new P2TalonFX(PivotConstants.kPivotMotor1ID);
@@ -72,7 +72,7 @@ public class PivotSubsystem extends SubsystemBase {
     //The motors are opposite to eachother, so one must be inverted
     pivot1.config(talonFXConfigs);
     pivot2.config(talonFXConfigs);
-    pivot2.setControl(new Follower(pivot1.getDeviceID(), false));
+    pivot2.setControl(new StrictFollower(pivot1.getDeviceID()));
 
     //We create a closedLoop controller and set the desired velocity to 0.
     //We can change the desired velocity whenever we choose to
@@ -158,6 +158,7 @@ public class PivotSubsystem extends SubsystemBase {
     return voltage.getValue();
   }
 
+  /** */
   public double getCurrent(){
     StatusSignal<Double> current = pivot1.getSupplyCurrent();
     return current.getValueAsDouble();
@@ -177,15 +178,19 @@ public class PivotSubsystem extends SubsystemBase {
     pivot2.setTolerance(tolerance);
   }
 
+
   public void sendSmartDashboard() {
-    SmartDashboard.putNumber("Pivot Voltage", getVoltage());
-    SmartDashboard.putNumber("Pivot Current", getCurrent());
-    SmartDashboard.putNumber("Pivot Position", getEncoders());
-    SmartDashboard.putNumber("Pivot rotation", getRotation());
+    SmartDashboard.putNumber("Pivot/Pivot Voltage", getVoltage());
+    SmartDashboard.putNumber("Pivot/Pivot Current", getCurrent());
+    SmartDashboard.putNumber("Pivot/Pivot Position", getEncoders());
+    SmartDashboard.putNumber("Pivot/Pivot rotation", getRotation());
+    SmartDashboard.putBoolean("Pivot/Auto Piv", specCommandRunning);
   }
 
   @Override
   public void periodic() {
+    System.out.println(motionPositionVController.Position);
+    System.out.println("acc positoon" + getRotation());
     // This method will be called once per scheduler run
     sendSmartDashboard();
   }

@@ -216,6 +216,10 @@ public boolean pivotToFeed()  {
     return intakeController.getBButtonPressed();
 }
 
+public boolean testX() {
+    return intakeController.getXButton();
+}
+
 /**
  * Operator controls ||
  * Used to engage the fly wheels at the feed RPS.
