@@ -273,7 +273,7 @@ public final class Constants {
       public static final double kMinSetpoint = 0;
       public static final double kMaxSetpoint = 200d;
 
-      public static final double kMotionMagicCruiseVelocity = 0;
+      public static final double kMotionMagicCruiseVelocity = 1000;
       public static final double kMotionMagicAcceleration = 70;
       public static final double kMotionMagicJerk = 700;
 
