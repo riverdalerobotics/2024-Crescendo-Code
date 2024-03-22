@@ -68,8 +68,14 @@ public class NewPivotDefaultCommand extends Command {
     if(manualRotationEnabled) {
       //TODO: increase this value after testing
       requestedArmAngle = HelperMethods.limitValInRange(PivotConstants.PIDConstants.kMinSetpoint, PivotConstants.PIDConstants.kMaxSetpoint, requestedArmAngle + (HelperMethods.applyInputDeadband(operatorInput.pivotArm()) * 0.25));
-
       
+
+      if (operatorInput.testX()) {
+        pivot.movePivot(0.1);
+      }
+      else {
+        pivot.movePivot(0);
+      }
     }
 
 
@@ -82,10 +88,11 @@ public class NewPivotDefaultCommand extends Command {
     //TODO: Test to see if this could be screwed up by other robots or field elements. If it can, we need to ensure this doesn't 
     //unintenionally result in robot death
     //TODO: Fix the logic here. Probably have it activate the tuck command to reset or figure out which hard stop is being pressed and change encoder pos to it
-    if (pivot.getCurrent() > maxCurrent){
+    
+    /*if (pivot.getCurrent() > maxCurrent){
       requestedArmAngle = hardStopPosition;
       pivot.setPivotAngleDegrees(requestedArmAngle);
-    }
+    }*/
   }
 
   // Called once the command ends or is interrupted.

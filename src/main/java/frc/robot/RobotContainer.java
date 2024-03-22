@@ -21,6 +21,7 @@ import frc.robot.commands.intakeCommands.NewIntakeDefaultCommand;
 import frc.robot.commands.intakeCommands.PowerBeltAndShooter;
 import frc.robot.commands.pivotCommands.AutoPivotToAngle;
 import frc.robot.commands.pivotCommands.NewAutoPivotToAngle;
+import frc.robot.commands.pivotCommands.NewPivotDefaultCommand;
 import frc.robot.commands.pivotCommands.PivotDefaultCommand;
 import frc.robot.commands.pivotCommands.TuckCommand;
 import frc.robot.commands.swerveCommands.AutoAlignWithNoteSwerve;
@@ -99,7 +100,7 @@ public class RobotContainer {
       LED
     ));
     
-    PIVOT.setDefaultCommand(new PivotDefaultCommand(
+    PIVOT.setDefaultCommand(new NewPivotDefaultCommand(
       oi, 
       PIVOT
     ));
@@ -122,11 +123,11 @@ public class RobotContainer {
     new Trigger(() -> oi.tuckArm1()).whileTrue(new TuckCommand(PIVOT));
     new Trigger(() -> oi.tuckArm2()).whileTrue(new TuckCommand(PIVOT));
 
-    /* 
+    
     new Trigger(() -> oi.pivotToIntakePosition()).onTrue(new NewAutoPivotToAngle(PivotConstants.kIntakeAngle, PIVOT));
     new Trigger(() -> oi.pivotToSubwooferShoot()).onTrue(new NewAutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT));
     new Trigger(() -> oi.pivotToFeed()).onTrue(new NewAutoPivotToAngle(PivotConstants.kFeedAngle, PIVOT));
-      */
+    
     new Trigger(() -> oi.shootFeed()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredFeedMotorRPS, IntakeConstants.kDesiredFeedBeltSpeed, INTAKE, LED, oi));
     new Trigger(() -> oi.engageAutoShootSpinup()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredShootMotorRPS, 0, INTAKE, LED, oi));
     new Trigger(() -> oi.engageAutoIntakeSpinup()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredIntakeMotorRPS, IntakeConstants.kIntakeBeltMotorSpeed, INTAKE, LED, oi));

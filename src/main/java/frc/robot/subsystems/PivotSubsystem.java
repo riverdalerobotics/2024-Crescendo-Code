@@ -39,7 +39,6 @@ public class PivotSubsystem extends SubsystemBase {
   double desiredAngleDegrees = 0;
   MotionMagicVoltage motionPositionVController;
   //TODO Check if this works
-  double rotationToAngle = PivotConstants.kPivotEncoderRotationToDegrees;
   public boolean specCommandRunning = false;
   
   public PivotSubsystem() {
@@ -73,7 +72,7 @@ public class PivotSubsystem extends SubsystemBase {
     //The motors are opposite to eachother, so one must be inverted
     pivot1.config(talonFXConfigs);
     pivot2.config(talonFXConfigs);
-    pivot2.setControl(new Follower(pivot1.getDeviceID(), false));
+    pivot2.setControl(new StrictFollower(pivot1.getDeviceID()));
 
     //We create a closedLoop controller and set the desired velocity to 0.
     //We can change the desired velocity whenever we choose to
@@ -190,6 +189,8 @@ public class PivotSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    System.out.println(motionPositionVController.Position);
+    System.out.println("acc positoon" + getRotation());
     // This method will be called once per scheduler run
     sendSmartDashboard();
   }

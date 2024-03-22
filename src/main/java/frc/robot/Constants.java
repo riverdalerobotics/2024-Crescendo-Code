@@ -241,8 +241,8 @@ public final class Constants {
     public static final double kPivotEncoderRotationToDegrees = 360 / ((50*64*64)/(8*22*24));
     public static final double kPivotGearRatio = 1d/ ((50*64*64)/(8*22*24));
 
-
-    public static final double kHardStopCurrentThreshold = 10;
+//TODO: change later
+    public static final double kHardStopCurrentThreshold = 10000;
 
     public static final double kStatorCurrentLimit = 60;
 
@@ -254,7 +254,7 @@ public final class Constants {
 
     //Used in multiple commands to automatically move the pivot to a desired angle
     public static class PIDConstants {
-      public static final double kPivotP = 0.017;
+      public static final double kPivotP = 3; //0,017
       public static final double kPivotI = 0;
       public static final double kPivotD = 0;
 
@@ -272,7 +272,7 @@ public final class Constants {
       public static final double kMinSetpoint = 0;
       public static final double kMaxSetpoint = 178d;
 
-      public static final double kMotionMagicCruiseVelocity = 0;
+      public static final double kMotionMagicCruiseVelocity = 1000;
       public static final double kMotionMagicAcceleration = 70;
       public static final double kMotionMagicJerk = 700;
 
