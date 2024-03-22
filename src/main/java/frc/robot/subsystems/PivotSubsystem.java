@@ -139,7 +139,7 @@ public class PivotSubsystem extends SubsystemBase {
    */
   public double getEncoders(){
     StatusSignal<Double> pos = pivot1.getPosition();
-    double encoderPos = pos.getValue() * 360;
+    double encoderPos = Units.rotationsToDegrees(pos.getValue());
     return encoderPos;
   }
 
