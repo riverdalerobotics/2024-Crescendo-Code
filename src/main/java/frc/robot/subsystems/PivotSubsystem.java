@@ -190,8 +190,8 @@ public class PivotSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    System.out.println(motionPositionVController.Position);
-    System.out.println("acc positoon" + getRotation());
+    //System.out.println(motionPositionVController.Position);
+    //System.out.println("acc positoon" + getRotation());
     // This method will be called once per scheduler run
     sendSmartDashboard();
   }

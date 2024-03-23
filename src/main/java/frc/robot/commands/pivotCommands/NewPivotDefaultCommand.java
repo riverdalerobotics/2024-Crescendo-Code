@@ -68,14 +68,6 @@ public class NewPivotDefaultCommand extends Command {
     if(manualRotationEnabled) {
       //TODO: increase this value after testing
       requestedArmAngle = HelperMethods.limitValInRange(PivotConstants.PIDConstants.kMinSetpoint, PivotConstants.PIDConstants.kMaxSetpoint, requestedArmAngle + (HelperMethods.applyInputDeadband(operatorInput.pivotArm()) * 0.25));
-      
-
-      if (operatorInput.testX()) {
-        pivot.movePivot(0.1);
-      }
-      else {
-        pivot.movePivot(0);
-      }
     }
 
 
