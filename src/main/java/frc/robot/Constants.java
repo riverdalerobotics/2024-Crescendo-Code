@@ -392,8 +392,8 @@ public final class Constants {
   public static class LimelightConstants {
 
     public static final double noteHeight = 0; //literally it is 0 
-    public static final double noteLimelightMountHeight = 0.63350946;  //TODO: find limelight mounts
-    public static final double noteLimelightMountAngle = -17;
+    public static final double noteLimelightMountHeight = 0.668;  //TODO: find limelight mounts
+    public static final double noteLimelightMountAngle = -26;
 
     public static final double tagLimelightMountAngle = 0;
     public static final double tagLimelightMountHeight = 0;
