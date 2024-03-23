@@ -68,7 +68,6 @@ public class RobotContainer {
   public final ClimberSubsystem CLIMB = new ClimberSubsystem();
  
   
-  ////private final SequentialCommandGroup PrepShotThenShoot = new SequentialCommandGroup(new ParallelCommandGroup(new AutoRevFlywheels(IntakeConstants.kDesiredShootMotorRPS, INTAKE, LED), new AutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT)), new PowerBeltAndShooter(INTAKE, IntakeConstants.kDesiredShootMotorRPS, LED));
 
   public RobotContainer() {
     // Configure the trigger bindings
@@ -106,10 +105,15 @@ public class RobotContainer {
     ));
   }
 
-  //Put triggers here that change the active commands
-  //Triggers are conditions that activate commands
-  //Triggers can activate as long as an input is true, or toggle on and off based on the input
-  //For more information on triggers, see: https://first.wpi.edu/wpilib/allwpilib/docs/release/java/edu/wpi/first/wpilibj2/command/button/Trigger.html
+  /** 
+  Put triggers here that change the active commands
+  <p>
+  Triggers are conditions that activate commands
+  <p>
+  Triggers can activate as long as an input is true, or toggle on and off based on the input
+  <p>
+  For more information on triggers, see: https://first.wpi.edu/wpilib/allwpilib/docs/release/java/edu/wpi/first/wpilibj2/command/button/Trigger.html
+  */
   private void configureBindings() {
 
     //as long as the right trigger is held, note align will be active

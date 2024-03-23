@@ -254,7 +254,7 @@ public final class Constants {
 
     //Used in multiple commands to automatically move the pivot to a desired angle
     public static class PIDConstants {
-      //P was adjusted to be 360 * 0.017 as the internal PID controller receives error in rotations and not degrees
+      //Proportional term was adjusted to be 360 * 0.017 as the internal PID controller now receives error in rotations and not degrees
       public static final double kPivotP = 6.12; //0,017
       public static final double kPivotI = 0;
       public static final double kPivotD = 0;
@@ -271,9 +271,9 @@ public final class Constants {
       public static final double kPivotPIDMaxOutput = 0.3;
       public static final double kPivotPIDMinOutput = -0.3;
       public static final double kMinSetpoint = 0;
-      public static final double kMaxSetpoint = 178d;
+      public static final double kMaxSetpoint = 200d;
 
-      public static final double kMotionMagicCruiseVelocity = 0;
+      public static final double kMotionMagicCruiseVelocity = 1000;
       public static final double kMotionMagicAcceleration = 70;
       public static final double kMotionMagicJerk = 700;
 

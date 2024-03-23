@@ -30,6 +30,9 @@ public class NewAutoPivotToAngle extends Command {
   @Override
   public void initialize() {
     pivot.setPivotAngleDegrees(desiredAngle);
+
+    //The constant tolerance value is in degrees, but the internal controller uses rotations.
+    //We convert the degrees tolerance into rotations so the internal motor controller can work with the value
     pivot.setPivotTolerance(Units.degreesToRotations(tolerance));
     pivot.specCommandRunning = true;
   }
@@ -53,6 +56,8 @@ public class NewAutoPivotToAngle extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    //This is a custom method implemented in our P2TalonFX class. The setpoint must be passed in,
+    //then the motor will check if it has reached it within its range of tolerance
     return pivot.getPivot1().atSetpointPosition(Units.degreesToRotations(desiredAngle));
   }
 }

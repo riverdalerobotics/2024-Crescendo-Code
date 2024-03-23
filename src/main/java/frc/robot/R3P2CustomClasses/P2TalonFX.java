@@ -27,9 +27,10 @@ public class P2TalonFX extends TalonFX {
     }
 
     /**
-     * Sets the tolerance for closed loop control. The unit of this variable
-     * is whatever the unit of the closed loop controller is
-     * @param setTolerance
+     * Sets the tolerance for closed loop control
+     * <p>
+     * The unit of this variable is whatever the unit of the closed loop controller is
+     * @param setTolerance The desired tolerance (the unit will be converted to the unit of the Talon encoder)
      */
     public void setTolerance(double setTolerance) {
         tolerance = setTolerance;
@@ -38,8 +39,9 @@ public class P2TalonFX extends TalonFX {
 
        /**
      * Configures the talon using a created TalonFXConfiguration object. This method simplifies the process of configuring the motor.
+     * <p>
      * Config is reset to default first to avoid any unintenional configurations passing over between power cycles
-     * @param config
+     * @param config The TalonFXConfiguration object returned by createTalonConfig method in TalonHelper.java
      */
     public void config(TalonFXConfiguration config) {
         //resets to factory default
@@ -49,9 +51,11 @@ public class P2TalonFX extends TalonFX {
     }
 
     /**
-     * 
+     * Used to see if a TalonFX motor has reached a desired position setpoint.
+     * <p>
+     * All position control modes should use this method
      * @param setpoint Desired setpoint (get this value from the control mode affecting the motor)
-     * @return
+     * @return true if the motor is within tolerance of the set position
      */
     public boolean atSetpointPosition(double setpoint) {
         double motorPosition = this.getPosition().getValueAsDouble();
@@ -71,6 +75,13 @@ public class P2TalonFX extends TalonFX {
         }
     }
 
+    /**
+     * Used to see if a TalonFX motor has reached a desired velocity setpoint
+     * <p>
+     * All velocity control modes should use this method
+     * @param setpoint Desired setpoint (get this value from the control mode affecting the motor)
+     * @return true if the motor is within tolerance of the set velocity
+     */
     public boolean atSetpointVelocity(double setpoint) {
         this.getControlMode();
         double motorVelocity = this.getVelocity().getValueAsDouble();
