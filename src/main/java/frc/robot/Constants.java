@@ -336,7 +336,7 @@ public final class Constants {
 
 
   public static class PathPlannerConstants { //TODO: GET THESE CONSTANTS
-    public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(3, 0, 0);
+    public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(10, 0, 0);
     public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(0.1, 0, 0);
 
     //TODO DETERMINE whether this is desired max or physical max
