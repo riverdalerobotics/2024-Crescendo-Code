@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.combinationCommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.BlinkinLED;
@@ -27,9 +27,9 @@ public class PivotToAngleAndShoot extends SequentialCommandGroup {
    * @param blinkin
    * @param oi
    */
-  public PivotToAngleAndShoot(double desiredAngle, double intakeRPS, double beltSpeed, SwerveChassisSubsystem swerve, PivotSubsystem pivot, IntakeSubsystem intake, BlinkinLED blinkin, OI oi) {
+  public PivotToAngleAndShoot(double desiredAngle, double intakeRPS, double beltSpeed, PivotSubsystem pivot, IntakeSubsystem intake, BlinkinLED blinkin, OI oi) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new PivotToAngleAndRev(desiredAngle, intakeRPS, swerve, pivot, intake, blinkin, oi), new AutoRevAndBeltWhenReady(intakeRPS, beltSpeed, intake, blinkin, oi));
+    addCommands(new PivotToAngleAndRev(desiredAngle, intakeRPS, pivot, intake, blinkin, oi), new AutoRevAndBeltWhenReady(intakeRPS, beltSpeed, intake, blinkin, oi));
   }
 }

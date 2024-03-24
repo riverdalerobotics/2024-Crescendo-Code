@@ -6,16 +6,16 @@ package frc.robot;
 
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.PivotConstants;
-import frc.robot.commands.IntakeIndefinitelyCommand;
-import frc.robot.commands.PivotToAngleAndShoot;
 import frc.robot.commands.autonomousCommands.AutoPivotAndRevShooterIndefinitelyCommand;
+import frc.robot.commands.combinationCommands.IntakeIndefinitelyCommand;
+import frc.robot.commands.combinationCommands.PivotToAngleAndRevIndefinitely;
+import frc.robot.commands.combinationCommands.PivotToAngleAndShoot;
 import frc.robot.commands.intakeCommands.NewAutoRevFlywheelsIndefinitely;
 import frc.robot.commands.intakeCommands.NewIntakeDefaultCommand;
 import frc.robot.commands.pivotCommands.NewAutoPivotToAngle;
 import frc.robot.commands.pivotCommands.NewPivotDefaultCommand;
 import frc.robot.commands.pivotCommands.TuckCommand;
 import frc.robot.commands.swerveCommands.AutoAlignWithNoteSwerve;
-import frc.robot.commands.swerveCommands.AutoMoveToPredefined;
 import frc.robot.commands.swerveCommands.SwerveDefaultCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -61,10 +61,12 @@ public class RobotContainer {
     //Path planner is the software we use to make our autos
     NamedCommands.registerCommand("note error fix", new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT, LED));
     NamedCommands.registerCommand("IntakeIndefinitely", new IntakeIndefinitelyCommand(PIVOT, INTAKE, LED, oi));
-    NamedCommands.registerCommand("AutoPivotAndRevShooterIndefinitely", new AutoPivotAndRevShooterIndefinitelyCommand(PIVOT, INTAKE, LED, oi));
-    NamedCommands.registerCommand("RevToShootIndefinitely", new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredShootMotorRPS, IntakeConstants.kShootBeltMotorSpeed, INTAKE, LED, oi));
+    
+    NamedCommands.registerCommand("PivotAndRevForShotFront", new PivotToAngleAndRevIndefinitely(PivotConstants.kSubwooferShootAngle, IntakeConstants.kDesiredShootMotorRPS, PIVOT, INTAKE, LED, oi));
+    NamedCommands.registerCommand("PivotAndShootFront", new PivotToAngleAndShoot(PivotConstants.kSubwooferShootAngle, IntakeConstants.kDesiredShootMotorRPS, IntakeConstants.kShootBeltMotorSpeed, PIVOT, INTAKE, LED, oi));
 
-
+    NamedCommands.registerCommand("PivotAndRevForShotBack",
+    NamedCommands.registerCommand("PivotAndShootBack",
 
     CHASSIS.setDefaultCommand(new SwerveDefaultCommand (
       CHASSIS,
