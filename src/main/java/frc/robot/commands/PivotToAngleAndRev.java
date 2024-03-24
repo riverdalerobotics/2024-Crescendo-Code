@@ -7,8 +7,8 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import frc.robot.BlinkinLED;
 import frc.robot.OI;
-import frc.robot.commands.intakeCommands.AutoRevFlywheelsIndefinitely;
-import frc.robot.commands.pivotCommands.AutoPivotToAngle;
+import frc.robot.commands.intakeCommands.NewAutoRevFlywheelsIndefinitely;
+import frc.robot.commands.pivotCommands.NewAutoPivotToAngle;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
 import frc.robot.subsystems.SwerveChassisSubsystem;
@@ -21,7 +21,7 @@ public class PivotToAngleAndRev extends ParallelDeadlineGroup {
   public PivotToAngleAndRev(double desiredAngle, double intakeRPS, SwerveChassisSubsystem swerve, PivotSubsystem pivot, IntakeSubsystem intake, BlinkinLED blinkin, OI oi) {
     // Add the deadline command in the super() call. Add other commands using
     // addCommands().
-    super(new AutoPivotToAngle(desiredAngle, pivot) );
-    addCommands(new AutoRevFlywheelsIndefinitely(intakeRPS, 0, intake, blinkin, oi));
+    super(new NewAutoPivotToAngle(desiredAngle, pivot) );
+    addCommands(new NewAutoRevFlywheelsIndefinitely(intakeRPS, 0, intake, blinkin, oi));
   }
 }

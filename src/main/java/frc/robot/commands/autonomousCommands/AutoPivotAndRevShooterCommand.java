@@ -9,8 +9,8 @@ import frc.robot.BlinkinLED;
 import frc.robot.OI;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.PivotConstants;
-import frc.robot.commands.intakeCommands.AutoRevFlywheels;
-import frc.robot.commands.pivotCommands.AutoPivotToAngle;
+import frc.robot.commands.intakeCommands.NewAutoRevFlywheels;
+import frc.robot.commands.pivotCommands.NewAutoPivotToAngle;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
 
@@ -22,6 +22,6 @@ public class AutoPivotAndRevShooterCommand extends ParallelCommandGroup {
   public AutoPivotAndRevShooterCommand(PivotSubsystem pivot, IntakeSubsystem intake, BlinkinLED LED, OI oi) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new AutoPivotToAngle(PivotConstants.kSubwooferShootAngle, pivot), new AutoRevFlywheels(IntakeConstants.kDesiredShootMotorRPS, IntakeConstants.kShootBeltMotorSpeed, intake, LED, oi));
+    addCommands(new NewAutoPivotToAngle(PivotConstants.kSubwooferShootAngle, pivot), new NewAutoRevFlywheels(IntakeConstants.kDesiredShootMotorRPS, IntakeConstants.kShootBeltMotorSpeed, intake, LED, oi));
   }
 }

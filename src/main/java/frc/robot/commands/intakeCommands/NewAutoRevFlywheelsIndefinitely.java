@@ -1,5 +1,7 @@
 package frc.robot.commands.intakeCommands;
 
+
+
 // // Copyright (c) FIRST and other WPILib contributors.
 // // Open Source Software; you can modify and/or share it under the terms of
 // // the WPILib BSD license file in the root directory of this project.
@@ -18,16 +20,16 @@ import frc.robot.subsystems.IntakeSubsystem;
  * RPM is reached. The default command doesn't retain this RPS so this command should only be used
  * when the next command is continuing to power the flywheels
  */
-public class AutoRevFlywheels extends Command {
+public class NewAutoRevFlywheelsIndefinitely extends Command {
   /** Creates a new AutoRevFlyWheels. */
   IntakeSubsystem intake;
-  OI oi;
   double tolerance = IntakeConstants.PIDConstants.kIntakeToleranceThreshold;
   double desiredSpeedRPS;
+  BlinkinLED LED;
+  OI oi;
   double beltSpeed;
   boolean manualBeltControl;
-  BlinkinLED LED;
-  public AutoRevFlywheels(double speedRPS, double beltSpeed, IntakeSubsystem intakeSubsystem, BlinkinLED LED, OI oi) {
+  public NewAutoRevFlywheelsIndefinitely(double speedRPS, double beltSpeed, IntakeSubsystem intakeSubsystem, BlinkinLED LED, OI oi) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.intake = intakeSubsystem;
     this.desiredSpeedRPS = speedRPS;
@@ -55,7 +57,10 @@ public class AutoRevFlywheels extends Command {
    @Override
    public void execute() {
     intake.specCommandRunning = true;
-
+    if (intake.getLeftIntakeMotor().atSetpointPosition(desiredSpeedRPS)) {
+      LED.disableFlywheelsRevvingLED();
+      LED.enableFlywheelsReadyLED();
+    }
     if (manualBeltControl) {
       //During operation, the driver can hold down the right bumper to power the indexer to shoot
       if(oi.shoot()) {
@@ -76,11 +81,12 @@ public class AutoRevFlywheels extends Command {
   intake.setIntakeVelocityRPS(0);
   intake.spinBelt(0);
   LED.disableFlywheelsRevvingLED();
+  LED.disableFlywheelsReadyLED();
   }
 
    // Returns true when the command should end.
    @Override
    public boolean isFinished() {
-     return intake.getLeftIntakeMotor().atSetpointVelocity(desiredSpeedRPS);
+     return false;
    }
  }

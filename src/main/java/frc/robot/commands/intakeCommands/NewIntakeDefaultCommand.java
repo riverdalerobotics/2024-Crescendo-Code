@@ -11,7 +11,7 @@ import frc.robot.OI;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class IntakeDefaultCommand extends Command {
+public class NewIntakeDefaultCommand extends Command {
   OI operatorInput;
   IntakeSubsystem intake;
   BlinkinLED LED;
@@ -21,7 +21,7 @@ public class IntakeDefaultCommand extends Command {
   boolean manual = false;
 
   /** Creates a new IntakeDefaultCommand. */
-  public IntakeDefaultCommand(OI opInput, IntakeSubsystem intake, BlinkinLED LED) {
+  public NewIntakeDefaultCommand(OI opInput, IntakeSubsystem intake, BlinkinLED LED) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.operatorInput = opInput;
     this.intake = intake;

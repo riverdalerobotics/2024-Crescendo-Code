@@ -9,10 +9,10 @@ import frc.robot.Constants.PivotConstants;
 import frc.robot.commands.IntakeIndefinitelyCommand;
 import frc.robot.commands.PivotToAngleAndShoot;
 import frc.robot.commands.autonomousCommands.AutoPivotAndRevShooterIndefinitelyCommand;
-import frc.robot.commands.intakeCommands.AutoRevFlywheelsIndefinitely;
-import frc.robot.commands.intakeCommands.IntakeDefaultCommand;
-import frc.robot.commands.pivotCommands.AutoPivotToAngle;
-import frc.robot.commands.pivotCommands.PivotDefaultCommand;
+import frc.robot.commands.intakeCommands.NewAutoRevFlywheelsIndefinitely;
+import frc.robot.commands.intakeCommands.NewIntakeDefaultCommand;
+import frc.robot.commands.pivotCommands.NewAutoPivotToAngle;
+import frc.robot.commands.pivotCommands.NewPivotDefaultCommand;
 import frc.robot.commands.pivotCommands.TuckCommand;
 import frc.robot.commands.swerveCommands.AutoAlignWithNoteSwerve;
 import frc.robot.commands.swerveCommands.AutoMoveToPredefined;
@@ -62,7 +62,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("note error fix", new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT, LED));
     NamedCommands.registerCommand("IntakeIndefinitely", new IntakeIndefinitelyCommand(PIVOT, INTAKE, LED, oi));
     NamedCommands.registerCommand("AutoPivotAndRevShooterIndefinitely", new AutoPivotAndRevShooterIndefinitelyCommand(PIVOT, INTAKE, LED, oi));
-    NamedCommands.registerCommand("RevToShootIndefinitely", new AutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredShootMotorRPS, IntakeConstants.kShootBeltMotorSpeed, INTAKE, LED, oi));
+    NamedCommands.registerCommand("RevToShootIndefinitely", new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredShootMotorRPS, IntakeConstants.kShootBeltMotorSpeed, INTAKE, LED, oi));
 
 
 
@@ -72,13 +72,13 @@ public class RobotContainer {
     ));
   
     
-    INTAKE.setDefaultCommand(new IntakeDefaultCommand(
+    INTAKE.setDefaultCommand(new NewIntakeDefaultCommand(
       oi,
       INTAKE,
       LED
     ));
     
-    PIVOT.setDefaultCommand(new PivotDefaultCommand(
+    PIVOT.setDefaultCommand(new NewPivotDefaultCommand(
       oi, 
       PIVOT
     ));
@@ -107,8 +107,8 @@ public class RobotContainer {
     new Trigger(() -> oi.tuckArm2()).whileTrue(new TuckCommand(PIVOT));
 
     
-    new Trigger(() -> oi.pivotToIntakePosition()).onTrue(new AutoPivotToAngle(PivotConstants.kIntakeAngle, PIVOT));
-    new Trigger(() -> oi.engageIntake()).whileTrue(new AutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredIntakeMotorRPS, IntakeConstants.kIntakeBeltMotorSpeed, INTAKE, LED, oi));
+    new Trigger(() -> oi.pivotToIntakePosition()).onTrue(new NewAutoPivotToAngle(PivotConstants.kIntakeAngle, PIVOT));
+    new Trigger(() -> oi.engageIntake()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredIntakeMotorRPS, IntakeConstants.kIntakeBeltMotorSpeed, INTAKE, LED, oi));
 
 
     //Feed controls do not require driver to press the fire button.
@@ -121,12 +121,12 @@ public class RobotContainer {
 
     //When the y button is held on op controller, the arm pivots and revs for amp shot.
     //Driver still has final say to make the shot
-    new Trigger(() -> oi.pivotToAmp()).onTrue(new AutoPivotToAngle(PivotConstants.kAmpAngle, PIVOT));
-    new Trigger(() -> oi.revAmp()).whileTrue(new AutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredAmpMotorRPS, 0, INTAKE, LED, oi));
+    new Trigger(() -> oi.pivotToAmp()).onTrue(new NewAutoPivotToAngle(PivotConstants.kAmpAngle, PIVOT));
+    new Trigger(() -> oi.revAmp()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredAmpMotorRPS, 0, INTAKE, LED, oi));
     
     //Driver has final say for speaker shots
-    new Trigger(() -> oi.pivotToSubwooferShoot()).onTrue(new AutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT));
-    new Trigger(() -> oi.engageAutoShootSpinup()).whileTrue(new AutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredShootMotorRPS, 0, INTAKE, LED, oi));
+    new Trigger(() -> oi.pivotToSubwooferShoot()).onTrue(new NewAutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT));
+    new Trigger(() -> oi.engageAutoShootSpinup()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredShootMotorRPS, 0, INTAKE, LED, oi));
   
   }
   

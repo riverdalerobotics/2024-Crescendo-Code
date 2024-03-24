@@ -9,8 +9,8 @@ import frc.robot.BlinkinLED;
 import frc.robot.OI;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.PivotConstants;
-import frc.robot.commands.intakeCommands.AutoRevFlywheelsIndefinitely;
-import frc.robot.commands.pivotCommands.AutoPivotToAngle;
+import frc.robot.commands.intakeCommands.NewAutoRevFlywheelsIndefinitely;
+import frc.robot.commands.pivotCommands.NewAutoPivotToAngle;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
 
@@ -28,6 +28,6 @@ public class IntakeIndefinitelyCommand extends ParallelCommandGroup {
   public IntakeIndefinitelyCommand(PivotSubsystem pivot, IntakeSubsystem intake, BlinkinLED LED, OI oi) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new AutoPivotToAngle(PivotConstants.kIntakeAngle, pivot), new AutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredIntakeMotorRPS, IntakeConstants.kIntakeBeltMotorSpeed, intake, LED, oi));
+    addCommands(new NewAutoPivotToAngle(PivotConstants.kIntakeAngle, pivot), new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredIntakeMotorRPS, IntakeConstants.kIntakeBeltMotorSpeed, intake, LED, oi));
   }
 }
