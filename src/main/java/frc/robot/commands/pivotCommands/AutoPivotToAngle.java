@@ -27,6 +27,9 @@ public class AutoPivotToAngle extends Command {
   @Override
   public void initialize() {
     pivot.setPivotAngleDegrees(desiredAngle);
+    
+    //The constant tolerance value is in degrees, but the internal controller uses rotations.
+    //We convert the degrees tolerance into rotations so the internal motor controller can work with the value
     pivot.setPivotTolerance(Units.degreesToRotations(tolerance));
     pivot.specCommandRunning = true;
   }

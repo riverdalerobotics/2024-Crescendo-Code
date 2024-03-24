@@ -203,10 +203,10 @@ public final class Constants {
     public static final double kDesiredFeedBeltSpeed = -0.5;
 
     public static final double kDesiredHighFeedMotorRPS = 80;
-    public static final double kDesiredHighFeedBeltSpeed = -1;
+    public static final double kDesiredHighFeedBeltSpeed = -0.5;
 
     public static final double kDesiredAmpMotorRPS = 40;
-    public static final double kDesiredAmpBeltSpeed = -1;
+    public static final double kDesiredAmpBeltSpeed = -0.5;
 
 
     public static final double kFlywheelsGearRatio = (34d/15d);
