@@ -76,10 +76,10 @@ public boolean resetGyro() {
 /**
  * Driver controls ||
  * Puts the robot in robot oriented and auto drives to note in both axis
- * @return true when the driver's left trigger button is pressed basically all the way down
+ * @return true when the driver's right trigger button is pressed basically all the way down
  */
 public boolean engageNoteAlignAssist() {
-    if (moveController.getLeftTriggerAxis() >= 0.330){ //beach bots lol
+    if (moveController.getRightTriggerAxis() >= 0.330){ //beach bots lol
         return true;
     } else{
         return false;
@@ -103,10 +103,10 @@ public double engageSlowMode() {
 /**
  * Driver controls ||
  * Engages Robot to auto move to closest predefined shooting position on the field
- * @return True if axis is down, false if axis is not down
+ * @return True if drivfer left axis is down, false if axis is not down
  */
 public boolean engageAutoMoveToPredefined() {
-    if(moveController.getRightTriggerAxis() >= 0.330){
+    if(moveController.getLeftTriggerAxis() >= 0.330){
         return true;
     } else{
         return false;

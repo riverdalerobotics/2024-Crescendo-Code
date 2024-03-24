@@ -112,7 +112,7 @@ public class Robot extends TimedRobot {
 
     //When auto begins, this large statement selects the autonomous command based on what was selected in smart dashboard
     //switch statements just act like big if else statements
-
+    m_robotContainer.CHASSIS.setDrivesBrake();
      m_autoSelected = m_chooser.getSelected();
       System.out.println("Auto selected: " + m_autoSelected);
       /* */
@@ -181,6 +181,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
      m_robotContainer.CHASSIS.straightenModules();
+     m_robotContainer.CHASSIS.setDrivesCoast();
   }
 
   /** This function is called periodically during operator control. */

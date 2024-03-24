@@ -1,0 +1,25 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.9306931140552677,
+      "y": 4.255590195640653
+    },
+    "rotation": 0.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Test 4"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Tests at school",
+  "choreoAuto": false
+}

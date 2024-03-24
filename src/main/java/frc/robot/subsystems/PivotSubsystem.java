@@ -90,6 +90,7 @@ public class PivotSubsystem extends SubsystemBase {
     //ensure the pivot doesnt try to rotate outside of the max or min range
     degrees = HelperMethods.limitValInRange(minPivotAngle, maxPivotAngle, degrees);
     pivot1.setControl(motionPositionVController.withPosition(Units.degreesToRotations(degrees)));
+    System.out.println(degrees);
     desiredAngleDegrees = degrees;
   }
 
@@ -132,7 +133,7 @@ public class PivotSubsystem extends SubsystemBase {
    */
   public double getEncoders(){
     StatusSignal<Double> pos = pivot1.getPosition();
-    double encoderPos = pos.getValue() * 360;
+    double encoderPos = Units.rotationsToDegrees(pos.getValue());
     return encoderPos;
   }
 
@@ -182,8 +183,8 @@ public class PivotSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    System.out.println(motionPositionVController.Position);
-    System.out.println("acc positoon" + getRotation());
+    //System.out.println(motionPositionVController.Position);
+    //System.out.println("acc positoon" + getRotation());
     // This method will be called once per scheduler run
     sendSmartDashboard();
   }
