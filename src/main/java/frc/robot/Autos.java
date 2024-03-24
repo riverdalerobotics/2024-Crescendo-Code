@@ -42,7 +42,6 @@ public class Autos {
         return new PathPlannerAuto("Mobility GET OUT OF THE WAY");
     }
 
-
     public Command midSubWooferFourNotes(){
         return new PathPlannerAuto("4 note mid subwoofer");
     }
@@ -52,7 +51,6 @@ public class Autos {
     public Command ampSubwooferTwoNotes(){
         return new PathPlannerAuto("2 note amp subwoofer");
     }
-
 
     public Command shootAndStop() {
         return new PathPlannerAuto("shoot and stop");

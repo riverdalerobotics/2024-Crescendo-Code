@@ -1,8 +1,4 @@
 package frc.robot;
-import java.io.File;
-import java.sql.Driver;
-
-import edu.wpi.first.hal.AllianceStationID;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;

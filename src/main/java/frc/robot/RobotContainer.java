@@ -5,23 +5,13 @@
 package frc.robot;
 
 import frc.robot.Constants.IntakeConstants;
-import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PivotConstants;
-import frc.robot.commands.AutoPickUpCommand;
 import frc.robot.commands.IntakeIndefinitelyCommand;
-import frc.robot.commands.TeleopShootCommand;
-import frc.robot.commands.autonomousCommands.AutoPivotAndRevShooterCommand;
+import frc.robot.commands.PivotToAngleAndShoot;
 import frc.robot.commands.autonomousCommands.AutoPivotAndRevShooterIndefinitelyCommand;
-import frc.robot.commands.autonomousCommands.AutoPivotAndShootCommand;
-import frc.robot.commands.intakeCommands.AutoRevFlywheels;
 import frc.robot.commands.intakeCommands.AutoRevFlywheelsIndefinitely;
 import frc.robot.commands.intakeCommands.IntakeDefaultCommand;
-import frc.robot.commands.intakeCommands.NewAutoRevFlywheelsIndefinitely;
-import frc.robot.commands.intakeCommands.NewIntakeDefaultCommand;
-import frc.robot.commands.intakeCommands.PowerBeltAndShooter;
 import frc.robot.commands.pivotCommands.AutoPivotToAngle;
-import frc.robot.commands.pivotCommands.NewAutoPivotToAngle;
-import frc.robot.commands.pivotCommands.NewPivotDefaultCommand;
 import frc.robot.commands.pivotCommands.PivotDefaultCommand;
 import frc.robot.commands.pivotCommands.TuckCommand;
 import frc.robot.commands.swerveCommands.AutoAlignWithNoteSwerve;
@@ -33,16 +23,7 @@ import frc.robot.subsystems.PivotSubsystem;
 import frc.robot.subsystems.SwerveChassisSubsystem;
 
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
-
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -80,27 +61,25 @@ public class RobotContainer {
     //TODO: In Path Planner UI, remember to add the named commands 
     //Path planner is the software we use to make our autos
     NamedCommands.registerCommand("note error fix", new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT, LED));
-    NamedCommands.registerCommand("IntakeIndefinitely", new IntakeIndefinitelyCommand(PIVOT, INTAKE, LED));
-    NamedCommands.registerCommand("AutoPivotAndRevShooterIndefinitely", new AutoPivotAndRevShooterIndefinitelyCommand(PIVOT, INTAKE, LED));
-    NamedCommands.registerCommand("AutoPivotAndShoot", new AutoPivotAndShootCommand(PIVOT, INTAKE, LED));
-    NamedCommands.registerCommand("RevToShootIndefinitely", new AutoRevFlywheelsIndefinitely( IntakeConstants.kDesiredShootMotorRPS, INTAKE, LED));
+    NamedCommands.registerCommand("IntakeIndefinitely", new IntakeIndefinitelyCommand(PIVOT, INTAKE, LED, oi));
+    NamedCommands.registerCommand("AutoPivotAndRevShooterIndefinitely", new AutoPivotAndRevShooterIndefinitelyCommand(PIVOT, INTAKE, LED, oi));
+    NamedCommands.registerCommand("RevToShootIndefinitely", new AutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredShootMotorRPS, IntakeConstants.kShootBeltMotorSpeed, INTAKE, LED, oi));
 
 
 
     CHASSIS.setDefaultCommand(new SwerveDefaultCommand (
       CHASSIS,
-      oi,
-      LED
+      oi
     ));
   
     
-    INTAKE.setDefaultCommand(new NewIntakeDefaultCommand(
+    INTAKE.setDefaultCommand(new IntakeDefaultCommand(
       oi,
       INTAKE,
       LED
     ));
     
-    PIVOT.setDefaultCommand(new NewPivotDefaultCommand(
+    PIVOT.setDefaultCommand(new PivotDefaultCommand(
       oi, 
       PIVOT
     ));
@@ -114,7 +93,6 @@ public class RobotContainer {
 
     //as long as the left trigger is held, note align will be active
     new Trigger(() -> oi.engageNoteAlignAssist()).whileTrue(new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT, LED));
-
     //as long as the right trigger is held, auto move to predefined will be active
     new Trigger(() -> oi.engageAutoMoveToPredefined()).whileTrue(new AutoMoveToPredefined(CHASSIS, oi, TAG_LIMELIGHT));
     
@@ -124,13 +102,26 @@ public class RobotContainer {
     new Trigger(() -> oi.tuckArm2()).whileTrue(new TuckCommand(PIVOT));
 
     
-    new Trigger(() -> oi.pivotToIntakePosition()).onTrue(new NewAutoPivotToAngle(PivotConstants.kIntakeAngle, PIVOT));
-    new Trigger(() -> oi.pivotToSubwooferShoot()).onTrue(new NewAutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT));
-    new Trigger(() -> oi.pivotToFeed()).onTrue(new NewAutoPivotToAngle(PivotConstants.kFeedAngle, PIVOT));
+    new Trigger(() -> oi.pivotToIntakePosition()).onTrue(new AutoPivotToAngle(PivotConstants.kIntakeAngle, PIVOT));
+    new Trigger(() -> oi.engageIntake()).whileTrue(new AutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredIntakeMotorRPS, IntakeConstants.kIntakeBeltMotorSpeed, INTAKE, LED, oi));
+
+
+    //Feed controls do not require driver to press the fire button.
+    //They will shoot as soon as intake and angle are prepared
+    new Trigger(() -> oi.pivotAndShootLowFeed()).whileTrue(new PivotToAngleAndShoot(PivotConstants.kFeedAngle, IntakeConstants.kDesiredFeedMotorRPS, IntakeConstants.kDesiredFeedBeltSpeed, CHASSIS, PIVOT, INTAKE, LED, oi));
+    new Trigger(() -> oi.pivotAndShootHighFeed()).whileTrue(new PivotToAngleAndShoot(PivotConstants.kHighFeedAngle, IntakeConstants.kDesiredHighFeedMotorRPS, IntakeConstants.kDesiredHighFeedBeltSpeed, CHASSIS, PIVOT, INTAKE, LED, oi));
     
-    new Trigger(() -> oi.shootFeed()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredFeedMotorRPS, IntakeConstants.kDesiredFeedBeltSpeed, INTAKE, LED, oi));
-    new Trigger(() -> oi.engageAutoShootSpinup()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredShootMotorRPS, 0, INTAKE, LED, oi));
-    new Trigger(() -> oi.engageAutoIntakeSpinup()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredIntakeMotorRPS, IntakeConstants.kIntakeBeltMotorSpeed, INTAKE, LED, oi));
+    
+    //TODO: add the trigger to pivot to backshot after merge
+
+    //When the y button is held on op controller, the arm pivots and revs for amp shot.
+    //Driver still has final say to make the shot
+    new Trigger(() -> oi.pivotToAmp()).onTrue(new AutoPivotToAngle(PivotConstants.kAmpAngle, PIVOT));
+    new Trigger(() -> oi.revAmp()).whileTrue(new AutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredAmpMotorRPS, 0, INTAKE, LED, oi));
+    
+    //Driver has final say for speaker shots
+    new Trigger(() -> oi.pivotToSubwooferShoot()).onTrue(new AutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT));
+    new Trigger(() -> oi.engageAutoShootSpinup()).whileTrue(new AutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredShootMotorRPS, 0, INTAKE, LED, oi));
   
   }
   

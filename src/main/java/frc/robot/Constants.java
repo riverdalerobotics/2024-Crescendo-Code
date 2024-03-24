@@ -51,8 +51,7 @@ public final class Constants {
 
     //In meters
     //What 1 rotation of the drive motor corresponds to in meters travelled
-    //The native unit is rotations. We conver it to meters
-   
+    //The native unit is rotations. We convert it to meters
     public static final double kDrivingEncoderPositionFactor = (kWheelCircumferenceMeters / kDriveMotorGearReduction);
 
 
@@ -192,16 +191,23 @@ public final class Constants {
 
     public static final double kStatorCurrentLimit = 40;
 
+
     public static final double kDesiredIntakeMotorRPS = -60;
     public static final double kIntakeBeltMotorSpeed = 1;
     public static final double kIntakeCurrentThreshold = -1000;
-
 
     public static final double kDesiredShootMotorRPS = 80;
     public static final double kShootBeltMotorSpeed = -1;
 
     public static final double kDesiredFeedMotorRPS = 60;
     public static final double kDesiredFeedBeltSpeed = -1;
+
+    public static final double kDesiredHighFeedMotorRPS = 80;
+    public static final double kDesiredHighFeedBeltSpeed = -1;
+
+    public static final double kDesiredAmpMotorRPS = 40;
+    public static final double kDesiredAmpBeltSpeed = -1;
+
 
     public static final double kFlywheelsGearRatio = (34d/15d);
 
@@ -250,6 +256,8 @@ public final class Constants {
     public static final int kIntakeAngle = 178;
     public static final int kSubwooferShootAngle = 61;
     public static final int kFeedAngle = 150;
+    public static final int kHighFeedAngle = 100;
+    public static final int kAmpAngle = 50;
 
 
     //Used in multiple commands to automatically move the pivot to a desired angle

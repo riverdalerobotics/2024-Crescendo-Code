@@ -5,7 +5,6 @@
 package frc.robot.commands.swerveCommands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.BlinkinLED;
 import frc.robot.HelperMethods;
 import frc.robot.OI;
 import frc.robot.subsystems.SwerveChassisSubsystem;
@@ -14,19 +13,16 @@ public class SwerveDefaultCommand extends Command {
 
   private final SwerveChassisSubsystem swerveSubsystem;
   private final OI oi;
-  private final BlinkinLED LED;
   
 
   /** Creates a new SwerveDefaultCommand. */
   public SwerveDefaultCommand(
     SwerveChassisSubsystem swerveSubsystem,
-    OI opInput,
-    BlinkinLED LED) {
+    OI opInput) {
 
     this.swerveSubsystem = swerveSubsystem;
     this.oi = opInput;
     swerveSubsystem.commandActive = true;
-    this.LED = LED;
 
     addRequirements(swerveSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -80,8 +76,7 @@ public class SwerveDefaultCommand extends Command {
 
 
     
-    //double speedIncrease = speedBoost.get();
-    //double speedDecrease = speedDampener.get();
+
     SmartDashboard.putNumber("xSpeed", xSpeed);
     SmartDashboard.putNumber("ySpeed", ySpeed);
     SmartDashboard.putNumber("tSpeed", turnSpeed);

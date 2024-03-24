@@ -6,6 +6,7 @@ package frc.robot.commands.autonomousCommands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.BlinkinLED;
+import frc.robot.OI;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.commands.intakeCommands.AutoRevFlywheels;
@@ -18,9 +19,9 @@ import frc.robot.subsystems.PivotSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoPivotAndRevShooterCommand extends ParallelCommandGroup {
   /** Creates a new AutoPivotAndRevShooter. */
-  public AutoPivotAndRevShooterCommand(PivotSubsystem pivot, IntakeSubsystem intake, BlinkinLED LED) {
+  public AutoPivotAndRevShooterCommand(PivotSubsystem pivot, IntakeSubsystem intake, BlinkinLED LED, OI oi) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new AutoPivotToAngle(PivotConstants.kSubwooferShootAngle, pivot), new AutoRevFlywheels(IntakeConstants.kDesiredShootMotorRPS, intake, LED));
+    addCommands(new AutoPivotToAngle(PivotConstants.kSubwooferShootAngle, pivot), new AutoRevFlywheels(IntakeConstants.kDesiredShootMotorRPS, IntakeConstants.kShootBeltMotorSpeed, intake, LED, oi));
   }
 }

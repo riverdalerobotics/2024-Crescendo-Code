@@ -6,9 +6,9 @@ package frc.robot.commands.intakeCommands;
 
 // package frc.robot.commands;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.BlinkinLED;
+import frc.robot.OI;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.IntakeSubsystem;
 
@@ -20,48 +20,67 @@ import frc.robot.subsystems.IntakeSubsystem;
  */
 public class AutoRevFlywheels extends Command {
   /** Creates a new AutoRevFlyWheels. */
-  PIDController intakeSpeedController;
   IntakeSubsystem intake;
-  double kp = IntakeConstants.PIDConstants.kIntakeP;
-  double ki = IntakeConstants.PIDConstants.kIntakeI;
-  double kd = IntakeConstants.PIDConstants.kIntakeD;
+  OI oi;
   double tolerance = IntakeConstants.PIDConstants.kIntakeToleranceThreshold;
   double desiredSpeedRPS;
+  double beltSpeed;
+  boolean manualBeltControl;
   BlinkinLED LED;
-  public AutoRevFlywheels(double speedRPS, IntakeSubsystem intakeSubsystem, BlinkinLED LED) {
+  public AutoRevFlywheels(double speedRPS, double beltSpeed, IntakeSubsystem intakeSubsystem, BlinkinLED LED, OI oi) {
     // Use addRequirements() here to declare subsystem dependencies.
-    intakeSpeedController = new PIDController(kp, ki, kd);
     this.intake = intakeSubsystem;
     this.desiredSpeedRPS = speedRPS;
     this.LED = LED;
+    this.oi = oi;
+    this.beltSpeed = beltSpeed;
+    if (beltSpeed == 0) {
+      manualBeltControl = true;
+    }
+    else{
+      manualBeltControl = false;
+    }
     addRequirements(intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intakeSpeedController.setSetpoint(desiredSpeedRPS);
-    intakeSpeedController.setTolerance(tolerance);
+    intake.setIntakeVelocityRPS(desiredSpeedRPS);
     LED.enableFlywheelsRevvingLED();
+    intake.setIntakeTolerance(tolerance);
   }
 
    // Called every time the scheduler runs while the command is scheduled.
    @Override
    public void execute() {
-     intake.spinIntake(intakeSpeedController.calculate(intake.getSpeed()));
+    intake.specCommandRunning = true;
+
+    if (manualBeltControl) {
+      //During operation, the driver can hold down the right bumper to power the indexer to shoot
+      if(oi.shoot()) {
+        intake.spinBelt(IntakeConstants.kShootBeltMotorSpeed);
+      }
+      else {
+        intake.spinBelt(0);
+      }
+    }
+    else {
+      intake.spinBelt(beltSpeed);
+    }
    }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-  intakeSpeedController.reset();
+  intake.setIntakeVelocityRPS(0);
+  intake.spinBelt(0);
   LED.disableFlywheelsRevvingLED();
-  intake.spinIntake(0);
   }
 
    // Returns true when the command should end.
    @Override
    public boolean isFinished() {
-     return intakeSpeedController.atSetpoint();
+     return intake.getLeftIntakeMotor().atSetpointVelocity(desiredSpeedRPS);
    }
  }
