@@ -22,7 +22,7 @@ public class NewPivotDefaultCommand extends Command {
 
   //TODO: find good tolerance value
   double tolerance = PivotConstants.PIDConstants.kPivotToleranceThreshold;
-  double requestedArmAngle;
+  double requestedArmAngle = PivotConstants.kZeroAngle;
 
 
   //The operator can only manually control the pivot when this is true
@@ -49,6 +49,9 @@ public class NewPivotDefaultCommand extends Command {
     pivot.setPivotAngleDegrees(pivot.getRotation());
     manualRotationEnabled = false;
     requestedArmAngle = pivot.getEncoders();
+    for(int i = 0; i < 100; i++) {
+    System.out.println("START" + requestedArmAngle);
+    }
     pivot.specCommandRunning = false;
 
     
@@ -57,6 +60,8 @@ public class NewPivotDefaultCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    System.out.println(requestedArmAngle);
+    requestedArmAngle = HelperMethods.limitValInRange(PivotConstants.PIDConstants.kMinSetpoint, PivotConstants.PIDConstants.kMaxSetpoint, requestedArmAngle);
     //Manual rotation will stop whatever desired angle the arm is currently heading towards
     if(operatorInput.enableManualRotation()) {
       manualRotationEnabled = true;

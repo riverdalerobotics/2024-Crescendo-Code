@@ -60,6 +60,13 @@ public class SwerveDefaultCommand extends Command {
       swerveSubsystem.zeroHeading();
     }
 
+    if (oi.engageDriveBrakeMode()) {
+      swerveSubsystem.setDrivesBrake();
+    }
+    else {
+      swerveSubsystem.setDrivesCoast();
+    }
+
 
     //hold left bumper to slow the robot down
     swerveSubsystem.slowDrive(HelperMethods.applyInputDeadband(oi.engageSlowMode()));

@@ -83,7 +83,7 @@ public class IntakeSubsystem extends SubsystemBase {
    */
   public void spinIntake(double speed){
     leftIntake.set(speed);
-    rightIntake.set(speed);
+    rightIntake.set(-speed);
   }
 
   /**

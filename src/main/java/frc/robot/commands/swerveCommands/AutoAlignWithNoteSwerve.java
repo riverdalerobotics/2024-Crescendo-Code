@@ -18,7 +18,6 @@ import frc.robot.subsystems.SwerveChassisSubsystem;
 public class AutoAlignWithNoteSwerve extends Command {
   /** Creates a new AutoAlignWithNoteSwerve. */
   private PIDController yController;
-  private PIDController turningController;
   private PIDController xController;
   private boolean noteIsDetected;
   private double noteYOffset;
@@ -36,9 +35,9 @@ public class AutoAlignWithNoteSwerve extends Command {
     Limelight noteLimelight,
     BlinkinLED LED) {
   
-    turningController = new PIDController(CommandConstants.kTurningNoteAlignP, CommandConstants.kTurningNoteAlignI, CommandConstants.kTurningNoteAlignD);
-    turningController.setSetpoint(CommandConstants.kTurningNoteAlignSetpoint);
-    turningController.setTolerance(CommandConstants.kTurningNoteAlignTolerance);
+    yController = new PIDController(CommandConstants.kYNoteAlignP, CommandConstants.kYNoteAlignI, CommandConstants.kYNoteAlignD);
+    yController.setSetpoint(CommandConstants.kYNoteAlignSetpoint);
+    yController.setTolerance(CommandConstants.kYNoteAlignTolerance);
 
     xController = new PIDController(CommandConstants.kXNoteAlignP, CommandConstants.kXNoteAlignI, CommandConstants.kXNoteAlignD);
     xController.setSetpoint(CommandConstants.kXNoteAlignSetpoint);
@@ -70,9 +69,17 @@ public class AutoAlignWithNoteSwerve extends Command {
 
 
     noteIsDetected = noteLimelight.targetDetected();
+    System.out.println(noteIsDetected);
     SmartDashboard.putBoolean("Note detected", noteIsDetected);
 
     swerveSubsystem.slowDrive(HelperMethods.applyInputDeadband(oi.engageSlowMode()));
+
+    if (oi.engageDriveBrakeMode()) {
+      swerveSubsystem.setDrivesBrake();
+    }
+    else {
+      swerveSubsystem.setDrivesCoast();
+    }
 
 
 
@@ -105,7 +112,7 @@ public class AutoAlignWithNoteSwerve extends Command {
       swerveSubsystem.driveSwerve(xSpd, ySpd, turningSpd);
     }
     SmartDashboard.putBoolean("Is at note", xController.atSetpoint());
-    System.out.println(xController.atSetpoint());
+    //System.out.println(xController.atSetpoint());
   }
 
   // Called once the command ends or is interrupted.
@@ -115,7 +122,6 @@ public class AutoAlignWithNoteSwerve extends Command {
       LED.enableAutoAlignCompleteLED();
     }
     yController.reset();
-    turningController.reset();
     xController.reset();
     swerveSubsystem.stopModules();
   }

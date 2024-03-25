@@ -150,6 +150,13 @@ public class AutoMoveToPredefined extends Command {
 
 
       swerveSubsystem.slowDrive(HelperMethods.applyInputDeadband(oi.engageSlowMode()));
+      if (oi.engageDriveBrakeMode()) {
+        swerveSubsystem.setDrivesBrake();
+      }
+      else {
+        swerveSubsystem.setDrivesCoast();
+      }
+      
       swerveSubsystem.driveSwerve(xSpd, ySpd, turningSpd);
     }
     SmartDashboard.putBoolean("Is at note", xController.atSetpoint());
