@@ -115,8 +115,8 @@ public class RobotContainer {
 
     //Feed controls do not require driver to press the fire button.
     //They will shoot as soon as intake and angle are prepared
-    new Trigger(() -> oi.pivotAndShootLowFeed()).whileTrue(new PivotToAngleAndShoot(PivotConstants.kFeedAngle, IntakeConstants.kDesiredFeedMotorRPS, IntakeConstants.kDesiredFeedBeltSpeed, CHASSIS, PIVOT, INTAKE, LED, oi));
-    new Trigger(() -> oi.pivotAndShootHighFeed()).whileTrue(new PivotToAngleAndShoot(PivotConstants.kHighFeedAngle, IntakeConstants.kDesiredHighFeedMotorRPS, IntakeConstants.kDesiredHighFeedBeltSpeed, CHASSIS, PIVOT, INTAKE, LED, oi));
+    new Trigger(() -> oi.pivotAndShootLowFeed()).whileTrue(new PivotToAngleAndShoot(PivotConstants.kFeedAngle, IntakeConstants.kDesiredFeedMotorRPS, IntakeConstants.kDesiredFeedBeltSpeed, PIVOT, INTAKE, LED, oi));
+    new Trigger(() -> oi.pivotAndShootHighFeed()).whileTrue(new PivotToAngleAndShoot(PivotConstants.kHighFeedAngle, IntakeConstants.kDesiredHighFeedMotorRPS, IntakeConstants.kDesiredHighFeedBeltSpeed, PIVOT, INTAKE, LED, oi));
     
     
     //TODO: add the trigger to pivot to backshot after merge
