@@ -516,6 +516,11 @@ public ChassisSpeeds getVelocities() {
   }
 
 
+  public SwerveModule getFrontLeftModule() {
+    return frontLeft;
+  }
+
+
 
   public void sendSmartDashboard() {
     SmartDashboard.putString("Odometry pose", odometer.getPoseMeters().toString());

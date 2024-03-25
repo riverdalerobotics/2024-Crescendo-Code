@@ -8,8 +8,6 @@
 //motion talonfx gradual PID setpoint change
 
 package frc.robot.commands.pivotCommands;
-import edu.wpi.first.apriltag.jni.AprilTagJNI.Helper;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.HelperMethods;
 import frc.robot.OI;

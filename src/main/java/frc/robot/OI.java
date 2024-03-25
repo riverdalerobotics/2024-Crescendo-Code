@@ -132,13 +132,28 @@ public boolean engageXModulePosition() {
 
 
 
+
+
 /**
- * Operator controls ||
- * Used to pivot the arm down to the intake position.
+ * Operator controls 
+ * <p>
+ * Used to pivot the arm down to the intake position. Meant to be used in conjuction with
+ * engageIntake() which checks if the same button is held and powers intake
  * @return true when the operator's left bumper is pressed
  */
 public boolean pivotToIntakePosition() {
     return intakeController.getLeftBumperPressed();
+}
+
+/**
+ * Operator control 
+ * <p>
+ * Used to engage the fly wheels and power them to intake speed. Meant to be used in conjuction with
+ * pivotToIntakePosition() which checks if the same button is pressed and pivots to intake angle
+ * @return true as long as the operator's left bumper is pressed
+ */
+public boolean engageIntake() {
+    return intakeController.getLeftBumper();
 }
 
 
@@ -158,14 +173,7 @@ public boolean pivotToSubwooferShoot(){
 
 
 
-/**
- * Operator controls ||
- * Used to engage the auto PID spinup of the intake fly wheels.
- * @return true when the left trigger axis of the operator controller is pushed in above 0.2
- */
-public boolean engageAutoIntakeSpinup(){
-    return intakeController.getLeftTriggerAxis() > 0.2;
-}
+
 
 /**
  * Operator controls ||
@@ -207,14 +215,7 @@ public double pivotArm() {
     return intakeController.getLeftY();
 }
 
-/**
- * Operator controls ||
- * Used to pivot the arm to the feed angle to drop it on the ground.
- * @return true when the intake controller's B button is pressed
- */
-public boolean pivotToFeed()  {
-    return intakeController.getBButtonPressed();
-}
+
 
 public boolean testX() {
     return intakeController.getXButton();
@@ -239,6 +240,48 @@ public boolean shootFeed() {
  */
 public boolean pivotToBackshots() {
     return intakeController.getXButtonPressed();
+}
+
+/**
+ * Operator controls
+ * <p>
+ * Used to pivot and shoot at low intake once wheels are revved
+ * @return true as long as the A button is pressed
+ */
+public boolean pivotAndShootLowFeed() {
+    return intakeController.getAButton();
+}
+
+/**
+ * Operator controls
+ * <p>
+ * Used to pivot and shoot at high intake once wheels are revved
+ * @return true as long as the B button is pressed
+ */
+public boolean pivotAndShootHighFeed() {
+    return intakeController.getBButton();
+}
+
+/**
+ * Operator controls
+ * <p>
+ * Used to rev the arm for shooting at amp. The driver is still given final say to fire the shot.
+ * Used in conjuction with pivotToAmp() which pivots the arm to anp angle when operator's Y button is pressed
+ * @return true as long as the operator's Y button is held
+ */
+public boolean revAmp() {
+    return intakeController.getYButton();
+}
+
+/**
+ * Operator controls
+ * <p>
+ * Used to pivot to the amp angle. Used in conjunction with revAmp() which
+ * revs the arm for amp shooting as long as Y is held
+ * @return true when operator's Y button is pressed
+ */
+public boolean pivotToAmp() {
+    return intakeController.getYButtonPressed();
 }
 
 

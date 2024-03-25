@@ -16,7 +16,6 @@
 package frc.robot.R3P2CustomClasses;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 public class P2TalonFX extends TalonFX {

@@ -4,12 +4,9 @@
 
 package frc.robot.commands.pivotCommands;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.PivotConstants;
-import frc.robot.HelperMethods;
-import frc.robot.TalonHelper;
 import frc.robot.subsystems.PivotSubsystem;
 
 public class NewAutoPivotToAngle extends Command {

@@ -6,11 +6,9 @@ package frc.robot.commands.intakeCommands;
 
 // package frc.robot.commands;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.BlinkinLED;
 import frc.robot.OI;
-import frc.robot.TalonHelper;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.IntakeSubsystem;
 
@@ -76,6 +74,7 @@ public class NewAutoRevFlywheels extends Command {
   @Override
   public void end(boolean interrupted) {
   intake.setIntakeVelocityRPS(0);
+  intake.spinBelt(0);
   LED.disableFlywheelsRevvingLED();
   }
 

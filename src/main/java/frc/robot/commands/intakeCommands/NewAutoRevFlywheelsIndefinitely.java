@@ -1,6 +1,6 @@
 package frc.robot.commands.intakeCommands;
 
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
+
 
 // // Copyright (c) FIRST and other WPILib contributors.
 // // Open Source Software; you can modify and/or share it under the terms of
@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.BlinkinLED;
 import frc.robot.OI;
-import frc.robot.TalonHelper;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.IntakeSubsystem;
 
@@ -58,7 +57,6 @@ public class NewAutoRevFlywheelsIndefinitely extends Command {
    @Override
    public void execute() {
     intake.specCommandRunning = true;
-    System.out.println("COMMAND RUN");
     if (intake.getLeftIntakeMotor().atSetpointPosition(desiredSpeedRPS)) {
       LED.disableFlywheelsRevvingLED();
       LED.enableFlywheelsReadyLED();
@@ -81,6 +79,7 @@ public class NewAutoRevFlywheelsIndefinitely extends Command {
   @Override
   public void end(boolean interrupted) {
   intake.setIntakeVelocityRPS(0);
+  intake.spinBelt(0);
   LED.disableFlywheelsRevvingLED();
   LED.disableFlywheelsReadyLED();
   }
