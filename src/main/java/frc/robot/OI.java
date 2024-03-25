@@ -93,9 +93,9 @@ public boolean engageNoteAlignAssist() {
  */
 public double engageSlowMode() {
     if(moveController.getLeftBumper()){
-        return 0.5;
-    } else{
         return 1;
+    } else{
+        return 0;
     }
 }
 
@@ -227,6 +227,18 @@ public boolean testX() {
  */
 public boolean shootFeed() {
     return intakeController.getAButton();
+}
+
+/**
+ * Operator controls 
+ * <p>
+ * Used to pivot to shoot opposite from intake side
+ * <p>
+ * :)
+ * @return true when the intake controller's X button is pressed
+ */
+public boolean pivotToBackshots() {
+    return intakeController.getXButtonPressed();
 }
 
 

@@ -359,7 +359,7 @@ public ChassisSpeeds getVelocities() {
 
   /**
    * Uses a trigger input to slow the robot drive speed by up to 50%
-   * @param percentageSlow trigger axis value (should have deadband applied beforehand)
+   * @param percentageSlow the percentage you wish to slow the robot by
    */
   public void slowDrive(double percentageSlow) {
     this.maxTeleopDriveSpeed = ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond - ((ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond) * (0.5 * percentageSlow));

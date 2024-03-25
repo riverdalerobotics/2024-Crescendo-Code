@@ -192,15 +192,15 @@ public final class Constants {
 
     public static final double kStatorCurrentLimit = 40;
 
-    public static final double kDesiredIntakeMotorRPS = -80; //-60
+    public static final double kDesiredIntakeMotorRPS = -60; //-60
     public static final double kIntakeBeltMotorSpeed = 0.5;
     public static final double kIntakeCurrentThreshold = -1000;
 
 
-    public static final double kDesiredShootMotorRPS = 100;
+    public static final double kDesiredShootMotorRPS = 80;
     public static final double kShootBeltMotorSpeed = -0.5;
 
-    public static final double kDesiredFeedMotorRPS = 80;
+    public static final double kDesiredFeedMotorRPS = 60;
     public static final double kDesiredFeedBeltSpeed = -0.5;
 
     public static final double kFlywheelsGearRatio = (34d/15d);
@@ -214,7 +214,7 @@ public final class Constants {
 
       //TODO: Find these values
       //dynamic feedforward
-      public static final double kIntakeV = 0;
+      public static final double kIntakeV = 0.057;
       //static feedforward
       public static final double kIntakeS = 0;
 
@@ -223,8 +223,8 @@ public final class Constants {
 
 
       public static final double kMotionMagicCruiseVelocity = 0;
-      public static final double kMotionMagicAcceleration = 200;
-      public static final double kMotionMagicJerk = 2000;
+      public static final double kMotionMagicAcceleration = 350;
+      public static final double kMotionMagicJerk = 3500;
 
 
       public static final double kIntakePIDMinOutput = 1;
@@ -248,8 +248,9 @@ public final class Constants {
 
 
     public static final double kIntakeAngle = 198.9;
-    public static final double kSubwooferShootAngle = 61+20.9;
-    public static final double kFeedAngle = 150+20.9;
+    public static final double kSubwooferShootAngle = 76;
+    public static final double kFeedAngle = 170.9;
+    public static final double kOppositeSubwooferShootAngle = 14;
 
 
     //Used in multiple commands to automatically move the pivot to a desired angle
@@ -337,7 +338,7 @@ public final class Constants {
 
   public static class PathPlannerConstants { //TODO: GET THESE CONSTANTS
     public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(10, 0, 0);
-    public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(0.1, 0, 0);
+    public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(0.5, 0, 0);
 
     //TODO DETERMINE whether this is desired max or physical max
     public static final double MAX_TRANSLATION_SPEED = ChassisConstants.kPhysicalMaxSpeedMetersPerSecond;
@@ -379,7 +380,7 @@ public final class Constants {
     public static final double kXNoteAlignMinOutput = -0.3;
     public static final double kXNoteAlignMaxOutput = 0.3;
     //Meters
-    public static final double kXNoteAlignSetpoint = 1;
+    public static final double kXNoteAlignSetpoint = 1.4;
     public static final double kXNoteAlignTolerance = 0.04;
   }
 
@@ -395,7 +396,7 @@ public final class Constants {
     public static final double[] ORIGIN_PATHPLANNER_FROM_ORIGIN_LIMELIGHT = {-8.27, -4.1021, 0}; //Meters
 
     //limelight camera is being weird by 5 degrees
-    public static final double kLimelightTXOffset = -5;
+    public static final double kLimelightTXOffset = 5;
   }
 
 
