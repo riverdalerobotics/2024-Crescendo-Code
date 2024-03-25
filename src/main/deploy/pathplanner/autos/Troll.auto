@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7913245719729881,
-      "y": 4.411401278318571
+      "x": 0.6452516819624394,
+      "y": 4.391924892983831
     },
     "rotation": -54.46232220802564
   },
@@ -20,7 +20,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Start trolling"
+            "pathName": "Troll 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Troll 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Troll 3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Troll 4"
           }
         }
       ]
