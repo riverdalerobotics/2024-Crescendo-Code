@@ -13,7 +13,6 @@ import frc.robot.commands.intakeCommands.NewAutoRevFlywheelsIndefinitely;
 import frc.robot.commands.intakeCommands.NewIntakeDefaultCommand;
 import frc.robot.commands.pivotCommands.NewAutoPivotToAngle;
 import frc.robot.commands.pivotCommands.NewPivotDefaultCommand;
-import frc.robot.commands.pivotCommands.TuckCommand;
 import frc.robot.commands.swerveCommands.AutoAlignWithNoteSwerve;
 import frc.robot.commands.swerveCommands.SwerveDefaultCommand;
 import frc.robot.subsystems.ClimberSubsystem;
@@ -104,8 +103,8 @@ public class RobotContainer {
     
 
     //This command is unfinished, but the purpose is to rezero the arm if the encoder value is innacurate
-    new Trigger(() -> oi.tuckArm1()).whileTrue(new TuckCommand(PIVOT));
-    new Trigger(() -> oi.tuckArm2()).whileTrue(new TuckCommand(PIVOT));
+    new Trigger(() -> oi.tuckArm1()).whileTrue(new NewAutoPivotToAngle(PivotConstants.kZeroAngle, PIVOT));
+    new Trigger(() -> oi.tuckArm2()).whileTrue(new NewAutoPivotToAngle(PivotConstants.kZeroAngle, PIVOT));
 
     
     new Trigger(() -> oi.pivotToIntakePosition()).onTrue(new NewAutoPivotToAngle(PivotConstants.kIntakeAngle, PIVOT));
@@ -129,7 +128,6 @@ public class RobotContainer {
     new Trigger(() -> oi.pivotToSubwooferShoot()).onTrue(new NewAutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT));
     new Trigger(() -> oi.pivotToBackshots()).onTrue(new NewAutoPivotToAngle(PivotConstants.kOppositeSubwooferShootAngle, PIVOT));
 
-    new Trigger(() -> oi.shootFeed()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredFeedMotorRPS, IntakeConstants.kDesiredFeedBeltSpeed, INTAKE, LED, oi));
     new Trigger(() -> oi.engageAutoShootSpinup()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredShootMotorRPS, 0, INTAKE, LED, oi));
   
   }

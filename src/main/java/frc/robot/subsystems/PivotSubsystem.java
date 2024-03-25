@@ -100,7 +100,7 @@ public class PivotSubsystem extends SubsystemBase {
    * Sets the pivot encoder value to 0, representing the starting hard stop position
    */
   public void resetPivotEncoder(){
-    pivot1.setPosition(0);
+    pivot1.setPosition(PivotConstants.kZeroAngle);
   }
 
   //TODO: set the arm angle to the min position on robot start
@@ -109,7 +109,7 @@ public class PivotSubsystem extends SubsystemBase {
    * @param angle the desired angle
    */
   public void setPivotEncoder(double angle) {
-    pivot1.setPosition(angle);
+    pivot1.setPosition(Units.degreesToRotations(angle));
     desiredAngleDegrees = angle;
   }
 

@@ -63,6 +63,10 @@ public boolean engageFieldOriented() {
 }
 
 
+public boolean engageDriveBrakeMode() {
+    return moveController.getYButton();
+}
+
 /** 
  * Driver controls ||
  * Used to reset robot gyro

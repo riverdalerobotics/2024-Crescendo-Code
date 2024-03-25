@@ -69,9 +69,17 @@ public class AutoAlignWithNoteSwerve extends Command {
 
 
     noteIsDetected = noteLimelight.targetDetected();
+    System.out.println(noteIsDetected);
     SmartDashboard.putBoolean("Note detected", noteIsDetected);
 
     swerveSubsystem.slowDrive(HelperMethods.applyInputDeadband(oi.engageSlowMode()));
+
+    if (oi.engageDriveBrakeMode()) {
+      swerveSubsystem.setDrivesBrake();
+    }
+    else {
+      swerveSubsystem.setDrivesCoast();
+    }
 
 
 
@@ -104,7 +112,7 @@ public class AutoAlignWithNoteSwerve extends Command {
       swerveSubsystem.driveSwerve(xSpd, ySpd, turningSpd);
     }
     SmartDashboard.putBoolean("Is at note", xController.atSetpoint());
-    System.out.println(xController.atSetpoint());
+    //System.out.println(xController.atSetpoint());
   }
 
   // Called once the command ends or is interrupted.

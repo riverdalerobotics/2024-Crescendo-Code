@@ -196,13 +196,13 @@ public final class Constants {
     public static final double kIntakeCurrentThreshold = -1000;
 
 
-    public static final double kDesiredShootMotorRPS = 80;
+    public static final double kDesiredShootMotorRPS = 75;
     public static final double kShootBeltMotorSpeed = -0.5;
 
     public static final double kDesiredFeedMotorRPS = 60;
     public static final double kDesiredFeedBeltSpeed = -0.5;
 
-    public static final double kDesiredHighFeedMotorRPS = 80;
+    public static final double kDesiredHighFeedMotorRPS = 120;
     public static final double kDesiredHighFeedBeltSpeed = -0.5;
 
     public static final double kDesiredAmpMotorRPS = 40;
@@ -252,35 +252,36 @@ public final class Constants {
 
     public static final double kStatorCurrentLimit = 60;
 
-
-    public static final double kIntakeAngle = 198.9;
-    public static final double kSubwooferShootAngle = 76;
-    public static final double kFeedAngle = 170.9;
-    public static final int kHighFeedAngle = 100;
-    public static final int kAmpAngle = 50;
-    public static final double kOppositeSubwooferShootAngle = 14;
+    //172 = 0
+    public static final double kIntakeAngle = 27;
+    public static final double kSubwooferShootAngle = -96;
+    public static final double kFeedAngle = -1.1;
+    public static final int kHighFeedAngle = -87;
+    public static final int kAmpAngle = -122;
+    public static final double kOppositeSubwooferShootAngle = -156;
+    public static final double kZeroAngle = -172;
 
 
     //Used in multiple commands to automatically move the pivot to a desired angle
     public static class PIDConstants {
       //Proportional term was adjusted to be 360 * 0.017 as the internal PID controller now receives error in rotations and not degrees
       public static final double kPivotP = 20; //0,017
-      public static final double kPivotI = 1.6;
+      public static final double kPivotI = 2.4;
       public static final double kPivotD = 0;
 
       //TODO: Find these values
       //dynamic feedforward
-      public static final double kPivotV = 0;
+      public static final double kPivotV = 0.15;
       //static feedforward
       public static final double kPivotS = 0.02;
 
       //Used for PID to determine what rotation is close enough to desired angle
-      public static final double kPivotToleranceThreshold = 2;
+      public static final double kPivotToleranceThreshold = 2.5;
 
-      public static final double kPivotPIDMaxOutput = 0.75;
-      public static final double kPivotPIDMinOutput = -0.75;
-      public static final double kMinSetpoint = 0;
-      public static final double kMaxSetpoint = 198.9; //178 max
+      public static final double kPivotPIDMaxOutput = 0.2; //0.75
+      public static final double kPivotPIDMinOutput = -0.2;//-0.75
+      public static final double kMinSetpoint = -172;
+      public static final double kMaxSetpoint = 27;
 
       public static final double kMotionMagicCruiseVelocity = 1000;
       public static final double kMotionMagicAcceleration = 70;
