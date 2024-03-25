@@ -6,7 +6,6 @@ package frc.robot;
 
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.PivotConstants;
-import frc.robot.commands.autonomousCommands.AutoPivotAndRevShooterIndefinitelyCommand;
 import frc.robot.commands.combinationCommands.IntakeIndefinitelyCommand;
 import frc.robot.commands.combinationCommands.PivotToAngleAndRevIndefinitely;
 import frc.robot.commands.combinationCommands.PivotToAngleAndShoot;
@@ -65,8 +64,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("PivotAndRevForShotFront", new PivotToAngleAndRevIndefinitely(PivotConstants.kSubwooferShootAngle, IntakeConstants.kDesiredShootMotorRPS, PIVOT, INTAKE, LED, oi));
     NamedCommands.registerCommand("PivotAndShootFront", new PivotToAngleAndShoot(PivotConstants.kSubwooferShootAngle, IntakeConstants.kDesiredShootMotorRPS, IntakeConstants.kShootBeltMotorSpeed, PIVOT, INTAKE, LED, oi));
 
-    NamedCommands.registerCommand("PivotAndRevForShotBack",
-    NamedCommands.registerCommand("PivotAndShootBack",
+    NamedCommands.registerCommand("PivotAndRevForShotBack", new PivotToAngleAndRevIndefinitely(PivotConstants.kOppositeSubwooferShootAngle, IntakeConstants.kDesiredShootMotorRPS, PIVOT, INTAKE, LED, oi));
+    NamedCommands.registerCommand("PivotAndShootBack", new PivotToAngleAndShoot(PivotConstants.kOppositeSubwooferShootAngle, IntakeConstants.kDesiredShootMotorRPS, IntakeConstants.kShootBeltMotorSpeed, PIVOT, INTAKE, LED, oi));
 
     CHASSIS.setDefaultCommand(new SwerveDefaultCommand (
       CHASSIS,
@@ -128,7 +127,6 @@ public class RobotContainer {
     
     //Driver has final say for speaker shots
     new Trigger(() -> oi.pivotToSubwooferShoot()).onTrue(new NewAutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT));
-    new Trigger(() -> oi.pivotToFeed()).onTrue(new NewAutoPivotToAngle(PivotConstants.kFeedAngle, PIVOT));
     new Trigger(() -> oi.pivotToBackshots()).onTrue(new NewAutoPivotToAngle(PivotConstants.kOppositeSubwooferShootAngle, PIVOT));
 
     new Trigger(() -> oi.shootFeed()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredFeedMotorRPS, IntakeConstants.kDesiredFeedBeltSpeed, INTAKE, LED, oi));
