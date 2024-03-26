@@ -150,6 +150,9 @@ public class RobotContainer {
     public Command getTestFourAuto(){
       return autoFactory.testFour();
     }
+    public Command getTestFiveAuto(){
+      return autoFactory.testFive();
+    }
 
     public Command getMobilityStyleAuto(){
       return autoFactory.mobilityWithStyle();
