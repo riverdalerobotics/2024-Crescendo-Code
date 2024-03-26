@@ -177,7 +177,7 @@ public class Robot extends TimedRobot {
       }
   }
 
-  /** This function is called periodically during autonomous. */
+  /** This function is called atheriodically during autonomous. */
   @Override
   public void autonomousPeriodic() {}
 

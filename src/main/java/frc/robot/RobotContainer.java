@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.PivotConstants;
+import frc.robot.commands.combinationCommands.AutoAlignAndPickUp;
 import frc.robot.commands.combinationCommands.IntakeIndefinitelyCommand;
 import frc.robot.commands.combinationCommands.PivotToAngleAndRevIndefinitely;
 import frc.robot.commands.combinationCommands.PivotToAngleAndShoot;
@@ -14,6 +15,7 @@ import frc.robot.commands.intakeCommands.NewIntakeDefaultCommand;
 import frc.robot.commands.pivotCommands.NewAutoPivotToAngle;
 import frc.robot.commands.pivotCommands.NewPivotDefaultCommand;
 import frc.robot.commands.swerveCommands.AutoAlignWithNoteSwerve;
+import frc.robot.commands.swerveCommands.DriveXMetersForward;
 import frc.robot.commands.swerveCommands.SwerveDefaultCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -96,7 +98,7 @@ public class RobotContainer {
   private void configureBindings() {
 
     //as long as the right trigger is held, note align will be active
-    new Trigger(() -> oi.engageNoteAlignAssist()).whileTrue(new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT, LED));
+    new Trigger(() -> oi.engageNoteAlignAssist()).whileTrue(new AutoAlignAndPickUp(CHASSIS, INTAKE, PIVOT, oi, LED, NOTE_LIMELIGHT));
 
     //as long as the left trigger is held, auto move to predefined will be active
     //new Trigger(() -> oi.engageAutoMoveToPredefined()).whileTrue(new AutoMoveToPredefined(CHASSIS, oi, TAG_LIMELIGHT));
@@ -130,6 +132,7 @@ public class RobotContainer {
 
     new Trigger(() -> oi.engageAutoShootSpinup()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredShootMotorRPS, 0, INTAKE, LED, oi));
   
+    new Trigger(() -> oi.testButton()).onTrue(new DriveXMetersForward(CHASSIS, 1));
   }
   
     //autos that that we use Robot.java using the Sendable Chooser   

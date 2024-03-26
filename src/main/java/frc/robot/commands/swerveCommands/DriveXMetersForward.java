@@ -33,8 +33,9 @@ public class DriveXMetersForward extends Command {
   public void initialize() {
     swerve.enableRobotOriented();
     startXPos = frontLeftModule.getDrivePosition();
-    desiredXPos = startXPos + driveMeters;
+    desiredXPos = startXPos - driveMeters;
     xController.setSetpoint(desiredXPos);
+    xController.setTolerance(0.1);
     
   }
 
