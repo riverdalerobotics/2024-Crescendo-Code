@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.08,
-        "y": 4.0
+        "x": 2.22,
+        "y": 4.1
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.185646651245854,
-        "y": 3.895277066947966
+        "x": 0.9234703519940854,
+        "y": 3.6818222502637172
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.41632943052363,
-        "y": 5.61893716907244
+        "x": 0.6744662599608237,
+        "y": 4.421139470990311
       },
       "prevControl": {
-        "x": 8.279994733180454,
-        "y": 4.820405370348107
+        "x": 0.8887064986429618,
+        "y": 4.255590195645022
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -41.30861401354891,
+    "rotation": 120.19800191652364,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Troll",
+  "folder": "2 note podium subwoofer paths",
   "previewStartingState": {
-    "rotation": 62.921582690168165,
+    "rotation": -179.4679756029147,
     "velocity": 0
   },
   "useDefaultConstraints": true

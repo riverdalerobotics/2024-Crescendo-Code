@@ -12,6 +12,12 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "PivotAndShootBack"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Go To mid troll"
