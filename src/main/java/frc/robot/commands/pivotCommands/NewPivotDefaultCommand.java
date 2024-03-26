@@ -46,7 +46,7 @@ public class NewPivotDefaultCommand extends Command {
     
     //When this command begins, it stops the movement of the arm by setting the desired position
     //to it's current position
-    pivot.setPivotAngleDegrees(pivot.getRotation());
+    pivot.setPivotAngleDegrees(pivot.getEncoders());
     manualRotationEnabled = false;
     requestedArmAngle = pivot.getEncoders();
     for(int i = 0; i < 100; i++) {
