@@ -230,8 +230,8 @@ public final class Constants {
 
 
       public static final double kMotionMagicCruiseVelocity = 0;
-      public static final double kMotionMagicAcceleration = 350;
-      public static final double kMotionMagicJerk = 3500;
+      public static final double kMotionMagicAcceleration = 450;
+      public static final double kMotionMagicJerk = 4500;
 
 
       public static final double kIntakePIDMinOutput = 1;
@@ -267,7 +267,7 @@ public final class Constants {
     public static class PIDConstants {
       //Proportional term was adjusted to be 360 * 0.017 as the internal PID controller now receives error in rotations and not degrees
       public static final double kPivotP = 16; //0,017
-      public static final double kPivotI = 4;
+      public static final double kPivotI = 3.5;
       public static final double kPivotD = 0;
 
       //TODO: Find these values
@@ -278,6 +278,8 @@ public final class Constants {
 
       //Used for PID to determine what rotation is close enough to desired angle
       public static final double kPivotToleranceThreshold = 1;
+
+      public static final double kSetUpTolerance = 7;
 
       public static final double kPivotPIDMaxOutput = 0.7; //0.75
       public static final double kPivotPIDMinOutput = -0.7;//-0.75
@@ -367,8 +369,8 @@ public final class Constants {
     public static final double kYNoteAlignP = 0.5;
     public static final double kYNoteAlignI = 0;
     public static final double kYNoteAlignD = 0;
-    public static final double kYNoteAlignMinOutput = -0.3;
-    public static final double kYNoteAlignMaxOutput = 0.3;
+    public static final double kYNoteAlignMinOutput = -0.5;
+    public static final double kYNoteAlignMaxOutput = 0.5;
     //Meters
     public static final double kYNoteAlignSetpoint = 0;
     public static final double kYNoteAlignTolerance = 0.05;

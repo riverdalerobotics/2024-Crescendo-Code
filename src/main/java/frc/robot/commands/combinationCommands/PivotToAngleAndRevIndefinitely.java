@@ -7,6 +7,7 @@ package frc.robot.commands.combinationCommands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.BlinkinLED;
 import frc.robot.OI;
+import frc.robot.Constants.PivotConstants;
 import frc.robot.commands.intakeCommands.NewAutoRevFlywheelsIndefinitely;
 import frc.robot.commands.pivotCommands.NewAutoPivotToAngle;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -21,6 +22,6 @@ public class PivotToAngleAndRevIndefinitely extends ParallelCommandGroup {
   public PivotToAngleAndRevIndefinitely(double desiredAngle, double intakeRPS, PivotSubsystem pivot, IntakeSubsystem intake, BlinkinLED blinkin, OI oi) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new NewAutoPivotToAngle(desiredAngle, pivot), new NewAutoRevFlywheelsIndefinitely(intakeRPS, 0, intake, blinkin, oi));
+    addCommands(new NewAutoPivotToAngle(desiredAngle, pivot, PivotConstants.PIDConstants.kPivotToleranceThreshold), new NewAutoRevFlywheelsIndefinitely(intakeRPS, 0, intake, blinkin, oi));
   }
 }

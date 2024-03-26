@@ -130,9 +130,22 @@
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "PivotAndRevForShotBack"
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "SetArmUp"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "PivotAndRevForShotBack"
+                      }
+                    }
+                  ]
                 }
               }
             ]

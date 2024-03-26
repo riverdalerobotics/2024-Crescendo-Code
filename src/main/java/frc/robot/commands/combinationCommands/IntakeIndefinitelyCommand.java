@@ -28,6 +28,6 @@ public class IntakeIndefinitelyCommand extends ParallelCommandGroup {
   public IntakeIndefinitelyCommand(PivotSubsystem pivot, IntakeSubsystem intake, BlinkinLED LED, OI oi) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new NewAutoPivotToAngle(PivotConstants.kIntakeAngle, pivot), new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredIntakeMotorRPS, IntakeConstants.kIntakeBeltMotorSpeed, intake, LED, oi));
+    addCommands(new NewAutoPivotToAngle(PivotConstants.kIntakeAngle, pivot, PivotConstants.PIDConstants.kPivotToleranceThreshold), new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredIntakeMotorRPS, IntakeConstants.kIntakeBeltMotorSpeed, intake, LED, oi));
   }
 }

@@ -67,7 +67,7 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("PivotAndRevForShotBack", new PivotToAngleAndRevIndefinitely(PivotConstants.kOppositeSubwooferShootAngle, IntakeConstants.kDesiredShootMotorRPS, PIVOT, INTAKE, LED, oi));
     NamedCommands.registerCommand("PivotAndShootBack", new PivotToAngleAndShoot(PivotConstants.kOppositeSubwooferShootAngle, IntakeConstants.kDesiredShootMotorRPS, IntakeConstants.kShootBeltMotorSpeed, PIVOT, INTAKE, LED, oi, IntakeConstants.kShootTimeNeeded));
-    NamedCommands.registerCommand("SetArmUp", new NewAutoPivotToAngle(-90, PIVOT));
+    NamedCommands.registerCommand("SetArmUp", new NewAutoPivotToAngle(-90, PIVOT, PivotConstants.PIDConstants.kSetUpTolerance));
     CHASSIS.setDefaultCommand(new SwerveDefaultCommand (
       CHASSIS,
       oi
@@ -105,11 +105,11 @@ public class RobotContainer {
     
 
     //This command is unfinished, but the purpose is to rezero the arm if the encoder value is innacurate
-    new Trigger(() -> oi.tuckArm1()).whileTrue(new NewAutoPivotToAngle(PivotConstants.kZeroAngle, PIVOT));
-    new Trigger(() -> oi.tuckArm2()).whileTrue(new NewAutoPivotToAngle(PivotConstants.kZeroAngle, PIVOT));
+    new Trigger(() -> oi.tuckArm1()).whileTrue(new NewAutoPivotToAngle(PivotConstants.kZeroAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold));
+    new Trigger(() -> oi.tuckArm2()).whileTrue(new NewAutoPivotToAngle(PivotConstants.kZeroAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold));
 
     
-    new Trigger(() -> oi.pivotToIntakePosition()).onTrue(new NewAutoPivotToAngle(PivotConstants.kIntakeAngle, PIVOT));
+    new Trigger(() -> oi.pivotToIntakePosition()).onTrue(new NewAutoPivotToAngle(PivotConstants.kIntakeAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold));
     new Trigger(() -> oi.engageIntake()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredIntakeMotorRPS, IntakeConstants.kIntakeBeltMotorSpeed, INTAKE, LED, oi));
 
 
@@ -123,12 +123,12 @@ public class RobotContainer {
 
     //When the y button is held on op controller, the arm pivots and revs for amp shot.
     //Driver still has final say to make the shot
-    new Trigger(() -> oi.pivotToAmp()).onTrue(new NewAutoPivotToAngle(PivotConstants.kAmpAngle, PIVOT));
+    new Trigger(() -> oi.pivotToAmp()).onTrue(new NewAutoPivotToAngle(PivotConstants.kAmpAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold));
     new Trigger(() -> oi.revAmp()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredAmpMotorRPS, 0, INTAKE, LED, oi));
     
     //Driver has final say for speaker shots
-    new Trigger(() -> oi.pivotToSubwooferShoot()).onTrue(new NewAutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT));
-    new Trigger(() -> oi.pivotToBackshots()).onTrue(new NewAutoPivotToAngle(PivotConstants.kOppositeSubwooferShootAngle, PIVOT));
+    new Trigger(() -> oi.pivotToSubwooferShoot()).onTrue(new NewAutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold));
+    new Trigger(() -> oi.pivotToBackshots()).onTrue(new NewAutoPivotToAngle(PivotConstants.kOppositeSubwooferShootAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold));
 
     new Trigger(() -> oi.engageAutoShootSpinup()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredShootMotorRPS, 0, INTAKE, LED, oi));
   
