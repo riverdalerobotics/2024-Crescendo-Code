@@ -194,6 +194,7 @@ public final class Constants {
     public static final double kDesiredIntakeMotorRPS = -80; //-60
     public static final double kIntakeBeltMotorSpeed = 0.5;
     public static final double kIntakeCurrentThreshold = -1000;
+    public static final double kShootTimeNeeded = 750;
 
 
     public static final double kDesiredShootMotorRPS = 75;
@@ -258,28 +259,28 @@ public final class Constants {
     public static final double kFeedAngle = -1.1;
     public static final int kHighFeedAngle = -87;
     public static final int kAmpAngle = -122;
-    public static final double kOppositeSubwooferShootAngle = -156;
+    public static final double kOppositeSubwooferShootAngle = -154; //-156
     public static final double kZeroAngle = -172;
 
 
     //Used in multiple commands to automatically move the pivot to a desired angle
     public static class PIDConstants {
       //Proportional term was adjusted to be 360 * 0.017 as the internal PID controller now receives error in rotations and not degrees
-      public static final double kPivotP = 20; //0,017
-      public static final double kPivotI = 2.4;
+      public static final double kPivotP = 16; //0,017
+      public static final double kPivotI = 4;
       public static final double kPivotD = 0;
 
       //TODO: Find these values
       //dynamic feedforward
-      public static final double kPivotV = 0.15;
+      public static final double kPivotV = 0.25;
       //static feedforward
       public static final double kPivotS = 0.02;
 
       //Used for PID to determine what rotation is close enough to desired angle
-      public static final double kPivotToleranceThreshold = 2.5;
+      public static final double kPivotToleranceThreshold = 1;
 
-      public static final double kPivotPIDMaxOutput = 0.2; //0.75
-      public static final double kPivotPIDMinOutput = -0.2;//-0.75
+      public static final double kPivotPIDMaxOutput = 0.7; //0.75
+      public static final double kPivotPIDMinOutput = -0.7;//-0.75
       public static final double kMinSetpoint = -172;
       public static final double kMaxSetpoint = 27;
 

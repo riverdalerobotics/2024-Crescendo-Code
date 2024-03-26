@@ -43,7 +43,7 @@ public double rotate(){
 }
 
 public boolean testButton() {
-    return moveController.getBButtonPressed();
+    return moveController.getBButton();
 }
 
 //TODO: figure out which button this is

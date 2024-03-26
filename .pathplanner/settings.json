@@ -26,7 +26,7 @@
     "Shoot from Same Intake Auto (new)",
     "Tests at school"
   ],
-  "defaultMaxVel": 3.75,
+  "defaultMaxVel": 1.0,
   "defaultMaxAccel": 4.5,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,

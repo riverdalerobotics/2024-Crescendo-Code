@@ -14,6 +14,12 @@
         {
           "type": "named",
           "data": {
+            "name": "SetArmUp"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "PivotAndShootBack"
           }
         },
@@ -47,12 +53,6 @@
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "PivotAndShootBack"
           }
         },
         {
@@ -127,63 +127,6 @@
                 "type": "path",
                 "data": {
                   "pathName": "Copy of 6. Return Amp Note To Mid Subwoofer"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "PivotAndRevForShotBack"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "PivotAndShootBack"
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "Copy of 7. Mid Subwoofer to Podium Note"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "8. Continue Forward To Pickup Podium Note"
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "IntakeIndefinitely"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Copy of 9. Return Podium Note To Mid Subwoofer"
                 }
               },
               {
