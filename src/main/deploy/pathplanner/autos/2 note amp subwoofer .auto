@@ -12,21 +12,66 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "1. Amp Subwoofer Rotate"
+            "name": "PivotAndShootBack"
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "2. Continue Forward to Amp note"
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "1. Amp Subwoofer Rotate"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "2. Continue Forward to Amp note"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeIndefinitely"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "3. Return rotate to Amp Subwoofer"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "3. Return rotate to Amp Subwoofer"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "PivotAndRevForShotBack"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "PivotAndShootBack"
           }
         }
       ]

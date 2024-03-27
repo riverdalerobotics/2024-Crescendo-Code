@@ -37,6 +37,8 @@ public class Robot extends TimedRobot {
   private static final String testTwo = "straight line goes 155 inches or 3.937 meters"; //max velocity is 1.1 m/s
   private static final String testThree = "rotate 180 degrees moving 3.937 meters"; //max velocity is 3 m/s
   private static final String testFour = "rotate 180 degrees while going forward and back"; //max velocity is 3 m/s
+  private static final String testFive = "pickup close mid slowly (test wth commands)";
+  
   private static final String mobilityWithStyle = "go 2.26 meters, rotate 180 degrees" ; //max velocity is 1.5 m/s
 
   private static final String podiumSubwooferTwoNotes = "Podium SIde Subwoofer Shoot And Rretrieve Podium Note and Shoot (different Intake and Shoot side)"; 
@@ -66,6 +68,7 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("2nd test", testTwo);
     m_chooser.addOption("3rd test", testThree);
     m_chooser.addOption("4th test", testFour);
+    m_chooser.addOption("5th test", testFive);
 
     m_chooser.addOption("1 Shoot and stop from anywhere", shootAndStop);
 
@@ -152,6 +155,9 @@ public class Robot extends TimedRobot {
         case testFour: 
           m_autonomousCommand = m_robotContainer.getTestFourAuto();
           break;
+        case testFive: 
+          m_autonomousCommand = m_robotContainer.getTestFiveAuto();
+          break;
 
 
         case mobilityWithStyle:
@@ -171,7 +177,7 @@ public class Robot extends TimedRobot {
       }
   }
 
-  /** This function is called periodically during autonomous. */
+  /** This function is called atheriodically during autonomous. */
   @Override
   public void autonomousPeriodic() {}
 

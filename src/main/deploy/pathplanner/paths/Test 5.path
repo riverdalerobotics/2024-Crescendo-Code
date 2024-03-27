@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.33,
-        "y": 5.54
+        "x": 1.3658779393478129,
+        "y": 5.589722591070332
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.6318429861059016,
-        "y": 5.472864279061892
+        "x": 1.6482855267015404,
+        "y": 5.570246205735591
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.028075040728967,
-        "y": 7.0
+        "x": 2.281268050080585,
+        "y": 5.589722591070332
       },
       "prevControl": {
-        "x": 1.4048307100172932,
-        "y": 7.02921457800211
+        "x": 1.9599076920573775,
+        "y": 5.589722591070332
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,21 +32,21 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.0,
+    "maxVelocity": 0.6,
     "maxAcceleration": 4.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0.4,
+    "velocity": 0,
     "rotation": 180.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "4 note mid subwoofer paths",
+  "folder": "Test 5",
   "previewStartingState": {
-    "rotation": -179.70613309648763,
+    "rotation": -179.22227700573637,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

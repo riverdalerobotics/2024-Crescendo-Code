@@ -11,15 +11,16 @@ import frc.robot.subsystems.PivotSubsystem;
 
 public class NewAutoPivotToAngle extends Command {
   /** Creates a new AutoPivotToAngle. */
-  double tolerance = PivotConstants.PIDConstants.kPivotToleranceThreshold;
+  double tolerance;
   double desiredAngle;
   PivotSubsystem pivot;
   double maxCurrent = PivotConstants.kHardStopCurrentThreshold;
   double hardStopPosition = PivotConstants.PIDConstants.kMinSetpoint;
-  public NewAutoPivotToAngle(double angle, PivotSubsystem pivotSubsystem) {
+  public NewAutoPivotToAngle(double angle, PivotSubsystem pivotSubsystem, double tolerance) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.pivot = pivotSubsystem;
     this.desiredAngle = angle;
+    this.tolerance = tolerance;
     addRequirements(pivot);
   }
 

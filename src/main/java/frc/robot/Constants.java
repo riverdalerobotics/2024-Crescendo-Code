@@ -194,6 +194,7 @@ public final class Constants {
     public static final double kDesiredIntakeMotorRPS = -80; //-60
     public static final double kIntakeBeltMotorSpeed = 0.5;
     public static final double kIntakeCurrentThreshold = -1000;
+    public static final double kShootTimeNeeded = 750;
 
 
     public static final double kDesiredShootMotorRPS = 75;
@@ -229,8 +230,8 @@ public final class Constants {
 
 
       public static final double kMotionMagicCruiseVelocity = 0;
-      public static final double kMotionMagicAcceleration = 350;
-      public static final double kMotionMagicJerk = 3500;
+      public static final double kMotionMagicAcceleration = 450;
+      public static final double kMotionMagicJerk = 4500;
 
 
       public static final double kIntakePIDMinOutput = 1;
@@ -258,28 +259,30 @@ public final class Constants {
     public static final double kFeedAngle = -1.1;
     public static final int kHighFeedAngle = -87;
     public static final int kAmpAngle = -122;
-    public static final double kOppositeSubwooferShootAngle = -156;
+    public static final double kOppositeSubwooferShootAngle = -154; //-156
     public static final double kZeroAngle = -172;
 
 
     //Used in multiple commands to automatically move the pivot to a desired angle
     public static class PIDConstants {
       //Proportional term was adjusted to be 360 * 0.017 as the internal PID controller now receives error in rotations and not degrees
-      public static final double kPivotP = 20; //0,017
-      public static final double kPivotI = 2.4;
+      public static final double kPivotP = 16; //0,017
+      public static final double kPivotI = 3.5;
       public static final double kPivotD = 0;
 
       //TODO: Find these values
       //dynamic feedforward
-      public static final double kPivotV = 0.15;
+      public static final double kPivotV = 0.25;
       //static feedforward
       public static final double kPivotS = 0.02;
 
       //Used for PID to determine what rotation is close enough to desired angle
-      public static final double kPivotToleranceThreshold = 2.5;
+      public static final double kPivotToleranceThreshold = 1;
 
-      public static final double kPivotPIDMaxOutput = 0.2; //0.75
-      public static final double kPivotPIDMinOutput = -0.2;//-0.75
+      public static final double kSetUpTolerance = 7;
+
+      public static final double kPivotPIDMaxOutput = 0.7; //0.75
+      public static final double kPivotPIDMinOutput = -0.7;//-0.75
       public static final double kMinSetpoint = -172;
       public static final double kMaxSetpoint = 27;
 
@@ -347,7 +350,7 @@ public final class Constants {
 
   public static class PathPlannerConstants { //TODO: GET THESE CONSTANTS
     public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(10, 0, 0);
-    public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(0.5, 0, 0);
+    public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(0.1, 0, 0);
 
     //TODO DETERMINE whether this is desired max or physical max
     public static final double MAX_TRANSLATION_SPEED = ChassisConstants.kPhysicalMaxSpeedMetersPerSecond;
@@ -366,8 +369,8 @@ public final class Constants {
     public static final double kYNoteAlignP = 0.5;
     public static final double kYNoteAlignI = 0;
     public static final double kYNoteAlignD = 0;
-    public static final double kYNoteAlignMinOutput = -0.3;
-    public static final double kYNoteAlignMaxOutput = 0.3;
+    public static final double kYNoteAlignMinOutput = -0.5;
+    public static final double kYNoteAlignMaxOutput = 0.5;
     //Meters
     public static final double kYNoteAlignSetpoint = 0;
     public static final double kYNoteAlignTolerance = 0.05;

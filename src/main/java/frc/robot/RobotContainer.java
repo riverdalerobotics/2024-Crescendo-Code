@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.PivotConstants;
+import frc.robot.commands.combinationCommands.AutoAlignAndPickUp;
 import frc.robot.commands.combinationCommands.IntakeIndefinitelyCommand;
 import frc.robot.commands.combinationCommands.PivotToAngleAndRevIndefinitely;
 import frc.robot.commands.combinationCommands.PivotToAngleAndShoot;
@@ -14,6 +15,7 @@ import frc.robot.commands.intakeCommands.NewIntakeDefaultCommand;
 import frc.robot.commands.pivotCommands.NewAutoPivotToAngle;
 import frc.robot.commands.pivotCommands.NewPivotDefaultCommand;
 import frc.robot.commands.swerveCommands.AutoAlignWithNoteSwerve;
+import frc.robot.commands.swerveCommands.DriveXMetersForward;
 import frc.robot.commands.swerveCommands.SwerveDefaultCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -61,11 +63,11 @@ public class RobotContainer {
     NamedCommands.registerCommand("IntakeIndefinitely", new IntakeIndefinitelyCommand(PIVOT, INTAKE, LED, oi));
     
     NamedCommands.registerCommand("PivotAndRevForShotFront", new PivotToAngleAndRevIndefinitely(PivotConstants.kSubwooferShootAngle, IntakeConstants.kDesiredShootMotorRPS, PIVOT, INTAKE, LED, oi));
-    NamedCommands.registerCommand("PivotAndShootFront", new PivotToAngleAndShoot(PivotConstants.kSubwooferShootAngle, IntakeConstants.kDesiredShootMotorRPS, IntakeConstants.kShootBeltMotorSpeed, PIVOT, INTAKE, LED, oi));
+    NamedCommands.registerCommand("PivotAndShootFront", new PivotToAngleAndShoot(PivotConstants.kSubwooferShootAngle, IntakeConstants.kDesiredShootMotorRPS, IntakeConstants.kShootBeltMotorSpeed, PIVOT, INTAKE, LED, oi, IntakeConstants.kShootTimeNeeded));
 
     NamedCommands.registerCommand("PivotAndRevForShotBack", new PivotToAngleAndRevIndefinitely(PivotConstants.kOppositeSubwooferShootAngle, IntakeConstants.kDesiredShootMotorRPS, PIVOT, INTAKE, LED, oi));
-    NamedCommands.registerCommand("PivotAndShootBack", new PivotToAngleAndShoot(PivotConstants.kOppositeSubwooferShootAngle, IntakeConstants.kDesiredShootMotorRPS, IntakeConstants.kShootBeltMotorSpeed, PIVOT, INTAKE, LED, oi));
-
+    NamedCommands.registerCommand("PivotAndShootBack", new PivotToAngleAndShoot(PivotConstants.kOppositeSubwooferShootAngle, IntakeConstants.kDesiredShootMotorRPS, IntakeConstants.kShootBeltMotorSpeed, PIVOT, INTAKE, LED, oi, IntakeConstants.kShootTimeNeeded));
+    NamedCommands.registerCommand("SetArmUp", new NewAutoPivotToAngle(-90, PIVOT, PivotConstants.PIDConstants.kSetUpTolerance));
     CHASSIS.setDefaultCommand(new SwerveDefaultCommand (
       CHASSIS,
       oi
@@ -96,40 +98,41 @@ public class RobotContainer {
   private void configureBindings() {
 
     //as long as the right trigger is held, note align will be active
-    new Trigger(() -> oi.engageNoteAlignAssist()).whileTrue(new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT, LED));
+    new Trigger(() -> oi.engageNoteAlignAssist()).whileTrue(new AutoAlignAndPickUp(CHASSIS, INTAKE, PIVOT, oi, LED, NOTE_LIMELIGHT));
 
     //as long as the left trigger is held, auto move to predefined will be active
     //new Trigger(() -> oi.engageAutoMoveToPredefined()).whileTrue(new AutoMoveToPredefined(CHASSIS, oi, TAG_LIMELIGHT));
     
 
     //This command is unfinished, but the purpose is to rezero the arm if the encoder value is innacurate
-    new Trigger(() -> oi.tuckArm1()).whileTrue(new NewAutoPivotToAngle(PivotConstants.kZeroAngle, PIVOT));
-    new Trigger(() -> oi.tuckArm2()).whileTrue(new NewAutoPivotToAngle(PivotConstants.kZeroAngle, PIVOT));
+    new Trigger(() -> oi.tuckArm1()).whileTrue(new NewAutoPivotToAngle(PivotConstants.kZeroAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold));
+    new Trigger(() -> oi.tuckArm2()).whileTrue(new NewAutoPivotToAngle(PivotConstants.kZeroAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold));
 
     
-    new Trigger(() -> oi.pivotToIntakePosition()).onTrue(new NewAutoPivotToAngle(PivotConstants.kIntakeAngle, PIVOT));
+    new Trigger(() -> oi.pivotToIntakePosition()).onTrue(new NewAutoPivotToAngle(PivotConstants.kIntakeAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold));
     new Trigger(() -> oi.engageIntake()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredIntakeMotorRPS, IntakeConstants.kIntakeBeltMotorSpeed, INTAKE, LED, oi));
 
 
     //Feed controls do not require driver to press the fire button.
     //They will shoot as soon as intake and angle are prepared
-    new Trigger(() -> oi.pivotAndShootLowFeed()).whileTrue(new PivotToAngleAndShoot(PivotConstants.kFeedAngle, IntakeConstants.kDesiredFeedMotorRPS, IntakeConstants.kDesiredFeedBeltSpeed, PIVOT, INTAKE, LED, oi));
-    new Trigger(() -> oi.pivotAndShootHighFeed()).whileTrue(new PivotToAngleAndShoot(PivotConstants.kHighFeedAngle, IntakeConstants.kDesiredHighFeedMotorRPS, IntakeConstants.kDesiredHighFeedBeltSpeed, PIVOT, INTAKE, LED, oi));
+    new Trigger(() -> oi.pivotAndShootLowFeed()).whileTrue(new PivotToAngleAndShoot(PivotConstants.kFeedAngle, IntakeConstants.kDesiredFeedMotorRPS, IntakeConstants.kDesiredFeedBeltSpeed, PIVOT, INTAKE, LED, oi, IntakeConstants.kShootTimeNeeded));
+    new Trigger(() -> oi.pivotAndShootHighFeed()).whileTrue(new PivotToAngleAndShoot(PivotConstants.kHighFeedAngle, IntakeConstants.kDesiredHighFeedMotorRPS, IntakeConstants.kDesiredHighFeedBeltSpeed, PIVOT, INTAKE, LED, oi, IntakeConstants.kShootTimeNeeded));
     
     
     //TODO: add the trigger to pivot to backshot after merge
 
     //When the y button is held on op controller, the arm pivots and revs for amp shot.
     //Driver still has final say to make the shot
-    new Trigger(() -> oi.pivotToAmp()).onTrue(new NewAutoPivotToAngle(PivotConstants.kAmpAngle, PIVOT));
+    new Trigger(() -> oi.pivotToAmp()).onTrue(new NewAutoPivotToAngle(PivotConstants.kAmpAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold));
     new Trigger(() -> oi.revAmp()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredAmpMotorRPS, 0, INTAKE, LED, oi));
     
     //Driver has final say for speaker shots
-    new Trigger(() -> oi.pivotToSubwooferShoot()).onTrue(new NewAutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT));
-    new Trigger(() -> oi.pivotToBackshots()).onTrue(new NewAutoPivotToAngle(PivotConstants.kOppositeSubwooferShootAngle, PIVOT));
+    new Trigger(() -> oi.pivotToSubwooferShoot()).onTrue(new NewAutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold));
+    new Trigger(() -> oi.pivotToBackshots()).onTrue(new NewAutoPivotToAngle(PivotConstants.kOppositeSubwooferShootAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold));
 
     new Trigger(() -> oi.engageAutoShootSpinup()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredShootMotorRPS, 0, INTAKE, LED, oi));
   
+    new Trigger(() -> oi.testButton()).whileTrue(new PivotToAngleAndShoot(PivotConstants.kOppositeSubwooferShootAngle, IntakeConstants.kDesiredShootMotorRPS, IntakeConstants.kShootBeltMotorSpeed, PIVOT, INTAKE, LED, oi, IntakeConstants.kShootTimeNeeded));
   }
   
     //autos that that we use Robot.java using the Sendable Chooser   
@@ -149,6 +152,9 @@ public class RobotContainer {
     }
     public Command getTestFourAuto(){
       return autoFactory.testFour();
+    }
+    public Command getTestFiveAuto(){
+      return autoFactory.testFive();
     }
 
     public Command getMobilityStyleAuto(){

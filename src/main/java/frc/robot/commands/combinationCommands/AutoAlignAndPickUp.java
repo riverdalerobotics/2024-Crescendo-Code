@@ -5,6 +5,7 @@
 package frc.robot.commands.combinationCommands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.BlinkinLED;
 import frc.robot.Limelight;
@@ -23,6 +24,6 @@ public class AutoAlignAndPickUp extends SequentialCommandGroup {
   public AutoAlignAndPickUp(SwerveChassisSubsystem swerve, IntakeSubsystem intake, PivotSubsystem pivot, OI oi, BlinkinLED LED, Limelight noteLimelight) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new AutoAlignWithNoteSwerve(swerve, oi, noteLimelight, LED), new ParallelCommandGroup(new DriveXMetersForward(swerve, 1), new IntakeIndefinitelyCommand(pivot, intake, LED, oi)));
+    addCommands(new AutoAlignWithNoteSwerve(swerve, oi, noteLimelight, LED), new ParallelDeadlineGroup(new DriveXMetersForward(swerve, 0.5), new IntakeIndefinitelyCommand(pivot, intake, LED, oi)));
   }
 }

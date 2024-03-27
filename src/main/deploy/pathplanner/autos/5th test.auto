@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7134190306388977,
-      "y": 4.450354048983181
+      "x": 1.3658779393478129,
+      "y": 5.589722591070332
     },
-    "rotation": 120.25643716363525
+    "rotation": 180.0
   },
   "command": {
     "type": "sequential",
@@ -22,22 +22,9 @@
           "data": {
             "commands": [
               {
-                "type": "sequential",
+                "type": "path",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "1. Podium Subwoofer to podium note"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "2. Go Forward Pickup Podium Note "
-                      }
-                    }
-                  ]
+                  "pathName": "Test 5"
                 }
               },
               {
@@ -56,7 +43,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "3. Return Podium Note to Podium Subwoofer"
+                  "pathName": "Test 5 Part 2"
                 }
               },
               {
@@ -77,6 +64,6 @@
       ]
     }
   },
-  "folder": "Shoot from Different Intake Auto ",
+  "folder": "Tests at school",
   "choreoAuto": false
 }

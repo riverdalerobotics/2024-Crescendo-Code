@@ -16,6 +16,7 @@
     "4 note mid subwoofer paths (NEW)",
     "Do Nothing",
     "Mobility",
+    "Test 5",
     "Test 4",
     "Troll"
   ],
@@ -25,8 +26,8 @@
     "Shoot from Same Intake Auto (new)",
     "Tests at school"
   ],
-  "defaultMaxVel": 3.5,
-  "defaultMaxAccel": 4.0,
+  "defaultMaxVel": 1.0,
+  "defaultMaxAccel": 4.5,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
   "maxModuleSpeed": 4.6

@@ -26,10 +26,11 @@ public class PivotToAngleAndShoot extends SequentialCommandGroup {
    * @param intake
    * @param blinkin
    * @param oi
+   * @param shootTime
    */
-  public PivotToAngleAndShoot(double desiredAngle, double intakeRPS, double beltSpeed, PivotSubsystem pivot, IntakeSubsystem intake, BlinkinLED blinkin, OI oi) {
+  public PivotToAngleAndShoot(double desiredAngle, double intakeRPS, double beltSpeed, PivotSubsystem pivot, IntakeSubsystem intake, BlinkinLED blinkin, OI oi, double shootTime) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new PivotToAngleAndRev(desiredAngle, intakeRPS, pivot, intake, blinkin, oi), new AutoRevAndBeltWhenReady(intakeRPS, beltSpeed, intake, blinkin, oi));
+    addCommands(new PivotToAngleAndRev(desiredAngle, intakeRPS, pivot, intake, blinkin, oi), new AutoRevAndBeltWhenReady(intakeRPS, beltSpeed, intake, blinkin, oi, shootTime));
   }
 }
