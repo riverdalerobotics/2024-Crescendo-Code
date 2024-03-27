@@ -7,6 +7,7 @@ package frc.robot.commands.swerveCommands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.HelperMethods;
 import frc.robot.Constants.CommandConstants;
 import frc.robot.subsystems.SwerveChassisSubsystem;
 import frc.robot.subsystems.SwerveModule;
@@ -34,6 +35,7 @@ public class DriveXMetersForward extends Command {
     swerve.enableRobotOriented();
     startXPos = frontLeftModule.getDrivePosition();
     desiredXPos = startXPos - driveMeters;
+    swerve.setDrivesBrake();
     xController.setSetpoint(desiredXPos);
     xController.setTolerance(0.1);
     
@@ -42,7 +44,8 @@ public class DriveXMetersForward extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    swerve.driveSwerve(xController.calculate(frontLeftModule.getDrivePosition()), 0, 0);
+    double controlVal = HelperMethods.limitValInRange(CommandConstants.kXNoteAlignMinOutput, CommandConstants.kXNoteAlignMaxOutput, xController.calculate(frontLeftModule.getDrivePosition()));
+    swerve.driveSwerve(controlVal, 0, 0);
   }
 
   // Called once the command ends or is interrupted.
@@ -50,6 +53,7 @@ public class DriveXMetersForward extends Command {
   public void end(boolean interrupted) {
     xController.reset();
     swerve.stopModules();
+    swerve.setDrivesCoast();
   }
 
   // Returns true when the command should end.

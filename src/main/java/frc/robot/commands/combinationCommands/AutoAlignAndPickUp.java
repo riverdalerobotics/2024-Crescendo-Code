@@ -24,6 +24,6 @@ public class AutoAlignAndPickUp extends SequentialCommandGroup {
   public AutoAlignAndPickUp(SwerveChassisSubsystem swerve, IntakeSubsystem intake, PivotSubsystem pivot, OI oi, BlinkinLED LED, Limelight noteLimelight) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new AutoAlignWithNoteSwerve(swerve, oi, noteLimelight, LED), new ParallelDeadlineGroup(new DriveXMetersForward(swerve, 0.5), new IntakeIndefinitelyCommand(pivot, intake, LED, oi)));
+    addCommands(new AutoAlignWithNoteSwerve(swerve, oi, noteLimelight, LED), new ParallelDeadlineGroup(new DriveXMetersForward(swerve, 0.8), new IntakeIndefinitelyCommand(pivot, intake, LED, oi)));
   }
 }

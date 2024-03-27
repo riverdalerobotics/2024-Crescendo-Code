@@ -11,11 +11,15 @@ import frc.robot.subsystems.ClimberSubsystem;
 
 public class ClimberDefaultCommand extends Command {
   /** Creates a new ClimberDefaultCommand. */
-  OI operatorInput;
+  OI oi;
+  ClimberSubsystem climb;
+  
   public ClimberDefaultCommand(OI opInput, ClimberSubsystem climb) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.climb = climb;
     addRequirements(climb);
-    this.operatorInput = opInput;
+    this.oi = opInput;
+    
   }
 
   
@@ -26,7 +30,20 @@ public class ClimberDefaultCommand extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+
+    if(oi.Arm() == 0 ){
+      climb.climb(0.2);
+    }else if (oi.Arm() == 180){
+      climb.climb(-0.2);
+    }
+    else{
+      climb.climb(0);
+    }
+    
+  
+  }
+  // 
 
   // Called once the command ends or is interrupted.
   @Override
