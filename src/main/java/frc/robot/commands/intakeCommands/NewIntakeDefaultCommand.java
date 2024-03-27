@@ -46,10 +46,14 @@ public class NewIntakeDefaultCommand extends Command {
     intake.specCommandRunning = false;
 
 
+    //TODO: Fix manual as it currently messes with the acceleration ramping in PID control modes
+    //makes it significantly slower
+    
+    /* 
      if(operatorInput.enableManualIntakeControl()){
         manual = true;
         intake.setIntakeVelocityRPS(0);
-     }
+     }*/
     
     if(manual){
     intake.spinIntake(HelperMethods.applyInputDeadband(operatorInput.manualPowerIntake()));
