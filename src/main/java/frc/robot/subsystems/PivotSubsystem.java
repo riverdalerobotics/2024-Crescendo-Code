@@ -29,10 +29,11 @@ public class PivotSubsystem extends SubsystemBase {
   double maxPivotAngle = PivotConstants.PIDConstants.kMaxSetpoint;
   double minPivotAngle = PivotConstants.PIDConstants.kMinSetpoint;
 
-  double desiredAngleDegrees = 0;
+  double desiredAngleDegrees = PivotConstants.PIDConstants.kMinSetpoint;
   MotionMagicVoltage motionPositionVController;
   //TODO Check if this works
   public boolean specCommandRunning = false;
+
   
   public PivotSubsystem() {
     pivot1 = new P2TalonFX(PivotConstants.kPivotMotor1ID);
@@ -126,8 +127,8 @@ public class PivotSubsystem extends SubsystemBase {
   //TODO: Change this javadoc to explain new angle measurements
   /** 
    * Returns the encoder value of the pivot in degrees.
-   * Currently, 0 degrees refers to the position where the arm 
-   * is resting on the hard stop inside frame perimeter (not intake hardstop)
+   * Currently, 0 degrees refers to the point of arm rotation where it requires 
+   * the most power to hold it in place
    * @return double: angle of the pivot in degrees
    */
   public double getEncoders(){
