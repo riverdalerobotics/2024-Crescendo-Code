@@ -67,6 +67,14 @@ public class SwerveDefaultCommand extends Command {
       swerveSubsystem.setDrivesCoast();
     }
 
+    //goes to brake mode when slow mode is on (left bumper pressed)
+    if (oi.engageSlowMode() == 1 ) {
+      swerveSubsystem.setDrivesBrake();
+    }
+    else {
+      swerveSubsystem.setDrivesCoast();
+    }
+
 
     //hold left bumper to slow the robot down
     swerveSubsystem.slowDrive(HelperMethods.applyInputDeadband(oi.engageSlowMode()));
