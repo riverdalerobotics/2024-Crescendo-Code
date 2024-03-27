@@ -65,19 +65,25 @@ public class NewAutoPivotToAngle extends Command {
     if (considerGravity) {
       if(curAngle > -75) {
         if(desiredAngle < curAngle && desiredAngle > -75) {
-          gravityAngle = desiredAngle - 10;
+          gravityAngle = desiredAngle - 15;
           pivot.setPivotAngleDegrees(gravityAngle);
           pivot.setPivotTolerance(Units.degreesToRotations(PivotConstants.PIDConstants.kGravityOffsetTolerance));
           gravOffsetAcheived = false;
+          for(int i = 0; i < 10; i++) {
+          System.out.println("FRONT GRAV");
+          }
         }
       }
       else if(curAngle < -105) {
         if(desiredAngle > curAngle && desiredAngle < -105) {
           //activate grav accounting (add negative angle value)
-          gravityAngle = desiredAngle + 10;
+          gravityAngle = desiredAngle + 15;
           pivot.setPivotAngleDegrees(gravityAngle);
           pivot.setPivotTolerance(Units.degreesToRotations(PivotConstants.PIDConstants.kGravityOffsetTolerance));
           gravOffsetAcheived = false;
+          for(int i = 0; i < 10; i++) {
+          System.out.println("BACK GRAV");
+          }
         }
       }
     }
@@ -95,8 +101,11 @@ public class NewAutoPivotToAngle extends Command {
     if (gravOffsetAcheived == false) {
       if(pivot.getPivot1().atSetpointPosition(Units.degreesToRotations(gravityAngle))) {
         gravOffsetAcheived = true;
-        pivot.setPivotTolerance(tolerance);
+        pivot.setPivotTolerance(Units.degreesToRotations(tolerance));
         pivot.setPivotAngleDegrees(desiredAngle);
+        for(int i = 0; i < 10; i++) {
+          System.out.println("GRAV ACHEIVED");
+          }
       }
     }
 
@@ -107,8 +116,11 @@ public class NewAutoPivotToAngle extends Command {
   @Override
   public void end(boolean interrupted) {
     gravityAngle = 0;
+    
     gravOffsetAcheived = true;
-    System.out.println("command ended");
+    for(int i = 0; i < 10; i++) {
+          System.out.println("COMMAND END");
+          }
   }
 
   // Returns true when the command should end.

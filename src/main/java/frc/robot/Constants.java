@@ -215,7 +215,7 @@ public final class Constants {
 
 
     public static class PIDConstants {
-      public static final double kIntakeP = 0.15;
+      public static final double kIntakeP = 0.2;
       public static final double kIntakeI = 0;
       public static final double kIntakeD = 0;
 
@@ -267,12 +267,12 @@ public final class Constants {
     public static class PIDConstants {
       //Proportional term was adjusted to be 360 * 0.017 as the internal PID controller now receives error in rotations and not degrees
       public static final double kPivotP = 16; //0,017
-      public static final double kPivotI = 3.5;
-      public static final double kPivotD = 0;
+      public static final double kPivotI = 2.1;
+      public static final double kPivotD = 0.2;
 
       //TODO: Find these values
       //dynamic feedforward
-      public static final double kPivotV = 0.25;
+      public static final double kPivotV = 0.23;
       //static feedforward
       public static final double kPivotS = 0.02;
 
@@ -281,12 +281,14 @@ public final class Constants {
 
       public static final double kSetUpTolerance = 7;
 
+      public static final double kLowFeedTolerance = 4;
+
 
       //Used when auto pivot accounts for gravity
       public static final double kGravityOffsetTolerance = 5;
 
-      public static final double kPivotPIDMaxOutput = 0.7; //0.75
-      public static final double kPivotPIDMinOutput = -0.7;//-0.75
+      public static final double kPivotPIDMaxOutput = 0.5; //0.75
+      public static final double kPivotPIDMinOutput = -0.5;//-0.75
       public static final double kMinSetpoint = -172;
       public static final double kMaxSetpoint = 27;
 

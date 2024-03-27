@@ -49,9 +49,7 @@ public class NewPivotDefaultCommand extends Command {
     pivot.setPivotAngleDegrees(pivot.getEncoders());
     manualRotationEnabled = false;
     requestedArmAngle = pivot.getEncoders();
-    for(int i = 0; i < 100; i++) {
-    System.out.println("START" + requestedArmAngle);
-    }
+    System.out.println("def command pivot start");
     pivot.specCommandRunning = false;
 
     
@@ -60,7 +58,6 @@ public class NewPivotDefaultCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println(requestedArmAngle);
     requestedArmAngle = HelperMethods.limitValInRange(PivotConstants.PIDConstants.kMinSetpoint, PivotConstants.PIDConstants.kMaxSetpoint, requestedArmAngle);
     //Manual rotation will stop whatever desired angle the arm is currently heading towards
     if(operatorInput.enableManualRotation()) {
