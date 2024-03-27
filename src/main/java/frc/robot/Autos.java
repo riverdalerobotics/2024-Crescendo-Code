@@ -48,9 +48,14 @@ public class Autos {
         return new PathPlannerAuto("Mobility GET OUT OF THE WAY");
     }
 
-    public Command midSubWooferFourNotes(){
-        return new PathPlannerAuto("4 note mid subwoofer");
+    public Command midSubWooferFourNotesAmpFirst(){
+        return new PathPlannerAuto("4 note mid subwoofer (AMP FIRST)");
     }
+
+    public Command midSubWooferFourNotesPodiumFirst(){
+        return new PathPlannerAuto("4 note mid subwoofer (PODIUM FIRST)");
+    }
+
     public Command podiumSubwooferTwoNotes(){
         return new PathPlannerAuto("2 note podium subwoofer");
     }

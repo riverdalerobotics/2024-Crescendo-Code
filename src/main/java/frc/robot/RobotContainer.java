@@ -167,8 +167,11 @@ public class RobotContainer {
     public Command getAmpSubwooferTwoNotesAuto(){
       return autoFactory.ampSubwooferTwoNotes();
     }
-    public Command getMidSubwooferFourNotesAuto(){
-      return autoFactory.midSubWooferFourNotes();
+    public Command getMidSubwooferFourNotesAmpFirstAuto(){
+      return autoFactory.midSubWooferFourNotesAmpFirst();
+    }
+    public Command getMidSubwooferFourNotesPodiumFirstAuto(){
+      return autoFactory.midSubWooferFourNotesPodiumFirst();
     }
 
     public Command getShootAndStopAuto() {

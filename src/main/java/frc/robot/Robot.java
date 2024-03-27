@@ -43,8 +43,8 @@ public class Robot extends TimedRobot {
 
   private static final String podiumSubwooferTwoNotes = "Podium SIde Subwoofer Shoot And Rretrieve Podium Note and Shoot (different Intake and Shoot side)"; 
   private static final String ampSubwooferTwoNotes = "Amp Side Subwoofer Shoot and Retrieve Amp Note and Shoot (different Intake and Shoot side)";
-  private static final String midSubwooferFourNotes = "Middle Side Subwoofer Shoot and Retrieve and Shoot 3 close notest (different Intake and Shoot side)";
-
+  private static final String midSubwooferFourNotesAmpFirst = "Middle Side Subwoofer Shoot and Retrieve and Shoot 3 close notes (amp note first) (different Intake and Shoot side)";
+  private static final String midSubwooferFourNotesPodiumFirst = "Middle Side Subwoofer Shoot and Retrieve and Shoot 3 close notes (podium note first) (different Intake and Shoot side)";
   private static final String shootAndStop = "Any side start - shoot note into speakker";
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -61,7 +61,8 @@ public class Robot extends TimedRobot {
 
     m_chooser.addOption("1+1 PODIUM Side Subwoofer", podiumSubwooferTwoNotes);
     m_chooser.addOption("1+1 AMP side Subwoofer", ampSubwooferTwoNotes);
-    m_chooser.addOption("1+3 MID side Subwoofer", midSubwooferFourNotes);
+    m_chooser.addOption("1+3 MID side Subwoofer amp first", midSubwooferFourNotesAmpFirst);
+    m_chooser.addOption("1+3 MID side Subwoofer podium first", midSubwooferFourNotesPodiumFirst);
 
     m_chooser.addOption("DO NOTHING", doNothingLol);
     m_chooser.addOption("test123", test);
@@ -134,8 +135,11 @@ public class Robot extends TimedRobot {
           m_autonomousCommand = m_robotContainer.getAmpSubwooferTwoNotesAuto();
           break; 
 
-        case midSubwooferFourNotes:
-          m_autonomousCommand = m_robotContainer.getMidSubwooferFourNotesAuto();
+        case midSubwooferFourNotesAmpFirst:
+          m_autonomousCommand = m_robotContainer.getMidSubwooferFourNotesAmpFirstAuto();
+          break;
+        case midSubwooferFourNotesPodiumFirst:
+          m_autonomousCommand = m_robotContainer.getMidSubwooferFourNotesPodiumFirstAuto();
           break;
   
 
