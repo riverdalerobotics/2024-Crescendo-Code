@@ -281,6 +281,10 @@ public final class Constants {
 
       public static final double kSetUpTolerance = 7;
 
+
+      //Used when auto pivot accounts for gravity
+      public static final double kGravityOffsetTolerance = 5;
+
       public static final double kPivotPIDMaxOutput = 0.7; //0.75
       public static final double kPivotPIDMinOutput = -0.7;//-0.75
       public static final double kMinSetpoint = -172;

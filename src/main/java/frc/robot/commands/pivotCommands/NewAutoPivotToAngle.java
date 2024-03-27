@@ -16,6 +16,9 @@ public class NewAutoPivotToAngle extends Command {
   PivotSubsystem pivot;
   double maxCurrent = PivotConstants.kHardStopCurrentThreshold;
   double hardStopPosition = PivotConstants.PIDConstants.kMinSetpoint;
+  boolean considerGravity = false;
+  boolean gravOffsetAcheived = true;
+  double gravityAngle;
   public NewAutoPivotToAngle(double angle, PivotSubsystem pivotSubsystem, double tolerance) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.pivot = pivotSubsystem;
@@ -24,15 +27,60 @@ public class NewAutoPivotToAngle extends Command {
     addRequirements(pivot);
   }
 
+  /**
+   * Alternative constructor which tells the arm to enable gravity consideration
+   * <p>
+   * The arm has trouble when moving against gravity. This code will detect when the arm is moving to a point
+   * that fights against gravity, and will add 10 degrees to the angle, then move back to the original desired angle
+   * once it is above the angle and can work with gravity
+   * @param angle
+   * @param pivotSubsystem
+   * @param tolerance
+   * @param considerGrav
+   */
+  public NewAutoPivotToAngle(double angle, PivotSubsystem pivotSubsystem, double tolerance, boolean considerGrav) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    this.pivot = pivotSubsystem;
+    this.desiredAngle = angle;
+    this.tolerance = tolerance;
+    this.considerGravity = considerGrav;
+    addRequirements(pivot);
+  }
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    pivot.setPivotAngleDegrees(desiredAngle);
 
     //The constant tolerance value is in degrees, but the internal controller uses rotations.
     //We convert the degrees tolerance into rotations so the internal motor controller can work with the value
     pivot.setPivotTolerance(Units.degreesToRotations(tolerance));
     pivot.specCommandRunning = true;
+    pivot.setPivotAngleDegrees(desiredAngle);
+
+
+    //Checks if the angle should be adjusted initially to account for gravity
+    //When fighting against significant gravity, the arm will initially aim for an angle above the desired angle,
+    //then pivot down once it is above the desired position, using gravity to help its movement
+    double curAngle = pivot.getEncoders();
+    if (considerGravity) {
+      if(curAngle > -75) {
+        if(desiredAngle < curAngle && desiredAngle > -75) {
+          gravityAngle = desiredAngle - 10;
+          pivot.setPivotAngleDegrees(gravityAngle);
+          pivot.setPivotTolerance(Units.degreesToRotations(PivotConstants.PIDConstants.kGravityOffsetTolerance));
+          gravOffsetAcheived = false;
+        }
+      }
+      else if(curAngle < -105) {
+        if(desiredAngle > curAngle && desiredAngle < -105) {
+          //activate grav accounting (add negative angle value)
+          gravityAngle = desiredAngle + 10;
+          pivot.setPivotAngleDegrees(gravityAngle);
+          pivot.setPivotTolerance(Units.degreesToRotations(PivotConstants.PIDConstants.kGravityOffsetTolerance));
+          gravOffsetAcheived = false;
+        }
+      }
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -43,11 +91,23 @@ public class NewAutoPivotToAngle extends Command {
     if (pivot.getCurrent() > maxCurrent){
       pivot.setPivotAngleDegrees(hardStopPosition);
     }
+
+    if (gravOffsetAcheived == false) {
+      if(pivot.getPivot1().atSetpointPosition(Units.degreesToRotations(gravityAngle))) {
+        gravOffsetAcheived = true;
+        pivot.setPivotTolerance(tolerance);
+        pivot.setPivotAngleDegrees(desiredAngle);
+      }
+    }
+
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    gravityAngle = 0;
+    gravOffsetAcheived = true;
     System.out.println("command ended");
   }
 
@@ -56,6 +116,6 @@ public class NewAutoPivotToAngle extends Command {
   public boolean isFinished() {
     //This is a custom method implemented in our P2TalonFX class. The setpoint must be passed in,
     //then the motor will check if it has reached it within its range of tolerance
-    return pivot.getPivot1().atSetpointPosition(Units.degreesToRotations(desiredAngle));
+    return pivot.getPivot1().atSetpointPosition(Units.degreesToRotations(desiredAngle)) && gravOffsetAcheived;
   }
 }
