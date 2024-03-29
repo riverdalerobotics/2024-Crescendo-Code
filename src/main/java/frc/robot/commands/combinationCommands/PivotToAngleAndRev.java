@@ -18,10 +18,17 @@ import frc.robot.subsystems.PivotSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class PivotToAngleAndRev extends ParallelDeadlineGroup {
   /** Creates a new PivotToAngleAndRev. */
-  public PivotToAngleAndRev(double desiredAngle, double intakeRPS, PivotSubsystem pivot, IntakeSubsystem intake, BlinkinLED blinkin, OI oi) {
+  public PivotToAngleAndRev(double desiredAngle, double intakeRPS, PivotSubsystem pivot, IntakeSubsystem intake, BlinkinLED blinkin, OI oi, boolean considerGravity) {
     // Add the deadline command in the super() call. Add other commands using
     // addCommands().
-    super(new NewAutoPivotToAngle(desiredAngle, pivot, PivotConstants.PIDConstants.kPivotToleranceThreshold));
+    super(new NewAutoPivotToAngle(desiredAngle, pivot, PivotConstants.PIDConstants.kPivotToleranceThreshold, considerGravity));
+    addCommands(new NewAutoRevFlywheelsIndefinitely(intakeRPS, 0, intake, blinkin, oi));
+  }
+
+  public PivotToAngleAndRev(double desiredAngle, double intakeRPS, PivotSubsystem pivot, IntakeSubsystem intake, BlinkinLED blinkin, OI oi, boolean considerGravity, double pivotTolerance) {
+    // Add the deadline command in the super() call. Add other commands using
+    // addCommands().
+    super(new NewAutoPivotToAngle(desiredAngle, pivot, pivotTolerance, considerGravity));
     addCommands(new NewAutoRevFlywheelsIndefinitely(intakeRPS, 0, intake, blinkin, oi));
   }
 }

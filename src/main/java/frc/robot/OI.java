@@ -292,6 +292,18 @@ public boolean pivotToAmp() {
 }
 
 
+/**
+ * Operator Controls 
+ * arm methond 
+ * method with bring the arm up and down 
+ * 
+ * @return
+ */
+public int Arm(){
+    return moveController.getPOV();
+}
+
+
 
 /**
  * Operator controls ||
