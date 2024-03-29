@@ -52,7 +52,7 @@ public class DriveXMetersForward extends Command {
   @Override
   public void end(boolean interrupted) {
     xController.reset();
-    swerve.stopModules();
+    swerve.setModuleXPosition();
     swerve.setDrivesCoast();
   }
 

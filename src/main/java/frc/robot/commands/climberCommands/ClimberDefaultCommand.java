@@ -34,21 +34,23 @@ public class ClimberDefaultCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    if(oi.Arm() >= 315 || oi.Arm() <= 45 && ClimbConstants.kMaxEncoderVal >= climber.getEncoder()){
-      climber.climb(0.05);
+    if (oi.Arm() == -1) {
+      climber.climb(0);
+    }
+    else if(oi.Arm() >= 315 || oi.Arm() <= 45 && ClimbConstants.kMaxEncoderVal >= climber.getEncoder()){
+      climber.climb(0.2);
 
     }else if (oi.Arm() >= 135 && oi.Arm() <= 225 && ClimbConstants.kMinEncoderVal <= climber.getEncoder() ){
-      climber.climb(-0.05);
+      climber.climb(-0.2);
     }
     else{
       climber.climb(0);
     }
 
-
+    /* 
     if (oi.testButton()) {
-      climber.climb(-0.05);
-    }
+      climber.climb(-0.2);
+    }*/
     
   }
   // 
