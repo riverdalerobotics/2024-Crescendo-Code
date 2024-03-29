@@ -203,15 +203,13 @@ public final class Constants {
     public static final double kDesiredFeedMotorRPS = 60;
     public static final double kDesiredFeedBeltSpeed = -0.5;
 
-    public static final double kDesiredHighFeedMotorRPS = 120;
+    public static final double kDesiredHighFeedMotorRPS = 90;
     public static final double kDesiredHighFeedBeltSpeed = -0.5;
 
     public static final double kDesiredAmpMotorRPS = 40;
     public static final double kDesiredAmpBeltSpeed = -0.5;
 
-
     public static final double kFlywheelsGearRatio = (34d/15d);
-
 
 
     public static class PIDConstants {
@@ -240,8 +238,6 @@ public final class Constants {
     }
   }
 
-
-
   public static class PivotConstants {
     public static final int kPivotMotor1ID = 9;
     public static final int kPivotMotor2ID = 10;
@@ -266,29 +262,30 @@ public final class Constants {
     //Used in multiple commands to automatically move the pivot to a desired angle
     public static class PIDConstants {
       //Proportional term was adjusted to be 360 * 0.017 as the internal PID controller now receives error in rotations and not degrees
-      public static final double kPivotP = 16; //0,017
-      public static final double kPivotI = 2.1;
+      public static final double kPivotP = 16;
+      public static final double kPivotI = 3;
       public static final double kPivotD = 0.2;
 
       //TODO: Find these values
       //dynamic feedforward
-      public static final double kPivotV = 0.23;
+      public static final double kPivotV = 0.25;
       //static feedforward
       public static final double kPivotS = 0.02;
 
       //Used for PID to determine what rotation is close enough to desired angle
-      public static final double kPivotToleranceThreshold = 1;
+      public static final double kPivotToleranceThreshold = 1.5;
 
       public static final double kSetUpTolerance = 7;
 
       public static final double kLowFeedTolerance = 4;
+      public static final double kHighFeedTolerance = 4;
 
 
       //Used when auto pivot accounts for gravity
       public static final double kGravityOffsetTolerance = 5;
 
-      public static final double kPivotPIDMaxOutput = 0.5; //0.75
-      public static final double kPivotPIDMinOutput = -0.5;//-0.75
+      public static final double kPivotPIDMaxOutput = 0.6; //0.75
+      public static final double kPivotPIDMinOutput = -0.6;//-0.75
       public static final double kMinSetpoint = -172;
       public static final double kMaxSetpoint = 27;
 
@@ -297,6 +294,11 @@ public final class Constants {
       public static final double kMotionMagicJerk = 700;
 
     }
+  }
+
+  public static class ClimbConstants {
+    public static final double kMinEncoderVal = 0;
+    public static final double kMaxEncoderVal = 10000;
   }
 
   

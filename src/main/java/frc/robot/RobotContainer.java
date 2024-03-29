@@ -116,7 +116,7 @@ public class RobotContainer {
     //Feed controls do not require driver to press the fire button.
     //They will shoot as soon as intake and angle are prepared
     new Trigger(() -> oi.pivotAndShootLowFeed()).whileTrue(new PivotToAngleAndShoot(PivotConstants.kFeedAngle, IntakeConstants.kDesiredFeedMotorRPS, IntakeConstants.kDesiredFeedBeltSpeed, PIVOT, INTAKE, LED, oi, IntakeConstants.kShootTimeNeeded, false, PivotConstants.PIDConstants.kLowFeedTolerance));
-    new Trigger(() -> oi.pivotAndShootHighFeed()).whileTrue(new PivotToAngleAndShoot(PivotConstants.kHighFeedAngle, IntakeConstants.kDesiredHighFeedMotorRPS, IntakeConstants.kDesiredHighFeedBeltSpeed, PIVOT, INTAKE, LED, oi, IntakeConstants.kShootTimeNeeded, true, PivotConstants.PIDConstants.kPivotToleranceThreshold));
+    new Trigger(() -> oi.pivotAndShootHighFeed()).whileTrue(new PivotToAngleAndShoot(PivotConstants.kHighFeedAngle, IntakeConstants.kDesiredHighFeedMotorRPS, IntakeConstants.kDesiredHighFeedBeltSpeed, PIVOT, INTAKE, LED, oi, IntakeConstants.kShootTimeNeeded, true, PivotConstants.PIDConstants.kHighFeedTolerance));
     
     
     //TODO: add the trigger to pivot to backshot after merge
@@ -132,7 +132,7 @@ public class RobotContainer {
 
     new Trigger(() -> oi.engageAutoShootSpinup()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredShootMotorRPS, 0, INTAKE, LED, oi));
   
-    new Trigger(() -> oi.testButton()).whileTrue(new PivotToAngleAndShoot(PivotConstants.kOppositeSubwooferShootAngle, IntakeConstants.kDesiredShootMotorRPS, IntakeConstants.kShootBeltMotorSpeed, PIVOT, INTAKE, LED, oi, IntakeConstants.kShootTimeNeeded, true, PivotConstants.PIDConstants.kPivotToleranceThreshold));
+    //new Trigger(() -> oi.testButton()).whileTrue(new PivotToAngleAndShoot(PivotConstants.kOppositeSubwooferShootAngle, IntakeConstants.kDesiredShootMotorRPS, IntakeConstants.kShootBeltMotorSpeed, PIVOT, INTAKE, LED, oi, IntakeConstants.kShootTimeNeeded, true, PivotConstants.PIDConstants.kPivotToleranceThreshold));
   }
   
     //autos that that we use Robot.java using the Sendable Chooser   

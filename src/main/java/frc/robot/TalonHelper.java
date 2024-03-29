@@ -111,6 +111,7 @@ public class TalonHelper {
         slot0Config.kP = kP;
         slot0Config.kI = kI;
         slot0Config.kD = kD;
+        
 
         //TODO: change the 0 encoder position of the arm to be horizontal with the ground
 
