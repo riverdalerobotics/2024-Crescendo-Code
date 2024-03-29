@@ -161,6 +161,10 @@ public class RobotContainer {
       return autoFactory.testFive();
     }
 
+    public Command getWindsorLeaveAfterShootingPodiumSideAuto(){
+      return autoFactory.leaveAfterShootingPodiumSide();
+    }
+
     public Command getMobilityStyleAuto(){
       return autoFactory.mobilityWithStyle();
     }

@@ -40,6 +40,7 @@ public class Robot extends TimedRobot {
   private static final String testFive = "pickup close mid slowly (test wth commands)";
   
   private static final String mobilityWithStyle = "go 2.26 meters, rotate 180 degrees" ; //max velocity is 1.5 m/s
+  private static final String leaveAfterShootingPodium = "Windsor lol";
 
   private static final String podiumSubwooferTwoNotes = "Podium SIde Subwoofer Shoot And Rretrieve Podium Note and Shoot (different Intake and Shoot side)"; 
   private static final String ampSubwooferTwoNotes = "Amp Side Subwoofer Shoot and Retrieve Amp Note and Shoot (different Intake and Shoot side)";
@@ -70,6 +71,8 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("3rd test", testThree);
     m_chooser.addOption("4th test", testFour);
     m_chooser.addOption("5th test", testFive);
+
+    m_chooser.addOption("Leave after shooting podium", leaveAfterShootingPodium);
 
     m_chooser.addOption("1 Shoot and stop from anywhere", shootAndStop);
 
@@ -168,6 +171,10 @@ public class Robot extends TimedRobot {
           m_autonomousCommand = m_robotContainer.getMobilityStyleAuto();
           break;
 
+        case leaveAfterShootingPodium:
+          m_autonomousCommand = m_robotContainer.getWindsorLeaveAfterShootingPodiumSideAuto();
+          break;
+          
         // case shootAndStop:
         //   m_autonomousCommand = m_robotContainer.getShootAndStopAuto();
         //   break;
