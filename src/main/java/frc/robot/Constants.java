@@ -296,6 +296,11 @@ public final class Constants {
     }
   }
 
+  public static class ClimbConstants {
+    public static final double kMinEncoderVal = 0;
+    public static final double kMaxEncoderVal = 10000;
+  }
+
   
 
   //x and y relative to how far from center of the field, with red side on the right
