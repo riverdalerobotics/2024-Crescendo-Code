@@ -1,0 +1,37 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7036808379666589,
+      "y": 4.401663085651201
+    },
+    "rotation": 118.47420361007434
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "SetArmUp"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "PivotAndShootBack"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Windsor Lol"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Shoot from Different Intake Auto ",
+  "choreoAuto": false
+}

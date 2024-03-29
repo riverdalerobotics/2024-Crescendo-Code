@@ -37,6 +37,10 @@ public class Autos {
         return new PathPlannerAuto("5th test");
     }
     
+    public Command leaveAfterShootingPodiumSide(){
+        return new PathPlannerAuto("Leave after shooting podium");
+    }
+
     public Command doNothing(){
         return new PathPlannerAuto("Do Nothing");
     }
