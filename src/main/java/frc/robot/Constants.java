@@ -215,7 +215,7 @@ public final class Constants {
 
 
     public static class PIDConstants {
-      public static final double kIntakeP = 0.2;
+      public static final double kIntakeP = 0.3;
       public static final double kIntakeI = 0;
       public static final double kIntakeD = 0;
 
