@@ -59,6 +59,9 @@ public class Autos {
     public Command midSubWooferFourNotesPodiumFirst(){
         return new PathPlannerAuto("4 note mid subwoofer (PODIUM FIRST)");
     }
+    public Command midSubwooferFourNotesActual(){
+        return new PathPlannerAuto("4 note Final Mid Subwoofer");
+    }
 
     public Command podiumSubwooferTwoNotes(){
         return new PathPlannerAuto("2 note podium subwoofer");
