@@ -14,12 +14,6 @@
         {
           "type": "named",
           "data": {
-            "name": "SetArmUp"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "PivotAndShootBack"
           }
         },
@@ -133,12 +127,6 @@
                 "type": "sequential",
                 "data": {
                   "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "SetArmUp"
-                      }
-                    },
                     {
                       "type": "named",
                       "data": {

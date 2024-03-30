@@ -316,12 +316,13 @@ public double manualPowerIntake() {
 
 /**
  * Operator controls ||
- * Uses to engage the tuck command in the event the arm's encoder is thrown off. 1 of 2 buttons to do this
+ * Used to manually push arm into hard stop in the event of an encoder issue
  * @return true as long as the operator controller's back button is pressed
  */
-public boolean tuckArm1() {
+public boolean pushArmIntoHardstop() {
     return intakeController.getBackButton();
 }
+
 
 /**
  * Operator controls ||
@@ -333,12 +334,6 @@ public boolean tuckArm2() {
 }
 
 public boolean resetArmMinPos() {
-    return intakeController.getBackButtonPressed();
-}
-
-public boolean resetArmMaxPos() {
     return intakeController.getStartButtonPressed();
 }
-
-
 }

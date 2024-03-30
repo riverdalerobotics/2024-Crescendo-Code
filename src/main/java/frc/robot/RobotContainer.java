@@ -102,15 +102,18 @@ public class RobotContainer {
   private void configureBindings() {
 
     //as long as the right trigger is held, note align will be active
-    new Trigger(() -> oi.engageNoteAlignAssist()).whileTrue(new AutoAlignAndPickUp(CHASSIS, INTAKE, PIVOT, oi, LED, NOTE_LIMELIGHT));
+    
+    
+    //TODO: uncomment this
+    //new Trigger(() -> oi.engageNoteAlignAssist()).whileTrue(new AutoAlignAndPickUp(CHASSIS, INTAKE, PIVOT, oi, LED, NOTE_LIMELIGHT));
 
     //as long as the left trigger is held, auto move to predefined will be active
     //new Trigger(() -> oi.engageAutoMoveToPredefined()).whileTrue(new AutoMoveToPredefined(CHASSIS, oi, TAG_LIMELIGHT));
     
 
-    //This command is unfinished, but the purpose is to rezero the arm if the encoder value is innacurate
-    new Trigger(() -> oi.tuckArm1()).whileTrue(new NewAutoPivotToAngle(PivotConstants.kZeroAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold));
-    new Trigger(() -> oi.tuckArm2()).whileTrue(new NewAutoPivotToAngle(PivotConstants.kZeroAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold));
+    //This command is unfinished, but the purpose is to rezero the arm if the encoder value is innaccurate
+    //new Trigger(() -> oi.tuckArm1()).whileTrue(new NewAutoPivotToAngle(PivotConstants.kZeroAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold));
+    //new Trigger(() -> oi.tuckArm2()).whileTrue(new NewAutoPivotToAngle(PivotConstants.kZeroAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold));
 
     
     new Trigger(() -> oi.pivotToIntakePosition()).onTrue(new NewAutoPivotToAngle(PivotConstants.kIntakeAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold));

@@ -55,6 +55,7 @@ public class NewPivotDefaultCommand extends Command {
     
   }
 
+  //TODO: on enable, set arm to current encoder position to avoid it trying to return to an old value
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
@@ -73,6 +74,14 @@ public class NewPivotDefaultCommand extends Command {
 
 
     pivot.setPivotAngleDegrees(requestedArmAngle);
+
+    if (operatorInput.resetArmMinPos()) {
+      pivot.resetPivotEncoder();
+    }
+
+    if (operatorInput.pushArmIntoHardstop()) {
+      pivot.movePivot(-0.01);
+    }
 
 
 

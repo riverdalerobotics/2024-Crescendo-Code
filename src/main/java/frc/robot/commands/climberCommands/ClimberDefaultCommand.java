@@ -38,10 +38,10 @@ public class ClimberDefaultCommand extends Command {
       climber.climb(0);
     }
     else if(oi.Arm() >= 315 || oi.Arm() <= 45 && ClimbConstants.kMaxEncoderVal >= climber.getEncoder()){
-      climber.climb(0.2);
+      climber.climb(1);
 
     }else if (oi.Arm() >= 135 && oi.Arm() <= 225 && ClimbConstants.kMinEncoderVal <= climber.getEncoder() ){
-      climber.climb(-0.2);
+      climber.climb(-1);
     }
     else{
       climber.climb(0);

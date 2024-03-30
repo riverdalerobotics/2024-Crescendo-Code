@@ -206,7 +206,7 @@ public final class Constants {
     public static final double kDesiredHighFeedMotorRPS = 90;
     public static final double kDesiredHighFeedBeltSpeed = -0.5;
 
-    public static final double kDesiredAmpMotorRPS = 40;
+    public static final double kDesiredAmpMotorRPS = 75;
     public static final double kDesiredAmpBeltSpeed = -0.5;
 
     public static final double kFlywheelsGearRatio = (34d/15d);
@@ -251,16 +251,17 @@ public final class Constants {
 
     //172 = 0
     public static final double kIntakeAngle = 23;
-    public static final double kSubwooferShootAngle = -96;
+    public static final double kSubwooferShootAngle = -96.5;
     public static final double kFeedAngle = -1.1;
     public static final int kHighFeedAngle = -87;
-    public static final int kAmpAngle = -122;
-    public static final double kOppositeSubwooferShootAngle = -154; //-156
-    public static final double kZeroAngle = -172;
+    public static final int kAmpAngle = -101;
+    public static final double kOppositeSubwooferShootAngle = -152; //-156
+    public static final double kZeroAngle = PIDConstants.kMinSetpoint;
 
 
     //Used in multiple commands to automatically move the pivot to a desired angle
     public static class PIDConstants {
+
       //Proportional term was adjusted to be 360 * 0.017 as the internal PID controller now receives error in rotations and not degrees
       public static final double kPivotP = 16;
       public static final double kPivotI = 3;
@@ -286,7 +287,7 @@ public final class Constants {
 
       public static final double kPivotPIDMaxOutput = 0.6; //0.75
       public static final double kPivotPIDMinOutput = -0.6;//-0.75
-      public static final double kMinSetpoint = -172;
+      public static final double kMinSetpoint = -151.5; //-168
       public static final double kMaxSetpoint = 25.5;
 
       public static final double kMotionMagicCruiseVelocity = 1000;
@@ -297,8 +298,8 @@ public final class Constants {
   }
 
   public static class ClimbConstants {
-    public static final double kMinEncoderVal = 0;
-    public static final double kMaxEncoderVal = 105;
+    public static final double kMinEncoderVal = -120;
+    public static final double kMaxEncoderVal = 0;
     
   }
 
