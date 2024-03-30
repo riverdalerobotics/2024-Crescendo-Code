@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.NamedCommands;
+
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.commands.climberCommands.ClimberDefaultCommand;
@@ -16,16 +20,11 @@ import frc.robot.commands.intakeCommands.NewIntakeDefaultCommand;
 import frc.robot.commands.pivotCommands.NewAutoPivotToAngle;
 import frc.robot.commands.pivotCommands.NewPivotDefaultCommand;
 import frc.robot.commands.swerveCommands.AutoAlignWithNoteSwerve;
-import frc.robot.commands.swerveCommands.DriveXMetersForward;
 import frc.robot.commands.swerveCommands.SwerveDefaultCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
 import frc.robot.subsystems.SwerveChassisSubsystem;
-
-import com.pathplanner.lib.auto.NamedCommands;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -183,6 +182,10 @@ public class RobotContainer {
     }
     public Command getMidSubwooferFourNotesPodiumFirstAuto(){
       return autoFactory.midSubWooferFourNotesPodiumFirst();
+    }
+
+    public Command getMidSubwooferFourNotesActualAuto(){
+      return autoFactory.midSubwooferFourNotesActual();
     }
 
     public Command getShootAndStopAuto() {
