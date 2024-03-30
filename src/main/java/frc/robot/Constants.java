@@ -203,7 +203,7 @@ public final class Constants {
     public static final double kDesiredFeedMotorRPS = 60;
     public static final double kDesiredFeedBeltSpeed = -0.5;
 
-    public static final double kDesiredHighFeedMotorRPS = 90;
+    public static final double kDesiredHighFeedMotorRPS = 75 ;
     public static final double kDesiredHighFeedBeltSpeed = -0.5;
 
     public static final double kDesiredAmpMotorRPS = 75;
@@ -251,11 +251,11 @@ public final class Constants {
 
     //172 = 0
     public static final double kIntakeAngle = 23;
-    public static final double kSubwooferShootAngle = -96.5;
+    public static final double kSubwooferShootAngle = -95;
     public static final double kFeedAngle = -1.1;
     public static final int kHighFeedAngle = -87;
-    public static final int kAmpAngle = -101;
-    public static final double kOppositeSubwooferShootAngle = -152; //-156
+    public static final int kAmpAngle = -100;
+    public static final double kOppositeSubwooferShootAngle = -151.5; //-156
     public static final double kZeroAngle = PIDConstants.kMinSetpoint;
 
 

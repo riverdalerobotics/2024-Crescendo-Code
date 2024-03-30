@@ -59,29 +59,38 @@ public class NewPivotDefaultCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    requestedArmAngle = HelperMethods.limitValInRange(PivotConstants.PIDConstants.kMinSetpoint, PivotConstants.PIDConstants.kMaxSetpoint, requestedArmAngle);
-    //Manual rotation will stop whatever desired angle the arm is currently heading towards
+      //Manual rotation will stop whatever desired angle the arm is currently heading towards
     if(operatorInput.enableManualRotation()) {
       manualRotationEnabled = true;
     }
 
 
     if(manualRotationEnabled) {
-      //TODO: increase this value after testing
-      requestedArmAngle = HelperMethods.limitValInRange(PivotConstants.PIDConstants.kMinSetpoint, PivotConstants.PIDConstants.kMaxSetpoint, requestedArmAngle + (HelperMethods.applyInputDeadband(operatorInput.pivotArm()) * 0.25));
+      
+      requestedArmAngle = requestedArmAngle + (HelperMethods.applyInputDeadband(operatorInput.pivotArm()) * 0.25);
+      pivot.setPivotAngleDegreesNoLimit(requestedArmAngle);
+    }
+    else {
+      requestedArmAngle = HelperMethods.limitValInRange(PivotConstants.PIDConstants.kMinSetpoint, PivotConstants.PIDConstants.kMaxSetpoint, requestedArmAngle);
+      pivot.setPivotAngleDegrees(requestedArmAngle);
     }
 
 
 
-    pivot.setPivotAngleDegrees(requestedArmAngle);
 
     if (operatorInput.resetArmMinPos()) {
       pivot.resetPivotEncoder();
+      requestedArmAngle = PivotConstants.kZeroAngle;
+      manualRotationEnabled = false;
     }
 
-    if (operatorInput.pushArmIntoHardstop()) {
-      pivot.movePivot(-0.01);
+    if (operatorInput.resetArmMaxPos()) {
+      pivot.setPivotEncoder(PivotConstants.PIDConstants.kMaxSetpoint);
+      requestedArmAngle = PivotConstants.PIDConstants.kMaxSetpoint;
+      manualRotationEnabled = false;
     }
+
+
 
 
 

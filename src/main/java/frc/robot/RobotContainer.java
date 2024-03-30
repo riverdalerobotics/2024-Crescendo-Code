@@ -15,6 +15,7 @@ import frc.robot.commands.combinationCommands.AutoAlignAndPickUp;
 import frc.robot.commands.combinationCommands.IntakeIndefinitelyCommand;
 import frc.robot.commands.combinationCommands.PivotToAngleAndRevIndefinitely;
 import frc.robot.commands.combinationCommands.PivotToAngleAndShoot;
+import frc.robot.commands.intakeCommands.AutoRevAndBeltWhenReady;
 import frc.robot.commands.intakeCommands.NewAutoRevFlywheelsIndefinitely;
 import frc.robot.commands.intakeCommands.NewIntakeDefaultCommand;
 import frc.robot.commands.pivotCommands.NewAutoPivotToAngle;
@@ -67,6 +68,7 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("PivotAndRevForShotBack", new PivotToAngleAndRevIndefinitely(PivotConstants.kOppositeSubwooferShootAngle, IntakeConstants.kDesiredShootMotorRPS, PIVOT, INTAKE, LED, oi));
     NamedCommands.registerCommand("PivotAndShootBack", new PivotToAngleAndShoot(PivotConstants.kOppositeSubwooferShootAngle, IntakeConstants.kDesiredShootMotorRPS, IntakeConstants.kShootBeltMotorSpeed, PIVOT, INTAKE, LED, oi, IntakeConstants.kShootTimeNeeded, true, PivotConstants.PIDConstants.kPivotToleranceThreshold));
+    NamedCommands.registerCommand("ShootFromCurrentAngle", new AutoRevAndBeltWhenReady(IntakeConstants.kDesiredShootMotorRPS, IntakeConstants.kShootBeltMotorSpeed, INTAKE, LED, oi, IntakeConstants.kShootTimeNeeded));
     NamedCommands.registerCommand("SetArmUp", new NewAutoPivotToAngle(-90, PIVOT, PivotConstants.PIDConstants.kSetUpTolerance));
     CHASSIS.setDefaultCommand(new SwerveDefaultCommand (
       CHASSIS,
@@ -125,7 +127,6 @@ public class RobotContainer {
     new Trigger(() -> oi.pivotAndShootHighFeed()).whileTrue(new PivotToAngleAndShoot(PivotConstants.kHighFeedAngle, IntakeConstants.kDesiredHighFeedMotorRPS, IntakeConstants.kDesiredHighFeedBeltSpeed, PIVOT, INTAKE, LED, oi, IntakeConstants.kShootTimeNeeded, true, PivotConstants.PIDConstants.kHighFeedTolerance));
     
     
-    //TODO: add the trigger to pivot to backshot after merge
 
     //When the y button is held on op controller, the arm pivots and revs for amp shot.
     //Driver still has final say to make the shot

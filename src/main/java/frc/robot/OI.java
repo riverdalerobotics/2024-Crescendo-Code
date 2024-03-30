@@ -333,7 +333,19 @@ public boolean tuckArm2() {
     return intakeController.getStartButton();
 }
 
+/**
+ * resets arm to hard stop inside bumpers. true when op start button is pressed
+ * @return
+ */
 public boolean resetArmMinPos() {
     return intakeController.getStartButtonPressed();
+}
+
+/**
+ * Resets arm to intake hard stop. True when op back button is pressed
+ * @return
+ */
+public boolean resetArmMaxPos() {
+    return intakeController.getBackButtonPressed();
 }
 }

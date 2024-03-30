@@ -94,6 +94,11 @@ public class PivotSubsystem extends SubsystemBase {
     desiredAngleDegrees = degrees;
   }
 
+  public void setPivotAngleDegreesNoLimit(double degrees) {
+    pivot1.setControl(motionPositionVController.withPosition(Units.degreesToRotations(degrees)));
+    desiredAngleDegrees = degrees;
+  }
+
 
 
   /**
