@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.PivotConstants;
+import frc.robot.commands.climberCommands.ClimberDefaultCommand;
 import frc.robot.commands.combinationCommands.AutoAlignAndPickUp;
 import frc.robot.commands.combinationCommands.IntakeIndefinitelyCommand;
 import frc.robot.commands.combinationCommands.PivotToAngleAndRevIndefinitely;
@@ -83,6 +84,9 @@ public class RobotContainer {
       oi, 
       PIVOT
     ));
+
+
+    CLIMB.setDefaultCommand(new ClimberDefaultCommand(oi, CLIMB));
   }
 
   /** 

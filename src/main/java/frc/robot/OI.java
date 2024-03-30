@@ -293,7 +293,7 @@ public boolean pivotToAmp() {
 
 
 /**
- * Operator Controls 
+ * Driver Controls 
  * arm methond 
  * method with bring the arm up and down 
  * 

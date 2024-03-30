@@ -213,7 +213,7 @@ public final class Constants {
 
 
     public static class PIDConstants {
-      public static final double kIntakeP = 0.3;
+      public static final double kIntakeP = 0.2;
       public static final double kIntakeI = 0;
       public static final double kIntakeD = 0;
 
@@ -250,7 +250,7 @@ public final class Constants {
     public static final double kStatorCurrentLimit = 60;
 
     //172 = 0
-    public static final double kIntakeAngle = 27;
+    public static final double kIntakeAngle = 23;
     public static final double kSubwooferShootAngle = -96;
     public static final double kFeedAngle = -1.1;
     public static final int kHighFeedAngle = -87;
@@ -282,12 +282,12 @@ public final class Constants {
 
 
       //Used when auto pivot accounts for gravity
-      public static final double kGravityOffsetTolerance = 5;
+      public static final double kGravityOffsetTolerance = 6;
 
       public static final double kPivotPIDMaxOutput = 0.6; //0.75
       public static final double kPivotPIDMinOutput = -0.6;//-0.75
       public static final double kMinSetpoint = -172;
-      public static final double kMaxSetpoint = 27;
+      public static final double kMaxSetpoint = 25.5;
 
       public static final double kMotionMagicCruiseVelocity = 1000;
       public static final double kMotionMagicAcceleration = 70;
@@ -298,7 +298,8 @@ public final class Constants {
 
   public static class ClimbConstants {
     public static final double kMinEncoderVal = 0;
-    public static final double kMaxEncoderVal = 10000;
+    public static final double kMaxEncoderVal = 105;
+    
   }
 
   
