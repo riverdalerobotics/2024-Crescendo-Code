@@ -53,6 +53,7 @@ public class IntakeSubsystem extends SubsystemBase {
       IntakeConstants.PIDConstants.kIntakeD,
       IntakeConstants.PIDConstants.kIntakeV,
       IntakeConstants.PIDConstants.kIntakeS,
+      0,
       IntakeConstants.PIDConstants.kMotionMagicCruiseVelocity,
       IntakeConstants.PIDConstants.kMotionMagicAcceleration,
       IntakeConstants.PIDConstants.kMotionMagicJerk,

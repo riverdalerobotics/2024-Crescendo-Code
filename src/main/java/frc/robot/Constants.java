@@ -269,9 +269,12 @@ public final class Constants {
 
       //TODO: Find these values
       //dynamic feedforward
-      public static final double kPivotV = 0.25;
+      public static final double kPivotV = 0;
+
+      //gravity counter-force
+      public static final double kPivotG = 0.25;
       //static feedforward
-      public static final double kPivotS = 0.02;
+      public static final double kPivotS = 0.0;
 
       //Used for PID to determine what rotation is close enough to desired angle
       public static final double kPivotToleranceThreshold = 1.5;

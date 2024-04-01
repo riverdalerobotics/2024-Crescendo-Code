@@ -47,6 +47,7 @@ public class PivotSubsystem extends SubsystemBase {
       PivotConstants.PIDConstants.kPivotD,
       PivotConstants.PIDConstants.kPivotV,
       PivotConstants.PIDConstants.kPivotS,
+      PivotConstants.PIDConstants.kPivotG,
       PivotConstants.PIDConstants.kMotionMagicCruiseVelocity,
       PivotConstants.PIDConstants.kMotionMagicAcceleration,
       PivotConstants.PIDConstants.kMotionMagicJerk,

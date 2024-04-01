@@ -20,6 +20,7 @@ public class TalonHelper {
      * @param kD Derivative term of the controller
      * @param kV FeedForward term of the controller, should be the voltage/duty cycle need to move at 1 unit per second of your control type
      * @param kS Static FeedForward, the voltage/duty cycle needed to beat static friction in your system
+     * @param kG gravity counteraction. The applied input needed to counterract gravity (0 for non-elevator/arms mechanisms)
      * @param MMCruiseVelocity The max velocity acheivable by motion magic (velocity motion magic controllers ignore this setting)
      * @param MMAcceleration The max acceleration acheivable by motion magic
      * @param MMJerk The max jerk acheviable by motion magic (jerk is the rate of increase of acceleration per second)
@@ -29,7 +30,7 @@ public class TalonHelper {
      * @param peakDutyCycle the max output closed loop control can supply to the mechanism
      * @return A TalonFXConfiguration object that can be passed into the configTalon method with a motor to configure it
      */
-    public static TalonFXConfiguration createTalonConfig(double kP, double kI, double kD, double kV, double kS, double MMCruiseVelocity, double MMAcceleration, double MMJerk, double currentLimit, double closedLoopRamp, double gearRatio, double peakDutyCycle) {
+    public static TalonFXConfiguration createTalonConfig(double kP, double kI, double kD, double kV, double kS, double kG, double MMCruiseVelocity, double MMAcceleration, double MMJerk, double currentLimit, double closedLoopRamp, double gearRatio, double peakDutyCycle) {
         var talonFXConfigs = new TalonFXConfiguration();
 
 
@@ -41,13 +42,12 @@ public class TalonHelper {
 
         var slot0Config = talonFXConfigs.Slot0;
         slot0Config.kS = kS;
-        //TODO: Find voltage required maintain position at the horizontal
         slot0Config.kV = kV;
         slot0Config.kP = kP;
         slot0Config.kI = kI;
         slot0Config.kD = kD;
+        slot0Config.kG = kG;
 
-        //TODO: Figure out how to apply gear ratio conversion factor to the internal encoders (currently only measuring rotations when it should be degrees)
 
         /**Motion magic is a form of motion profiling offered by CTRE
         Read this page for more information on what motion profiling is: https://docs.wpilib.org/en/stable/docs/software/commandbased/profile-subsystems-commands.html
@@ -85,6 +85,7 @@ public class TalonHelper {
      * @param kD Derivative term of the controller
      * @param kV FeedForward term of the controller, should be the voltage/duty cycle need to move at 1 unit per second of your control type
      * @param kS Static FeedForward, the voltage/duty cycle needed to beat static friction in your system
+     * @param kG gravity counteraction. The applied input needed to counterract gravity (0 for non-elevator/arms mechanisms)
      * @param MMCruiseVelocity The max velocity acheivable by motion magic (velocity motion magic controllers ignore this setting)
      * @param MMAcceleration The max acceleration acheivable by motion magic
      * @param MMJerk The max jerk acheviable by motion magic (jerk is the rate of increase of acceleration per second)
@@ -96,7 +97,7 @@ public class TalonHelper {
      * An arm will have the highest feed forward value when it is completely horizontal, as that position requires the most power to hold
      * @return A TalonFXConfiguration object that can be passed into the configTalon method with a motor to configure it
      */
-    public static TalonFXConfiguration createTalonConfig(double kP, double kI, double kD, double kV, double kS, double MMCruiseVelocity, double MMAcceleration, double MMJerk, double currentLimit, double closedLoopRamp, double gearRatio, double peakDutyCycle, GravityTypeValue gravityType) {
+    public static TalonFXConfiguration createTalonConfig(double kP, double kI, double kD, double kV, double kS, double kG, double MMCruiseVelocity, double MMAcceleration, double MMJerk, double currentLimit, double closedLoopRamp, double gearRatio, double peakDutyCycle, GravityTypeValue gravityType) {
         var talonFXConfigs = new TalonFXConfiguration();
 
 
@@ -106,14 +107,13 @@ public class TalonHelper {
 
         var slot0Config = talonFXConfigs.Slot0;
         slot0Config.kS = kS;
-        //TODO: Find voltage required maintain position at the horizontal
         slot0Config.kV = kV;
         slot0Config.kP = kP;
         slot0Config.kI = kI;
         slot0Config.kD = kD;
+        slot0Config.kG = kG;
         
 
-        //TODO: change the 0 encoder position of the arm to be horizontal with the ground
 
         //This tells the system that the controller is affecting an arm.
         //This changes how to feedforward values are applied to the system.
@@ -122,7 +122,6 @@ public class TalonHelper {
         slot0Config.GravityType = gravityType;
 
 
-        //TODO: Figure out how to apply gear ratio conversion factor to the internal encoders (currently only measuring rotations when it should be degrees)
 
         /**Motion magic is a form of motion profiling offered by CTRE
         Read this page for more information on what motion profiling is: https://docs.wpilib.org/en/stable/docs/software/commandbased/profile-subsystems-commands.html
