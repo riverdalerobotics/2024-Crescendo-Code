@@ -14,9 +14,15 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
 import frc.robot.subsystems.SwerveChassisSubsystem;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
+
+
+
+/* --------------------------------------------------------------------------- *
+ * This command is used during autonomous. Its purpose is to be called         *
+ * while moving towards a shooting position to prepare for the shot            *
+ * and reduce the time spent waiting in the correct shooting position once     *
+ * we are there                                                                *
+ * --------------------------------------------------------------------------- */
 public class PivotToAngleAndRevIndefinitely extends ParallelCommandGroup {
   /** Creates a new PivotToAngleAndRevIndefinitely. */
   public PivotToAngleAndRevIndefinitely(double desiredAngle, double intakeRPS, PivotSubsystem pivot, IntakeSubsystem intake, BlinkinLED blinkin, OI oi) {

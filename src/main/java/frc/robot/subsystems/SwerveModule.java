@@ -99,6 +99,7 @@ public class SwerveModule {
     mTurnPIDController.setSmartMotionAllowedClosedLoopError(ModuleConstants.kTurningTolerance, 0);
 
 
+    //Sets the PID gains for the drive motor
     mDrivePIDController.setP(ModuleConstants.kDriveP);
     mDrivePIDController.setI(ModuleConstants.kDriveI);
     mDrivePIDController.setD(ModuleConstants.kDriveD);
@@ -110,6 +111,7 @@ public class SwerveModule {
     mTurnMotor.setIdleMode(ModuleConstants.kTurningMotorIdleMode);
 
 
+    //Saves these settings to the modules. Useful in the event of our robot browning out (go to very low voltage), in which case this will save all the motor settings 
     mDriveMotor.burnFlash();
     mTurnMotor.burnFlash();
 

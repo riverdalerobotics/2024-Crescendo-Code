@@ -44,7 +44,6 @@ public class IntakeSubsystem extends SubsystemBase {
 
 
 
-    //TODO: Figure out how to apply gear ration conversion factor to the internal encoder
     //Create the configuration object that we will be using to apply our settings 
     //to both motors
     var talonFXConfigs = TalonHelper.createTalonConfig(
@@ -63,9 +62,6 @@ public class IntakeSubsystem extends SubsystemBase {
       IntakeConstants.PIDConstants.kIntakePIDMaxOutput
     );
 
-    //TODO: Find voltage required to spin at 1 RPS. This value is multipled by the requested speed
-    //TODO: Apply the velocity factor in the set velocity method
-
     //The motors are opposite to eachother, so one must be inverted
     leftIntake.config(talonFXConfigs);
     rightIntake.config(talonFXConfigs);
@@ -74,12 +70,16 @@ public class IntakeSubsystem extends SubsystemBase {
     //We create a closedLoop controller and set the desired velocity to 0.
     //We can change the desired velocity whenever we choose to
     motionVelV = new MotionMagicVelocityVoltage(0);
+
     //This ensures that we are using the PIDF configuration created above for slot 0
+    //Talon motors allow for multiple PID values that can be swapped between during game use. We set our values on slot 0, so we make sure to tell our motor to refer to that slot
+    //during usage
     motionVelV.Slot = 0;
     
   }
   
   /** 
+   * Sets intake speed, can be used as a form of manual intake control
    * @param speed
    */
   public void spinIntake(double speed){
@@ -98,6 +98,7 @@ public class IntakeSubsystem extends SubsystemBase {
   }
   
   /** 
+   * Spins the indexer belt. Positive values spin inwards. Negative values spin outwards
    * @param speed
    */
   public void spinBelt(double speed){

@@ -138,6 +138,17 @@ public boolean engageXModulePosition() {
 }
 
 
+/**
+ * Driver Controls 
+ * <p>
+ * Used to bring the arm up or down
+ * @return The angle of the Dpad button being pressed on the driver controller
+ */
+public int powerArm(){
+    return moveController.getPOV();
+}
+
+
 
 
 
@@ -290,20 +301,6 @@ public boolean revAmp() {
 public boolean pivotToAmp() {
     return intakeController.getYButtonPressed();
 }
-
-
-/**
- * Driver Controls 
- * arm methond 
- * method with bring the arm up and down 
- * 
- * @return
- */
-public int Arm(){
-    return moveController.getPOV();
-}
-
-
 
 /**
  * Operator controls ||

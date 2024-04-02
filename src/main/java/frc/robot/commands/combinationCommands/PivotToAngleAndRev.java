@@ -25,6 +25,8 @@ public class PivotToAngleAndRev extends ParallelDeadlineGroup {
     addCommands(new NewAutoRevFlywheelsIndefinitely(intakeRPS, 0, intake, blinkin, oi));
   }
 
+  /** An alternative constructor which allows us to set the pivot tolerance. This is useful when we want to call this method for angles that don't require a high accuracy, such as feed angles
+  We sacrifice accuracy for speed as accuracy is irrelevant for these cases */
   public PivotToAngleAndRev(double desiredAngle, double intakeRPS, PivotSubsystem pivot, IntakeSubsystem intake, BlinkinLED blinkin, OI oi, boolean considerGravity, double pivotTolerance) {
     // Add the deadline command in the super() call. Add other commands using
     // addCommands().
