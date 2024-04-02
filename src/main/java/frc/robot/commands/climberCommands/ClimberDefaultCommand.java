@@ -34,14 +34,20 @@ public class ClimberDefaultCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (oi.Arm() == -1) {
+
+    //-1 is returned by the dpad when no buttons are being pressed
+    if (oi.powerArm() == -1) {
       climber.climb(0);
     }
-    else if(oi.Arm() >= 315 || oi.Arm() <= 45 && ClimbConstants.kMaxEncoderVal >= climber.getEncoder()){
-      climber.climb(0.2);
 
-    }else if (oi.Arm() >= 135 && oi.Arm() <= 225 && ClimbConstants.kMinEncoderVal <= climber.getEncoder() ){
-      climber.climb(-0.2);
+    //The logic here checks for the top, top-right, and top-left dpad buttons being pressed
+    else if(oi.powerArm() >= 315 || oi.powerArm() <= 45 && ClimbConstants.kMaxEncoderVal >= climber.getEncoder()){
+      climber.climb(1);
+
+    }
+    //The logic here checks for the bottom, bottom-right, and bottom-left dpad buttons being pressed
+    else if (oi.powerArm() >= 135 && oi.powerArm() <= 225 && ClimbConstants.kMinEncoderVal <= climber.getEncoder() ){
+      climber.climb(-1);
     }
     else{
       climber.climb(0);

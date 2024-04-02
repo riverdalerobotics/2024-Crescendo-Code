@@ -14,13 +14,7 @@
         {
           "type": "named",
           "data": {
-            "name": "SetArmUp"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "PivotAndShootBack"
+            "name": "ShootFromCurrentAngle"
           }
         },
         {

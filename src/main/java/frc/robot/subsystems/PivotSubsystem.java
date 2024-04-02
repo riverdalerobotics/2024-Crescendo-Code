@@ -47,6 +47,7 @@ public class PivotSubsystem extends SubsystemBase {
       PivotConstants.PIDConstants.kPivotD,
       PivotConstants.PIDConstants.kPivotV,
       PivotConstants.PIDConstants.kPivotS,
+      PivotConstants.PIDConstants.kPivotG,
       PivotConstants.PIDConstants.kMotionMagicCruiseVelocity,
       PivotConstants.PIDConstants.kMotionMagicAcceleration,
       PivotConstants.PIDConstants.kMotionMagicJerk,
@@ -94,6 +95,11 @@ public class PivotSubsystem extends SubsystemBase {
     desiredAngleDegrees = degrees;
   }
 
+  public void setPivotAngleDegreesNoLimit(double degrees) {
+    pivot1.setControl(motionPositionVController.withPosition(Units.degreesToRotations(degrees)));
+    desiredAngleDegrees = degrees;
+  }
+
 
 
   /**
@@ -101,7 +107,7 @@ public class PivotSubsystem extends SubsystemBase {
    * Sets the pivot encoder value to 0, representing the starting hard stop position
    */
   public void resetPivotEncoder(){
-    pivot1.setPosition(PivotConstants.kZeroAngle);
+    pivot1.setPosition(Units.degreesToRotations(PivotConstants.kZeroAngle));
   }
 
   //TODO: set the arm angle to the min position on robot start

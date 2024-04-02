@@ -23,6 +23,7 @@ import frc.robot.subsystems.PivotSubsystem;
  * end condition. Unless interrupted, this command will run intake indefinitely.
  * The purpose of this command is use during autonomous, as well as use for trigger commands
  */
+
 public class IntakeIndefinitelyCommand extends ParallelCommandGroup {
   /** Creates a new IntakeIndefinitelyCommandNew. */
   public IntakeIndefinitelyCommand(PivotSubsystem pivot, IntakeSubsystem intake, BlinkinLED LED, OI oi) {

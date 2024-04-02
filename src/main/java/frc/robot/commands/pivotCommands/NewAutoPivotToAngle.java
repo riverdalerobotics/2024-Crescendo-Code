@@ -61,6 +61,8 @@ public class NewAutoPivotToAngle extends Command {
     //Checks if the angle should be adjusted initially to account for gravity
     //When fighting against significant gravity, the arm will initially aim for an angle above the desired angle,
     //then pivot down once it is above the desired position, using gravity to help its movement
+    //To view a visualization of what angles are adjusted for gravity, please view this imgur diagram
+    //https://imgur.com/a/vFEDG7T
     double curAngle = pivot.getEncoders();
     if (considerGravity) {
       if(curAngle > -75) {
@@ -98,18 +100,16 @@ public class NewAutoPivotToAngle extends Command {
       pivot.setPivotAngleDegrees(hardStopPosition);
     }
 
+  
     if (gravOffsetAcheived == false) {
       if(pivot.getPivot1().atSetpointPosition(Units.degreesToRotations(gravityAngle))) {
+
+        //Once the angle above the desired angle is reached, begin moving towards the actual setpoint with an adjusted tolerance for more accuracy
         gravOffsetAcheived = true;
         pivot.setPivotTolerance(Units.degreesToRotations(tolerance));
         pivot.setPivotAngleDegrees(desiredAngle);
-        for(int i = 0; i < 10; i++) {
-          System.out.println("GRAV ACHEIVED");
-          }
       }
     }
-
-
   }
 
   // Called once the command ends or is interrupted.
@@ -118,9 +118,6 @@ public class NewAutoPivotToAngle extends Command {
     gravityAngle = 0;
     
     gravOffsetAcheived = true;
-    for(int i = 0; i < 10; i++) {
-          System.out.println("COMMAND END");
-          }
   }
 
   // Returns true when the command should end.
@@ -128,6 +125,7 @@ public class NewAutoPivotToAngle extends Command {
   public boolean isFinished() {
     //This is a custom method implemented in our P2TalonFX class. The setpoint must be passed in,
     //then the motor will check if it has reached it within its range of tolerance
+    //Grav offset must be checked as otherwise the command would end unexpectedly 
     return pivot.getPivot1().atSetpointPosition(Units.degreesToRotations(desiredAngle)) && gravOffsetAcheived;
   }
 }

@@ -13,6 +13,8 @@ import frc.robot.subsystems.PivotSubsystem;
 
 
 
+//NOTE: THIS COMMAND IS CURRENTLY UNUSED IN THE ROBOT BUILD AS OF APRIL 2nd
+
 /**
  * This command brings the intake down and spins the flywheels until current spikes, indicating a
  * note has been picked up. 

@@ -138,6 +138,17 @@ public boolean engageXModulePosition() {
 }
 
 
+/**
+ * Driver Controls 
+ * <p>
+ * Used to bring the arm up or down
+ * @return The angle of the Dpad button being pressed on the driver controller
+ */
+public int powerArm(){
+    return moveController.getPOV();
+}
+
+
 
 
 
@@ -291,20 +302,6 @@ public boolean pivotToAmp() {
     return intakeController.getYButtonPressed();
 }
 
-
-/**
- * Driver Controls 
- * arm methond 
- * method with bring the arm up and down 
- * 
- * @return
- */
-public int Arm(){
-    return moveController.getPOV();
-}
-
-
-
 /**
  * Operator controls ||
  * Used the manually power the arm flywheels when manual intake is enabled
@@ -314,14 +311,18 @@ public double manualPowerIntake() {
     return intakeController.getRightY();
 }
 
+//CUR UNUSED (2 methods below)
+
+//-------------------------------------------------------------------
 /**
  * Operator controls ||
- * Uses to engage the tuck command in the event the arm's encoder is thrown off. 1 of 2 buttons to do this
+ * Used to manually push arm into hard stop in the event of an encoder issue
  * @return true as long as the operator controller's back button is pressed
  */
-public boolean tuckArm1() {
+public boolean pushArmIntoHardstop() {
     return intakeController.getBackButton();
 }
+
 
 /**
  * Operator controls ||
@@ -331,14 +332,25 @@ public boolean tuckArm1() {
 public boolean tuckArm2() {
     return intakeController.getStartButton();
 }
+//------------------------------------------------------------------
 
+/**
+ * Operator controls
+ * <p>
+ * Resets arm to hard stop inside bumpers.
+ * @return True when the operator controller's start button is pressed
+ */
 public boolean resetArmMinPos() {
-    return intakeController.getBackButtonPressed();
-}
-
-public boolean resetArmMaxPos() {
     return intakeController.getStartButtonPressed();
 }
 
-
+/**
+ * Operator controls
+ * <p>
+ * Resets arm to intake hard stop
+ * @return True when the operator controller's back button is pressed
+ */
+public boolean resetArmMaxPos() {
+    return intakeController.getBackButtonPressed();
+}
 }
