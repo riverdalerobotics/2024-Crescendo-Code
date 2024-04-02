@@ -250,12 +250,12 @@ public final class Constants {
     public static final double kStatorCurrentLimit = 60;
 
     //172 = 0
-    public static final double kIntakeAngle = 23;
-    public static final double kSubwooferShootAngle = -95;
-    public static final double kFeedAngle = -1.1;
-    public static final int kHighFeedAngle = -87;
-    public static final int kAmpAngle = -100;
-    public static final double kOppositeSubwooferShootAngle = -151.5; //-156
+    public static final double kIntakeAngle = 25;
+    public static final double kSubwooferShootAngle = -93;
+    public static final double kFeedAngle = -0.9;
+    public static final int kHighFeedAngle = -85;
+    public static final int kAmpAngle = -98;
+    public static final double kOppositeSubwooferShootAngle = -149.5; //-156
     public static final double kZeroAngle = PIDConstants.kMinSetpoint;
 
 
@@ -263,16 +263,16 @@ public final class Constants {
     public static class PIDConstants {
 
       //Proportional term was adjusted to be 360 * 0.017 as the internal PID controller now receives error in rotations and not degrees
-      public static final double kPivotP = 16;
-      public static final double kPivotI = 3;
-      public static final double kPivotD = 0.2;
+      public static final double kPivotP = 25; //16
+      public static final double kPivotI = 2;
+      public static final double kPivotD = 0.15;
 
       //TODO: Find these values
       //dynamic feedforward
       public static final double kPivotV = 0;
 
       //gravity counter-force
-      public static final double kPivotG = 0.25;
+      public static final double kPivotG = -0.26;
       //static feedforward
       public static final double kPivotS = 0.0;
 
@@ -288,10 +288,10 @@ public final class Constants {
       //Used when auto pivot accounts for gravity
       public static final double kGravityOffsetTolerance = 6;
 
-      public static final double kPivotPIDMaxOutput = 0.6; //0.75
-      public static final double kPivotPIDMinOutput = -0.6;//-0.75
-      public static final double kMinSetpoint = -151.5; //-168
-      public static final double kMaxSetpoint = 25.5;
+      public static final double kPivotPIDMaxOutput = 0.5; //0.75
+      public static final double kPivotPIDMinOutput = -0.5;//-0.75
+      public static final double kMinSetpoint = -149.5; //-168
+      public static final double kMaxSetpoint = 27.5;
 
       public static final double kMotionMagicCruiseVelocity = 1000;
       public static final double kMotionMagicAcceleration = 70;

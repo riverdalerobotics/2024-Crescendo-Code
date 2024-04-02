@@ -59,6 +59,7 @@ public class NewPivotDefaultCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    System.out.println(requestedArmAngle);
       //Manual rotation will stop whatever desired angle the arm is currently heading towards
     if(operatorInput.enableManualRotation()) {
       manualRotationEnabled = true;
