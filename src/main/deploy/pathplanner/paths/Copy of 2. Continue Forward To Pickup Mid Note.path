@@ -16,11 +16,11 @@
     },
     {
       "anchor": {
-        "x": 2.4,
+        "x": 2.4370791327585035,
         "y": 5.54
       },
       "prevControl": {
-        "x": 2.4194763853347396,
+        "x": 2.4565555180932432,
         "y": 5.5410316277334815
       },
       "nextControl": null,
@@ -32,7 +32,7 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 0.4,
+    "maxVelocity": 0.5,
     "maxAcceleration": 1.73,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "4 note mid subwoofer paths",
+  "folder": "3 note mid subwoofer paths",
   "previewStartingState": {
     "rotation": -178.8308606720925,
     "velocity": 0

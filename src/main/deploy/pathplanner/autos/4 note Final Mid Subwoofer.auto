@@ -14,7 +14,13 @@
         {
           "type": "named",
           "data": {
-            "name": "ShootFromCurrentAngle"
+            "name": "SetArmUp"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "PivotAndShootBack"
           }
         },
         {
@@ -28,13 +34,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "Copy of 1. Mid subwoofer to Mid note"
+                        "pathName": "Copy of Copy of 1. Mid subwoofer to Mid note"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "Copy of 2. Continue Forward To Pickup Mid Note"
+                        "pathName": "Copy of Copy of 2. Continue Forward To Pickup Mid Note"
                       }
                     }
                   ]
@@ -60,7 +66,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "Copy of 3. Return Centre Note to Mid Subwoofer"
+                        "pathName": "Copy of Copy of 3. Return Centre Note to Mid Subwoofer"
                       }
                     }
                   ]
@@ -92,13 +98,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "Copy of 7. Mid Subwoofer to Podium Note"
+                        "pathName": "Copy of Copy of 4. Mid subwoofer to Amp Note"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "Copy of 8. Continue Forward To Pickup Podium Note"
+                        "pathName": "Copy of Copy of 5. Continue Forward To Pickup Amp Note"
                       }
                     }
                   ]
@@ -120,13 +126,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Copy of 9. Return Podium Note To Mid Subwoofer"
+                  "pathName": "Copy of Copy of 6. Return Amp Note To Mid Subwoofer"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "PivotAndShootBack"
+                  "name": "PivotAndRevForShotBack"
                 }
               }
             ]
@@ -149,13 +155,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "Copy of 4. Mid subwoofer to Amp Note"
+                        "pathName": "Copy of Copy of 7. Mid Subwoofer to Podium Note"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "5. Continue Forward To Pickup Amp Note"
+                        "pathName": "Copy of Copy of 8. Continue Forward To Pickup Podium Note"
                       }
                     }
                   ]
@@ -177,7 +183,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Copy of 6. Return Amp Note To Mid Subwoofer"
+                  "pathName": "Copy of Copy of 9. Return Podium Note To Mid Subwoofer"
                 }
               },
               {
