@@ -314,6 +314,9 @@ public double manualPowerIntake() {
     return intakeController.getRightY();
 }
 
+//CUR UNUSED (2 methods below)
+
+//-------------------------------------------------------------------
 /**
  * Operator controls ||
  * Used to manually push arm into hard stop in the event of an encoder issue
@@ -332,18 +335,23 @@ public boolean pushArmIntoHardstop() {
 public boolean tuckArm2() {
     return intakeController.getStartButton();
 }
+//------------------------------------------------------------------
 
 /**
- * resets arm to hard stop inside bumpers. true when op start button is pressed
- * @return
+ * Operator controls
+ * <p>
+ * Resets arm to hard stop inside bumpers.
+ * @return True when the operator controller's start button is pressed
  */
 public boolean resetArmMinPos() {
     return intakeController.getStartButtonPressed();
 }
 
 /**
- * Resets arm to intake hard stop. True when op back button is pressed
- * @return
+ * Operator controls
+ * <p>
+ * Resets arm to intake hard stop
+ * @return True when the operator controller's back button is pressed
  */
 public boolean resetArmMaxPos() {
     return intakeController.getBackButtonPressed();
