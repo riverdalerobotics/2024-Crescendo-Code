@@ -109,14 +109,14 @@ public class NewAutoPivotToAngle extends Command {
       hardStopTimer = 0;
     }
 
-
-
+    //|||This block runs if the condition above has been met for x seconds|||
+    
     //Checks if the current spike has been breached for a second
     //if so, ends the command and resets the arm
     if (countingHardStop && System.currentTimeMillis() > hardStopTimer) {
       System.out.println("WE PUSHING P WITH THIS ONE AND BY P I MEAN HARDSTOP");
       pushingHardstop = true;
-      
+
       //Checks which hard stop is being pushed into by checking the direction of the motors
       if (pivot.getPivot1().getDutyCycle().getValueAsDouble() > 0) {
         pivot.setPivotEncoder(PivotConstants.PIDConstants.kMaxSetpoint);

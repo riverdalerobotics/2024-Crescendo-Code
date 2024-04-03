@@ -31,6 +31,9 @@ public class PivotSubsystem extends SubsystemBase {
 
   double desiredAngleDegrees = PivotConstants.PIDConstants.kMinSetpoint;
   MotionMagicVoltage motionPositionVController;
+
+
+  double highestCurrentSpike;
   //TODO Check if this works
   public boolean specCommandRunning = false;
 
@@ -185,6 +188,7 @@ public class PivotSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Pivot/Pivot Current", getCurrent());
     SmartDashboard.putNumber("Pivot/Pivot Position", getEncoders());
     SmartDashboard.putNumber("Pivot/Pivot rotation", getRotation());
+    SmartDashboard.putNumber("Pivot/Highest Current Spike", highestCurrentSpike);
     SmartDashboard.putBoolean("Pivot/Auto Piv", specCommandRunning);
   }
 
@@ -193,6 +197,9 @@ public class PivotSubsystem extends SubsystemBase {
     //System.out.println(motionPositionVController.Position);
     //System.out.println("acc positoon" + getRotation());
     // This method will be called once per scheduler run
+    if (getCurrent() > highestCurrentSpike) {
+      highestCurrentSpike = getCurrent();
+    }
     sendSmartDashboard();
   }
 }
