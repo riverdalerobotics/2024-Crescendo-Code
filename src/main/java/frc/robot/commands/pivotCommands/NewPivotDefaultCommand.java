@@ -24,6 +24,9 @@ public class NewPivotDefaultCommand extends Command {
   double tolerance = PivotConstants.PIDConstants.kPivotToleranceThreshold;
   double requestedArmAngle = PivotConstants.kZeroAngle;
 
+  boolean countingHardStop;
+  double hardStopTimer;
+
 
   //The operator can only manually control the pivot when this is true
   boolean manualRotationEnabled = false;
@@ -41,6 +44,9 @@ public class NewPivotDefaultCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
+    hardStopTimer = 0;
+    countingHardStop = false;
     //Sets the desired angle to the current arm angle when this command is initialized
     //If a command that sets the arm position ends, the default command will continue holding that position
     
@@ -92,20 +98,44 @@ public class NewPivotDefaultCommand extends Command {
     }
 
 
-
-
-
-    //Voltage above max voltage indicates that the arm is pushing against the hard stop and should be reset
-    //TODO: Test to see if this could be screwed up by other robots or field elements. If it can, we need to ensure this doesn't 
-    //unintenionally result in robot death
-    //TODO: Fix the logic here. Probably have it activate the tuck command to reset or figure out which hard stop is being pressed and change encoder pos to it
     
-    /*if (pivot.getCurrent() > maxCurrent){
-      requestedArmAngle = hardStopPosition;
-      pivot.setPivotAngleDegrees(requestedArmAngle);
-    }*/
-  }
 
+    //Checks if the pivot is above the threshold indicating it is pushing into a hardstop
+    if (pivot.getCurrent() > PivotConstants.kHardStopCurrentThreshold) {
+      //Runs once every time current breaches the limit. Once current goes below the limit, this statement can run again
+      if (countingHardStop == false) {
+        hardStopTimer = System.currentTimeMillis() + 500;
+        countingHardStop = true;
+      }
+    } 
+    //If current returns to accepted values within 1 second of breaching, reset the timer and boolean
+    else {
+      countingHardStop = false;
+      hardStopTimer = 0;
+    }
+
+
+
+    //Checks if the current spike has been breached for a second
+    //if so, ends the command and resets the arm
+    if (countingHardStop && System.currentTimeMillis() > hardStopTimer) {
+      System.out.println("WE PUSHING P WITH THIS ONE AND BY P I MEAN HARDSTOP");
+
+      //Checks which hard stop is being pushed into by checking the direction of the motors
+      if (pivot.getCurrent() > PivotConstants.kHardStopCurrentThreshold) {
+        if (pivot.getPivot1().getDutyCycle().getValueAsDouble() > 0) {
+          pivot.setPivotEncoder(PivotConstants.PIDConstants.kMaxSetpoint);
+          requestedArmAngle = PivotConstants.PIDConstants.kMaxSetpoint;
+          manualRotationEnabled = false;
+        }
+        else if (pivot.getPivot1().getDutyCycle().getValueAsDouble() < 0) {
+          pivot.setPivotEncoder(PivotConstants.PIDConstants.kMinSetpoint);
+          requestedArmAngle = PivotConstants.PIDConstants.kMinSetpoint;
+          manualRotationEnabled = false;
+        }
+      }
+    }
+  }
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {

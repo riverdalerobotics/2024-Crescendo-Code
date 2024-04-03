@@ -19,6 +19,9 @@ public class NewAutoPivotToAngle extends Command {
   boolean considerGravity = false;
   boolean gravOffsetAcheived = true;
   double gravityAngle;
+  boolean pushingHardstop;
+  boolean countingHardStop;
+  double hardStopTimer;
   public NewAutoPivotToAngle(double angle, PivotSubsystem pivotSubsystem, double tolerance) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.pivot = pivotSubsystem;
@@ -50,6 +53,9 @@ public class NewAutoPivotToAngle extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    pushingHardstop = false;
+    hardStopTimer = 0;
+    countingHardStop = false;
 
     //The constant tolerance value is in degrees, but the internal controller uses rotations.
     //We convert the degrees tolerance into rotations so the internal motor controller can work with the value
@@ -71,9 +77,6 @@ public class NewAutoPivotToAngle extends Command {
           pivot.setPivotAngleDegrees(gravityAngle);
           pivot.setPivotTolerance(Units.degreesToRotations(PivotConstants.PIDConstants.kGravityOffsetTolerance));
           gravOffsetAcheived = false;
-          for(int i = 0; i < 10; i++) {
-          System.out.println("FRONT GRAV");
-          }
         }
       }
       else if(curAngle < -105) {
@@ -83,9 +86,6 @@ public class NewAutoPivotToAngle extends Command {
           pivot.setPivotAngleDegrees(gravityAngle);
           pivot.setPivotTolerance(Units.degreesToRotations(PivotConstants.PIDConstants.kGravityOffsetTolerance));
           gravOffsetAcheived = false;
-          for(int i = 0; i < 10; i++) {
-          System.out.println("BACK GRAV");
-          }
         }
       }
     }
@@ -95,9 +95,35 @@ public class NewAutoPivotToAngle extends Command {
   @Override  
   public void execute() {
   
-    //TODO: Fix the logic for this because it kind of sucks rn (if encoder is off the correct value this will not work)
-    if (pivot.getCurrent() > maxCurrent){
-      pivot.setPivotAngleDegrees(hardStopPosition);
+    //Checks if the pivot is above the threshold indicating it is pushing into a hardstop
+    if (pivot.getCurrent() > PivotConstants.kHardStopCurrentThreshold) {
+      //Runs once every time current breaches the limit. Once current goes below the limit, this statement can run again
+      if (countingHardStop == false) {
+        hardStopTimer = System.currentTimeMillis() + 500;
+        countingHardStop = true;
+      }
+    } 
+    //If current returns to accepted values within 1 second of breaching, reset the timer and boolean
+    else {
+      countingHardStop = false;
+      hardStopTimer = 0;
+    }
+
+    //|||This block runs if the condition above has been met for x seconds|||
+    
+    //Checks if the current spike has been breached for a second
+    //if so, ends the command and resets the arm
+    if (countingHardStop && System.currentTimeMillis() > hardStopTimer) {
+      System.out.println("WE PUSHING P WITH THIS ONE AND BY P I MEAN HARDSTOP");
+      pushingHardstop = true;
+
+      //Checks which hard stop is being pushed into by checking the direction of the motors
+      if (pivot.getPivot1().getDutyCycle().getValueAsDouble() > 0) {
+        pivot.setPivotEncoder(PivotConstants.PIDConstants.kMaxSetpoint);
+      }
+      else if (pivot.getPivot1().getDutyCycle().getValueAsDouble() < 0) {
+        pivot.setPivotEncoder(PivotConstants.PIDConstants.kMinSetpoint);
+      }
     }
 
   
@@ -116,7 +142,9 @@ public class NewAutoPivotToAngle extends Command {
   @Override
   public void end(boolean interrupted) {
     gravityAngle = 0;
-    
+    pushingHardstop = false;
+    hardStopTimer = 0;
+    countingHardStop = false;
     gravOffsetAcheived = true;
   }
 
@@ -126,6 +154,6 @@ public class NewAutoPivotToAngle extends Command {
     //This is a custom method implemented in our P2TalonFX class. The setpoint must be passed in,
     //then the motor will check if it has reached it within its range of tolerance
     //Grav offset must be checked as otherwise the command would end unexpectedly 
-    return pivot.getPivot1().atSetpointPosition(Units.degreesToRotations(desiredAngle)) && gravOffsetAcheived;
+    return (pivot.getPivot1().atSetpointPosition(Units.degreesToRotations(desiredAngle)) && gravOffsetAcheived) || (pushingHardstop);
   }
 }
