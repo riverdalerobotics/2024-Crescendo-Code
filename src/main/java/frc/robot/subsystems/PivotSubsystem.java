@@ -113,7 +113,7 @@ public class PivotSubsystem extends SubsystemBase {
   //TODO: set the arm angle to the min position on robot start
   /**
    * Used to set a specific encoder angle
-   * @param angle the desired angle
+   * @param angle the desired angle in degrees
    */
   public void setPivotEncoder(double angle) {
     pivot1.setPosition(Units.degreesToRotations(angle));
@@ -176,6 +176,7 @@ public class PivotSubsystem extends SubsystemBase {
   public void setPivotTolerance(double tolerance) {
     pivot1.setTolerance(tolerance);
     pivot2.setTolerance(tolerance);
+
   }
 
 

@@ -362,7 +362,7 @@ public ChassisSpeeds getVelocities() {
    * @param percentageSlow the percentage you wish to slow the robot by
    */
   public void slowDrive(double percentageSlow) {
-    this.maxTeleopDriveSpeed = ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond - ((ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond) * (0.5 * percentageSlow));
+    this.maxTeleopDriveSpeed = ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond - ((ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond) * (0.7 * percentageSlow));
   }
 
 
