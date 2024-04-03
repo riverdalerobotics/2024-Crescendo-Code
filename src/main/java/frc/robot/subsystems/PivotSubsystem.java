@@ -190,6 +190,7 @@ public class PivotSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Pivot/Pivot rotation", getRotation());
     SmartDashboard.putNumber("Pivot/Highest Current Spike", highestCurrentSpike);
     SmartDashboard.putBoolean("Pivot/Auto Piv", specCommandRunning);
+    SmartDashboard.putNumber("Pivot/Duty Cycle", pivot1.getDutyCycle().getValueAsDouble());
   }
 
   @Override

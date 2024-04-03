@@ -99,7 +99,7 @@ public class NewAutoPivotToAngle extends Command {
     if (pivot.getCurrent() > PivotConstants.kHardStopCurrentThreshold) {
       //Runs once every time current breaches the limit. Once current goes below the limit, this statement can run again
       if (countingHardStop == false) {
-        hardStopTimer = System.currentTimeMillis() + 500;
+        hardStopTimer = System.currentTimeMillis() + 750;
         countingHardStop = true;
       }
     } 

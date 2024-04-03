@@ -65,7 +65,6 @@ public class NewPivotDefaultCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println(requestedArmAngle);
       //Manual rotation will stop whatever desired angle the arm is currently heading towards
     if(operatorInput.enableManualRotation()) {
       manualRotationEnabled = true;
@@ -102,10 +101,21 @@ public class NewPivotDefaultCommand extends Command {
 
     //Checks if the pivot is above the threshold indicating it is pushing into a hardstop
     if (pivot.getCurrent() > PivotConstants.kHardStopCurrentThreshold) {
+      System.out.println("LIMIT BREACH");
       //Runs once every time current breaches the limit. Once current goes below the limit, this statement can run again
       if (countingHardStop == false) {
-        hardStopTimer = System.currentTimeMillis() + 500;
+        hardStopTimer = System.currentTimeMillis() + 750;
         countingHardStop = true;
+
+        System.out.println("START TIMER");
+        System.out.println("START TIMER");
+        System.out.println("START TIMER");
+        System.out.println("START TIMER");
+        System.out.println("START TIMER");
+        System.out.println("START TIMER");
+        System.out.println("START TIMER");
+        System.out.println("START TIMER");
+        System.out.println("START TIMER");
       }
     } 
     //If current returns to accepted values within 1 second of breaching, reset the timer and boolean
@@ -122,17 +132,16 @@ public class NewPivotDefaultCommand extends Command {
       System.out.println("WE PUSHING P WITH THIS ONE AND BY P I MEAN HARDSTOP");
 
       //Checks which hard stop is being pushed into by checking the direction of the motors
-      if (pivot.getCurrent() > PivotConstants.kHardStopCurrentThreshold) {
-        if (pivot.getPivot1().getDutyCycle().getValueAsDouble() > 0) {
-          pivot.setPivotEncoder(PivotConstants.PIDConstants.kMaxSetpoint);
-          requestedArmAngle = PivotConstants.PIDConstants.kMaxSetpoint;
-          manualRotationEnabled = false;
-        }
-        else if (pivot.getPivot1().getDutyCycle().getValueAsDouble() < 0) {
-          pivot.setPivotEncoder(PivotConstants.PIDConstants.kMinSetpoint);
-          requestedArmAngle = PivotConstants.PIDConstants.kMinSetpoint;
-          manualRotationEnabled = false;
-        }
+      if (pivot.getPivot1().getDutyCycle().getValueAsDouble() > 0) {
+        pivot.setPivotEncoder(PivotConstants.PIDConstants.kMaxSetpoint);
+        requestedArmAngle = PivotConstants.PIDConstants.kMaxSetpoint;
+        manualRotationEnabled = false;
+      }
+      else if (pivot.getPivot1().getDutyCycle().getValueAsDouble() < 0) {
+        pivot.setPivotEncoder(PivotConstants.PIDConstants.kMinSetpoint);
+        requestedArmAngle = PivotConstants.PIDConstants.kMinSetpoint;
+        manualRotationEnabled = false;
+      
       }
     }
   }
