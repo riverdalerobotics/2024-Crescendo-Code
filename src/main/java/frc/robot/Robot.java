@@ -59,7 +59,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer(); 
-    m_robotContainer.PIVOT.setPivotEncoder(PivotConstants.PIDConstants.kMinSetpoint);
+    m_robotContainer.PIVOT.setPivotEncoder(PivotConstants.PIDConstants.kMaxSetpoint);
 
     m_chooser.setDefaultOption("mobilityWithStyle", mobilityWithStyle);
 

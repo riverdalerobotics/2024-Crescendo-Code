@@ -255,7 +255,7 @@ public final class Constants {
     public static final double kFeedAngle = -0.9;
     public static final int kHighFeedAngle = -85;
     public static final int kAmpAngle = -98;
-    public static final double kOppositeSubwooferShootAngle = -149; //-156
+    public static final double kOppositeSubwooferShootAngle = -149.3; //-156
     public static final double kZeroAngle = PIDConstants.kMinSetpoint;
 
 
@@ -290,7 +290,7 @@ public final class Constants {
 
       public static final double kPivotPIDMaxOutput = 0.5; //0.75
       public static final double kPivotPIDMinOutput = -0.5;//-0.75
-      public static final double kMinSetpoint = -149; //-168
+      public static final double kMinSetpoint = -149.3; //-168
       public static final double kMaxSetpoint = 27.5;
 
       public static final double kMotionMagicCruiseVelocity = 1000;
