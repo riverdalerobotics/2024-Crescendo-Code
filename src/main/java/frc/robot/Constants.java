@@ -37,7 +37,7 @@ public final class Constants {
 
     //public static final double kDrivingMotorFreeSpeedRps = NeoMotorConstants.kFreeSpeedRpm / 60;
 
-    public static final double kWheelDiameterMeters = 0.0762; 
+    public static final double kWheelDiameterMeters = 0.07112; //0.762
 
     public static final double kWheelCircumferenceMeters = kWheelDiameterMeters * Math.PI;
 
@@ -245,7 +245,7 @@ public final class Constants {
     public static final double kPivotGearRatio = 1d/ ((50*64*64)/(8*22*24));
 
 //TODO: change later
-    public static final double kHardStopCurrentThreshold = 10000;
+    public static final double kHardStopCurrentThreshold = 0.5;
 
     public static final double kStatorCurrentLimit = 60;
 
@@ -255,7 +255,7 @@ public final class Constants {
     public static final double kFeedAngle = -0.9;
     public static final int kHighFeedAngle = -85;
     public static final int kAmpAngle = -98;
-    public static final double kOppositeSubwooferShootAngle = -149.5; //-156
+    public static final double kOppositeSubwooferShootAngle = -149; //-156
     public static final double kZeroAngle = PIDConstants.kMinSetpoint;
 
 
@@ -290,7 +290,7 @@ public final class Constants {
 
       public static final double kPivotPIDMaxOutput = 0.5; //0.75
       public static final double kPivotPIDMinOutput = -0.5;//-0.75
-      public static final double kMinSetpoint = -149.5; //-168
+      public static final double kMinSetpoint = -149; //-168
       public static final double kMaxSetpoint = 27.5;
 
       public static final double kMotionMagicCruiseVelocity = 1000;
