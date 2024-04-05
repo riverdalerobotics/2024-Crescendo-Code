@@ -119,10 +119,13 @@ public class NewAutoPivotToAngle extends Command {
 
       //Checks which hard stop is being pushed into by checking the direction of the motors
       if (pivot.getPivot1().getDutyCycle().getValueAsDouble() > 0) {
-        pivot.setPivotEncoder(PivotConstants.PIDConstants.kMaxSetpoint);
+        //pivot.setPivotEncoder(PivotConstants.PIDConstants.kMaxSetpoint);
+        pivot.setPivotEncoder(29);
+        System.out.println("intake pivot reset");
       }
       else if (pivot.getPivot1().getDutyCycle().getValueAsDouble() < 0) {
-        pivot.setPivotEncoder(PivotConstants.PIDConstants.kMinSetpoint);
+        pivot.setPivotEncoder(-152);
+        System.out.println("stow pivot reset");
       }
     }
 

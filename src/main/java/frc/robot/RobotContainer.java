@@ -47,7 +47,7 @@ public class RobotContainer {
   public final SwerveChassisSubsystem CHASSIS = new SwerveChassisSubsystem(LED);
   public final PivotSubsystem PIVOT = new PivotSubsystem();
   public final IntakeSubsystem INTAKE = new IntakeSubsystem();
-  public final ClimberSubsystem CLIMB = new ClimberSubsystem();
+  //public final ClimberSubsystem CLIMB = new ClimberSubsystem();
  
   
 
@@ -66,8 +66,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("PivotAndRevForShotFront", new PivotToAngleAndRevIndefinitely(PivotConstants.kSubwooferShootAngle, IntakeConstants.kDesiredShootMotorRPS, PIVOT, INTAKE, LED, oi));
     NamedCommands.registerCommand("PivotAndShootFront", new PivotToAngleAndShoot(PivotConstants.kSubwooferShootAngle, IntakeConstants.kDesiredShootMotorRPS, IntakeConstants.kShootBeltMotorSpeed, PIVOT, INTAKE, LED, oi, IntakeConstants.kShootTimeNeeded, true, PivotConstants.PIDConstants.kPivotToleranceThreshold));
 
-    NamedCommands.registerCommand("PivotAndRevForShotBack", new PivotToAngleAndRevIndefinitely(PivotConstants.kOppositeSubwooferShootAngle, IntakeConstants.kDesiredShootMotorRPS, PIVOT, INTAKE, LED, oi));
-    NamedCommands.registerCommand("PivotAndShootBack", new PivotToAngleAndShoot(PivotConstants.kOppositeSubwooferShootAngle, IntakeConstants.kDesiredShootMotorRPS, IntakeConstants.kShootBeltMotorSpeed, PIVOT, INTAKE, LED, oi, IntakeConstants.kShootTimeNeeded, true, PivotConstants.PIDConstants.kPivotToleranceThreshold));
+    NamedCommands.registerCommand("PivotAndRevForShotBack", new PivotToAngleAndRevIndefinitely(PivotConstants.kOppositeSubwooferShootAngle, 72, PIVOT, INTAKE, LED, oi));
+    NamedCommands.registerCommand("PivotAndShootBack", new PivotToAngleAndShoot(PivotConstants.kOppositeSubwooferShootAngle, 72, IntakeConstants.kShootBeltMotorSpeed, PIVOT, INTAKE, LED, oi, IntakeConstants.kShootTimeNeeded, true, PivotConstants.PIDConstants.kPivotToleranceThreshold));
     NamedCommands.registerCommand("ShootFromCurrentAngle", new AutoRevAndBeltWhenReady(IntakeConstants.kDesiredShootMotorRPS, IntakeConstants.kShootBeltMotorSpeed, INTAKE, LED, oi, IntakeConstants.kShootTimeNeeded));
     NamedCommands.registerCommand("SetArmUp", new NewAutoPivotToAngle(-90, PIVOT, PivotConstants.PIDConstants.kSetUpTolerance));
     CHASSIS.setDefaultCommand(new SwerveDefaultCommand (
@@ -88,7 +88,7 @@ public class RobotContainer {
     ));
 
 
-    CLIMB.setDefaultCommand(new ClimberDefaultCommand(oi, CLIMB));
+    //CLIMB.setDefaultCommand(new ClimberDefaultCommand(oi, CLIMB));
   }
 
   /** 
