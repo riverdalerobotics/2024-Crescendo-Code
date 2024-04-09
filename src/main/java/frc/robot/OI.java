@@ -120,6 +120,10 @@ public boolean engageAutoMoveToPredefined() {
     }
 }
 
+public boolean spinIntake(){
+    return intakeController.getLeftTriggerAxis() >= 0.330;
+}
+
 
 
 /**
@@ -276,8 +280,12 @@ public boolean pivotAndShootLowFeed() {
  * Used to pivot and shoot at high intake once wheels are revved
  * @return true as long as the B button is pressed
  */
-public boolean pivotAndShootHighFeed() {
+public boolean revHighFeed() {
     return intakeController.getBButton();
+}
+
+public boolean pivotToHighFeed() {
+    return intakeController.getBButtonPressed();
 }
 
 /**

@@ -198,18 +198,18 @@ public final class Constants {
     public static final double kShootTimeNeeded = 750;
 
 
-    public static final double kDesiredShootMotorRPS = 75; //75
+    public static final double kDesiredShootMotorRPS = 74; //75
     public static final double kShootBeltMotorSpeed = -0.5;
 
     public static final double kDesiredBackShotMotorRPS = 72;
 
     public static final double kDesiredFeedMotorRPS = 60;
-    public static final double kDesiredFeedBeltSpeed =   -0.5;
+    public static final double kDesiredFeedBeltSpeed = -0.5;
 
-    public static final double kDesiredHighFeedMotorRPS = 75 ;
+    public static final double kDesiredHighFeedMotorRPS = 95;
     public static final double kDesiredHighFeedBeltSpeed = -0.5;
 
-    public static final double kDesiredAmpMotorRPS = 38;
+    public static final double kDesiredAmpMotorRPS = 25.7;
     public static final double kDesiredAmpBeltSpeed = -0.5;
 
     public static final double kFlywheelsGearRatio = (34d/15d);
