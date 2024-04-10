@@ -101,21 +101,11 @@ public class NewPivotDefaultCommand extends Command {
 
     //Checks if the pivot is above the threshold indicating it is pushing into a hardstop
     if (pivot.getCurrent() > PivotConstants.kHardStopCurrentThreshold) {
-      System.out.println("LIMIT BREACH");
       //Runs once every time current breaches the limit. Once current goes below the limit, this statement can run again
       if (countingHardStop == false) {
         hardStopTimer = System.currentTimeMillis() + 750;
         countingHardStop = true;
 
-        System.out.println("START TIMER");
-        System.out.println("START TIMER");
-        System.out.println("START TIMER");
-        System.out.println("START TIMER");
-        System.out.println("START TIMER");
-        System.out.println("START TIMER");
-        System.out.println("START TIMER");
-        System.out.println("START TIMER");
-        System.out.println("START TIMER");
       }
     } 
     //If current returns to accepted values within 1 second of breaching, reset the timer and boolean
@@ -133,14 +123,17 @@ public class NewPivotDefaultCommand extends Command {
 
       //Checks which hard stop is being pushed into by checking the direction of the motors
       if (pivot.getPivot1().getDutyCycle().getValueAsDouble() > 0) {
-        pivot.setPivotEncoder(PivotConstants.PIDConstants.kMaxSetpoint);
+        //pivot.setPivotEncoder(PivotConstants.PIDConstants.kMaxSetpoint);
+        pivot.setPivotEncoder(29);
         requestedArmAngle = PivotConstants.PIDConstants.kMaxSetpoint;
         manualRotationEnabled = false;
+        System.out.println("intake reset pivot");
       }
       else if (pivot.getPivot1().getDutyCycle().getValueAsDouble() < 0) {
-        pivot.setPivotEncoder(PivotConstants.PIDConstants.kMinSetpoint);
+        pivot.setPivotEncoder(-152);
         requestedArmAngle = PivotConstants.PIDConstants.kMinSetpoint;
         manualRotationEnabled = false;
+        System.out.println("stow reset pivot");
       
       }
     }
