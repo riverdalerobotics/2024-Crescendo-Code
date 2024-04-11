@@ -8,6 +8,7 @@
 //motion talonfx gradual PID setpoint change
 
 package frc.robot.commands.pivotCommands;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.HelperMethods;
 import frc.robot.OI;
@@ -73,7 +74,7 @@ public class NewPivotDefaultCommand extends Command {
 
     if(manualRotationEnabled) {
       
-      requestedArmAngle = requestedArmAngle + (HelperMethods.applyInputDeadband(operatorInput.pivotArm()) * 0.25);
+      requestedArmAngle = requestedArmAngle + (HelperMethods.applyInputDeadband(operatorInput.pivotArm()) * 0.15);
       pivot.setPivotAngleDegreesNoLimit(requestedArmAngle);
     }
     else {
@@ -84,17 +85,17 @@ public class NewPivotDefaultCommand extends Command {
 
 
 
-    if (operatorInput.resetArmMinPos()) {
-      pivot.resetPivotEncoder();
-      requestedArmAngle = PivotConstants.kZeroAngle;
-      manualRotationEnabled = false;
-    }
+    // if (operatorInput.resetArmMinPos()) {
+    //   pivot.resetPivotEncoder();
+    //   requestedArmAngle = PivotConstants.kZeroAngle;
+    //   manualRotationEnabled = false;
+    // }
 
-    if (operatorInput.resetArmMaxPos()) {
-      pivot.setPivotEncoder(PivotConstants.PIDConstants.kMaxSetpoint);
-      requestedArmAngle = PivotConstants.PIDConstants.kMaxSetpoint;
-      manualRotationEnabled = false;
-    }
+    // if (operatorInput.resetArmMaxPos()) {
+    //   pivot.setPivotEncoder(PivotConstants.PIDConstants.kMaxSetpoint);
+    //   requestedArmAngle = PivotConstants.PIDConstants.kMaxSetpoint;
+    //   manualRotationEnabled = false;
+    // }
 
 
     
@@ -136,7 +137,10 @@ public class NewPivotDefaultCommand extends Command {
         System.out.println("stow reset pivot");
       
       }
+
+    
     }
+    SmartDashboard.putNumber("Pivot/PivotSetpoint", requestedArmAngle); 
   }
   // Called once the command ends or is interrupted.
   @Override

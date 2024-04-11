@@ -44,9 +44,9 @@ public class AutoFaceSpeakerCommand extends Command {
     boolean tagDetected = tagLimelight.targetDetected();
     if(tagDetected){
       double tagThetaOffset = tagLimelight.getTX();
-    double turnPIDspeed = turnController.calculate(tagThetaOffset);
-    double turnSpeed = HelperMethods.limitValInRange(CommandConstants.kTurningNoteMinOutput, CommandConstants.kTurningNoteMaxOutput, turnPIDspeed);
-    chassis.driveSwerve(0,0,turnSpeed);
+      double turnPIDspeed = turnController.calculate(tagThetaOffset);
+      double turnSpeed = HelperMethods.limitValInRange(CommandConstants.kTurningNoteMinOutput, CommandConstants.kTurningNoteMaxOutput, turnPIDspeed);
+      chassis.driveSwerve(0,0,turnSpeed);
     }
     else{
       double xSpd = oi.xSpeed();

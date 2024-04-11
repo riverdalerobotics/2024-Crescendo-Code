@@ -141,6 +141,14 @@ public boolean shoot() {
 public boolean engageXModulePosition() {
     return moveController.getXButton();
 }
+/**
+ * Controller imput to shoot from 5 ft
+ * TODO: find a better button for this... kinda change around intake controlls...
+ * @return intake controller back button
+ */
+public boolean pivotFromfar(){
+    return intakeController.getBackButton();
+}
 
 
 /**
@@ -349,9 +357,9 @@ public boolean tuckArm2() {
  * Resets arm to hard stop inside bumpers.
  * @return True when the operator controller's start button is pressed
  */
-public boolean resetArmMinPos() {
-    return intakeController.getStartButtonPressed();
-}
+// public boolean resetArmMinPos() {
+//     return intakeController.getStartButtonPressed();
+// }
 
 /**
  * Operator controls
@@ -359,7 +367,7 @@ public boolean resetArmMinPos() {
  * Resets arm to intake hard stop
  * @return True when the operator controller's back button is pressed
  */
-public boolean resetArmMaxPos() {
-    return intakeController.getBackButtonPressed();
-}
+// public boolean resetArmMaxPos() {
+//     return intakeController.getBackButtonPressed();
+// }
 }
