@@ -48,6 +48,15 @@ public class Limelight {
         return ty.getDouble(360);
     }
 
+    /**
+     * @return The class name of what limelight is detecting (offseason)
+     */
+    public String getClassName(){
+        NetworkTableEntry tclass = table.getEntry("tclass");
+        return tclass.getString("nothing");
+    }
+
+
 
 
     /**
@@ -162,6 +171,8 @@ public class Limelight {
         centerFieldBotPose=getBotPose();
         return centerFieldBotPose[1];
     }
+
+ 
 
     
 
