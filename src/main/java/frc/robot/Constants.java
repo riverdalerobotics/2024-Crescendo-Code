@@ -410,6 +410,9 @@ public final class Constants {
     //Meters
     public static final double kXNoteAlignSetpoint = 1.4;
     public static final double kXNoteAlignTolerance = 0.04;
+
+    public static final double kTurningTagAlignSetpoint = 0d;
+    public static final double kTurningTagAlignTolerance = 0d;
   }
 
   public static class LimelightConstants {
@@ -417,7 +420,6 @@ public final class Constants {
     public static final double noteHeight = 0; //literally it is 0 
     public static final double noteLimelightMountHeight = 0.668;  //TODO: find limelight mounts
     public static final double noteLimelightMountAngle = -26;
-
     public static final double tagLimelightMountAngle = 0;
     public static final double tagLimelightMountHeight = 0;
 
