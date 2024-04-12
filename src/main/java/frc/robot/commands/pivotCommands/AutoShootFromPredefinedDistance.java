@@ -19,9 +19,9 @@ public class AutoShootFromPredefinedDistance extends Command {
   double distance;
   double setpoint;
   /**
-   * 
+   * Pivots the arm to a angle when given the distance
    * @param pivotSubsystem
-   * @param distance in feet
+   * @param distance in meters
    */
   public AutoShootFromPredefinedDistance(PivotSubsystem pivotSubsystem, double distance) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -34,7 +34,8 @@ public class AutoShootFromPredefinedDistance extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    setpoint = (9.5/5)*distance-83.35;
+    double distanceFromMeters = HelperMethods.unitConvertionMetersToFt(distance);
+    setpoint = (9.5/5)*distanceFromMeters;
     pivot.setPivotTolerance(Units.degreesToRotations(PivotConstants.PIDConstants.kHighFeedTolerance));
     pivot.specCommandRunning = true;
 

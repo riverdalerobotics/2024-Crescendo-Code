@@ -33,6 +33,22 @@ public final class HelperMethods {
             return controllerInput;
         }
     }
+    /**
+     * Converts ft to meters
+     * @param measurements in meters
+     * @return the given mesurment in feet
+     */
+    public static double unitConvertionMetersToFt(double measurements){
+        return measurements*3.28084;
+    }
+    /**
+     * Converts ft to meters
+     * @param measurements in ft
+     * @return the given mesurement in meters
+     */
+    public static double unitConvertionFtToMeters(double measurements){
+        return measurements*0.3048;
+    }
 
 
     
