@@ -3,18 +3,25 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
+import com.ctre.phoenix.Logger;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.StrictFollower;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.units.Angle;
+import edu.wpi.first.units.Measure;
+import edu.wpi.first.units.MutableMeasure;
+import edu.wpi.first.units.Voltage;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.HelperMethods;
 import frc.robot.TalonHelper;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.R3P2CustomClasses.P2TalonFX;
-
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import java.util.function.Consumer;
+import edu.wpi.first.units.Voltage;
 
 
 
@@ -32,6 +39,9 @@ public class PivotSubsystem extends SubsystemBase {
   double desiredAngleDegrees = PivotConstants.PIDConstants.kMinSetpoint;
   MotionMagicVoltage motionPositionVController;
 
+  SysIdRoutine sysIdRoutine;
+  Measure<Voltage> test;
+  
 
   double highestCurrentSpike;
   //TODO Check if this works
@@ -39,6 +49,8 @@ public class PivotSubsystem extends SubsystemBase {
 
   
   public PivotSubsystem() {
+
+
     pivot1 = new P2TalonFX(PivotConstants.kPivotMotor1ID);
     pivot2 = new P2TalonFX(PivotConstants.kPivotMotor2ID);
 
@@ -78,11 +90,24 @@ public class PivotSubsystem extends SubsystemBase {
     //This ensures that we are using the PIDF configuration created above for slot 0
     motionPositionVController.Slot = 0;
     
+    sysIdRoutine = new SysIdRoutine(
+      new SysIdRoutine.Config(null, null, null), 
+    new SysIdRoutine.Mechanism(this::movePivotVoltage, null, this));
   }
 
   public void movePivot(double speed){
     pivot1.set(speed);
     pivot2.set(speed);
+  }
+
+
+  public void movePivotVoltage(Measure<Voltage> voltage) {
+    pivot1.setVoltage(voltage.magnitude());
+    pivot2.setVoltage(voltage.magnitude());
+  }
+
+  public void log() {
+    sysIdRoutine.motor("pivot1").voltage(getVoltageSysid()).angularPosition()
   }
 
   /**
@@ -147,6 +172,12 @@ public class PivotSubsystem extends SubsystemBase {
   }
 
 
+  public Measure<Angle> getAngleSysId() {
+    double rotations = pivot1.getPosition().getValueAsDouble();
+    double angle = Units.rotationsToDegrees(rotations);
+    return edu.wpi.first.units.Units.Degrees.of(angle);
+  }
+
   /**
    * Returns the encoder value of the pivot in rotations.
    * This value is affected by the pivot's specified gear ratio
@@ -159,6 +190,12 @@ public class PivotSubsystem extends SubsystemBase {
   public double getVoltage(){
     StatusSignal<Double> voltage = pivot1.getMotorVoltage();
     return voltage.getValue();
+  }
+
+
+  public Measure<Voltage> getVoltageSysid() {
+    StatusSignal<Double> voltage = pivot1.getMotorVoltage();
+    return edu.wpi.first.units.Units.Volts.of(voltage.getValueAsDouble());
   }
 
   /** */

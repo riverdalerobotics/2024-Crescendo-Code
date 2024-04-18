@@ -162,6 +162,18 @@ public int powerArm(){
 }
 
 
+/**
+ * Driver Controls 
+ * <p>
+ * Used to enable moving swerve using hand signals
+ * @return true when b button pressed
+ */
+public boolean handSignalMove(){
+    return moveController.getBButton();
+}
+
+
+
 
 
 
