@@ -18,6 +18,7 @@ import frc.robot.commands.combinationCommands.PivotToAngleAndShoot;
 import frc.robot.commands.intakeCommands.AutoRevAndBeltWhenReady;
 import frc.robot.commands.intakeCommands.NewAutoRevFlywheelsIndefinitely;
 import frc.robot.commands.intakeCommands.NewIntakeDefaultCommand;
+import frc.robot.commands.pivotCommands.AutoShootFromPredefinedDistance;
 import frc.robot.commands.pivotCommands.NewAutoPivotToAngle;
 import frc.robot.commands.pivotCommands.NewPivotDefaultCommand;
 import frc.robot.commands.swerveCommands.AutoAlignWithNoteSwerve;
@@ -133,6 +134,9 @@ public class RobotContainer {
     //Driver still has final say to make the shot
     new Trigger(() -> oi.pivotToAmp()).onTrue(new NewAutoPivotToAngle(PivotConstants.kAmpAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold));
     new Trigger(() -> oi.revAmp()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredAmpMotorRPS, 0, INTAKE, LED, oi));
+   
+    // pivots to the angle when given a distance
+    new Trigger(() -> oi.testButton()).onTrue(new AutoShootFromPredefinedDistance(PIVOT, 7.5));
     
     //Driver has final say for speaker shots
     new Trigger(() -> oi.pivotToSubwooferShoot()).onTrue(new NewAutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold, true));
