@@ -106,9 +106,9 @@ public class PivotSubsystem extends SubsystemBase {
     pivot2.setVoltage(voltage.magnitude());
   }
 
-  public void log() {
-    sysIdRoutine.motor("pivot1").voltage(getVoltageSysid()).angularPosition()
-  }
+  // public void log() {
+  //   sysIdRoutine.motor("pivot1").voltage(getVoltageSysid()).angularPosition()
+  // }
 
   /**
    * Sets the pivot ControlMode to begin moving towards the desired angle in degress.
