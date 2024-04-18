@@ -34,8 +34,8 @@ public class AutoShootFromPredefinedDistance extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    double distanceFromMeters = HelperMethods.unitConvertionMetersToFt(distance);
-    setpoint = (9.5/5)*distanceFromMeters;
+    double distanceFromMeters = distance;
+    setpoint = (9.5/5)*distanceFromMeters-83;
     pivot.setPivotTolerance(Units.degreesToRotations(PivotConstants.PIDConstants.kHighFeedTolerance));
     pivot.specCommandRunning = true;
 
