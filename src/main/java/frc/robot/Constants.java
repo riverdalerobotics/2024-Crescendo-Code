@@ -198,7 +198,7 @@ public final class Constants {
     public static final double kShootTimeNeeded = 750;
 
 
-    public static final double kDesiredShootMotorRPS = 85;//75
+    public static final double kDesiredShootMotorRPS = 75;//85
     public static final double kShootBeltMotorSpeed = -0.5;
 
     public static final double kDesiredBackShotMotorRPS = 72;

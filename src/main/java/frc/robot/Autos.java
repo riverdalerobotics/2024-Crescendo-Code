@@ -75,5 +75,18 @@ public class Autos {
     }
 
 
+    public Command queenAOne() {
+        return new PathPlannerAuto("QA1");
+    }
+    public Command queenATwo() {
+        return new PathPlannerAuto("QA2");
+    }
+    public Command queenAThree() {
+        return new PathPlannerAuto("QA3");
+    }
+    public Command queenAFour() {
+        return new PathPlannerAuto("QA4");
+    }
+
 
 }

@@ -201,4 +201,22 @@ public class RobotContainer {
       return autoFactory.shootAndStop();
     }  
 
+    
+    public Command getQAOneAuto() {
+      return autoFactory.queenAOne();
+    }  
+    
+    public Command getQATwoAuto() {
+      return autoFactory.queenATwo();
+    }  
+    
+    public Command getQAThreeAuto() {
+      return autoFactory.queenAThree();
+    }  
+    
+    public Command getQAFourAuto() {
+      return autoFactory.queenAFour();
+    }  
+
+
 }

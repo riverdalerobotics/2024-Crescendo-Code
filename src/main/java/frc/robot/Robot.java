@@ -50,6 +50,12 @@ public class Robot extends TimedRobot {
   private static final String midSubwooferFourNotesActual = "Middle Side Suwboofer Shoot and Retrieve and Shoot 3 close notes asap (mid, then podium, then amp)";
   
   private static final String shootAndStop = "Any side start - shoot note into speakker";
+
+  private static final String queenAOne = "1";
+  private static final String queenATwo = "2";
+  private static final String queenAThree = "3";
+  private static final String queenAFour = "4";
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -81,6 +87,11 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("Leave after shooting podium", leaveAfterShootingPodium);
 
     m_chooser.addOption("1 Shoot and stop from anywhere", shootAndStop);
+
+    m_chooser.addOption("queenAOne", queenAOne);
+    m_chooser.addOption("queenATwo", queenATwo);
+    m_chooser.addOption("queenAThree", queenAThree);
+    m_chooser.addOption("queenAFour", queenAFour);
 
     SmartDashboard.putData("Auto choices", m_chooser);
    
@@ -183,6 +194,22 @@ public class Robot extends TimedRobot {
         case leaveAfterShootingPodium:
           m_autonomousCommand = m_robotContainer.getWindsorLeaveAfterShootingPodiumSideAuto();
           break;
+
+
+        //queen A demo yea afjldaskfadklsjdjskl
+        case queenAOne: 
+          m_autonomousCommand = m_robotContainer.getQAOneAuto();
+          break;
+        case queenATwo: 
+          m_autonomousCommand = m_robotContainer.getQATwoAuto();
+          break;
+        case queenAThree:
+          m_autonomousCommand = m_robotContainer.getQAThreeAuto();
+          break;
+        case queenAFour:
+          m_autonomousCommand = m_robotContainer.getQAFourAuto();
+          break;
+
           
         // case shootAndStop:
         //   m_autonomousCommand = m_robotContainer.getShootAndStopAuto();

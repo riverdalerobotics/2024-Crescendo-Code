@@ -1,0 +1,18 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 7.418164682118213,
+      "y": 5.375482352388193
+    },
+    "rotation": -0.7073193685442686
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": []
+    }
+  },
+  "folder": "Queen A Autos",
+  "choreoAuto": false
+}
