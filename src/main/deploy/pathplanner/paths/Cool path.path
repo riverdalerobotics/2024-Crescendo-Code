@@ -17,22 +17,6 @@
     {
       "anchor": {
         "x": 4.789749829946888,
-        "y": 5.624616329733554
-      },
-      "prevControl": {
-        "x": 4.104492387435256,
-        "y": 5.503786953887474
-      },
-      "nextControl": {
-        "x": 5.656380652597629,
-        "y": 5.777426726080452
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 4.789749829946888,
         "y": 7.401583890824312
       },
       "prevControl": {
@@ -46,7 +30,7 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.55,
+      "waypointRelativePos": 0.3,
       "rotationDegrees": -96.46636681612176,
       "rotateFast": false
     }
@@ -54,8 +38,8 @@
   "constraintZones": [
     {
       "name": "New Constraints Zone",
-      "minWaypointRelativePos": 0.2,
-      "maxWaypointRelativePos": 1.0,
+      "minWaypointRelativePos": 0.1,
+      "maxWaypointRelativePos": 0.5,
       "constraints": {
         "maxVelocity": 1.0,
         "maxAcceleration": 4.5,
@@ -77,10 +61,10 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Queen A Demo paths",
+  "folder": null,
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

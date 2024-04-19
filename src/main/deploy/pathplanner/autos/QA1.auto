@@ -2,17 +2,30 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3074487833435935,
-      "y": 5.511817049731372
+      "x": 1.4389491636126137,
+      "y": 5.585253456221199
     },
-    "rotation": 180.0
+    "rotation": -178.8982938847936
   },
   "command": {
     "type": "sequential",
     "data": {
-      "commands": []
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "QA Path 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "QA Path 2"
+          }
+        }
+      ]
     }
   },
-  "folder": "Queen A Autos",
+  "folder": null,
   "choreoAuto": false
 }
