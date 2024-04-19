@@ -127,27 +127,12 @@ public class RobotContainer {
     //Feed controls do not require driver to press the fire button.
     //They will shoot as soon as intake and angle are prepared
     new Trigger(() -> oi.pivotAndShootLowFeed()).whileTrue(new PivotToAngleAndShoot(PivotConstants.kFeedAngle, IntakeConstants.kDesiredFeedMotorRPS, IntakeConstants.kDesiredFeedBeltSpeed, PIVOT, INTAKE, LED, oi, IntakeConstants.kShootTimeNeeded, false, PivotConstants.PIDConstants.kLowFeedTolerance));
-    new Trigger(() -> oi.pivotToHighFeed()).onTrue(new NewAutoPivotToAngle(PivotConstants.kHighFeedAngle, PIVOT, PivotConstants.PIDConstants.kHighFeedTolerance));
-    new Trigger(() -> oi.revHighFeed()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredHighFeedMotorRPS, 0, INTAKE, LED, oi));
 
-    //When the y button is held on op controller, the arm pivots and revs for amp shot.
-    //Driver still has final say to make the shot
-    new Trigger(() -> oi.pivotToAmp()).onTrue(new NewAutoPivotToAngle(PivotConstants.kAmpAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold));
-    new Trigger(() -> oi.revAmp()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredAmpMotorRPS, 0, INTAKE, LED, oi));
-   
-    // pivots to the angle when given a distance
-    new Trigger(() -> oi.pivotFromfar()).onTrue(new AutoShootFromPredefinedDistance(PIVOT, 8));
-    
     //Driver has final say for speaker shots
     new Trigger(() -> oi.pivotToSubwooferShoot()).onTrue(new NewAutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold, true));
     new Trigger(() -> oi.pivotToBackshots()).onTrue(new NewAutoPivotToAngle(PivotConstants.kOppositeSubwooferShootAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold, true));
 
     new Trigger(() -> oi.engageAutoShootSpinup()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredShootMotorRPS, 0, INTAKE, LED, oi));
-  
-    //new Trigger(() -> oi.testButton()).whileTrue(new PivotToAngleAndShoot(PivotConstants.kOppositeSubwooferShootAngle, IntakeConstants.kDesiredShootMotorRPS, IntakeConstants.kShootBeltMotorSpeed, PIVOT, INTAKE, LED, oi, IntakeConstants.kShootTimeNeeded, true, PivotConstants.PIDConstants.kPivotToleranceThreshold));
-   
-    //offseason test
-    //new Trigger(() -> oi.handSignalMove()).whileTrue(new HandSignalSwerveCommand(CHASSIS, NOTE_LIMELIGHT));
   }
   
     //autos that that we use Robot.java using the Sendable Chooser   
