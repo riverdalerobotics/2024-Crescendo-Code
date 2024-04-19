@@ -238,7 +238,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
      m_robotContainer.CHASSIS.straightenModules();
-     m_robotContainer.CHASSIS.setDrivesBrake();
+     m_robotContainer.CHASSIS.setDrivesCoast();
   }
 
   /** This function is called periodically during operator control. */
