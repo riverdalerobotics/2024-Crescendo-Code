@@ -81,18 +81,7 @@ public boolean resetGyro() {
     return moveController.getStartButtonPressed();
 }
 
-/**
- * Driver controls ||
- * Puts the robot in robot oriented and auto drives to note in both axis
- * @return true when the driver's right trigger button is pressed basically all the way down
- */
-public boolean engageNoteAlignAssist() {
-    if (moveController.getRightTriggerAxis() >= 0.330){ //beach bots lol
-        return true;
-    } else{
-        return false;
-    }
-}
+
 
 /**
  * Driver controls ||
@@ -108,19 +97,12 @@ public double engageSlowMode() {
 }
 
 
-/**
- * Driver controls ||
- * Engages Robot to auto move to closest predefined shooting position on the field
- * @return True if drivfer left axis is down, false if axis is not down
- */
-public boolean engageAutoMoveToPredefined() {
-    if(moveController.getLeftTriggerAxis() >= 0.330){
-        return true;
-    } else{
-        return false;
-    }
-}
 
+
+/**
+ * driver left trigger
+ * @return
+ */
 public boolean spinIntake(){
     return intakeController.getLeftTriggerAxis() >= 0.330;
 }
@@ -141,36 +123,10 @@ public boolean shoot() {
 public boolean engageXModulePosition() {
     return moveController.getXButton();
 }
-/**
- * Controller imput to shoot from 5 ft
- * TODO: find a better button for this... kinda change around intake controlls...
- * @return intake controller back button
- */
-public boolean pivotFromfar(){
-    return intakeController.getBackButton();
-}
 
 
-/**
- * Driver Controls 
- * <p>
- * Used to bring the arm up or down
- * @return The angle of the Dpad button being pressed on the driver controller
- */
-public int powerArm(){
-    return moveController.getPOV();
-}
 
 
-/**
- * Driver Controls 
- * <p>
- * Used to enable moving swerve using hand signals
- * @return true when b button pressed
- */
-public boolean handSignalMove(){
-    return moveController.getBButton();
-}
 
 
 
@@ -260,9 +216,6 @@ public double pivotArm() {
 
 
 
-public boolean testX() {
-    return intakeController.getXButton();
-}
 
 /**
  * Operator controls ||
