@@ -1,6 +1,7 @@
 
-package frc.robot;
+package frc.robot.R3P2CustomClasses;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 
 
@@ -34,8 +35,11 @@ public class TalonHelper {
         var talonFXConfigs = new TalonFXConfiguration();
 
 
-        //TODO: Apply the velocity factor in the set velocity method
         talonFXConfigs.Feedback.SensorToMechanismRatio = gearRatio;
+        
+        
+        //talonFXConfigs.Feedback.FeedbackRemoteSensorID = "get id"
+        //talonFXConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
 
     
         

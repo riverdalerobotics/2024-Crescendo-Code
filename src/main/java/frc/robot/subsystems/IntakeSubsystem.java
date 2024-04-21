@@ -11,9 +11,9 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.TalonHelper;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.R3P2CustomClasses.P2TalonFX;
+import frc.robot.R3P2CustomClasses.TalonHelper;
 
 /**
  * Contains the motors that power the arm fly wheels and index belt

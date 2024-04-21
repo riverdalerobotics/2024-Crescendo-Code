@@ -61,15 +61,15 @@ public class P2TalonFX extends TalonFX {
     
 
         if (motorPosition <= setpoint && motorPosition + tolerance >= setpoint) {
-            System.out.println("end low");
+            //System.out.println("end low");
             return true;
         }
         else if (motorPosition >= setpoint && motorPosition - tolerance <= setpoint) {
-            System.out.println("end high");
+            //System.out.println("end high");
             return true;
         }
         else {
-            System.out.println("continue");
+            //System.out.println("continue");
             return false;
         }
     }

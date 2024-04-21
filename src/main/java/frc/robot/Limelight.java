@@ -1,8 +1,12 @@
 package frc.robot;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.Constants.LimelightConstants;
+import frc.robot.LimelightHelpers.LimelightResults;
 import frc.robot.subsystems.SwerveChassisSubsystem;
 
 public class Limelight {
@@ -15,11 +19,13 @@ public class Limelight {
     double[] centerFieldBotPose;  
     double[] fieldBotPose;
     SwerveChassisSubsystem chassis;
+    String name;
 
     
     /** Creates a new limelight object. Sets up the NetworkTable object */
     /** For the limelightName, ll3: "limelight-note", ll2: "limelight-tags" */
-    public Limelight(String limelightName ){
+    public Limelight(String limelightName){
+        this.name = limelightName;
         table = NetworkTableInstance.getDefault().getTable(limelightName);
         centerFieldBotPose = getBotPose();
         fieldBotPose = getBlueBotPose();
@@ -117,16 +123,16 @@ public class Limelight {
      * @return The robot pose (0,0,0,0,0,0 at the red source and x position on long side of field) (X position, y position, z position, Roll,Pitch,Yaw). Returns (0,0,0,0,0,0) if no value
      */
     public double[] getBlueBotPose(){
-        NetworkTableEntry botpose = table.getEntry("botpose_wpiblue");
-        return botpose.getDoubleArray(new double[6]);
+        NetworkTableEntry botpose = table.getEntry("botpose_orb_wpiblue");
+        return botpose.getDoubleArray(new double[12]);
         }
 
     /**
      * @return The robot pose (0,0,0,0,0,0 at the blue source and x position on long side of field) (X position, y position, z position, Roll,Pitch,Yaw). Returns (0,0,0,0,0,0) if no value
      */
     public double[] getRedBotPose(){
-        NetworkTableEntry botpose = table.getEntry("botpose_wpired");
-        return botpose.getDoubleArray(new double[6]);
+        NetworkTableEntry botpose = table.getEntry("botpose_orb_wpired");
+        return botpose.getDoubleArray(new double[12]);
         }
 
 
@@ -170,6 +176,36 @@ public class Limelight {
     public double getYPosition(){
         centerFieldBotPose=getBotPose();
         return centerFieldBotPose[1];
+    }
+
+
+    /**
+     * https://github.com/LimelightVision/limelightlib-wpijava?tab=readme-ov-file
+     * @return LimelightResults 
+     */
+    public LimelightResults getLLResultsObject() {
+        return LimelightHelpers.getLatestResults(name);
+    }
+
+    /**
+     * Provides the timestamp of when vision measurements were recorded.
+     * Used for vision pose estimation. Vision estimations lag behind the 
+     * actual robot by a number of milliseconds. This provides a way to track
+     * how far behind the estimation is from the physical chassis
+     * 
+     * @return The system time when this set of vision data was captured
+     */
+    public double getTimestampSeconds() {
+        return Units.millisecondsToSeconds(getLLResultsObject().targetingResults.timestamp_LIMELIGHT_publish);
+    }
+
+
+    public Pose2d getFieldCoordinatePose2d() {
+        return new Pose2d(getFieldXPosition(), getFieldYPosition(), new Rotation2d(getBlueBotPose()[5]));
+    }
+
+    public double getNumTagsDetected() {
+        return getBlueBotPose()[7];
     }
 
  
