@@ -65,35 +65,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer(); 
-    m_robotContainer.CHASSIS.setDrivesCoast();
-    m_robotContainer.PIVOT.setPivotEncoder(PivotConstants.PIDConstants.kMinSetpoint);
 
-    m_chooser.setDefaultOption("mobilityWithStyle", mobilityWithStyle);
 
-    m_chooser.addOption("1+1 PODIUM Side Subwoofer", podiumSubwooferTwoNotes);
-    m_chooser.addOption("1+1 AMP side Subwoofer", ampSubwooferTwoNotes);
-
-    m_chooser.addOption("1+3 MID side Subwoofer amp first", midSubwooferFourNotesAmpFirst);
-    m_chooser.addOption("1+3 MID side Subwoofer podium first", midSubwooferFourNotesPodiumFirst);
-    m_chooser.addOption("1+3 MID side Subwoofer actual ASAP", midSubwooferFourNotesActual);
-
-    m_chooser.addOption("DO NOTHING", doNothingLol);
-    m_chooser.addOption("test123", test);
-    m_chooser.addOption("2nd test", testTwo);
-    m_chooser.addOption("3rd test", testThree);
-    m_chooser.addOption("4th test", testFour);
-    m_chooser.addOption("5th test", testFive);
-
-    m_chooser.addOption("Leave after shooting podium", leaveAfterShootingPodium);
-
-    m_chooser.addOption("1 Shoot and stop from anywhere", shootAndStop);
-
-    m_chooser.addOption("queenAOne", queenAOne);
-    m_chooser.addOption("queenATwo", queenATwo);
-    m_chooser.addOption("queenAThree", queenAThree);
-    m_chooser.addOption("queenAFour", queenAFour);
-
-    SmartDashboard.putData("Auto choices", m_chooser);
    
     }
   
@@ -137,91 +110,7 @@ public class Robot extends TimedRobot {
 
     //When auto begins, this large statement selects the autonomous command based on what was selected in smart dashboard
     //switch statements just act like big if else statements
-    m_robotContainer.CHASSIS.setDrivesBrake();
-     m_autoSelected = m_chooser.getSelected();
-      System.out.println("Auto selected: " + m_autoSelected);
-      /* */
      
-      switch (m_autoSelected) {
-     
-        case shootOnly:
-          break;
-  
-        case podiumSubwooferTwoNotes:
-          m_autonomousCommand = m_robotContainer.getPodiumSubwooferTwoNotesAuto();
-          break;
-  
-        case ampSubwooferTwoNotes:
-          m_autonomousCommand = m_robotContainer.getAmpSubwooferTwoNotesAuto();
-          break; 
-
-        case midSubwooferFourNotesAmpFirst:
-          m_autonomousCommand = m_robotContainer.getMidSubwooferFourNotesAmpFirstAuto();
-          break;
-        case midSubwooferFourNotesPodiumFirst:
-          m_autonomousCommand = m_robotContainer.getMidSubwooferFourNotesPodiumFirstAuto();
-          break;
-        case midSubwooferFourNotesActual:
-          m_autonomousCommand = m_robotContainer.getMidSubwooferFourNotesActualAuto();
-          break;
-  
-
-        case doNothingLol:
-          m_autonomousCommand = m_robotContainer.getDoNothingAuto();
-          break;
-       
-        case test:
-          m_autonomousCommand = m_robotContainer.getTestAuto();
-          break;
-        case testTwo: 
-          m_autonomousCommand = m_robotContainer.getTestSecondAuto();
-          break;
-        case testThree: 
-          m_autonomousCommand = m_robotContainer.getTestThreeAuto();
-          break;
-        case testFour: 
-          m_autonomousCommand = m_robotContainer.getTestFourAuto();
-          break;
-        case testFive: 
-          m_autonomousCommand = m_robotContainer.getTestFiveAuto();
-          break;
-
-
-        case mobilityWithStyle:
-          m_autonomousCommand = m_robotContainer.getMobilityStyleAuto();
-          break;
-
-        case leaveAfterShootingPodium:
-          m_autonomousCommand = m_robotContainer.getWindsorLeaveAfterShootingPodiumSideAuto();
-          break;
-
-
-        //queen A demo yea afjldaskfadklsjdjskl
-        case queenAOne: 
-          m_autonomousCommand = m_robotContainer.getQAOneAuto();
-          break;
-        case queenATwo: 
-          m_autonomousCommand = m_robotContainer.getQATwoAuto();
-          break;
-        case queenAThree:
-          m_autonomousCommand = m_robotContainer.getQAThreeAuto();
-          break;
-        case queenAFour:
-          m_autonomousCommand = m_robotContainer.getQAFourAuto();
-          break;
-
-          
-        // case shootAndStop:
-        //   m_autonomousCommand = m_robotContainer.getShootAndStopAuto();
-        //   break;
-  
-      }
-    
-      // schedule the autonomous command
-      if (m_autonomousCommand != null) {
-        System.out.println("Successfully scheduled");
-        m_autonomousCommand.schedule();
-      }
   }
 
   /** This function is called atheriodically during autonomous. */
@@ -237,8 +126,6 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-     m_robotContainer.CHASSIS.straightenModules();
-     m_robotContainer.CHASSIS.setDrivesCoast();
   }
 
   /** This function is called periodically during operator control. */

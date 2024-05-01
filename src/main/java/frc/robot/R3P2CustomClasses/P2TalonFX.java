@@ -36,6 +36,9 @@ public class P2TalonFX extends TalonFX {
     }
 
 
+
+    //IMPORTANT METHOD -LIAM
+    
        /**
      * Configures the talon using a created TalonFXConfiguration object. This method simplifies the process of configuring the motor.
      * <p>

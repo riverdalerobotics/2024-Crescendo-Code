@@ -5,14 +5,75 @@ import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 
 
+
+//This class is used to simplify the creation of a talon configuration object
+//Pass in your desired parameters and your talon configuration object will be ready to go
+//-Liam
+
 public class TalonHelper {
 
 
-    public TalonHelper() {
 
-    }
+
+
+
+/*--------------------------------------
+  Liam comment!!
+  The method below creates your talon config object. I have simplified the one we normally use as there are a few settings we didn't talk about.
+  This one includes all of the settings we will be configuring today.
+  Please ask if you aren't sure what something means
+  -------------------------------------*/
+    /**
+     * Creates and returns a talon configuration object. Used to simplify the creation process
+     * @param kP Proportional term of the controller
+     * @param kI Integral term of the controller
+     * @param kD Derivative term of the controller
+     * @param kV FeedForward term of the controller, should be the voltage/duty cycle need to move at 1 unit per second of your control type
+     * @param kS Static FeedForward, the voltage/duty cycle needed to beat static friction in your system
+     * @param currentLimit the stator current limit of the motor (stator/output current limits are meant to protect the motor)
+     * @param gearRatio the gear ratio of the mechanism (how many rotations the mechanism makes when the motor turns once)
+     * @param peakDutyCycle the max output closed loop control can supply to the mechanism
+     * @return A TalonFXConfiguration object that can be passed into the configTalon method with a motor to configure it
+     */
+    public static TalonFXConfiguration createTalonConfig(double kP, double kI, double kD, double kV, double kS, double currentLimit, double gearRatio, double peakDutyCycle) {
+        var talonFXConfigs = new TalonFXConfiguration();
+
+
+        talonFXConfigs.Feedback.SensorToMechanismRatio = gearRatio;
+        
+        
+        //talonFXConfigs.Feedback.FeedbackRemoteSensorID = "get id"
+        //talonFXConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
 
     
+        
+
+        var slot0Config = talonFXConfigs.Slot0;
+        slot0Config.kS = kS;
+        slot0Config.kV = kV;
+        slot0Config.kP = kP;
+        slot0Config.kI = kI;
+        slot0Config.kD = kD;
+
+
+        //Sets the current limit of our intake to ensure we don't explode our motors (which is bad)
+        var currentConfig = talonFXConfigs.CurrentLimits;
+        currentConfig.StatorCurrentLimit = currentLimit;
+        currentConfig.StatorCurrentLimitEnable = true;
+
+        var motorOutputConfig = talonFXConfigs.MotorOutput;
+        motorOutputConfig.PeakForwardDutyCycle = peakDutyCycle;
+        motorOutputConfig.PeakReverseDutyCycle = -peakDutyCycle;
+
+        return talonFXConfigs;
+    }
+
+
+
+
+
+
+
 
     /**
      * Creates and returns a talon configuration object. Used to simplify the creation process

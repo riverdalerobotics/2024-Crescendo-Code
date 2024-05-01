@@ -22,66 +22,30 @@ import frc.robot.subsystems.IntakeSubsystem;
  */
 public class NewAutoRevFlywheelsIndefinitely extends Command {
   /** Creates a new AutoRevFlyWheels. */
-  IntakeSubsystem intake;
-  double tolerance = IntakeConstants.PIDConstants.kIntakeToleranceThreshold;
-  double desiredSpeedRPS;
   BlinkinLED LED;
-  OI oi;
-  double beltSpeed;
-  boolean manualBeltControl;
-  public NewAutoRevFlywheelsIndefinitely(double speedRPS, double beltSpeed, IntakeSubsystem intakeSubsystem, BlinkinLED LED, OI oi) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    this.intake = intakeSubsystem;
-    this.desiredSpeedRPS = speedRPS;
+  public NewAutoRevFlywheelsIndefinitely(BlinkinLED LED) {
     this.LED = LED;
-    this.oi = oi;
-    this.beltSpeed = beltSpeed;
-    if (beltSpeed == 0) {
-      manualBeltControl = true;
-    }
-    else{
-      manualBeltControl = false;
-    }
-    addRequirements(intake);
+    // Use addRequirements() here to declare subsystem dependencies.
+    
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intake.setIntakeVelocityRPS(desiredSpeedRPS);
     LED.enableFlywheelsRevvingLED();
-    intake.setIntakeTolerance(tolerance);
   }
 
    // Called every time the scheduler runs while the command is scheduled.
    @Override
    public void execute() {
-    intake.specCommandRunning = true;
-    if (intake.getLeftIntakeMotor().atSetpointPosition(desiredSpeedRPS)) {
-      LED.disableFlywheelsRevvingLED();
-      LED.enableFlywheelsReadyLED();
+    
+    //Once the desired velocity is set, the motor controller does all the work updating the speed of the motor so we don't have to
     }
-    if (manualBeltControl) {
-      //During operation, the driver can hold down the right bumper to power the indexer to shoot
-      if(oi.shoot()) {
-        intake.spinBelt(IntakeConstants.kShootBeltMotorSpeed);
-      }
-      else {
-        intake.spinBelt(0);
-      }
-    }
-    else {
-      intake.spinBelt(beltSpeed);
-    }
-   }
+    
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-  intake.setIntakeVelocityRPS(0);
-  intake.spinBelt(0);
-  LED.disableFlywheelsRevvingLED();
-  LED.disableFlywheelsReadyLED();
   }
 
    // Returns true when the command should end.
