@@ -9,15 +9,11 @@ import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.IntakeConstants;
-import frc.robot.Constants.PivotConstants;
 
-import frc.robot.commands.intakeCommands.AutoRevAndBeltWhenReady;
 import frc.robot.commands.intakeCommands.NewAutoRevFlywheelsIndefinitely;
-import frc.robot.commands.intakeCommands.NewIntakeDefaultCommand;
-import frc.robot.subsystems.ClimberSubsystem;
+
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.PivotSubsystem;
-import frc.robot.subsystems.SwerveChassisSubsystem;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
