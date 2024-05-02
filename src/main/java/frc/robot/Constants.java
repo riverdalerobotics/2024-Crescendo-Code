@@ -212,6 +212,7 @@ public final class Constants {
     public static final double kDesiredAmpMotorRPS = 25.7;
     public static final double kDesiredAmpBeltSpeed = -0.5;
 
+    //TODO: Check if this is being put into the talon config correctly. Test doing 1 spin of an intake wheel and see if it records properly
     public static final double kFlywheelsGearRatio = (34d/15d);
 
 
@@ -245,7 +246,7 @@ public final class Constants {
     public static final int kPivotMotor1ID = 9;
     public static final int kPivotMotor2ID = 10;
     public static final double kPivotEncoderRotationToDegrees = 360 / ((50*64*64)/(8*22*24));
-    public static final double kPivotGearRatio = 1d/ ((50*64*64)/(8*22*24));
+    public static final double kPivotGearRatio = ((50*64*64)/(8*22*24));
 
 //TODO: change later
     public static final double kHardStopCurrentThreshold = 0.5;

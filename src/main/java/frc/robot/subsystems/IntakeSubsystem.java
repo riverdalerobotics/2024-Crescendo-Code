@@ -33,8 +33,6 @@ public class IntakeSubsystem extends SubsystemBase {
   CANSparkMax belt;
   //CANcoder speedCoder;
   public IntakeSubsystem() {
-   // belt = new TalonFX(IntakeConstants.kBeltMotorID);
-    belt = new CANSparkMax(IntakeConstants.kBeltMotorID, MotorType.kBrushless);
 
     //Leader motor
     leftIntake = new P2TalonFX(IntakeConstants.kLeftIntakeMotorID);
@@ -133,7 +131,7 @@ public class IntakeSubsystem extends SubsystemBase {
    * @return double
    */
   public double getSpeed(){
-    var flyWheelVelocity = leftIntake.getVelocity();
+    StatusSignal<Double> flyWheelVelocity = leftIntake.getVelocity();
     //This returns in rotations per second
     return flyWheelVelocity.getValue();
   }

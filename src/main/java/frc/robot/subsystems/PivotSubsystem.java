@@ -68,17 +68,11 @@ public class PivotSubsystem extends SubsystemBase {
       PivotConstants.PIDConstants.kMotionMagicJerk,
       PivotConstants.kStatorCurrentLimit,
       0,
-      1/PivotConstants.kPivotGearRatio,
+      PivotConstants.kPivotGearRatio,
       PivotConstants.PIDConstants.kPivotPIDMaxOutput,
       GravityTypeValue.Arm_Cosine
     );
-
-
-    //TODO: Apply the velocity factor in the set velocity method
-    //TODO: change the 0 encoder position of the arm to be horizontal with the ground
-    //TODO: Figure out how to apply gear ratio conversion factor to the internal encoders (currently only measuring rotations when it should be degrees)
     
-
     //The motors are opposite to eachother, so one must be inverted
     pivot1.config(talonFXConfigs);
     pivot2.config(talonFXConfigs);
