@@ -37,10 +37,16 @@ public final class Constants {
     public static final int kRightIntakeMotorID = 11;
     public static final int kBeltMotorID = 13;
 
+    public static final int intakeMotorCurrent = 40;
+
+    public static final int flywheelsGearRatio = (34/15);
+
 
     public static final double kStatorCurrentLimit = 40;
 
     public static final double kFlywheelsGearRatio = (34d/15d);
+
+    public static final double peakDutyCycle = 1;
 
 
     public static class PIDConstants {
