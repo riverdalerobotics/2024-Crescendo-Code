@@ -294,7 +294,7 @@ public final class Constants {
 
       public static final double kPivotPIDMaxOutput = 0.5; //0.75
       public static final double kPivotPIDMinOutput = -0.5;//-0.75
-      public static final double kMinSetpoint = -150; //-168
+      public static final double kMinSetpoint = -171; //-168
       public static final double kMaxSetpoint = 27.5;
 
       public static final double kMotionMagicCruiseVelocity = 1000;

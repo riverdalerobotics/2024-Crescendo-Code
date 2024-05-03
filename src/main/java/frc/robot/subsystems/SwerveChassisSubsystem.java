@@ -94,6 +94,7 @@ public class SwerveChassisSubsystem extends SubsystemBase {
       try {
         Thread.sleep(1000);
         zeroHeading();
+        gyro.setAngleAdjustment(180);
     } catch (Exception e) {
     }
   }).start();
