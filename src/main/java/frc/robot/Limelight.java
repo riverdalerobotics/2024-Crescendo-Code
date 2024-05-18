@@ -97,6 +97,7 @@ public class Limelight {
     }
 
     /**
+     * This returns the fwd backward distance from the limelight to the target
      * @return The Y component of the required displacement to the target, in meters
      */
     public double getYDisplacementFromNote(){
@@ -104,6 +105,7 @@ public class Limelight {
     }
 
     /**
+     * This returns the left/right distance from the limelight to the target
      * @return The X component of the required displacement to the target, in meters
      */
     public double getXDisplacementFromNote(){
@@ -152,6 +154,10 @@ public class Limelight {
         return fieldBotPose[1];
     }
 
+    public double[] getTagPoseRobotSpace() {
+        NetworkTableEntry tagPose = table.getEntry("targetpose_robotspace");
+        return tagPose.getDoubleArray(new double[6]);
+    }
 
     /**
      * @return The robot yaw

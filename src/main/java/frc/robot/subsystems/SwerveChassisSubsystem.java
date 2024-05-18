@@ -94,6 +94,7 @@ public class SwerveChassisSubsystem extends SubsystemBase {
       try {
         Thread.sleep(1000);
         zeroHeading();
+        gyro.setAngleAdjustment(180);
     } catch (Exception e) {
     }
   }).start();
@@ -376,6 +377,18 @@ public ChassisSpeeds getVelocities() {
       doRejectUpdate = true;
     }
 
+    //This checks if the difference between the estimated pose and the new pose is too large.
+    //If it is, this is typically due to a sensor error, and the update is discarded
+    Pose2d poseChange = mt2.pose.relativeTo(odometer.getEstimatedPosition());
+    if (Math.sqrt(Math.pow(poseChange.getX(), 2) + Math.pow(poseChange.getY(), 2)) > 2) {
+      doRejectUpdate = true;
+    }
+
+    //TODO: Make sure this works as intended
+    if (Math.abs(poseChange.getRotation().getDegrees()) > 180) {
+      doRejectUpdate = true;
+    }
+
     if(!doRejectUpdate) {
       odometer.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999));
       odometer.addVisionMeasurement(mt2.pose, mt2.timestampSeconds);
@@ -391,6 +404,7 @@ public ChassisSpeeds getVelocities() {
     this.maxTeleopDriveSpeed = ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond - ((ChassisConstants.kTeleDriveMaxSpeedMetersPerSecond) * (0.7 * percentageSlow));
   }
 
+  
 
   //TODO: add this method to all the swerve commands which enable slow mode
   /**
@@ -539,6 +553,11 @@ public ChassisSpeeds getVelocities() {
       LED.enableRobotOrientedEnabledLED();
       LED.disableFieldOrientedEnabledLED();
     }
+  }
+
+
+  public SwerveDrivePoseEstimator getOdometer() {
+    return odometer;
   }
 
 

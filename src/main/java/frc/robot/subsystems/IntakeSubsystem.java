@@ -40,6 +40,7 @@ public class IntakeSubsystem extends SubsystemBase {
     //Follower motor
     rightIntake = new P2TalonFX(IntakeConstants.kRightIntakeMotorID);
 
+    belt = new CANSparkMax(IntakeConstants.kBeltMotorID, MotorType.kBrushless);
 
 
     //Create the configuration object that we will be using to apply our settings 

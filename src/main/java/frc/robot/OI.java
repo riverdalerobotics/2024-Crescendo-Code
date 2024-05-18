@@ -18,7 +18,8 @@ public class OI {
  * @return double
  */
 public double xSpeed(){
-    return moveController.getLeftY();
+    System.out.println(-moveController.getLeftY());
+    return -moveController.getLeftY();
 }
 
 
@@ -29,7 +30,7 @@ public double xSpeed(){
  */
 //y is left right
 public double ySpeed(){
-    return moveController.getLeftX();
+    return -moveController.getLeftX();
 }
 
 

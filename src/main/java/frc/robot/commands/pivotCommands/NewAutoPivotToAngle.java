@@ -94,7 +94,11 @@ public class NewAutoPivotToAngle extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override  
   public void execute() {
-  
+    executeMethod();
+  }
+
+  //This is used to the execute code in this method can be repurposed into child classes (i.e AprilTagPivot)
+  public void executeMethod() {
     //Checks if the pivot is above the threshold indicating it is pushing into a hardstop
     if (pivot.getCurrent() > PivotConstants.kHardStopCurrentThreshold) {
       //Runs once every time current breaches the limit. Once current goes below the limit, this statement can run again
@@ -141,6 +145,15 @@ public class NewAutoPivotToAngle extends Command {
     }
   }
 
+  // Returns true when the command should end.
+  @Override
+  public boolean isFinished() {
+    //This is a custom method implemented in our P2TalonFX class. The setpoint must be passed in,
+    //then the motor will check if it has reached it within its range of tolerance
+    //Grav offset must be checked as otherwise the command would end unexpectedly 
+    return (pivot.getPivot1().atSetpointPosition(Units.degreesToRotations(desiredAngle)) && gravOffsetAcheived) || (pushingHardstop);
+  }
+
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
@@ -149,14 +162,5 @@ public class NewAutoPivotToAngle extends Command {
     hardStopTimer = 0;
     countingHardStop = false;
     gravOffsetAcheived = true;
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    //This is a custom method implemented in our P2TalonFX class. The setpoint must be passed in,
-    //then the motor will check if it has reached it within its range of tolerance
-    //Grav offset must be checked as otherwise the command would end unexpectedly 
-    return (pivot.getPivot1().atSetpointPosition(Units.degreesToRotations(desiredAngle)) && gravOffsetAcheived) || (pushingHardstop);
   }
 }
