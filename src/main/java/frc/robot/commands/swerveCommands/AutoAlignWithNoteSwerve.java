@@ -93,7 +93,7 @@ public class AutoAlignWithNoteSwerve extends Command {
       System.out.println(noteXOffset);
 
       //Field oriented mucks up this command so we disable it when a note is detected
-      swerveSubsystem.enableRobotOriented();
+      swerveSubsystem.enableRobotOriented(); 
 
       //Calculate pid input using lr offset from note and limit it to max speed values to avoid overshooting
       double PIDySpeed = yController.calculate(noteYOffset);

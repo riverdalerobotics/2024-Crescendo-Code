@@ -389,7 +389,7 @@ public final class Constants {
     public static final double kYNoteAlignMinOutput = -0.5;
     public static final double kYNoteAlignMaxOutput = 0.5;
     //Meters
-    public static final double kYNoteAlignSetpoint = 0;
+    public static final double kYNoteAlignSetpoint = Units.feetToMeters(0.875);
     public static final double kYNoteAlignTolerance = 0.05;
 
 
@@ -419,7 +419,7 @@ public final class Constants {
   public static class LimelightConstants {
 
     public static final double noteHeight = 0; //literally it is 0 
-    public static final double noteLimelightMountHeight = 0.668;  //TODO: find limelight mounts
+    public static final double noteLimelightMountHeight = Units.inchesToMeters(24.5);  //TODO: find limelight mounts
     public static final double noteLimelightMountAngle = -26;
     public static final double tagLimelightMountAngle = 0;
     public static final double tagLimelightMountHeight = 0;
