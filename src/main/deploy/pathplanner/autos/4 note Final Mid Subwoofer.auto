@@ -181,22 +181,9 @@
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "SetArmUp"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "PivotAndRevForShotBack"
-                      }
-                    }
-                  ]
+                  "name": "PivotAndRevForShotBack"
                 }
               }
             ]
