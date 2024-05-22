@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.R3P2CustomClasses.P2TalonFX;
 import frc.robot.R3P2CustomClasses.TalonHelper;
@@ -32,17 +33,19 @@ public class IntakeSubsystem extends SubsystemBase {
   CANSparkMax belt;
   //CANcoder speedCoder;
   public IntakeSubsystem() {
-
+    leftIntake = new P2TalonFX(0)
+    rightIntake = new P2TalonFX(0)
     //TODO: create talon objects
 
     //TODO: Create the configuration object that we will be using to apply our settings 
     //to both motors
-   
+    TalonHelper.createTalonConfig(IntakeConstants.PIDConstants.kIntakeP,kIntakeI)
 
     
     //TODO: set your follower motor
-    rightIntake.setControl(new Follower());
-
+    
+    rightIntake.setControl(new Follower(Constants.IntakeConstants.kLeftIntakeMotorID, true));
+    
     //We create a closedLoop controller and set the desired velocity to 0.
     //We can change the desired velocity whenever we choose to
     //TODO: create your closed loop controller
