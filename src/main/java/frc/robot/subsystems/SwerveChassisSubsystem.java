@@ -173,7 +173,7 @@ public Command getPathfindingCommand(String pathName){
  * Resets the pose of the robot. This is done at the start of auto because path planner uses the starting pose in the UI and resets it
  * @param pose the new robot pose
  */
-public void resetPose(Pose2d pose) {
+public void resetPose(Pose2d pose) {  
   odometer.resetPosition(getRotation2d(), getSwerveModulePositions(), pose);
 }
 
@@ -437,7 +437,7 @@ public ChassisSpeeds getVelocities() {
       chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turningSpeed, this.getRotation2d());
     }
     else {
-      chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turningSpeed);
+      chassisSpeeds = new ChassisSpeeds(-xSpeed, -ySpeed, turningSpeed);
     }
 
 
@@ -470,7 +470,7 @@ public ChassisSpeeds getVelocities() {
       chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turningSpeed, this.getRotation2d());
     }
     else {
-      chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turningSpeed);
+      chassisSpeeds = new ChassisSpeeds(-xSpeed, -ySpeed, turningSpeed);
     }
 
     SwerveModuleState[] moduleStates = ChassisConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
@@ -568,6 +568,7 @@ public ChassisSpeeds getVelocities() {
 
 
   public void sendSmartDashboard() {
+    SmartDashboard.putNumber("gyro offset", gyro.getAngleAdjustment());
     SmartDashboard.putString("Odometry pose", odometer.getEstimatedPosition().toString());
 
 
