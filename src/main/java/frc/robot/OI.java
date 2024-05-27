@@ -12,4 +12,6 @@ public class OI {
     XboxController moveController = new XboxController(OperatorConstants.kDriverControllerPort);
     XboxController intakeController = new XboxController(OperatorConstants.kOperatorControllerPort);
 
+
+    public double 
 }

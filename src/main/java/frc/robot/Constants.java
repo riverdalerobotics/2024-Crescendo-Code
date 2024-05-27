@@ -41,7 +41,7 @@ public final class Constants {
     public static final double kStatorCurrentLimit = 40;
 
     public static final double kFlywheelsGearRatio = (34d/15d);
-
+    public static final double peakDutyCycle = 1;
 
     public static class PIDConstants {
       public static final double kIntakeP = -5834;

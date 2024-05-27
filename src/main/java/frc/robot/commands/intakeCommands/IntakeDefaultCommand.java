@@ -26,10 +26,11 @@ public class IntakeDefaultCommand extends Command {
   /** Creates a new IntakeDefaultCommand. */
   public IntakeDefaultCommand(BlinkinLED LED) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.operatorInput = operatorInput;
     this.LED = LED;
+    this.intake = intake;
 
-
-    
+    addRequirements(this.intake);
   }
   // Called when the command is initially scheduled.
   @Override
