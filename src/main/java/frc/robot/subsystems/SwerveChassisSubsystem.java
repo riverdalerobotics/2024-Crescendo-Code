@@ -370,28 +370,34 @@ public ChassisSpeeds getVelocities() {
 
     LimelightHelpers.SetRobotOrientation("limelight-tags", getPose().getRotation().getDegrees(), 0, 0, 0, 0, 0);
     LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-tags");
-    if(Math.abs(gyro.getRate()) > 720) {
-      doRejectUpdate = true;
-    }
-    if(mt2.tagCount == 0) {
-      doRejectUpdate = true;
-    }
+    SmartDashboard.putString("test/estimated pose", mt2.pose.toString());
+    
+    
+    //if(Math.abs(gyro.getRate()) > 720) {
+    //  doRejectUpdate = true;
+    //}
+    //if(mt2.tagCount == 0) {
+    //  doRejectUpdate = true;
+    //}
 
     //This checks if the difference between the estimated pose and the new pose is too large.
     //If it is, this is typically due to a sensor error, and the update is discarded
     Pose2d poseChange = mt2.pose.relativeTo(odometer.getEstimatedPosition());
-    if (Math.sqrt(Math.pow(poseChange.getX(), 2) + Math.pow(poseChange.getY(), 2)) > 2) {
-      doRejectUpdate = true;
-    }
+    
+    //TODO: Uncomment this
+    //if (Math.sqrt(Math.pow(poseChange.getX(), 2) + Math.pow(poseChange.getY(), 2)) > 2) {
+    //  doRejectUpdate = true;
+    //}
 
     //TODO: Make sure this works as intended
-    if (Math.abs(poseChange.getRotation().getDegrees()) > 180) {
-      doRejectUpdate = true;
-    }
+    //if (Math.abs(poseChange.getRotation().getDegrees()) > 180) {
+    //  doRejectUpdate = true;
+    //}
 
     if(!doRejectUpdate) {
       odometer.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999));
       odometer.addVisionMeasurement(mt2.pose, mt2.timestampSeconds);
+      System.out.println("viz update");
     }
   }
 

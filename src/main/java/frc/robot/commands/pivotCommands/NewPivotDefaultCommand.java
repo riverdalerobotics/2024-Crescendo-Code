@@ -140,7 +140,6 @@ public class NewPivotDefaultCommand extends Command {
 
     
     }
-    SmartDashboard.putNumber("Pivot/PivotSetpoint", requestedArmAngle); 
   }
   // Called once the command ends or is interrupted.
   @Override
