@@ -29,7 +29,7 @@ public class IntakeSubsystem extends SubsystemBase {
   double desiredRPS = 0;
   public boolean specCommandRunning = false;
 
-  //TODO: Use motion magic built   into the talons to make smoother rev up that doesn't draw 5 volts
+  //TODO: Use motion magic built into the talons to make smoother rev up that doesn't draw 5 volts
   CANSparkMax belt;
   //CANcoder speedCoder;
   public IntakeSubsystem() {

@@ -16,9 +16,7 @@ public class SwerveDefaultCommand extends Command {
   
 
   /** Creates a new SwerveDefaultCommand. */
-  public SwerveDefaultCommand(
-    SwerveChassisSubsystem swerveSubsystem,
-    OI opInput) {
+  public SwerveDefaultCommand(SwerveChassisSubsystem swerveSubsystem, OI opInput) {
 
     this.swerveSubsystem = swerveSubsystem;
     this.oi = opInput;

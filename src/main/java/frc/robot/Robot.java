@@ -113,9 +113,8 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
-    //we always want our LED's to update as long as the robot is on, so we call this in robotperiodic
-    m_robotContainer.LED.setLEDColor();
-    m_robotContainer.LED.updateAutoAlignLED();
+    // //we always want our LED's to update as long as the robot is on, so we call this in robotperiodic
+    //
   } 
 
   /** This function is called once each time the robot enters Disabled mode. */

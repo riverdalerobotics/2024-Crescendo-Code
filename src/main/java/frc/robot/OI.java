@@ -209,7 +209,7 @@ public boolean engageIntake() {
  * @return true when the operator controller's right bumper is pressed
  */
 public boolean pivotToSubwooferShoot(){
-    return intakeController.getRightBumperPressed();
+    return intakeController.getXButtonPressed();
 }
 
 
@@ -283,7 +283,7 @@ public boolean shootFeed() {
  * @return true when the intake controller's X button is pressed
  */
 public boolean pivotToBackshots() {
-    return intakeController.getXButtonPressed();
+    return intakeController.getRightBumperPressed();
 }
 
 /**
