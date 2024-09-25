@@ -23,6 +23,7 @@ import frc.robot.commands.pivotCommands.NewAutoPivotToAngle;
 import frc.robot.commands.pivotCommands.NewPivotDefaultCommand;
 import frc.robot.commands.swerveCommands.AutoAlignWithNoteSwerve;
 import frc.robot.commands.swerveCommands.HandSignalSwerveCommand;
+import frc.robot.commands.swerveCommands.RotateToShuttle;
 import frc.robot.commands.swerveCommands.SwerveDefaultCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -149,6 +150,7 @@ public class RobotContainer {
    
     //offseason test
     //new Trigger(() -> oi.handSignalMove()).whileTrue(new HandSignalSwerveCommand(CHASSIS, NOTE_LIMELIGHT));
+    new Trigger(() -> oi.rotateRobot()).whileTrue(new RotateToShuttle(CHASSIS, oi, LED));
   }
   
     //autos that that we use Robot.java using the Sendable Chooser   

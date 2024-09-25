@@ -127,6 +127,16 @@ public boolean spinIntake(){
 }
 
 
+/**
+ * Driver controls
+ * <p>
+ * Used to pivot and shoot at high intake once wheels are revved
+ * @return true as long as the B button is pressed
+ */
+public boolean rotateRobot() {
+    return moveController.getBButton();
+}
+
 
 /**
  * Driver controls ||
