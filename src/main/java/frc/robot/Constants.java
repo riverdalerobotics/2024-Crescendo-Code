@@ -209,7 +209,7 @@ public final class Constants {
     public static final double kDesiredFeedMotorRPS = 60;
     public static final double kDesiredFeedBeltSpeed = -0.5;
 
-    public static final double kDesiredHighFeedMotorRPS = 95;
+    public static final double kDesiredHighFeedMotorRPS = 98;
     public static final double kDesiredHighFeedBeltSpeed = -0.5;
 
     public static final double kDesiredAmpMotorRPS = 25.7;
@@ -260,7 +260,7 @@ public final class Constants {
     public static final double kIntakeAngle = 25;
     public static final double kSubwooferShootAngle = -93;
     public static final double kFeedAngle = -0.9;
-    public static final int kHighFeedAngle = -85;
+    public static final int kHighFeedAngle = -76;
     public static final double kAmpAngle = -90; //-91 from intake
     public static final double kOppositeSubwooferShootAngle = -150.5; //-156
     public static final double kZeroAngle = PIDConstants.kMinSetpoint;
@@ -417,6 +417,11 @@ public final class Constants {
 
     public static final double kTurningTagAlignSetpoint = 0d;
     public static final double kTurningTagAlignTolerance = 0d;
+
+    public static final double kTurningShuttleP = 1;
+    public static final double kTurningShuttleI = 0;
+    public static final double kTurningShuttleD = 0;
+
   }
 
   public static class LimelightConstants {

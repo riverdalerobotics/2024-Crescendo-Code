@@ -5,7 +5,11 @@
 package frc.robot.commands.swerveCommands;
 
 
+import java.util.Optional;
+
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.BlinkinLED;
@@ -17,16 +21,15 @@ import frc.robot.subsystems.SwerveChassisSubsystem;
 
 public class RotateToShuttle extends Command {
   /** Creates a new AutoAlignWithNoteSwerve. */
-  private PIDController yController;
   private PIDController turningController;
-  private PIDController xController;
 
   private boolean noteIsDetected;
-  private double angleOffset;
   private final SwerveChassisSubsystem swerveSubsystem;
   
   private final OI oi;
   private final BlinkinLED LED;
+  private double setpoint;
+  Optional<Alliance> ally = DriverStation.getAlliance();
 
 
   //TODO: Consider using slew rate limiters here
@@ -34,9 +37,18 @@ public class RotateToShuttle extends Command {
     SwerveChassisSubsystem swerveSubsystem,
     OI oi,
     BlinkinLED LED) {
+
+    if (ally.get() == Alliance.Red) {
+        setpoint = 145;
+    }
+    if (ally.get() == Alliance.Blue) {
+         setpoint = -145;
+    }
+      
     
-    turningController = new PIDController(CommandConstants.kTurningNoteAlignP, CommandConstants.kTurningNoteAlignI, CommandConstants.kTurningNoteAlignD);
-    turningController.setSetpoint(60);
+    turningController = new PIDController(CommandConstants.kTurningShuttleP, CommandConstants.kTurningShuttleI, CommandConstants.kTurningShuttleD);
+    turningController.enableContinuousInput(-180, 180);
+    turningController.setSetpoint(setpoint);
     turningController.setTolerance(CommandConstants.kTurningNoteAlignTolerance);
 
     this.swerveSubsystem = swerveSubsystem;
@@ -47,12 +59,13 @@ public class RotateToShuttle extends Command {
 
   @Override
   public void initialize() {
-    swerveSubsystem.enableRobotOriented();
+    swerveSubsystem.enableFieldOriented();
+    swerveSubsystem.setDrivesBrake();
   }
 
   @Override
   public void execute() {
-    //System.out.println(xController.atSetpoint());
+
     double xSpd = oi.xSpeed();
     double ySpd = oi.ySpeed();
     double turningSpd = oi.rotate();
@@ -60,7 +73,6 @@ public class RotateToShuttle extends Command {
     xSpd = HelperMethods.applyInputDeadband(xSpd);
     ySpd = HelperMethods.applyInputDeadband(ySpd);
     turningSpd = HelperMethods.applyInputDeadband(turningSpd);
-
 
     
     SmartDashboard.putBoolean("Note detected", noteIsDetected);
@@ -77,39 +89,28 @@ public class RotateToShuttle extends Command {
       double PIDThetaSpeed = turningController.calculate(offset);
       PIDThetaSpeed = HelperMethods.limitValInRange(CommandConstants.kTurningNoteMinOutput, CommandConstants.kTurningNoteMaxOutput, PIDThetaSpeed);
       
-      swerveSubsystem.driveSwerve(xSpd, ySpd, PIDThetaSpeed*0.1);
-
- 
-
-      
-//      SmartDashboard.putBoolean("Is at note", xController.atSetpoint());
+      swerveSubsystem.driveSwerve(xSpd, ySpd, PIDThetaSpeed);
     }
-    
-    
-    //If no note is detected, drive like normal
-    else {
+    else{
       swerveSubsystem.driveSwerve(xSpd, ySpd, turningSpd);
     }
-    SmartDashboard.putBoolean("Is at note", xController.atSetpoint());
-    System.out.println(xController.atSetpoint());
+    
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    if (xController.atSetpoint() && yController.atSetpoint()) {
-      LED.enableAutoAlignCompleteLED();
-    }
-    yController.reset();
+   
     turningController.reset();
-    xController.reset();
+
     swerveSubsystem.stopModules();
+    swerveSubsystem.setDrivesBrake();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (xController.atSetpoint() && yController.atSetpoint()) {
+    if (turningController.atSetpoint()) {
       return true;
     }
     else {

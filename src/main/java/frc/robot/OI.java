@@ -85,10 +85,10 @@ public boolean resetGyro() {
 /**
  * Driver controls ||
  * Puts the robot in robot oriented and auto drives to note in both axis
- * @return true when the driver's right trigger button is pressed basically all the way down
+ * @return true when the driver's left trigger button is pressed basically all the way down
  */
 public boolean engageNoteAlignAssist() {
-    if (moveController.getRightTriggerAxis() >= 0.330){ //beach bots lol
+    if (moveController.getLeftTriggerAxis() >= 0.330){ //beach bots lol
         return true;
     } else{
         return false;
@@ -131,10 +131,14 @@ public boolean spinIntake(){
  * Driver controls
  * <p>
  * Used to pivot and shoot at high intake once wheels are revved
- * @return true as long as the B button is pressed
+ * @return true as long as the right trigger is down 
  */
 public boolean rotateRobot() {
-    return moveController.getBButton();
+    if (moveController.getRightTriggerAxis()>0.1){
+        return true;
+    } else{
+        return false;
+    }
 }
 
 

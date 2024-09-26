@@ -144,6 +144,7 @@ public class Robot extends TimedRobot {
       switch (m_autoSelected) {
      
         case shootOnly:
+          m_autonomousCommand = m_robotContainer.getShootAndStopAuto();
           break;
   
         case podiumSubwooferTwoNotes:
@@ -237,7 +238,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
      m_robotContainer.CHASSIS.straightenModules();
-     m_robotContainer.CHASSIS.setDrivesCoast();
+     m_robotContainer.CHASSIS.setDrivesBrake();
   }
 
   /** This function is called periodically during operator control. */

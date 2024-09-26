@@ -32,6 +32,7 @@ public class SwerveDefaultCommand extends Command {
   @Override
   public void initialize() {
     swerveSubsystem.straightenModules();
+    swerveSubsystem.setDrivesBrake();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
