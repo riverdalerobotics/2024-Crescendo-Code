@@ -39,10 +39,10 @@ public class RotateToShuttle extends Command {
     BlinkinLED LED) {
 
     if (ally.get() == Alliance.Red) {
-        setpoint = 145;
+        setpoint = -35;  //145 same
     }
     if (ally.get() == Alliance.Blue) {
-         setpoint = -145;
+         setpoint = 35;  //-145 same
     }
       
     
