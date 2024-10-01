@@ -245,7 +245,7 @@ public boolean engageAutoShootSpinup(){
     else {
         System.out.println("NO");
     }*/
-    return intakeController.getRightTriggerAxis() > 0.2;
+    return intakeController.getRightBumper();
     
 }
 
@@ -285,7 +285,11 @@ public boolean testX() {
  * @return true as long as the intake controller's A button is held
  */
 public boolean shootFeed() {
-    return intakeController.getAButton();
+    if(intakeController.getLeftTriggerAxis()>0.2){
+        return true;
+    } else{
+        return false;
+    }
 }
 
 /**
@@ -296,7 +300,7 @@ public boolean shootFeed() {
  * :)
  * @return true when the intake controller's X button is pressed
  */
-public boolean pivotToBackshots() {
+public boolean pivotToReverseShot() {
     return intakeController.getRightBumperPressed();
 }
 
@@ -307,7 +311,11 @@ public boolean pivotToBackshots() {
  * @return true as long as the A button is pressed
  */
 public boolean pivotAndShootLowFeed() {
-    return intakeController.getAButton();
+    if(intakeController.getLeftTriggerAxis()>0.2){
+        return true;
+    } else{
+        return false;
+    }
 }
 
 /**
@@ -317,11 +325,20 @@ public boolean pivotAndShootLowFeed() {
  * @return true as long as the B button is pressed
  */
 public boolean revHighFeed() {
-    return intakeController.getBButton();
+    if(intakeController.getRightTriggerAxis()>0.2){
+        return true;
+    } else {
+        return false;
+    }
+    
 }
 
 public boolean pivotToHighFeed() {
-    return intakeController.getBButtonPressed();
+    if(intakeController.getRightTriggerAxis()>0.2){
+        return true;
+    } else {
+        return false;
+    }
 }
 
 /**
