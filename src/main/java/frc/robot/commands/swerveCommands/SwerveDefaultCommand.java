@@ -14,6 +14,7 @@ public class SwerveDefaultCommand extends Command {
   private final SwerveChassisSubsystem swerveSubsystem;
   private final OI oi;
   
+  
 
   /** Creates a new SwerveDefaultCommand. */
   public SwerveDefaultCommand(SwerveChassisSubsystem swerveSubsystem, OI opInput) {
@@ -62,9 +63,7 @@ public class SwerveDefaultCommand extends Command {
     if (oi.engageDriveBrakeMode()) {
       swerveSubsystem.setDrivesBrake();
     }
-    else {
-      swerveSubsystem.setDrivesCoast();
-    }
+   
 
     //goes to brake mode when slow mode is on (left bumper pressed)
     if (oi.engageSlowMode() == 1 ) {
@@ -95,8 +94,7 @@ public class SwerveDefaultCommand extends Command {
     SmartDashboard.putNumber("ySpeed", ySpeed);
     SmartDashboard.putNumber("tSpeed", turnSpeed);
         
-
-
+  
     swerveSubsystem.driveSwerve(xSpeed, ySpeed, turnSpeed);
     
     

@@ -39,15 +39,15 @@ public class RotateToShuttle extends Command {
     BlinkinLED LED) {
 
     if (ally.get() == Alliance.Red) {
-        setpoint = -35;  //145 same
+        setpoint = 145;  
     }
     if (ally.get() == Alliance.Blue) {
-         setpoint = 35;  //-145 same
+         setpoint = -145;
     }
       
     
     turningController = new PIDController(CommandConstants.kTurningShuttleP, CommandConstants.kTurningShuttleI, CommandConstants.kTurningShuttleD);
-    turningController.enableContinuousInput(-180, 180);
+    //turningController.enableContinuousInput(-180, 180);
     turningController.setSetpoint(setpoint);
     turningController.setTolerance(CommandConstants.kTurningNoteAlignTolerance);
 
@@ -83,8 +83,8 @@ public class RotateToShuttle extends Command {
 
     //if b button is presed, rotate robot to shuttle angle, 
     if (oi.rotateRobot() == true) {
-    
-      double offset = swerveSubsystem.getHeadingDegrees();
+      swerveSubsystem.setDrivesBrake();
+      double offset = -swerveSubsystem.getHeadingDegrees();
 
       double PIDThetaSpeed = turningController.calculate(offset);
       PIDThetaSpeed = HelperMethods.limitValInRange(CommandConstants.kTurningNoteMinOutput, CommandConstants.kTurningNoteMaxOutput, PIDThetaSpeed);

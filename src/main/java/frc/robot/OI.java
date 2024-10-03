@@ -122,9 +122,9 @@ public boolean engageAutoMoveToPredefined() {
     }
 }
 
-public boolean spinIntake(){
-    return intakeController.getLeftTriggerAxis() >= 0.330;
-}
+// public boolean spinIntake(){
+//     return intakeController.getLeftTriggerAxis() >= 0.330;
+// }
 
 
 /**
