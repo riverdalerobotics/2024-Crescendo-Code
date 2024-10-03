@@ -236,7 +236,7 @@ public boolean pivotToSubwooferShoot(){
 /**
  * Operator controls ||
  * Used to engage the auto PID spinup for shooting fly wheels.
- * @return true when the right trigger axis of the operator controller is pushed in above 0.2
+ * @return true when the right bumper is down
  */
 public boolean engageAutoShootSpinup(){
     /*if (intakeController.getRightTriggerAxis() > 0.2) {
@@ -298,7 +298,7 @@ public boolean shootFeed() {
  * Used to pivot to shoot opposite from intake side
  * <p>
  * :)
- * @return true when the intake controller's X button is pressed
+ * @return true when the intake controller's Right Bumper is pressed
  */
 public boolean pivotToReverseShot() {
     return intakeController.getRightBumperPressed();
@@ -308,7 +308,7 @@ public boolean pivotToReverseShot() {
  * Operator controls
  * <p>
  * Used to pivot and shoot at low intake once wheels are revved
- * @return true as long as the A button is pressed
+ * @return true as long as the Left Trigger is pressed
  */
 public boolean pivotAndShootLowFeed() {
     if(intakeController.getLeftTriggerAxis()>0.2){
@@ -322,7 +322,7 @@ public boolean pivotAndShootLowFeed() {
  * Operator controls
  * <p>
  * Used to pivot and shoot at high intake once wheels are revved
- * @return true as long as the B button is pressed
+ * @return true as long as the Right Trigger is held
  */
 public boolean revHighFeed() {
     if(intakeController.getRightTriggerAxis()>0.2){
@@ -332,7 +332,12 @@ public boolean revHighFeed() {
     }
     
 }
-
+/**
+ * Operator controls
+ * <p>
+ * Used to pivot and shoot at high intake once wheels are revved
+ * @return true as long as the Right Trigger is clicked
+ */
 public boolean pivotToHighFeed() {
     if(intakeController.getRightTriggerAxis()>0.2){
         return true;
