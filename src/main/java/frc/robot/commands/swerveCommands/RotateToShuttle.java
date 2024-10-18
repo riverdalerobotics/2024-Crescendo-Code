@@ -74,8 +74,6 @@ public class RotateToShuttle extends Command {
     ySpd = HelperMethods.applyInputDeadband(ySpd);
     turningSpd = HelperMethods.applyInputDeadband(turningSpd);
 
-    
-    SmartDashboard.putBoolean("Note detected", noteIsDetected);
 
     swerveSubsystem.slowDrive(HelperMethods.applyInputDeadband(oi.engageSlowMode()));
 

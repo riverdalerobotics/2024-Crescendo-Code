@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.PivotConstants;
+import frc.robot.Constants.IntakeConstants.PIDConstants;
 import frc.robot.commands.climberCommands.ClimberDefaultCommand;
 import frc.robot.commands.combinationCommands.AutoAlignAndPickUp;
 import frc.robot.commands.combinationCommands.IntakeIndefinitelyCommand;
@@ -123,7 +124,10 @@ public class RobotContainer {
     
     new Trigger(() -> oi.pivotToIntakePosition()).onTrue(new NewAutoPivotToAngle(PivotConstants.kIntakeAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold));
     new Trigger(() -> oi.engageIntake()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredIntakeMotorRPS, IntakeConstants.kIntakeBeltMotorSpeed, INTAKE, LED, oi));
-    //new Trigger(() -> oi.spinIntake()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredIntakeMotorRPS, IntakeConstants.kIntakeBeltMotorSpeed, INTAKE, LED, oi));
+    //TODO: __________
+    // new Trigger(() -> oi.pivotToIntakePosition()).onFalse(new NewAutoPivotToAngle(PivotConstants.PIDConstants.kMinSetpoint+1, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold));
+    
+     //new Trigger(() -> oi.spinIntake()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredIntakeMotorRPS, IntakeConstants.kIntakeBeltMotorSpeed, INTAKE, LED, oi));
 
     //Feed controls do not require driver to press the fire button.
     //They will shoot as soon as intake and angle are prepared
