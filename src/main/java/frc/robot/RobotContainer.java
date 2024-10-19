@@ -141,7 +141,7 @@ public class RobotContainer {
     new Trigger(() -> oi.revAmp()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredAmpMotorRPS, 0, INTAKE, LED, oi));
    
     // pivots to the angle when given a distance
-    new Trigger(() -> oi.pivotFromfar()).onTrue(new AutoShootFromPredefinedDistance(PIVOT, 8));
+    //new Trigger(() -> oi.pivotFromfar()).onTrue(new AutoShootFromPredefinedDistance(PIVOT, 8));
     
     //Driver has final say for speaker shots
     new Trigger(() -> oi.pivotToSubwooferShoot()).onTrue(new NewAutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold, true));
