@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.PivotConstants;
+import frc.robot.Constants.IntakeConstants.PIDConstants;
 import frc.robot.commands.climberCommands.ClimberDefaultCommand;
 import frc.robot.commands.combinationCommands.AutoAlignAndPickUp;
 import frc.robot.commands.combinationCommands.IntakeIndefinitelyCommand;
@@ -25,6 +26,7 @@ import frc.robot.commands.pivotCommands.NewPivotDefaultCommand;
 import frc.robot.commands.swerveCommands.AutoAlignWithNoteSwerve;
 import frc.robot.commands.swerveCommands.AutoFaceSpeakerCommand;
 import frc.robot.commands.swerveCommands.HandSignalSwerveCommand;
+import frc.robot.commands.swerveCommands.RotateToShuttle;
 import frc.robot.commands.swerveCommands.SwerveDefaultCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -124,7 +126,10 @@ public class RobotContainer {
     
     new Trigger(() -> oi.pivotToIntakePosition()).onTrue(new NewAutoPivotToAngle(PivotConstants.kIntakeAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold));
     new Trigger(() -> oi.engageIntake()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredIntakeMotorRPS, IntakeConstants.kIntakeBeltMotorSpeed, INTAKE, LED, oi));
-    new Trigger(() -> oi.spinIntake()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredIntakeMotorRPS, IntakeConstants.kIntakeBeltMotorSpeed, INTAKE, LED, oi));
+    //TODO: __________
+    // new Trigger(() -> oi.pivotToIntakePosition()).onFalse(new NewAutoPivotToAngle(PivotConstants.PIDConstants.kMinSetpoint+1, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold));
+    
+     //new Trigger(() -> oi.spinIntake()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredIntakeMotorRPS, IntakeConstants.kIntakeBeltMotorSpeed, INTAKE, LED, oi));
 
     //Feed controls do not require driver to press the fire button.
     //They will shoot as soon as intake and angle are prepared
@@ -138,21 +143,20 @@ public class RobotContainer {
     new Trigger(() -> oi.revAmp()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredAmpMotorRPS, 0, INTAKE, LED, oi));
    
     // pivots to the angle when given a distance
-    new Trigger(() -> oi.pivotFromfar()).onTrue(new AutoFaceSpeakerCommand(CHASSIS, TAG_LIMELIGHT, oi));
+    //new Trigger(() -> oi.pivotFromfar()).onTrue(new AutoShootFromPredefinedDistance(PIVOT, 8));
     
     //Driver has final say for speaker shots
     new Trigger(() -> oi.pivotToSubwooferShoot()).onTrue(new NewAutoPivotToAngle(PivotConstants.kSubwooferShootAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold, true));
-    new Trigger(() -> oi.pivotToBackshots()).onTrue(new NewAutoPivotToAngle(PivotConstants.kOppositeSubwooferShootAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold, true));
+    new Trigger(() -> oi.pivotToReverseShot()).onTrue(new NewAutoPivotToAngle(PivotConstants.kOppositeSubwooferShootAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold, true));
 
     new Trigger(() -> oi.engageAutoShootSpinup()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredShootMotorRPS, 0, INTAKE, LED, oi));
   
     //new Trigger(() -> oi.testButton()).whileTrue(new PivotToAngleAndShoot(PivotConstants.kOppositeSubwooferShootAngle, IntakeConstants.kDesiredShootMotorRPS, IntakeConstants.kShootBeltMotorSpeed, PIVOT, INTAKE, LED, oi, IntakeConstants.kShootTimeNeeded, true, PivotConstants.PIDConstants.kPivotToleranceThreshold));
-    new Trigger(() -> oi.engageNoteAlignAssist()).whileTrue(new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT, LED));
+    //new Trigger(() -> oi.engageNoteAlignAssist()).whileTrue(new AutoAlignWithNoteSwerve(CHASSIS, oi, NOTE_LIMELIGHT, LED));
    
     //offseason test
     //new Trigger(() -> oi.handSignalMove()).whileTrue(new HandSignalSwerveCommand(CHASSIS, NOTE_LIMELIGHT));
-    new Trigger(() -> oi.testButton()).whileTrue(new AprilTagPivot(PIVOT, CHASSIS.getOdometer(), TAG_LIMELIGHT));
-  
+    new Trigger(() -> oi.rotateRobot()).whileTrue(new RotateToShuttle(CHASSIS, oi, LED));
   }
   
     //autos that that we use Robot.java using the Sendable Chooser   

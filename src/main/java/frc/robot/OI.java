@@ -85,10 +85,10 @@ public boolean resetGyro() {
 /**
  * Driver controls ||
  * Puts the robot in robot oriented and auto drives to note in both axis
- * @return true when the driver's right trigger button is pressed basically all the way down
+ * @return true when the driver's left trigger button is pressed basically all the way down
  */
 public boolean engageNoteAlignAssist() {
-    if (moveController.getRightTriggerAxis() >= 0.330){ //beach bots lol
+    if (moveController.getLeftTriggerAxis() >= 0.330){ //beach bots lol
         return true;
     } else{
         return false;
@@ -122,10 +122,24 @@ public boolean engageAutoMoveToPredefined() {
     }
 }
 
-public boolean spinIntake(){
-    return intakeController.getLeftTriggerAxis() >= 0.330;
-}
+// public boolean spinIntake(){
+//     return intakeController.getLeftTriggerAxis() >= 0.330;
+// }
 
+
+/**
+ * Driver controls
+ * <p>
+ * Used to pivot and shoot at high intake once wheels are revved
+ * @return true as long as the right trigger is down 
+ */
+public boolean rotateRobot() {
+    if (moveController.getRightTriggerAxis()>0.1){
+        return true;
+    } else{
+        return false;
+    }
+}
 
 
 /**
@@ -209,7 +223,7 @@ public boolean engageIntake() {
  * @return true when the operator controller's right bumper is pressed
  */
 public boolean pivotToSubwooferShoot(){
-    return intakeController.getRightBumperPressed();
+    return intakeController.getXButtonPressed();
 }
 
 
@@ -222,7 +236,7 @@ public boolean pivotToSubwooferShoot(){
 /**
  * Operator controls ||
  * Used to engage the auto PID spinup for shooting fly wheels.
- * @return true when the right trigger axis of the operator controller is pushed in above 0.2
+ * @return true when the right bumper is down
  */
 public boolean engageAutoShootSpinup(){
     /*if (intakeController.getRightTriggerAxis() > 0.2) {
@@ -231,7 +245,7 @@ public boolean engageAutoShootSpinup(){
     else {
         System.out.println("NO");
     }*/
-    return intakeController.getRightTriggerAxis() > 0.2;
+    return intakeController.getRightBumper();
     
 }
 
@@ -271,7 +285,11 @@ public boolean testX() {
  * @return true as long as the intake controller's A button is held
  */
 public boolean shootFeed() {
-    return intakeController.getAButton();
+    if(intakeController.getLeftTriggerAxis()>0.2){
+        return true;
+    } else{
+        return false;
+    }
 }
 
 /**
@@ -280,34 +298,52 @@ public boolean shootFeed() {
  * Used to pivot to shoot opposite from intake side
  * <p>
  * :)
- * @return true when the intake controller's X button is pressed
+ * @return true when the intake controller's Right Bumper is pressed
  */
-public boolean pivotToBackshots() {
-    return intakeController.getXButtonPressed();
+public boolean pivotToReverseShot() {
+    return intakeController.getRightBumperPressed();
 }
 
 /**
  * Operator controls
  * <p>
  * Used to pivot and shoot at low intake once wheels are revved
- * @return true as long as the A button is pressed
+ * @return true as long as the Left Trigger is pressed
  */
 public boolean pivotAndShootLowFeed() {
-    return intakeController.getAButton();
+    if(intakeController.getLeftTriggerAxis()>0.2){
+        return true;
+    } else{
+        return false;
+    }
 }
 
 /**
  * Operator controls
  * <p>
  * Used to pivot and shoot at high intake once wheels are revved
- * @return true as long as the B button is pressed
+ * @return true as long as the Right Trigger is held
  */
 public boolean revHighFeed() {
-    return intakeController.getBButton();
+    if(intakeController.getRightTriggerAxis()>0.2){
+        return true;
+    } else {
+        return false;
+    }
+    
 }
-
+/**
+ * Operator controls
+ * <p>
+ * Used to pivot and shoot at high intake once wheels are revved
+ * @return true as long as the Right Trigger is clicked
+ */
 public boolean pivotToHighFeed() {
-    return intakeController.getBButtonPressed();
+    if(intakeController.getRightTriggerAxis()>0.2){
+        return true;
+    } else {
+        return false;
+    }
 }
 
 /**

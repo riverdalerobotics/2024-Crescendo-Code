@@ -26,25 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Troll 1"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
             "pathName": "Troll 2"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Troll 3"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Troll 4"
           }
         }
       ]

@@ -65,7 +65,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer(); 
-    m_robotContainer.CHASSIS.setDrivesCoast();
+ 
     m_robotContainer.PIVOT.setPivotEncoder(PivotConstants.PIDConstants.kMinSetpoint);
 
     m_chooser.setDefaultOption("mobilityWithStyle", mobilityWithStyle);
@@ -111,11 +111,11 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
+    m_robotContainer.CHASSIS.setDrivesBrake();
     CommandScheduler.getInstance().run();
 
-    //we always want our LED's to update as long as the robot is on, so we call this in robotperiodic
-    m_robotContainer.LED.setLEDColor();
-    m_robotContainer.LED.updateAutoAlignLED();
+    // //we always want our LED's to update as long as the robot is on, so we call this in robotperiodic
+    //
   } 
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -145,6 +145,7 @@ public class Robot extends TimedRobot {
       switch (m_autoSelected) {
      
         case shootOnly:
+          m_autonomousCommand = m_robotContainer.getShootAndStopAuto();
           break;
   
         case podiumSubwooferTwoNotes:
@@ -238,7 +239,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
      m_robotContainer.CHASSIS.straightenModules();
-     m_robotContainer.CHASSIS.setDrivesCoast();
+     m_robotContainer.CHASSIS.setDrivesBrake();
   }
 
   /** This function is called periodically during operator control. */

@@ -36,7 +36,6 @@ public class NewIntakeDefaultCommand extends Command {
     System.out.println("DEF COMMAND STARTED");
     intake.setIntakeVelocityRPS(0);
     manual = false;
-
   
   }
 
@@ -59,8 +58,6 @@ public class NewIntakeDefaultCommand extends Command {
     intake.spinIntake(HelperMethods.applyInputDeadband(operatorInput.manualPowerIntake()));
     }
     
-    
-
     //During operation, the driver can hold down the right bumper to power the indexer to shoot
     if(operatorInput.shoot()) {
       intake.spinBelt(IntakeConstants.kShootBeltMotorSpeed);
