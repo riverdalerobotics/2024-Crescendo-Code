@@ -418,7 +418,7 @@ public final class Constants {
     public static final double kTurningTagAlignSetpoint = 0d;
     public static final double kTurningTagAlignTolerance = 0d;
 
-    public static final double kTurningShuttleP = 3;
+    public static final double kTurningShuttleP = 0.01;
     public static final double kTurningShuttleI = 0;
     public static final double kTurningShuttleD = 0;
 

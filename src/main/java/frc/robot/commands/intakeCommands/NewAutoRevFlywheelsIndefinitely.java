@@ -2,6 +2,8 @@ package frc.robot.commands.intakeCommands;
 
 
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 // // Copyright (c) FIRST and other WPILib contributors.
 // // Open Source Software; you can modify and/or share it under the terms of
 // // the WPILib BSD license file in the root directory of this project.
@@ -61,6 +63,7 @@ public class NewAutoRevFlywheelsIndefinitely extends Command {
       LED.disableFlywheelsRevvingLED();
       LED.enableFlywheelsReadyLED();
     }
+   
     if (manualBeltControl) {
       //During operation, the driver can hold down the right bumper to power the indexer to shoot
       if(oi.shoot()) {
@@ -82,6 +85,7 @@ public class NewAutoRevFlywheelsIndefinitely extends Command {
   intake.spinBelt(0);
   LED.disableFlywheelsRevvingLED();
   LED.disableFlywheelsReadyLED();
+  
   }
 
    // Returns true when the command should end.

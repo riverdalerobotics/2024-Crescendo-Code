@@ -162,6 +162,8 @@ public class IntakeSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Intake/Intake Torque Current", flywheelTorqueCurrent());
     SmartDashboard.putNumber("Intake/Intake Supply Current", flywheelSupplyCurrent());
     SmartDashboard.putBoolean("Intake/Is command active", specCommandRunning);
+    SmartDashboard.putNumber("Jackkkk", leftIntake.getVelocity().getValueAsDouble());
+    
   }
 
   @Override
