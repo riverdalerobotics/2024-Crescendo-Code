@@ -56,7 +56,7 @@ public class AutoRevAndBeltWhenReady extends Command {
    // Called every time the scheduler runs while the command is scheduled.
    @Override
    public void execute() {
-    System.out.println("Belt when ready");
+    //System.out.println("Belt when ready");
     double currentTime = System.currentTimeMillis();
     intake.specCommandRunning = true;
     if (intake.getLeftIntakeMotor().atSetpointPosition(desiredSpeedRPS)) {

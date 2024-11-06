@@ -90,7 +90,7 @@ public class AutoAlignWithNoteSwerve extends Command {
 
       SmartDashboard.putNumber("L/R note displacement", noteYOffset);
       SmartDashboard.putNumber("F/B note displacement", noteXOffset);
-      System.out.println(noteXOffset);
+      //System.out.println(noteXOffset);
 
       //Field oriented mucks up this command so we disable it when a note is detected
       swerveSubsystem.enableRobotOriented(); 

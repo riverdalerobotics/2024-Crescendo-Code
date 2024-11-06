@@ -113,7 +113,7 @@ public class AutoAlignWithNoteSwerveTurn extends Command {
       swerveSubsystem.driveSwerve(xSpd, ySpd, turningSpd);
     }
     SmartDashboard.putBoolean("Is at note", xController.atSetpoint());
-    System.out.println(xController.atSetpoint());
+    //System.out.println(xController.atSetpoint());
   }
 
   // Called once the command ends or is interrupted.

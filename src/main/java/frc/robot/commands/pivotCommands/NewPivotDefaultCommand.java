@@ -56,7 +56,7 @@ public class NewPivotDefaultCommand extends Command {
     pivot.setPivotAngleDegrees(pivot.getEncoders());
     manualRotationEnabled = false;
     requestedArmAngle = pivot.getEncoders();
-    System.out.println("def command pivot start");
+    //System.out.println("def command pivot start");
     pivot.specCommandRunning = false;
 
     
@@ -74,14 +74,18 @@ public class NewPivotDefaultCommand extends Command {
 
     if(manualRotationEnabled) {
       
-      requestedArmAngle = requestedArmAngle + (HelperMethods.applyInputDeadband(operatorInput.pivotArm()) * 0.15);
+      requestedArmAngle = requestedArmAngle + (HelperMethods.applyInputDeadband(operatorInput.pivotArm()) * 0.45);
       pivot.setPivotAngleDegreesNoLimit(requestedArmAngle);
     }
     else {
       requestedArmAngle = HelperMethods.limitValInRange(PivotConstants.PIDConstants.kMinSetpoint, PivotConstants.PIDConstants.kMaxSetpoint, requestedArmAngle);
       pivot.setPivotAngleDegrees(requestedArmAngle);
     }
+    if(operatorInput.resetArmMaxPos()){
+      pivot.resetPivotEncoder();
+      requestedArmAngle = PivotConstants.kZeroAngle;
 
+    }
 
 
 
@@ -120,7 +124,7 @@ public class NewPivotDefaultCommand extends Command {
     //Checks if the current spike has been breached for a second
     //if so, ends the command and resets the arm
     if (countingHardStop && System.currentTimeMillis() > hardStopTimer) {
-      System.out.println("WE PUSHING P WITH THIS ONE AND BY P I MEAN HARDSTOP");
+     // System.out.println("WE PUSHING P WITH THIS ONE AND BY P I MEAN HARDSTOP");
 
       //Checks which hard stop is being pushed into by checking the direction of the motors
       if (pivot.getPivot1().getDutyCycle().getValueAsDouble() > 0) {

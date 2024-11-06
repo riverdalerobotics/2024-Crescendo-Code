@@ -161,9 +161,9 @@ public boolean engageXModulePosition() {
  * TODO: find a better button for this... kinda change around intake controlls...
  * @return intake controller back button
  */
-public boolean pivotFromfar(){
-    return intakeController.getBackButton();
-}
+// public boolean pivotFromfar(){
+//     return intakeController.getRightStickButton();
+// }
 
 
 /**
@@ -259,9 +259,9 @@ public boolean enableManualRotation() {
     return intakeController.getLeftStickButtonPressed();
 }
 //I think this would work for testing
-public boolean enableManualIntakeControl(){
-    return intakeController.getRightStickButton();
-}
+// public boolean enableManualIntakeControl(){
+//     return intakeController.getRightStickButton();
+// }
 
 
 /**
@@ -416,7 +416,7 @@ public boolean tuckArm2() {
  * Resets arm to intake hard stop
  * @return True when the operator controller's back button is pressed
  */
-// public boolean resetArmMaxPos() {
-//     return intakeController.getBackButtonPressed();
-// }
+public boolean resetArmMaxPos() {
+    return intakeController.getRightStickButton();
+}
 }

@@ -124,13 +124,7 @@ public class PivotSubsystem extends SubsystemBase {
 
 
 
-  /**
-   * Used when rezeroing the encoder position of the arm when it becomes inaccurate.
-   * Sets the pivot encoder value to 0, representing the starting hard stop position
-   */
-  public void resetPivotEncoder(){
-    pivot1.setPosition(Units.degreesToRotations(PivotConstants.kZeroAngle));
-  }
+ 
 
   //TODO: set the arm angle to the min position on robot start
   /**
@@ -140,6 +134,15 @@ public class PivotSubsystem extends SubsystemBase {
   public void setPivotEncoder(double angle) {
     pivot1.setPosition(Units.degreesToRotations(angle));
     desiredAngleDegrees = angle;
+  }
+
+
+   /**
+   * Used when rezeroing the encoder position of the arm when it becomes inaccurate.
+   * Sets the pivot encoder value to 0, representing the starting hard stop position
+   */
+  public void resetPivotEncoder(){
+    pivot1.setPosition(Units.degreesToRotations(PivotConstants.kZeroAngle));
   }
 
   /**
