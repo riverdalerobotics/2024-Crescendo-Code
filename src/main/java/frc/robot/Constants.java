@@ -295,8 +295,8 @@ public final class Constants {
       //Used when auto pivot accounts for gravity
       public static final double kGravityOffsetTolerance = 6;
 
-      public static final double kPivotPIDMaxOutput = 0.5; //0.75
-      public static final double kPivotPIDMinOutput = -0.5;//-0.75
+      public static final double kPivotPIDMaxOutput = 0.2; //0.75 or -0.5
+      public static final double kPivotPIDMinOutput = -0.2;//-0.75 or -0.5
       public static final double kMinSetpoint = -171; //-168
       public static final double kMaxSetpoint = 27.5;
 
@@ -405,6 +405,8 @@ public final class Constants {
     public static final double kTurningNoteAlignSetpoint = 0;
     public static final double kTurningNoteAlignTolerance = 3;
 
+    //April tag
+    public static final double kTagAlignP = 0.025;
 
     public static final double kXNoteAlignP = 0.3;
     public static final double kXNoteAlignI = 0;

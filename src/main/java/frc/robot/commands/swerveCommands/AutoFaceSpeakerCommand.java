@@ -6,6 +6,7 @@ package frc.robot.commands.swerveCommands;
 
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.HelperMethods;
 import frc.robot.Limelight;
@@ -31,7 +32,7 @@ public class AutoFaceSpeakerCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    turnController = new PIDController(CommandConstants.kTurningNoteAlignP, CommandConstants.kTurningNoteAlignI, CommandConstants.kTurningNoteAlignD);
+    turnController = new PIDController(CommandConstants.kTagAlignP, CommandConstants.kTurningNoteAlignI, CommandConstants.kTurningNoteAlignD);
     turnController.setSetpoint(CommandConstants.kTurningTagAlignSetpoint);
     turnController.setTolerance(CommandConstants.kTurningNoteAlignTolerance);
   
@@ -40,12 +41,20 @@ public class AutoFaceSpeakerCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    double turnSpeed;
     boolean tagDetected = tagLimelight.targetDetected();
     if(tagDetected){
       double tagThetaOffset = tagLimelight.getTX();
-      double turnPIDspeed = turnController.calculate(tagThetaOffset);
-      double turnSpeed = HelperMethods.limitValInRange(CommandConstants.kTurningNoteMinOutput, CommandConstants.kTurningNoteMaxOutput, turnPIDspeed);
-      chassis.driveSwerve(0,0,turnSpeed);
+      double turnPIDspeed = -turnController.calculate(tagThetaOffset);
+      turnSpeed = HelperMethods.limitValInRange(CommandConstants.kTurningNoteMinOutput, CommandConstants.kTurningNoteMaxOutput, turnPIDspeed);
+      // chassis.driveSwerve(0,0,0);
+      SmartDashboard.putNumber("FaceSpeaker/ turn speed", turnSpeed);
+      SmartDashboard.putNumber("FaceSpeaker/Theta offset", tagThetaOffset);
+      double xSpd = oi.xSpeed();
+      double ySpd = oi.ySpeed();
+      double turningSpd = oi.rotate();
+      chassis.driveSwerve(xSpd, ySpd, turnSpeed);
+      
     }
     else{
       double xSpd = oi.xSpeed();
@@ -53,7 +62,7 @@ public class AutoFaceSpeakerCommand extends Command {
       double turningSpd = oi.rotate();
       chassis.driveSwerve(xSpd, ySpd, turningSpd);
     }
-    
+    SmartDashboard.putBoolean("FaceSpeaker/Tag", tagDetected);
   }
 
   // Called once the command ends or is interrupted.

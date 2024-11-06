@@ -19,10 +19,12 @@ import frc.robot.commands.combinationCommands.PivotToAngleAndShoot;
 import frc.robot.commands.intakeCommands.AutoRevAndBeltWhenReady;
 import frc.robot.commands.intakeCommands.NewAutoRevFlywheelsIndefinitely;
 import frc.robot.commands.intakeCommands.NewIntakeDefaultCommand;
+import frc.robot.commands.pivotCommands.AprilTagPivot;
 import frc.robot.commands.pivotCommands.AutoShootFromPredefinedDistance;
 import frc.robot.commands.pivotCommands.NewAutoPivotToAngle;
 import frc.robot.commands.pivotCommands.NewPivotDefaultCommand;
 import frc.robot.commands.swerveCommands.AutoAlignWithNoteSwerve;
+import frc.robot.commands.swerveCommands.AutoFaceSpeakerCommand;
 import frc.robot.commands.swerveCommands.HandSignalSwerveCommand;
 import frc.robot.commands.swerveCommands.RotateToShuttle;
 import frc.robot.commands.swerveCommands.SwerveDefaultCommand;
@@ -134,7 +136,7 @@ public class RobotContainer {
     new Trigger(() -> oi.pivotAndShootLowFeed()).whileTrue(new PivotToAngleAndShoot(PivotConstants.kFeedAngle, IntakeConstants.kDesiredFeedMotorRPS, IntakeConstants.kDesiredFeedBeltSpeed, PIVOT, INTAKE, LED, oi, IntakeConstants.kShootTimeNeeded, false, PivotConstants.PIDConstants.kLowFeedTolerance));
     new Trigger(() -> oi.pivotToHighFeed()).onTrue(new NewAutoPivotToAngle(PivotConstants.kHighFeedAngle, PIVOT, PivotConstants.PIDConstants.kHighFeedTolerance));
     new Trigger(() -> oi.revHighFeed()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredHighFeedMotorRPS, 0, INTAKE, LED, oi));
-
+    //new Trigger(() -> oi.pivotFromfar()).whileTrue(new NewAutoRevFlywheelsIndefinitely(IntakeConstants.kDesiredHighFeedMotorRPS, 0, INTAKE, LED, oi));
     //When the y button is held on op controller, the arm pivots and revs for amp shot.
     //Driver still has final say to make the shot
     new Trigger(() -> oi.pivotToAmp()).onTrue(new NewAutoPivotToAngle(PivotConstants.kAmpAngle, PIVOT, PivotConstants.PIDConstants.kPivotToleranceThreshold));
